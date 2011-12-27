@@ -1,0 +1,588 @@
+//
+//  Calender.m
+//  MusicLog
+//
+//  Created by Kyle Rosenbluth on 8/30/11.
+//  Copyright (c) 2011 __MyCompanyName__. All rights reserved.
+//
+
+#import <AVFoundation/AVFoundation.h>
+#import "StatsVC.h"
+#import "ScalePickerVC.h"
+#import "PiecesPickerVC.h"
+#import "ScaleStore.h"
+#import "Session.h"
+#import "NSString+Number.h"
+#import "ScalesPracticedCell.h"
+#import "Scale.h"
+#import "Piece.h"
+#import "SectionHeaderView.h"
+#import "SectionInfo.h"
+#import "Timer.h"
+#import "CustomStepper.h"
+#import "TimerCell.h"
+
+#pragma mark - Private Interface
+
+@interface StatsVC ()
+{
+    Timer *scaleTimer;
+    //Timer *pieceTimer;
+    Timer *arpeggioTimer;
+    
+    NSUInteger tempo;
+    AVAudioPlayer *tickPlayer;
+    CustomStepper *stepper;
+    IBOutlet UILabel *tempoLabel;
+    IBOutlet UIView *metronomeView;
+    IBOutlet UIView *timerView;
+    IBOutlet UIScrollView *metroTimeScroll;
+    IBOutlet UIPageControl *scrollPage;
+    IBOutlet UIButton *startTimer;
+    IBOutlet UILabel *timerDisplay;
+    
+    Session *selectedSession;
+    NSUInteger selSessionNum;
+    NSMutableArray *filteredSessions;
+    BOOL currentPractice;
+    
+    IBOutlet UITableView *statsTable;
+    IBOutlet UILabel *selSessionDisplay;
+    
+    IBOutlet UIButton *chooseDateButton;
+    UIDatePicker *datePicker;
+    
+    IBOutlet UIView *myPopover;
+    UITapGestureRecognizer *tapAwayPopover;
+    UIView *grey;
+    
+    IBOutlet UIButton *chooseScalesButton;
+    IBOutlet UIButton *chooseArpsButton;
+    IBOutlet UIButton *choosePiecesButton;
+}
+@property (nonatomic, strong) NSMutableArray* sectionInfoArray;
+@property (nonatomic, assign) NSInteger openSectionIndex;
+
+
+
+- (void)tempoTimerFireMethod:(NSTimer*)aTimer;
+- (double)chooseBPM:(double)bpm;
+- (IBAction)startMetronome:(id)sender;
+
+- (IBAction)slideDown:(id)sender;
+- (void)dateChanged;
+
+- (IBAction)showPoppup:(id)sender;
+- (void)hidePopover:(id)sender;
+- (IBAction)addScales:(id)sender;
+- (IBAction)addArpeggios:(id)sender;
+- (IBAction)addPieces:(id)sender;
+
+- (IBAction)newSession:(id)sender;
+
+@end
+@implementation StatsVC
+@synthesize sectionInfoArray, openSectionIndex;
+
+#pragma mark - Init
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        NSBundle *mainBundle = [NSBundle mainBundle];        
+        NSURL *tickURL = [NSURL fileURLWithPath:[mainBundle pathForResource:@"tick5" ofType:@"aif"]];
+        tickPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:tickURL error:nil];
+        [tickPlayer prepareToPlay];
+    }
+    return self;
+}
+
+#pragma mark - View lifecycle
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    UINib *nib = [UINib nibWithNibName:@"ScalesPracticedCell" bundle:nil];
+    [statsTable registerNib:nib 
+     forCellReuseIdentifier:@"ScalesPracticedCell"];
+    
+    UINavigationBar *homeBar = self.navigationController.navigationBar;
+    UIImage *navImage = [UIImage imageNamed:@"LisztNavBar"];
+    [homeBar setBackgroundImage:navImage forBarMetrics:UIBarMetricsDefault];
+
+    datePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake(0.0, -216.0, 320, 253)];
+    [datePicker setDatePickerMode:UIDatePickerModeDate];
+    [self.view addSubview:datePicker];
+    
+    myPopover = [[[NSBundle mainBundle] loadNibNamed:@"CustomPopover" owner:self options:nil] objectAtIndex:0];
+    [myPopover setFrame:CGRectMake(200, 55, 108, 145)];
+    [myPopover setAlpha:0];
+    tapAwayPopover = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hidePopover:)];
+    [tapAwayPopover setDelegate:self];
+    [self.view addGestureRecognizer:tapAwayPopover];
+    [tapAwayPopover setEnabled:NO];
+    
+    grey = [[UIView alloc] initWithFrame:[self.view frame]];
+    [grey setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:1.0]];
+    [grey setAlpha:0];
+    
+    stepper = [[CustomStepper alloc] initWithPoint:CGPointMake(224, 15) andLabel:tempoLabel];
+    [metronomeView addSubview:stepper];
+    currentPractice = YES;
+    openSectionIndex = NSNotFound;
+    
+    [metroTimeScroll setScrollEnabled:YES];
+    [metroTimeScroll setFrame:CGRectMake(0.0, 358, 320.0, 58)];
+    [metroTimeScroll setContentSize:CGSizeMake(640.0, 58)];
+    [metroTimeScroll setPagingEnabled:YES];
+    [metroTimeScroll setDelegate:self];
+    [metroTimeScroll setShowsHorizontalScrollIndicator:NO];
+    
+    scaleTimer = [[Timer alloc] init];
+    arpeggioTimer = [[Timer alloc] init];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [statsTable reloadData];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    if ((self.sectionInfoArray == nil) || ([self.sectionInfoArray count] != [self numberOfSectionsInTableView:statsTable])) 
+    {
+        SectionInfo *sectionZero = [[SectionInfo alloc] init];
+        [sectionZero setOpen:NO];
+        [sectionZero setTitle:@"Scales"];
+        SectionInfo *sectionOne = [[SectionInfo alloc] init];
+        [sectionOne setOpen:NO];
+        [sectionOne setTitle:@"Arpeggios"];
+        sectionInfoArray = [NSMutableArray arrayWithObjects:sectionZero, sectionOne, nil];
+        if ((selectedSession == nil) || currentPractice)
+            selectedSession = [[ScaleStore defaultStore] mySession];
+        
+        for (int i = 0; i < [[selectedSession pieceSession] count]; i++)
+        {
+            SectionInfo *pieceInfo = [[SectionInfo alloc] init];
+            [pieceInfo setTitle:[[[selectedSession pieceSession] objectAtIndex:i] title]];
+            [pieceInfo setCountofRowsToInsert:1];
+            [sectionInfoArray addObject:pieceInfo];
+        }
+    }
+
+    [[sectionInfoArray objectAtIndex:0] setCountofRowsToInsert:[[selectedSession scaleSession] count]];
+    [[sectionInfoArray objectAtIndex:1] setCountofRowsToInsert:[[selectedSession arpeggioSession] count]];
+    [statsTable reloadData];
+}
+
+- (void)viewDidUnload
+{
+    timerDisplay = nil;
+    startTimer = nil;
+    self.sectionInfoArray = nil;
+}
+
+#pragma mark - Actions
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
+{
+    if ((touch.view == myPopover) || (touch.view == chooseScalesButton) || (touch.view == chooseArpsButton) || (touch.view == choosePiecesButton))
+        return NO;
+    else
+        return YES;
+}
+
+- (void)showPoppup:(id)sender
+{
+    [self.view addSubview:grey];
+    [self.view addSubview:myPopover];
+    [UIView animateWithDuration:0.2 animations:^{
+        [grey setAlpha:0.2];
+        [myPopover setAlpha:1.0];
+    }];
+    [tapAwayPopover setEnabled:YES];
+    for (SectionInfo *info in sectionInfoArray)
+        [[[info headerView] tapGesture] setEnabled:NO];
+}
+
+- (void)hidePopover:(id)sender
+{
+    [myPopover removeFromSuperview];
+    [myPopover setAlpha:0];
+    [grey removeFromSuperview];
+    [grey setAlpha:0];
+    [tapAwayPopover setEnabled:NO];
+    for (SectionInfo *info in sectionInfoArray)
+        [[[info headerView] tapGesture] setEnabled:YES];
+}
+
+- (void)addScales:(id)sender
+{
+    ScalePickerVC *s = [[ScalePickerVC alloc] initWithIndex:0];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:s];
+    [self presentModalViewController:nav animated:YES];
+}
+
+- (void)addArpeggios:(id)sender
+{
+    ScalePickerVC *a = [[ScalePickerVC alloc] initWithIndex:1];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:a];
+    [self presentModalViewController:nav animated:YES];
+}
+
+- (void)addPieces:(id)sender
+{
+    PiecesPickerVC *p = [[PiecesPickerVC alloc] init];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:p];
+    [self presentModalViewController:nav animated:YES];
+}
+
+- (void)newSession:(id)sender
+{
+    ScaleStore *store = [ScaleStore defaultStore];
+    [[store mySession] setScaleTime:[scaleTimer elapsedTime]];
+    [[store mySession] setArpeggioTime:[arpeggioTimer elapsedTime]];
+    for (Piece *p in [[store mySession] pieceSession])
+        [p setPieceTime:[[p timer] elapsedTime]];
+
+    [store addSession];
+    
+    [scaleTimer resetTimer];
+    [arpeggioTimer resetTimer];
+    //[sessionNumber setText:[NSString stringWithInt:[[store sessions] count]]];
+    
+    //NSDateFormatter *time = [[NSDateFormatter alloc] init];
+    //[time setDateFormat:@"HH:mm"];
+    //NSString *timeString = [time stringFromDate:[[store mySession] date]];
+    //NSLog(@"%@", timeString);
+    //[sessionTime setText:timeString];
+
+}
+
+- (void)slideDown:(id)sender
+{
+    if ([datePicker frame].origin.y == -216.0)
+    {
+        [UIView animateWithDuration:0.25 delay:0 options:UIViewAnimationCurveEaseInOut animations:^{
+            [datePicker setFrame:CGRectMake(0.0, 10.0, 320, 253)];
+            [chooseDateButton setFrame:CGRectMake(124, 226, 72, 37)];
+        } completion:^(BOOL finished) {
+            [UIView animateWithDuration:0.15 delay:0 options:UIViewAnimationCurveEaseInOut animations:^{
+                [datePicker setFrame:CGRectMake(0.0, -12, 320, 253)];
+                [chooseDateButton setFrame:CGRectMake(124, 204, 72, 37)];
+            } completion:^(BOOL finished) {
+                [UIView animateWithDuration:0.15 delay:0 options:UIViewAnimationCurveEaseInOut animations:^{
+                    [datePicker setFrame:CGRectMake(0.0, 0.0, 320, 253)];
+                    [chooseDateButton setFrame:CGRectMake(124, 216, 72, 37)];
+                } completion:^(BOOL finished) {
+                   /* [UIView animateWithDuration:0.1 delay:0 options:UIViewAnimationCurveEaseInOut animations:^{
+                        [datePicker setFrame:CGRectMake(0.0, -3, 320, 253)];
+                        [chooseDateButton setFrame:CGRectMake(124, 213, 72, 37)];
+                    } completion:^(BOOL finished) {
+                        [UIView animateWithDuration:0.1 delay:0 options:UIViewAnimationCurveEaseInOut animations:^{
+                            [datePicker setFrame:CGRectMake(0.0, 0.0, 320, 253)];
+                            [chooseDateButton setFrame:CGRectMake(124, 216, 72, 37)];
+                        } completion:^(BOOL finished) {*/
+                    [chooseDateButton setTitle:@"Done" forState:UIControlStateNormal];
+                       // }];
+                    //}];
+                }];
+            }];
+        }];
+                
+    }
+    else if ([datePicker frame].origin.y == 0.0)
+    {
+        [UIView animateWithDuration:0.5 animations:^{
+            [datePicker setFrame:CGRectMake(0.0, -216.0, 320, 253)];
+            [chooseDateButton setFrame:CGRectMake(124, 10, 72, 37)];
+        }completion:^(BOOL finished) {
+           [chooseDateButton setTitle:@"Date" forState:UIControlStateNormal];
+            [self dateChanged];
+        }];
+    }
+}
+
+- (void)dateChanged
+{
+    NSArray *sessions = [[ScaleStore defaultStore] sessions];    
+    NSCalendar *cal = [NSCalendar currentCalendar];
+    NSDateComponents *components = [cal components:(NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit) fromDate:[datePicker date]];
+    NSDate *today = [cal dateFromComponents:components];
+    filteredSessions = [[NSMutableArray alloc] initWithCapacity:1];
+    
+    [sessions enumerateObjectsUsingBlock:^(Session *obj, NSUInteger idx, BOOL *stop) {
+        NSDateComponents *newComponents = [cal components:(NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit) fromDate:[obj date]];
+        NSDate *chosenDate = [cal dateFromComponents:newComponents];
+        if ([chosenDate isEqualToDate:today])
+        {
+            [filteredSessions addObject:[obj copy]];
+            selSessionNum = idx;
+        }
+    }];
+    
+    if ((filteredSessions == nil) || ([filteredSessions count] == 0))
+    {
+        [selSessionDisplay setText:@"No Sessions From This Date"];
+        selectedSession = [[ScaleStore defaultStore] mySession];
+        currentPractice = YES;
+    }
+    else
+    {
+        selectedSession = [filteredSessions objectAtIndex:0];
+        [selSessionDisplay setText:[NSString stringWithFormat:@"Session %i, Created on %@", selSessionNum, [selectedSession date]]];
+        currentPractice = NO;
+    }
+    [[sectionInfoArray objectAtIndex:0] setCountofRowsToInsert:[[selectedSession scaleSession] count]];
+    [[sectionInfoArray objectAtIndex:1] setCountofRowsToInsert:[[selectedSession arpeggioSession] count]];
+    //[[sectionInfoArray objectAtIndex:2] setCountofRowsToInsert:[[selectedSession pieceSession] count]];
+    [statsTable reloadData];
+    
+    NSLog(@"scales time: %i", [selectedSession scaleTime]);
+    NSLog(@"arps time: %i", [selectedSession arpeggioTime]);
+    for (Piece *p in [selectedSession pieceSession])
+        NSLog(@"piece time: %i for piece: %@", [p pieceTime], [p title]);
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)myScrollView
+{
+    if ([myScrollView isEqual:metroTimeScroll]) 
+    {
+        CGFloat pageWidth = myScrollView.frame.size.width;
+       int page = floor((myScrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
+        scrollPage.currentPage = page;
+    }
+}
+
+#pragma mark - Table View
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+        return (2 + [[selectedSession pieceSession] count]);
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    SectionInfo *sectionInfo = [self.sectionInfoArray objectAtIndex:section];
+    NSInteger numRowsInSection = [sectionInfo countofRowsToInsert];
+    return sectionInfo.open ? numRowsInSection : 0;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSInteger section = [indexPath section];
+    ScalesPracticedCell *cell = (ScalesPracticedCell *) [tableView
+                                                         dequeueReusableCellWithIdentifier:@"ScalesPracticedCell"];
+    id entry;
+    if (section == 0)
+        entry = [[selectedSession scaleSession] objectAtIndex:[indexPath row]];
+    else if (section == 1)
+        entry = [[selectedSession arpeggioSession] objectAtIndex:[indexPath row]];
+    if (section < 2)
+    {
+        cell.tonicLabel.text = [entry tonicString];
+        cell.modeLabel.text = [entry modeString];
+        cell.rhythmLabel.text = [entry rhythmString];
+        cell.speedLabel.text = [entry tempoString];
+        cell.octavesLabel.text = [entry octavesString];
+    }
+    else
+    {
+        entry = [[selectedSession pieceSession] objectAtIndex:([indexPath section] - 2)];
+        cell.tonicLabel.text = [entry title];
+        cell.modeLabel.text = [entry composer];
+        cell.rhythmLabel.text = [entry keyString];
+        cell.speedLabel.text = [NSString stringWithInt:[entry opus]];
+        if ([entry major])
+            cell.octavesLabel.text = @"Major";
+        else
+            cell.octavesLabel.text = @"Minor";
+    }
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;    
+    return cell;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+	SectionInfo *sectionInfo = [self.sectionInfoArray objectAtIndex:section];
+    if (!sectionInfo.headerView) 
+    {
+		NSString *sectionName = sectionInfo.title;
+        sectionInfo.headerView = [[SectionHeaderView alloc] initWithFrame:CGRectMake(0.0, 0.0, statsTable.bounds.size.width, 45) title:sectionName subTitle:@"" section:section delegate:self];
+        NSString *time;
+        if (currentPractice)
+        {
+            if (section ==  0)
+            {
+                time = [scaleTimer timeString];
+            }
+            else if (section == 1)
+            {
+                time = [arpeggioTimer timeString];
+            }
+            else
+            {
+                time = [[[[selectedSession pieceSession] objectAtIndex:(section - 2)] timer] timeString];
+            }
+            [sectionInfo.headerView setSubTitle:time];
+        }
+        else
+        {
+            if (section == 0)
+                time = [NSString TimeStringFromInt:[selectedSession scaleTime]];
+            else if (section == 1)
+                time = [NSString TimeStringFromInt:[selectedSession arpeggioTime]];
+            else
+                time = [[[[selectedSession pieceSession] objectAtIndex:(section - 2)] timer] timeString];
+        }
+    }
+    return sectionInfo.headerView;
+}
+
+-(void)sectionHeaderView:(SectionHeaderView *)sectionHeaderView sectionOpened:(NSInteger)section
+{
+    [scaleTimer disconnectTimers];
+    [arpeggioTimer disconnectTimers];
+    for (int i = 0; i < [[selectedSession pieceSession] count]; i++)
+         [[[[selectedSession pieceSession] objectAtIndex:i] timer] disconnectTimers];
+    if (section == 0)
+    {
+            [scaleTimer setTimeButton:startTimer];
+            [[scaleTimer timeButton] setTitle:@"Start" forState:UIControlStateNormal];
+            [scaleTimer setTimeLabel:timerDisplay];
+    }
+     else if (section == 1)
+     {
+            [arpeggioTimer setTimeButton:startTimer];
+            [[arpeggioTimer timeButton] setTitle:@"Start" forState:UIControlStateNormal];
+            [arpeggioTimer setTimeLabel:timerDisplay];
+    }
+    else 
+    {
+        Timer *pieceTimer = [[[selectedSession pieceSession] objectAtIndex:(section - 2)] timer];
+        [pieceTimer setTimeButton:startTimer];
+        [[pieceTimer timeButton] setTitle:@"Start" forState:UIControlStateNormal];
+        [pieceTimer setTimeLabel:timerDisplay];
+    }
+    
+    SectionInfo *sectionInfo = [self.sectionInfoArray objectAtIndex:section];
+    sectionInfo.open = YES;
+    NSMutableArray *indexPathsToInsert = [[NSMutableArray alloc] init];
+    for (NSInteger i = 0; i < [sectionInfo countofRowsToInsert]; i++) 
+        [indexPathsToInsert addObject:[NSIndexPath indexPathForRow:i inSection:section]];
+
+    
+    NSMutableArray *indexPathsToDelete = [[NSMutableArray alloc] init];
+    
+    NSInteger previousOpenSectionIndex = self.openSectionIndex;
+    if (previousOpenSectionIndex != NSNotFound) {
+        NSString *time;
+       if (previousOpenSectionIndex == 0)
+       {
+                [[scaleTimer timeButton] setTitle:@"Start" forState:UIControlStateNormal];
+                [scaleTimer stopTimer];
+                time = [scaleTimer timeString];
+       }
+        else if (previousOpenSectionIndex == 1)
+        {
+                [[arpeggioTimer timeButton] setTitle:@"Start" forState:UIControlStateNormal];
+                [arpeggioTimer stopTimer];
+            time = [arpeggioTimer timeString];
+        }
+        else
+        {
+            Timer *pieceTimer = [[[selectedSession pieceSession] objectAtIndex:(previousOpenSectionIndex - 2)] timer];
+            [[pieceTimer timeButton] setTitle:@"Start" forState:UIControlStateNormal];
+            [pieceTimer stopTimer];
+            time = [pieceTimer timeString];
+        }
+        
+		SectionInfo *previousOpenSection = [self.sectionInfoArray objectAtIndex:previousOpenSectionIndex];
+        [previousOpenSection.headerView setSubTitle:time];
+        previousOpenSection.open = NO;
+        [previousOpenSection.headerView toggleOpenWithUserAction:NO];
+        NSInteger countOfRowsToDelete = [previousOpenSection countofRowsToInsert];
+        for (NSInteger i = 0; i < countOfRowsToDelete; i++) {
+            [indexPathsToDelete addObject:[NSIndexPath indexPathForRow:i inSection:previousOpenSectionIndex]];
+        }
+    }
+    [statsTable beginUpdates];
+    [statsTable deleteRowsAtIndexPaths:indexPathsToDelete withRowAnimation:UITableViewRowAnimationAutomatic];
+    [statsTable insertRowsAtIndexPaths:indexPathsToInsert withRowAnimation:UITableViewRowAnimationAutomatic];
+    [statsTable endUpdates];
+    
+    self.openSectionIndex = section;
+}
+
+- (void)sectionHeaderView:(SectionHeaderView *)sectionHeaderView sectionClosed:(NSInteger)section
+{
+    NSString *time;
+    if (section == 0)
+    {
+            [[scaleTimer timeButton] setTitle:@"Start" forState:UIControlStateNormal];
+            [scaleTimer stopTimer];
+        time = [scaleTimer timeString];
+    }
+    else if (section == 1)
+    {
+            [[arpeggioTimer timeButton] setTitle:@"Start" forState:UIControlStateNormal];
+            [arpeggioTimer stopTimer];
+        time = [arpeggioTimer timeString];
+    }
+   else
+    {
+        Timer *pieceTimer = [[[selectedSession pieceSession] objectAtIndex:(section - 2)] timer];
+        [[pieceTimer timeButton] setTitle:@"Start" forState:UIControlStateNormal];
+        [pieceTimer stopTimer];
+        time = [pieceTimer timeString];
+    }
+    SectionInfo *sectionInfo = [self.sectionInfoArray objectAtIndex:section];
+    [sectionInfo.headerView setSubTitle:time];
+    sectionInfo.open = NO;
+    NSInteger countofRowsToDelete = [statsTable numberOfRowsInSection:section];
+    
+    if (countofRowsToDelete > 0) {
+        NSMutableArray *indexPathsToDelete = [[NSMutableArray alloc] init];
+        for (NSInteger i = 0; i < countofRowsToDelete; i++) {
+            [indexPathsToDelete addObject:[NSIndexPath indexPathForRow:i inSection:section]];
+        }
+        [statsTable beginUpdates];
+        [statsTable deleteRowsAtIndexPaths:indexPathsToDelete withRowAnimation:UITableViewRowAnimationNone];
+        [statsTable endUpdates];
+    }
+    self.openSectionIndex = NSNotFound;
+}
+
+#pragma mark - Metronome
+
+- (IBAction)startMetronome:(id)sender {
+    static NSTimer *tempoTimer;
+    if (tempoTimer)
+    {
+        [tempoTimer invalidate];
+        tempoTimer = nil;
+        [sender setTitle:@"Start" forState:UIControlStateNormal];
+        return;
+    }
+    [sender setTitle:@"Stop" forState:UIControlStateNormal];
+    double bpm;
+    bpm = [self chooseBPM:stepper.tempo];
+    
+    tempoTimer = [[NSTimer alloc] initWithFireDate:[NSDate dateWithTimeIntervalSinceNow:bpm] interval:bpm target:self selector:@selector(tempoTimerFireMethod:) userInfo:nil repeats:YES];
+    [[NSRunLoop mainRunLoop] addTimer:tempoTimer forMode:NSRunLoopCommonModes];
+}
+
+- (void)tempoTimerFireMethod:(NSTimer *)aTimer
+{
+    [tickPlayer play];
+}
+
+- (double)chooseBPM:(double)bpm
+{
+    return (60.0 / bpm);
+}
+@end
