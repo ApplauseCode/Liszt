@@ -93,7 +93,7 @@
 		BA811C6E140D38E100A5558A /* PiecesPickerVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PiecesPickerVC.m; sourceTree = "<group>"; };
 		BA811C6F140D38E100A5558A /* PiecesPickerVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PiecesPickerVC.xib; sourceTree = "<group>"; };
 		BA811C73140D38EF00A5558A /* StatsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatsVC.h; sourceTree = "<group>"; };
-		BA811C74140D38EF00A5558A /* StatsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatsVC.m; sourceTree = "<group>"; };
+		BA811C74140D38EF00A5558A /* StatsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = StatsVC.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		BA811C75140D38EF00A5558A /* StatsVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StatsVC.xib; sourceTree = "<group>"; };
 		BA84EE431411784E00E01BDB /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		BA8CC24A1436088A00ADE21B /* Timer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Timer.h; sourceTree = "<group>"; };

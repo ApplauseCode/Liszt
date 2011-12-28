@@ -32,6 +32,11 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     StatsVC *c = [[StatsVC alloc] init];
     UINavigationController *homePage = [[UINavigationController alloc] initWithRootViewController:c];
+    
+    UINavigationBar *homeBar = homePage.navigationBar;
+    UIImage *navImage = [UIImage imageNamed:@"LisztNavBar"];
+    [homeBar setBackgroundImage:navImage forBarMetrics:UIBarMetricsDefault];
+    
     [self.window setRootViewController:homePage];
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];

@@ -36,17 +36,17 @@
 @property (nonatomic, strong) NSMutableArray *filteredSessions;
 @property (nonatomic) BOOL currentPractice;
 @property (nonatomic, strong) UIDatePicker *datePicker;
-@property (nonatomic, strong) UITapGestureRecognizer *tapAwayPopover;
-@property (nonatomic, strong) UIView *grey;
+@property (nonatomic, strong) UITapGestureRecognizer *tapAwayGesture;
+@property (nonatomic, strong) UIView *greyMask;
 @property (nonatomic, strong) NSMutableArray* sectionInfoArray;
 @property (nonatomic, assign) NSInteger openSectionIndex;
 
 - (void)tempoTimerFireMethod:(NSTimer*)aTimer;
 - (double)chooseBPM:(double)bpm;
 - (void)dateChanged;
-- (void)hidePopover:(id)sender;
-
+- (void)hideMenu:(id)sender;
 @end
+
 @implementation StatsVC
 @synthesize tempoLabel, metronomeView, timerView, metroTimeScroll, scrollPage, startTimer, timerDisplay, statsTable, selSessionDisplay, chooseDateButton, myPopover, chooseScalesButton, chooseArpsButton, choosePiecesButton;
 @synthesize scaleTimer;
@@ -59,12 +59,33 @@
 @synthesize filteredSessions;
 @synthesize currentPractice;
 @synthesize datePicker;
-@synthesize tapAwayPopover;
-@synthesize grey;
+@synthesize tapAwayGesture;
+@synthesize greyMask;
 @synthesize sectionInfoArray;
 @synthesize openSectionIndex;
 
-#pragma mark - Init
+#pragma mark - View lifecycle
+
+- (void)viewDidUnload
+{
+    [self setChoosePiecesButton:nil];
+    [self setChooseArpsButton:nil];
+    [self setChooseScalesButton:nil];
+    [self setMyPopover:nil];
+    [self setChooseDateButton:nil];
+    [self setSelSessionDisplay:nil];
+    [self setStatsTable:nil];
+    [self setTimerDisplay:nil];
+    [self setStartTimer:nil];
+    [self setScrollPage:nil];
+    [self setMetroTimeScroll:nil];
+    [self setTimerView:nil];
+    [self setMetronomeView:nil];
+    [self setTempoLabel:nil];
+    timerDisplay = nil;
+    startTimer = nil;
+    self.sectionInfoArray = nil;
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -74,11 +95,12 @@
         NSURL *tickURL = [NSURL fileURLWithPath:[mainBundle pathForResource:@"tick5" ofType:@"aif"]];
         tickPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:tickURL error:nil];
         [tickPlayer prepareToPlay];
+        
+        scaleTimer = [[Timer alloc] init];
+        arpeggioTimer = [[Timer alloc] init];
     }
     return self;
 }
-
-#pragma mark - View lifecycle
 
 - (void)viewDidLoad
 {
@@ -87,10 +109,6 @@
     UINib *nib = [UINib nibWithNibName:@"ScalesPracticedCell" bundle:nil];
     [statsTable registerNib:nib 
      forCellReuseIdentifier:@"ScalesPracticedCell"];
-    
-    UINavigationBar *homeBar = self.navigationController.navigationBar;
-    UIImage *navImage = [UIImage imageNamed:@"LisztNavBar"];
-    [homeBar setBackgroundImage:navImage forBarMetrics:UIBarMetricsDefault];
 
     datePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake(0.0, -216.0, 320, 253)];
     [datePicker setDatePickerMode:UIDatePickerModeDate];
@@ -99,35 +117,28 @@
     myPopover = [[[NSBundle mainBundle] loadNibNamed:@"CustomPopover" owner:self options:nil] objectAtIndex:0];
     [myPopover setFrame:CGRectMake(200, 55, 108, 145)];
     [myPopover setAlpha:0];
-    tapAwayPopover = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hidePopover:)];
-    [tapAwayPopover setDelegate:self];
-    [self.view addGestureRecognizer:tapAwayPopover];
-    [tapAwayPopover setEnabled:NO];
+    tapAwayGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideMenu:)];
+    [tapAwayGesture setDelegate:self];
+    [self.view addGestureRecognizer:tapAwayGesture];
+    [tapAwayGesture setEnabled:NO];
     
-    grey = [[UIView alloc] initWithFrame:[self.view frame]];
-    [grey setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:1.0]];
-    [grey setAlpha:0];
+    greyMask = [[UIView alloc] initWithFrame:[self.view frame]];
+    [greyMask setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:1.0]];
+    [greyMask setAlpha:0];
     
     stepper = [[CustomStepper alloc] initWithPoint:CGPointMake(224, 15) andLabel:tempoLabel];
     [metronomeView addSubview:stepper];
     currentPractice = YES;
     openSectionIndex = NSNotFound;
     
-    [metroTimeScroll setScrollEnabled:YES];
-    [metroTimeScroll setFrame:CGRectMake(0.0, 358, 320.0, 58)];
     [metroTimeScroll setContentSize:CGSizeMake(640.0, 58)];
-    [metroTimeScroll setPagingEnabled:YES];
-    [metroTimeScroll setDelegate:self];
     [metroTimeScroll setShowsHorizontalScrollIndicator:NO];
-    
-    scaleTimer = [[Timer alloc] init];
-    arpeggioTimer = [[Timer alloc] init];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [statsTable reloadData];
+   // [statsTable reloadData];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -160,57 +171,35 @@
     [statsTable reloadData];
 }
 
-- (void)viewDidUnload
-{
-    [self setChoosePiecesButton:nil];
-    [self setChooseArpsButton:nil];
-    [self setChooseScalesButton:nil];
-    [self setMyPopover:nil];
-    [self setChooseDateButton:nil];
-    [self setSelSessionDisplay:nil];
-    [self setStatsTable:nil];
-    [self setTimerDisplay:nil];
-    [self setStartTimer:nil];
-    [self setScrollPage:nil];
-    [self setMetroTimeScroll:nil];
-    [self setTimerView:nil];
-    [self setMetronomeView:nil];
-    [self setTempoLabel:nil];
-    timerDisplay = nil;
-    startTimer = nil;
-    self.sectionInfoArray = nil;
-}
-
 #pragma mark - Actions
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
 {
     if ((touch.view == myPopover) || (touch.view == chooseScalesButton) || (touch.view == chooseArpsButton) || (touch.view == choosePiecesButton))
         return NO;
-    else
-        return YES;
+    return YES;
 }
 
-- (void)showPoppup:(id)sender
+- (void)showMenu:(id)sender
 {
-    [self.view addSubview:grey];
+    [self.view addSubview:greyMask];
     [self.view addSubview:myPopover];
     [UIView animateWithDuration:0.2 animations:^{
-        [grey setAlpha:0.2];
+        [greyMask setAlpha:0.2];
         [myPopover setAlpha:1.0];
     }];
-    [tapAwayPopover setEnabled:YES];
+    [tapAwayGesture setEnabled:YES];
     for (SectionInfo *info in sectionInfoArray)
         [[[info headerView] tapGesture] setEnabled:NO];
 }
 
-- (void)hidePopover:(id)sender
+- (void)hideMenu:(id)sender
 {
     [myPopover removeFromSuperview];
     [myPopover setAlpha:0];
-    [grey removeFromSuperview];
-    [grey setAlpha:0];
-    [tapAwayPopover setEnabled:NO];
+    [greyMask removeFromSuperview];
+    [greyMask setAlpha:0];
+    [tapAwayGesture setEnabled:NO];
     for (SectionInfo *info in sectionInfoArray)
         [[[info headerView] tapGesture] setEnabled:YES];
 }
@@ -243,16 +232,15 @@
     [[store mySession] setArpeggioTime:[arpeggioTimer elapsedTime]];
     for (Piece *p in [[store mySession] pieceSession])
         [p setPieceTime:[[p timer] elapsedTime]];
-
     [store addSession];
-    
     [scaleTimer resetTimer];
     [arpeggioTimer resetTimer];
 }
 
 - (void)slideDown:(id)sender
 {
-    if ([datePicker frame].origin.y == -216.0)
+    //calculate rect size not hard coded
+    if ([datePicker frame].origin.y < -215.0)
     {
         [UIView animateWithDuration:0.25 delay:0 options:UIViewAnimationCurveEaseInOut animations:^{
             [datePicker setFrame:CGRectMake(0.0, 10.0, 320, 253)];
@@ -270,9 +258,8 @@
                 }];
             }];
         }];
-                
     }
-    else if ([datePicker frame].origin.y == 0.0)
+    else if ([datePicker frame].origin.y > -1.0)
     {
         [UIView animateWithDuration:0.5 animations:^{
             [datePicker setFrame:CGRectMake(0.0, -216.0, 320, 253)];
@@ -329,7 +316,7 @@
     if ([myScrollView isEqual:metroTimeScroll]) 
     {
         CGFloat pageWidth = myScrollView.frame.size.width;
-       int page = floor((myScrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
+        int page = floor((myScrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
         scrollPage.currentPage = page;
     }
 }
@@ -534,7 +521,7 @@
 
 #pragma mark - Metronome
 
-- (IBAction)startMetronome:(id)sender {
+- (void)startMetronome:(id)sender {
     static NSTimer *tempoTimer;
     if (tempoTimer)
     {

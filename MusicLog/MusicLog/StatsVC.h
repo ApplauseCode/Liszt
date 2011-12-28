@@ -27,7 +27,7 @@
 
 - (IBAction)startMetronome:(id)sender;
 - (IBAction)slideDown:(id)sender;
-- (IBAction)showPoppup:(id)sender;
+- (IBAction)showMenu:(id)sender;
 - (IBAction)addScales:(id)sender;
 - (IBAction)addArpeggios:(id)sender;
 - (IBAction)addPieces:(id)sender;
