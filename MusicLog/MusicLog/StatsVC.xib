@@ -287,7 +287,6 @@
 						<object class="NSPSMatrix" key="NSFrameMatrix"/>
 						<string key="NSFrame">{{141, 390}, {38, 36}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:660</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -348,43 +347,11 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">selSessionDisplay</string>
+						<string key="label">tempoLabel</string>
 						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="702653632"/>
+						<reference key="destination" ref="406405883"/>
 					</object>
-					<int key="connectionID">24</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">statsTable</string>
-						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="683567922"/>
-					</object>
-					<int key="connectionID">20</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">chooseDateButton</string>
-						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="52651695"/>
-					</object>
-					<int key="connectionID">72</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">scrollPage</string>
-						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="647208716"/>
-					</object>
-					<int key="connectionID">83</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">timerView</string>
-						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="348088815"/>
-					</object>
-					<int key="connectionID">80</int>
+					<int key="connectionID">106</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
@@ -392,31 +359,15 @@
 						<reference key="source" ref="372490531"/>
 						<reference key="destination" ref="308995282"/>
 					</object>
-					<int key="connectionID">67</int>
+					<int key="connectionID">107</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">startTimer</string>
+						<string key="label">timerView</string>
 						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="165951727"/>
+						<reference key="destination" ref="348088815"/>
 					</object>
-					<int key="connectionID">103</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">timerDisplay</string>
-						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="719378762"/>
-					</object>
-					<int key="connectionID">102</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">tempoLabel</string>
-						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="406405883"/>
-					</object>
-					<int key="connectionID">65</int>
+					<int key="connectionID">108</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
@@ -424,7 +375,55 @@
 						<reference key="source" ref="372490531"/>
 						<reference key="destination" ref="330178723"/>
 					</object>
-					<int key="connectionID">81</int>
+					<int key="connectionID">109</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">scrollPage</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="647208716"/>
+					</object>
+					<int key="connectionID">110</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">startTimer</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="165951727"/>
+					</object>
+					<int key="connectionID">111</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">timerDisplay</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="719378762"/>
+					</object>
+					<int key="connectionID">112</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">statsTable</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="683567922"/>
+					</object>
+					<int key="connectionID">113</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">selSessionDisplay</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="702653632"/>
+					</object>
+					<int key="connectionID">114</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">chooseDateButton</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="52651695"/>
+					</object>
+					<int key="connectionID">115</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
@@ -658,7 +657,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">105</int>
+			<int key="maxID">115</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes"/>
 		<int key="IBDocument.localizationMode">0</int>

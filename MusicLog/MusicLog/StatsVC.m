@@ -25,64 +25,44 @@
 #pragma mark - Private Interface
 
 @interface StatsVC ()
-{
-    Timer *scaleTimer;
-    //Timer *pieceTimer;
-    Timer *arpeggioTimer;
-    
-    NSUInteger tempo;
-    AVAudioPlayer *tickPlayer;
-    CustomStepper *stepper;
-    IBOutlet UILabel *tempoLabel;
-    IBOutlet UIView *metronomeView;
-    IBOutlet UIView *timerView;
-    IBOutlet UIScrollView *metroTimeScroll;
-    IBOutlet UIPageControl *scrollPage;
-    IBOutlet UIButton *startTimer;
-    IBOutlet UILabel *timerDisplay;
-    
-    Session *selectedSession;
-    NSUInteger selSessionNum;
-    NSMutableArray *filteredSessions;
-    BOOL currentPractice;
-    
-    IBOutlet UITableView *statsTable;
-    IBOutlet UILabel *selSessionDisplay;
-    
-    IBOutlet UIButton *chooseDateButton;
-    UIDatePicker *datePicker;
-    
-    IBOutlet UIView *myPopover;
-    UITapGestureRecognizer *tapAwayPopover;
-    UIView *grey;
-    
-    IBOutlet UIButton *chooseScalesButton;
-    IBOutlet UIButton *chooseArpsButton;
-    IBOutlet UIButton *choosePiecesButton;
-}
+
+@property (nonatomic, strong) Timer *scaleTimer;
+@property (nonatomic, strong) Timer *arpeggioTimer;
+@property (nonatomic) NSUInteger tempo;
+@property (nonatomic, strong) AVAudioPlayer *tickPlayer;
+@property (nonatomic, strong) CustomStepper *stepper;
+@property (nonatomic, strong) Session *selectedSession;
+@property (nonatomic) NSUInteger selSessionNum;
+@property (nonatomic, strong) NSMutableArray *filteredSessions;
+@property (nonatomic) BOOL currentPractice;
+@property (nonatomic, strong) UIDatePicker *datePicker;
+@property (nonatomic, strong) UITapGestureRecognizer *tapAwayPopover;
+@property (nonatomic, strong) UIView *grey;
 @property (nonatomic, strong) NSMutableArray* sectionInfoArray;
 @property (nonatomic, assign) NSInteger openSectionIndex;
 
-
-
 - (void)tempoTimerFireMethod:(NSTimer*)aTimer;
 - (double)chooseBPM:(double)bpm;
-- (IBAction)startMetronome:(id)sender;
-
-- (IBAction)slideDown:(id)sender;
 - (void)dateChanged;
-
-- (IBAction)showPoppup:(id)sender;
 - (void)hidePopover:(id)sender;
-- (IBAction)addScales:(id)sender;
-- (IBAction)addArpeggios:(id)sender;
-- (IBAction)addPieces:(id)sender;
-
-- (IBAction)newSession:(id)sender;
 
 @end
 @implementation StatsVC
-@synthesize sectionInfoArray, openSectionIndex;
+@synthesize tempoLabel, metronomeView, timerView, metroTimeScroll, scrollPage, startTimer, timerDisplay, statsTable, selSessionDisplay, chooseDateButton, myPopover, chooseScalesButton, chooseArpsButton, choosePiecesButton;
+@synthesize scaleTimer;
+@synthesize arpeggioTimer;
+@synthesize tempo;
+@synthesize tickPlayer;
+@synthesize stepper;
+@synthesize selectedSession;
+@synthesize selSessionNum;
+@synthesize filteredSessions;
+@synthesize currentPractice;
+@synthesize datePicker;
+@synthesize tapAwayPopover;
+@synthesize grey;
+@synthesize sectionInfoArray;
+@synthesize openSectionIndex;
 
 #pragma mark - Init
 
@@ -182,6 +162,20 @@
 
 - (void)viewDidUnload
 {
+    [self setChoosePiecesButton:nil];
+    [self setChooseArpsButton:nil];
+    [self setChooseScalesButton:nil];
+    [self setMyPopover:nil];
+    [self setChooseDateButton:nil];
+    [self setSelSessionDisplay:nil];
+    [self setStatsTable:nil];
+    [self setTimerDisplay:nil];
+    [self setStartTimer:nil];
+    [self setScrollPage:nil];
+    [self setMetroTimeScroll:nil];
+    [self setTimerView:nil];
+    [self setMetronomeView:nil];
+    [self setTempoLabel:nil];
     timerDisplay = nil;
     startTimer = nil;
     self.sectionInfoArray = nil;
@@ -254,14 +248,6 @@
     
     [scaleTimer resetTimer];
     [arpeggioTimer resetTimer];
-    //[sessionNumber setText:[NSString stringWithInt:[[store sessions] count]]];
-    
-    //NSDateFormatter *time = [[NSDateFormatter alloc] init];
-    //[time setDateFormat:@"HH:mm"];
-    //NSString *timeString = [time stringFromDate:[[store mySession] date]];
-    //NSLog(@"%@", timeString);
-    //[sessionTime setText:timeString];
-
 }
 
 - (void)slideDown:(id)sender
@@ -280,17 +266,7 @@
                     [datePicker setFrame:CGRectMake(0.0, 0.0, 320, 253)];
                     [chooseDateButton setFrame:CGRectMake(124, 216, 72, 37)];
                 } completion:^(BOOL finished) {
-                   /* [UIView animateWithDuration:0.1 delay:0 options:UIViewAnimationCurveEaseInOut animations:^{
-                        [datePicker setFrame:CGRectMake(0.0, -3, 320, 253)];
-                        [chooseDateButton setFrame:CGRectMake(124, 213, 72, 37)];
-                    } completion:^(BOOL finished) {
-                        [UIView animateWithDuration:0.1 delay:0 options:UIViewAnimationCurveEaseInOut animations:^{
-                            [datePicker setFrame:CGRectMake(0.0, 0.0, 320, 253)];
-                            [chooseDateButton setFrame:CGRectMake(124, 216, 72, 37)];
-                        } completion:^(BOOL finished) {*/
                     [chooseDateButton setTitle:@"Done" forState:UIControlStateNormal];
-                       // }];
-                    //}];
                 }];
             }];
         }];
@@ -340,7 +316,6 @@
     }
     [[sectionInfoArray objectAtIndex:0] setCountofRowsToInsert:[[selectedSession scaleSession] count]];
     [[sectionInfoArray objectAtIndex:1] setCountofRowsToInsert:[[selectedSession arpeggioSession] count]];
-    //[[sectionInfoArray objectAtIndex:2] setCountofRowsToInsert:[[selectedSession pieceSession] count]];
     [statsTable reloadData];
     
     NSLog(@"scales time: %i", [selectedSession scaleTime]);
