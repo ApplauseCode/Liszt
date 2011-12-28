@@ -21,6 +21,7 @@
 #import "Timer.h"
 #import "CustomStepper.h"
 #import "TimerCell.h"
+#import "Metronome.h"
 
 #pragma mark - Private Interface
 
@@ -40,6 +41,7 @@
 @property (nonatomic, strong) UIView *greyMask;
 @property (nonatomic, strong) NSMutableArray* sectionInfoArray;
 @property (nonatomic, assign) NSInteger openSectionIndex;
+@property (nonatomic, strong) Metronome *metro;
 
 - (void)tempoTimerFireMethod:(NSTimer*)aTimer;
 - (double)chooseBPM:(double)bpm;
@@ -63,6 +65,7 @@
 @synthesize greyMask;
 @synthesize sectionInfoArray;
 @synthesize openSectionIndex;
+@synthesize metro;
 
 #pragma mark - View lifecycle
 
@@ -91,10 +94,10 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        NSBundle *mainBundle = [NSBundle mainBundle];        
+        /*NSBundle *mainBundle = [NSBundle mainBundle];        
         NSURL *tickURL = [NSURL fileURLWithPath:[mainBundle pathForResource:@"tick5" ofType:@"aif"]];
         tickPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:tickURL error:nil];
-        [tickPlayer prepareToPlay];
+        [tickPlayer prepareToPlay];*/
         
         scaleTimer = [[Timer alloc] init];
         arpeggioTimer = [[Timer alloc] init];
@@ -127,12 +130,15 @@
     [greyMask setAlpha:0];
     
     stepper = [[CustomStepper alloc] initWithPoint:CGPointMake(224, 15) andLabel:tempoLabel];
+    [stepper setDelegate:self];
     [metronomeView addSubview:stepper];
     currentPractice = YES;
     openSectionIndex = NSNotFound;
     
     [metroTimeScroll setContentSize:CGSizeMake(640.0, 58)];
     [metroTimeScroll setShowsHorizontalScrollIndicator:NO];
+    
+    metro = [[Metronome alloc] init];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -519,32 +525,17 @@
     self.openSectionIndex = NSNotFound;
 }
 
-#pragma mark - Metronome
-
 - (void)startMetronome:(id)sender {
-    static NSTimer *tempoTimer;
-    if (tempoTimer)
-    {
-        [tempoTimer invalidate];
-        tempoTimer = nil;
+    [metro startMetronomeWithTempo:[stepper tempo]];
+    if ([[sender currentTitle] isEqualToString: @"Start"])
+        [sender setTitle:@"Stop" forState:UIControlStateNormal];
+    else if ([[sender currentTitle] isEqualToString:@"Stop"])
         [sender setTitle:@"Start" forState:UIControlStateNormal];
-        return;
-    }
-    [sender setTitle:@"Stop" forState:UIControlStateNormal];
-    double bpm;
-    bpm = [self chooseBPM:stepper.tempo];
     
-    tempoTimer = [[NSTimer alloc] initWithFireDate:[NSDate dateWithTimeIntervalSinceNow:bpm] interval:bpm target:self selector:@selector(tempoTimerFireMethod:) userInfo:nil repeats:YES];
-    [[NSRunLoop mainRunLoop] addTimer:tempoTimer forMode:NSRunLoopCommonModes];
 }
 
-- (void)tempoTimerFireMethod:(NSTimer *)aTimer
+- (void)valueChanged
 {
-    [tickPlayer play];
-}
-
-- (double)chooseBPM:(double)bpm
-{
-    return (60.0 / bpm);
+    [metro changeTempoWithTempo:[stepper tempo]];
 }
 @end

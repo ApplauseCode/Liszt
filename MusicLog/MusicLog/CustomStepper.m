@@ -28,6 +28,7 @@ int tempoRange(int x)
 @implementation CustomStepper
 
 @synthesize tempo;
+@synthesize delegate;
 
 - (id)initWithPoint:(CGPoint)point andLabel:(UILabel *)label
 {
@@ -88,6 +89,8 @@ int tempoRange(int x)
     }
     [timer invalidate];
     timeElapsed = 0;
+    [self.delegate valueChanged];
+
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "SectionHeaderView.h"
+#import "CustomStepper.h"
 
-@interface StatsVC : UIViewController <UITableViewDataSource, UITableViewDelegate, SectionHeaderViewDelegate, UIGestureRecognizerDelegate, UIScrollViewDelegate>
+@interface StatsVC : UIViewController <UITableViewDataSource, UITableViewDelegate, SectionHeaderViewDelegate, UIGestureRecognizerDelegate, UIScrollViewDelegate, CustomStepperDelegate>
 @property (strong, nonatomic) IBOutlet UILabel *tempoLabel;
 @property (strong, nonatomic) IBOutlet UIView *metronomeView;
 @property (strong, nonatomic) IBOutlet UIView *timerView;
