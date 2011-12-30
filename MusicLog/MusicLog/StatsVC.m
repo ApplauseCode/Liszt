@@ -27,30 +27,36 @@
 
 @interface StatsVC ()
 
-@property (nonatomic, strong) Timer *scaleTimer;
-@property (nonatomic, strong) Timer *arpeggioTimer;
-@property (nonatomic) NSUInteger tempo;
-@property (nonatomic, strong) AVAudioPlayer *tickPlayer;
-@property (nonatomic, strong) CustomStepper *stepper;
-@property (nonatomic, strong) Session *selectedSession;
-@property (nonatomic) NSUInteger selSessionNum;
-@property (nonatomic, strong) NSMutableArray *filteredSessions;
-@property (nonatomic) BOOL currentPractice;
-@property (nonatomic, strong) UIDatePicker *datePicker;
-@property (nonatomic, strong) UITapGestureRecognizer *tapAwayGesture;
-@property (nonatomic, strong) UIView *greyMask;
-@property (nonatomic, strong) NSMutableArray* sectionInfoArray;
-@property (nonatomic, assign) NSInteger openSectionIndex;
-@property (nonatomic, strong) Metronome *metro;
+@property (nonatomic, strong)   Timer *scaleTimer;
+@property (nonatomic, strong)   Timer *arpeggioTimer;
+@property (nonatomic)           NSUInteger tempo;
+@property (nonatomic, strong)   AVAudioPlayer *tickPlayer;
+@property (nonatomic, strong)   CustomStepper *stepper;
+@property (nonatomic, strong)   Session *selectedSession;
+@property (nonatomic)           NSUInteger selSessionNum;
+@property (nonatomic, strong)   NSMutableArray *filteredSessions;
+@property (nonatomic)           BOOL currentPractice;
+@property (nonatomic, strong)   UIDatePicker *datePicker;
+@property (nonatomic, strong)   UITapGestureRecognizer *tapAwayGesture;
+@property (nonatomic, strong)   UIView *greyMask;
+@property (nonatomic, strong)   NSMutableArray* sectionInfoArray;
+@property (nonatomic, assign)   NSInteger openSectionIndex;
+@property (nonatomic, strong)   Metronome *metro;
 
+- (void)makeMenu;
+- (void) makeMetronome;
+- (void) setUpScalesAndArpeggios;
 - (void)tempoTimerFireMethod:(NSTimer*)aTimer;
 - (double)chooseBPM:(double)bpm;
 - (void)dateChanged;
 - (void)hideMenu:(id)sender;
+
 @end
 
 @implementation StatsVC
-@synthesize tempoLabel, metronomeView, timerView, metroTimeScroll, scrollPage, startTimer, timerDisplay, statsTable, selSessionDisplay, chooseDateButton, myPopover, chooseScalesButton, chooseArpsButton, choosePiecesButton;
+
+@synthesize tempoLabel, metronomeView, timerView, metroTimeScroll, scrollPage, startTimer, timerDisplay, statsTable;
+@synthesize selSessionDisplay, chooseDateButton, myPopover, chooseScalesButton, chooseArpsButton, choosePiecesButton;
 @synthesize scaleTimer;
 @synthesize arpeggioTimer;
 @synthesize tempo;
@@ -113,7 +119,13 @@
     datePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake(0.0, -216.0, 320, 253)];
     [datePicker setDatePickerMode:UIDatePickerModeDate];
     [self.view addSubview:datePicker];
-    
+
+    [self makeMenu];
+    [self makeMetronome];
+    [self setUpScalesAndArpeggios];
+}
+
+- (void) makeMenu {
     myPopover = [[[NSBundle mainBundle] loadNibNamed:@"CustomPopover" owner:self options:nil] objectAtIndex:0];
     [myPopover setFrame:CGRectMake(200, 55, 108, 145)];
     [myPopover setAlpha:0];
@@ -124,7 +136,9 @@
     greyMask = [[UIView alloc] initWithFrame:[self.view frame]];
     [greyMask setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:1.0]];
     [greyMask setAlpha:0];
-    
+}
+
+- (void) makeMetronome {
     stepper = [[CustomStepper alloc] initWithPoint:CGPointMake(224, 15) andLabel:tempoLabel];
     [stepper setDelegate:self];
     [metronomeView addSubview:stepper];
@@ -132,7 +146,9 @@
     [metroTimeScroll setContentSize:CGSizeMake(640.0, 58)];
     [metroTimeScroll setShowsHorizontalScrollIndicator:NO];
     metro = [[Metronome alloc] init];
-    
+}
+
+- (void) setUpScalesAndArpeggios {
     if (self.sectionInfoArray == nil)
     {
         SectionInfo *sectionZero = [[SectionInfo alloc] init];
@@ -153,6 +169,7 @@
     [[sectionInfoArray objectAtIndex:0] setCountofRowsToInsert:[[selectedSession scaleSession] count]];
     [[sectionInfoArray objectAtIndex:1] setCountofRowsToInsert:[[selectedSession arpeggioSession] count]];
 }
+
 
 - (void)viewDidAppear:(BOOL)animated
 {

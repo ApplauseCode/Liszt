@@ -15,12 +15,14 @@
 @interface ScaleStore : NSObject
 
 @property (nonatomic, strong) Session *mySession;
+@property (nonatomic, strong) NSMutableOrderedSet *scalesInSession;
+@property (nonatomic, strong) NSMutableOrderedSet *arpeggiosInSession;
+@property (nonatomic, strong) NSMutableOrderedSet *piecesInSession;
+@property (nonatomic, strong) NSMutableArray *sessions;
+
 
 + (ScaleStore *)defaultStore;
-- (NSOrderedSet *)scalesInSession;
-- (NSOrderedSet *)arpeggiosInSession;
-- (NSOrderedSet *)piecesInSession;
-- (NSArray *)sessions;
+
 - (void)addScale:(Scale *)s;
 - (void)addArpeggio:(Scale *)a;
 - (void)addPiece:(Piece *)p;

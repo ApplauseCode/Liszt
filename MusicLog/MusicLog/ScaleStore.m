@@ -15,17 +15,18 @@
 static ScaleStore *defaultStore = nil;
 
 @interface ScaleStore ()
-{
-    NSMutableOrderedSet *scalesInSession;
-    NSMutableOrderedSet *arpeggiosInSession;
-    NSMutableOrderedSet *piecesInSession;
-    NSMutableArray *sessions;
-    NSArray *objectsArchive;
-}
+
+@property (nonatomic, strong) NSArray *objectsArchive;
+
 @end
 @implementation ScaleStore
 
+@synthesize objectsArchive;
 @synthesize mySession;
+@synthesize scalesInSession;
+@synthesize arpeggiosInSession;
+@synthesize piecesInSession;
+@synthesize sessions;
 
 - (id)init
 {
@@ -33,14 +34,10 @@ static ScaleStore *defaultStore = nil;
         return defaultStore;
     }
     self = [super init];
-
-    // unarchive the sessions and scalesInSession if available, if not create them
-    if (self) {
+        if (self) {
         NSString *path = [self scaleArchivePath];
         objectsArchive = [NSKeyedUnarchiver unarchiveObjectWithFile:path];
-        if (objectsArchive) 
-        {
-            //sessions = [NSMutableArray arrayWithArray:[objectsArchive objectAtIndex:0]];
+        if (objectsArchive) {
             if ([objectsArchive objectAtIndex:0])
                 sessions = [NSMutableArray arrayWithArray:[objectsArchive objectAtIndex:0]];
             if ([objectsArchive objectAtIndex:1]) 
@@ -52,8 +49,7 @@ static ScaleStore *defaultStore = nil;
             if ([objectsArchive objectAtIndex:4])
                 mySession = [objectsArchive objectAtIndex:4];
         } 
-        else 
-        {
+        else {
             sessions = [[NSMutableArray alloc] init];
             scalesInSession = [[NSMutableOrderedSet alloc] init];
             arpeggiosInSession = [[NSMutableOrderedSet alloc] init];
@@ -72,116 +68,76 @@ static ScaleStore *defaultStore = nil;
     return defaultStore;
 }
 
-+ (id)allocWithZone:(NSZone *)zone
-{
++ (id)allocWithZone:(NSZone *)zone {
     return [self defaultStore];
 }
 
-- (NSOrderedSet *)scalesInSession
-{
-    return scalesInSession;
-}
-
-- (NSOrderedSet *)arpeggiosInSession
-{
-    return arpeggiosInSession;
-}
-
-- (NSOrderedSet *)piecesInSession
-{
-    return piecesInSession;
-}
-
-- (NSArray *)sessions
-{
-    return sessions;
-}
-
-- (void)addScale:(Scale *)s
-{
+- (void)addScale:(Scale *)s {
     [scalesInSession addObject:s];
 }
 
-- (void)addArpeggio:(Scale *)a
-{
+- (void)addArpeggio:(Scale *)a {
     [arpeggiosInSession addObject:a];
 }
 
-- (void)addPiece:(Piece *)p
-{
+- (void)addPiece:(Piece *)p {
     [piecesInSession addObject:p];
 }
 
-- (void)addArpeggioArray:(NSArray *)a
-{
+- (void)addArpeggioArray:(NSArray *)a {
     [arpeggiosInSession addObjectsFromArray:a];
 }
 
-- (void)addScaleArray:(NSArray *)s
-{
+- (void)addScaleArray:(NSArray *)s {
     [scalesInSession addObjectsFromArray:s];
 }
 
-- (void)addPieceArray:(NSArray *)p
-{
+- (void)addPieceArray:(NSArray *)p {
     [piecesInSession addObjectsFromArray:p];
 }
 
-- (void)removeScale:(Scale *)s
-{
+- (void)removeScale:(Scale *)s {
     [scalesInSession removeObject:s];
 }
 
-- (void)removeArpeggio:(Scale *)a
-{
+- (void)removeArpeggio:(Scale *)a {
     [arpeggiosInSession removeObject:a];
 }
 
-- (void)removePiece:(Piece *)p
-{
+- (void)removePiece:(Piece *)p {
     [piecesInSession removeObject:p];
 }
 
-- (void)addSession
-{   
-    // **** COPY added
+- (void)addSession {   
     [sessions addObject:[mySession copy]];
     Session *newSession = [[Session alloc] initWithDayOffset:1];
     [self setMySession:newSession];
 }
 
-- (void)addScalesToSession
-{
+- (void)addScalesToSession {
     [mySession setScaleSession:scalesInSession];
-
 }
 
-- (void)addArpeggiosToSession
-{
+- (void)addArpeggiosToSession {
     [mySession setArpeggioSession:arpeggiosInSession];
 }
 
-- (void)addPiecesToSession
-{
+- (void)addPiecesToSession {
     [mySession setPieceSession:piecesInSession];
 }
 
-- (void)clearAll
-{
+- (void)clearAll {
     [scalesInSession removeAllObjects];
     [arpeggiosInSession removeAllObjects];
     [piecesInSession removeAllObjects];
 }
 
-- (BOOL)saveChanges
-{
+- (BOOL)saveChanges {
     objectsArchive = [NSArray arrayWithObjects:sessions, scalesInSession, arpeggiosInSession, piecesInSession, mySession, nil];
     return [NSKeyedArchiver archiveRootObject:objectsArchive toFile:[self scaleArchivePath]];
 }
 
-
-- (NSString *)scaleArchivePath
-{
+- (NSString *)scaleArchivePath {
     return pathInDocumentDirectory(@"scale.data");
 }
 
