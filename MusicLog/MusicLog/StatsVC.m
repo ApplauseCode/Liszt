@@ -94,13 +94,10 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        /*NSBundle *mainBundle = [NSBundle mainBundle];        
-        NSURL *tickURL = [NSURL fileURLWithPath:[mainBundle pathForResource:@"tick5" ofType:@"aif"]];
-        tickPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:tickURL error:nil];
-        [tickPlayer prepareToPlay];*/
-        
         scaleTimer = [[Timer alloc] init];
         arpeggioTimer = [[Timer alloc] init];
+        currentPractice = YES;
+        selectedSession = [[ScaleStore defaultStore] mySession];
     }
     return self;
 }
@@ -108,7 +105,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+    // break up into smaller methods
     UINib *nib = [UINib nibWithNibName:@"ScalesPracticedCell" bundle:nil];
     [statsTable registerNib:nib 
      forCellReuseIdentifier:@"ScalesPracticedCell"];
@@ -124,7 +121,6 @@
     [tapAwayGesture setDelegate:self];
     [self.view addGestureRecognizer:tapAwayGesture];
     [tapAwayGesture setEnabled:NO];
-    
     greyMask = [[UIView alloc] initWithFrame:[self.view frame]];
     [greyMask setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:1.0]];
     [greyMask setAlpha:0];
@@ -132,13 +128,30 @@
     stepper = [[CustomStepper alloc] initWithPoint:CGPointMake(224, 15) andLabel:tempoLabel];
     [stepper setDelegate:self];
     [metronomeView addSubview:stepper];
-    currentPractice = YES;
     openSectionIndex = NSNotFound;
-    
     [metroTimeScroll setContentSize:CGSizeMake(640.0, 58)];
     [metroTimeScroll setShowsHorizontalScrollIndicator:NO];
-    
     metro = [[Metronome alloc] init];
+    
+    if (self.sectionInfoArray == nil)
+    {
+        SectionInfo *sectionZero = [[SectionInfo alloc] init];
+        [sectionZero setOpen:NO];
+        [sectionZero setTitle:@"Scales"];
+        SectionInfo *sectionOne = [[SectionInfo alloc] init];
+        [sectionOne setOpen:NO];
+        [sectionOne setTitle:@"Arpeggios"];
+        sectionInfoArray = [NSMutableArray arrayWithObjects:sectionZero, sectionOne, nil];
+        for (int i = 0; i < [[selectedSession pieceSession] count]; i++)
+        {
+            SectionInfo *pieceInfo = [[SectionInfo alloc] init];
+            [pieceInfo setTitle:[[[selectedSession pieceSession] objectAtIndex:i] title]];
+            [pieceInfo setCountofRowsToInsert:1];
+            [sectionInfoArray addObject:pieceInfo];
+        }
+    }
+    [[sectionInfoArray objectAtIndex:0] setCountofRowsToInsert:[[selectedSession scaleSession] count]];
+    [[sectionInfoArray objectAtIndex:1] setCountofRowsToInsert:[[selectedSession arpeggioSession] count]];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -150,30 +163,13 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
-    if ((self.sectionInfoArray == nil) || ([self.sectionInfoArray count] != [self numberOfSectionsInTableView:statsTable])) 
+    for (int i = ([sectionInfoArray count] - 2); i < [[selectedSession pieceSession] count]; i++)
     {
-        SectionInfo *sectionZero = [[SectionInfo alloc] init];
-        [sectionZero setOpen:NO];
-        [sectionZero setTitle:@"Scales"];
-        SectionInfo *sectionOne = [[SectionInfo alloc] init];
-        [sectionOne setOpen:NO];
-        [sectionOne setTitle:@"Arpeggios"];
-        sectionInfoArray = [NSMutableArray arrayWithObjects:sectionZero, sectionOne, nil];
-        if ((selectedSession == nil) || currentPractice)
-            selectedSession = [[ScaleStore defaultStore] mySession];
-        
-        for (int i = 0; i < [[selectedSession pieceSession] count]; i++)
-        {
-            SectionInfo *pieceInfo = [[SectionInfo alloc] init];
-            [pieceInfo setTitle:[[[selectedSession pieceSession] objectAtIndex:i] title]];
-            [pieceInfo setCountofRowsToInsert:1];
-            [sectionInfoArray addObject:pieceInfo];
-        }
+        SectionInfo *pieceInfo = [[SectionInfo alloc] init];
+        [pieceInfo setTitle:[[[selectedSession pieceSession] objectAtIndex:i] title]];
+        [pieceInfo setCountofRowsToInsert:1];
+        [sectionInfoArray addObject:pieceInfo];
     }
-
-    [[sectionInfoArray objectAtIndex:0] setCountofRowsToInsert:[[selectedSession scaleSession] count]];
-    [[sectionInfoArray objectAtIndex:1] setCountofRowsToInsert:[[selectedSession arpeggioSession] count]];
     [statsTable reloadData];
 }
 
@@ -279,6 +275,7 @@
 
 - (void)dateChanged
 {
+    // deal with picking today
     NSArray *sessions = [[ScaleStore defaultStore] sessions];    
     NSCalendar *cal = [NSCalendar currentCalendar];
     NSDateComponents *components = [cal components:(NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit) fromDate:[datePicker date]];
@@ -310,11 +307,6 @@
     [[sectionInfoArray objectAtIndex:0] setCountofRowsToInsert:[[selectedSession scaleSession] count]];
     [[sectionInfoArray objectAtIndex:1] setCountofRowsToInsert:[[selectedSession arpeggioSession] count]];
     [statsTable reloadData];
-    
-    NSLog(@"scales time: %i", [selectedSession scaleTime]);
-    NSLog(@"arps time: %i", [selectedSession arpeggioTime]);
-    for (Piece *p in [selectedSession pieceSession])
-        NSLog(@"piece time: %i for piece: %@", [p pieceTime], [p title]);
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)myScrollView

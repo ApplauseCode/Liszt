@@ -15,6 +15,4 @@
 @property (strong) NSString *title;
 @property (assign) NSInteger countofRowsToInsert;
 
-
-
 @end

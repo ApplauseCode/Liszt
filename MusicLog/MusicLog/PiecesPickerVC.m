@@ -65,15 +65,15 @@
 {
     Piece *createdPiece = [[Piece alloc] init];
     ScaleStore *store = [ScaleStore defaultStore];
-    
     [createdPiece setTitle:[titleLabel text]];
     [createdPiece setComposer:[composerLabel text]];
     [createdPiece setOpus:[[opusLabel text] intValue]];
     [createdPiece setTempo:[tempoStepper tempo]];
     [createdPiece setMajor:[modeSeg selectedSegmentIndex]];
     [createdPiece setPieceKey:[keyChooser selectedCellIndex]];
-    
     [store addPiece:createdPiece];
+    
+    [self sessionSave];
 }
 
 - (void)backToPieces:(id)sender
@@ -114,8 +114,6 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [self sessionSave];
-
    /* if ([[self parentViewController] isKindOfClass:[StatsVC class]])
     [[self parentViewController] modalViewDismissed];*/
 }
