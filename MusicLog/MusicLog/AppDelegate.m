@@ -60,4 +60,6 @@
     [[ScaleStore defaultStore] saveChanges];
 }
 
+- (void)middleTab {}
+
 @end

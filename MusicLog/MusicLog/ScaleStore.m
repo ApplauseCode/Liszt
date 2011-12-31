@@ -19,6 +19,7 @@ static ScaleStore *defaultStore = nil;
 @property (nonatomic, strong) NSArray *objectsArchive;
 
 @end
+
 @implementation ScaleStore
 
 @synthesize objectsArchive;

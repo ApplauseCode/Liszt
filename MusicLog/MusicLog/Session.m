@@ -10,12 +10,9 @@
 
 @implementation Session
 
-@synthesize scaleSession;
-@synthesize scaleTime;
-@synthesize arpeggioTime;
-@synthesize pieceTime;
-@synthesize arpeggioSession;
-@synthesize pieceSession;
+@synthesize scaleSession,       scaleTime;
+@synthesize arpeggioSession,    arpeggioTime;
+@synthesize pieceSession,       pieceTime;
 @synthesize date;
 
 - (id)initWithDayOffset:(int)n
@@ -73,6 +70,7 @@
 
 - (void)encodeWithCoder:(NSCoder *)aCoder
 {
+    NSLog(@"Piece Time %i", pieceTime);
     [aCoder encodeObject:scaleSession forKey:@"scaleSession"];
     [aCoder encodeInt:scaleTime forKey:@"scaleTime"];
     [aCoder encodeInt:arpeggioTime forKey:@"arpeggioTime"];

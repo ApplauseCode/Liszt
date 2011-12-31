@@ -166,8 +166,6 @@
             [sectionInfoArray addObject:pieceInfo];
         }
     }
-    [[sectionInfoArray objectAtIndex:0] setCountofRowsToInsert:[[selectedSession scaleSession] count]];
-    [[sectionInfoArray objectAtIndex:1] setCountofRowsToInsert:[[selectedSession arpeggioSession] count]];
 }
 
 
@@ -187,6 +185,8 @@
         [pieceInfo setCountofRowsToInsert:1];
         [sectionInfoArray addObject:pieceInfo];
     }
+    [[sectionInfoArray objectAtIndex:0] setCountofRowsToInsert:[[selectedSession scaleSession] count]];
+    [[sectionInfoArray objectAtIndex:1] setCountofRowsToInsert:[[selectedSession arpeggioSession] count]];
     [statsTable reloadData];
 }
 
@@ -361,6 +361,7 @@
         entry = [[selectedSession arpeggioSession] objectAtIndex:[indexPath row]];
     if (section < 2)
     {
+        NSLog(@"%i: %@",[[selectedSession scaleSession] count],[entry tonicString]);
         cell.tonicLabel.text = [entry tonicString];
         cell.modeLabel.text = [entry modeString];
         cell.rhythmLabel.text = [entry rhythmString];
