@@ -12,7 +12,7 @@
 
 @synthesize scaleSession,       scaleTime;
 @synthesize arpeggioSession,    arpeggioTime;
-@synthesize pieceSession,       pieceTime;
+@synthesize pieceSession/*,       pieceTime*/;
 @synthesize date;
 
 - (id)initWithDayOffset:(int)n
@@ -37,7 +37,7 @@
     [copy setScaleSession:[[self scaleSession] copy]];
     [copy setScaleTime:[self scaleTime]];
     [copy setArpeggioTime:[self arpeggioTime]];
-    [copy setPieceTime:[self pieceTime]];
+    //[copy setPieceTime:[self pieceTime]];
     [copy setArpeggioSession:[[self arpeggioSession] copy]];
     [copy setPieceSession:[[self pieceSession] copy]];
     return copy;
@@ -60,7 +60,7 @@
     [self setScaleSession:[aDecoder decodeObjectForKey:@"scaleSession"]];
     [self setScaleTime:[aDecoder decodeIntForKey:@"scaleTime"]];
     [self setArpeggioTime:[aDecoder decodeIntForKey:@"arpeggioTime"]];
-    [self setPieceTime:[aDecoder decodeIntForKey:@"pieceTime"]];
+    //[self setPieceTime:[aDecoder decodeIntForKey:@"pieceTime"]];
     [self setArpeggioSession:[aDecoder decodeObjectForKey:@"arpeggioSession"]];
     [self setPieceSession:[aDecoder decodeObjectForKey:@"pieceSession"]];
     [self setDate:[aDecoder decodeObjectForKey:@"date"]];
@@ -70,11 +70,12 @@
 
 - (void)encodeWithCoder:(NSCoder *)aCoder
 {
-    NSLog(@"Piece Time %i", pieceTime);
+   // NSLog(@"Piece Time %i", pieceTime);
     [aCoder encodeObject:scaleSession forKey:@"scaleSession"];
+    NSLog(@"Scale Time %i",scaleTime);
     [aCoder encodeInt:scaleTime forKey:@"scaleTime"];
     [aCoder encodeInt:arpeggioTime forKey:@"arpeggioTime"];
-    [aCoder encodeInt:pieceTime forKey:@"pieceTime"];
+    //[aCoder encodeInt:pieceTime forKey:@"pieceTime"];
     [aCoder encodeObject:arpeggioSession forKey:@"arpeggioSession"];
     [aCoder encodeObject:pieceSession forKey:@"pieceSession"];
     [aCoder encodeObject:date forKey:@"date"];

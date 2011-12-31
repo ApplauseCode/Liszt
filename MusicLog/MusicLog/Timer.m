@@ -31,6 +31,17 @@ BOOL doubleDigit(int x)
 @implementation Timer
 @synthesize elapsedTime, timeLabel, timeButton;
 
+- (id)initWithElapsedTime:(int)time
+{
+    self = [super init];
+    if (self)
+    {
+        elapsedTime = time;
+    }
+    
+    return self;
+}
+
 - (id)initWithLabel:(UILabel *)label
 {
     self = [super init];
@@ -41,6 +52,7 @@ BOOL doubleDigit(int x)
     
     return self;
 }
+
 - (id)init
 {
     self = [super init];

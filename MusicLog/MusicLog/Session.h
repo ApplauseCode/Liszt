@@ -15,7 +15,7 @@
 @property (nonatomic, strong) NSMutableOrderedSet *pieceSession;
 @property (nonatomic) int scaleTime;
 @property (nonatomic) int arpeggioTime;
-@property (nonatomic) int pieceTime;
+//@property (nonatomic) int pieceTime;
 @property (nonatomic, strong) NSDate *date;
 
 //TEMP

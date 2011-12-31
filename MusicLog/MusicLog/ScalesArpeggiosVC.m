@@ -206,7 +206,7 @@
             break;
         case 2:
             [[ScaleStore defaultStore] addPiecesToSession];
-            [mySession setPieceTime:[timer elapsedTime]];
+            //[mySession setPieceTime:[timer elapsedTime]];
             break;
     }
 }
