@@ -100,10 +100,10 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        scaleTimer = [[Timer alloc] init];
-        arpeggioTimer = [[Timer alloc] init];
-        currentPractice = YES;
         selectedSession = [[ScaleStore defaultStore] mySession];
+        scaleTimer = [[Timer alloc] initWithElapsedTime:[selectedSession scaleTime]];
+        arpeggioTimer = [[Timer alloc] initWithElapsedTime:[selectedSession arpeggioTime]];
+        currentPractice = YES;
     }
     return self;
 }
@@ -361,7 +361,6 @@
         entry = [[selectedSession arpeggioSession] objectAtIndex:[indexPath row]];
     if (section < 2)
     {
-        NSLog(@"%i: %@",[[selectedSession scaleSession] count],[entry tonicString]);
         cell.tonicLabel.text = [entry tonicString];
         cell.modeLabel.text = [entry modeString];
         cell.rhythmLabel.text = [entry rhythmString];
@@ -397,6 +396,7 @@
             if (section ==  0)
             {
                 time = [scaleTimer timeString];
+
             }
             else if (section == 1)
             {
@@ -499,19 +499,22 @@
 - (void)sectionHeaderView:(SectionHeaderView *)sectionHeaderView sectionClosed:(NSInteger)section
 {
     NSString *time;
+    ScaleStore *store = [ScaleStore defaultStore];
     if (section == 0)
     {
-            [[scaleTimer timeButton] setTitle:@"Start" forState:UIControlStateNormal];
-            [scaleTimer stopTimer];
+        [[scaleTimer timeButton] setTitle:@"Start" forState:UIControlStateNormal];
+        [scaleTimer stopTimer];
         time = [scaleTimer timeString];
+        [[store mySession] setScaleTime:[scaleTimer elapsedTime]];
     }
     else if (section == 1)
     {
-            [[arpeggioTimer timeButton] setTitle:@"Start" forState:UIControlStateNormal];
-            [arpeggioTimer stopTimer];
+        [[arpeggioTimer timeButton] setTitle:@"Start" forState:UIControlStateNormal];
+        [arpeggioTimer stopTimer];
         time = [arpeggioTimer timeString];
+        [[store mySession] setArpeggioTime:[arpeggioTimer elapsedTime]];
     }
-   else
+    else
     {
         Timer *pieceTimer = [[[selectedSession pieceSession] objectAtIndex:(section - 2)] timer];
         [[pieceTimer timeButton] setTitle:@"Start" forState:UIControlStateNormal];

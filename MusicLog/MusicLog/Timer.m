@@ -33,12 +33,16 @@ BOOL doubleDigit(int x)
 
 - (id)initWithElapsedTime:(int)time
 {
+    int remainder;
     self = [super init];
     if (self)
     {
+        hours =  time / 3600;
+        remainder = time % 3600;
+        minutes = remainder / 60;
+        seconds = remainder % 60;
         elapsedTime = time;
     }
-    
     return self;
 }
 

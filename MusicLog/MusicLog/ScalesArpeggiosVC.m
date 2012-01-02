@@ -107,7 +107,7 @@
     [scrollView addSubview:timerResetButton];
     
     // Configure the appearance of buttons and labels
-    [timerLabel setText:@"00:00:00"];
+    //[timerLabel setText:@"00:00:00"];
     [startTimerButton setTitle:@"Start" forState:UIControlStateNormal];
     [tempoLabel setText:[NSString stringWithFormat:@"%u bpm", stepper.tempo]];
     [metroButton setTitle:@"Start" forState:UIControlStateNormal];
@@ -128,14 +128,14 @@
     int page = floor((scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
     pageControl.currentPage = page;
     
-    timer = [[Timer alloc] initWithLabel:timerLabel];
+    //timer = [[Timer alloc] initWithLabel:timerLabel];
+    timer = [[Timer alloc] initWithElapsedTime:3];
     
     sectionHeader = [[[NSBundle mainBundle] loadNibNamed:@"CustomSectionHeader" owner:self options:nil] objectAtIndex:0];
     
     NSDateFormatter *time = [[NSDateFormatter alloc] init];
     [time setDateFormat:@"HH:mm"];
     NSString *timeString = [time stringFromDate:[[[ScaleStore defaultStore] mySession] date]];
-    NSLog(@"%@", timeString);
     [sessionTime setText:timeString];
 }
 
@@ -378,7 +378,6 @@
     NSDateFormatter *time = [[NSDateFormatter alloc] init];
     [time setDateFormat:@"HH:mm"];
     NSString *timeString = [time stringFromDate:[[store mySession] date]];
-    NSLog(@"%@", timeString);
     [sessionTime setText:timeString];
 }
 

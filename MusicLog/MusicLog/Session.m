@@ -72,7 +72,6 @@
 {
    // NSLog(@"Piece Time %i", pieceTime);
     [aCoder encodeObject:scaleSession forKey:@"scaleSession"];
-    NSLog(@"Scale Time %i",scaleTime);
     [aCoder encodeInt:scaleTime forKey:@"scaleTime"];
     [aCoder encodeInt:arpeggioTime forKey:@"arpeggioTime"];
     //[aCoder encodeInt:pieceTime forKey:@"pieceTime"];
