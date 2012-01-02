@@ -33,17 +33,22 @@ BOOL doubleDigit(int x)
 
 - (id)initWithElapsedTime:(int)time
 {
-    int remainder;
     self = [super init];
     if (self)
     {
-        hours =  time / 3600;
-        remainder = time % 3600;
-        minutes = remainder / 60;
-        seconds = remainder % 60;
-        elapsedTime = time;
+        [self changeTimeTo:time];
     }
     return self;
+}
+
+- (void)changeTimeTo:(int)time
+{
+    int remainder;
+    hours =  time / 3600;
+    remainder = time % 3600;
+    minutes = remainder / 60;
+    seconds = remainder % 60;
+    elapsedTime = time;
 }
 
 - (id)initWithLabel:(UILabel *)label
@@ -131,7 +136,7 @@ BOOL doubleDigit(int x)
 - (void)resetTimer
 {
     [timer invalidate];
-    elapsedTime = (hours * 3600) + (minutes * 60) + seconds;
+    elapsedTime = 0;
     hours = 0;
     minutes = 0;
     seconds = 0;

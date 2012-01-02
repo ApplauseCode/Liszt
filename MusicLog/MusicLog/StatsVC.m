@@ -254,6 +254,12 @@
     [store addSession];
     [scaleTimer resetTimer];
     [arpeggioTimer resetTimer];
+    //[scaleTimer changeTimeTo:[selectedSession scaleTime]];
+    //[arpeggioTimer changeTimeTo:[selectedSession arpeggioTime]];
+    [self setSelectedSession:[store mySession]];
+    [[sectionInfoArray objectAtIndex:0] setCountofRowsToInsert:[[selectedSession scaleSession] count]];
+    [[sectionInfoArray objectAtIndex:1] setCountofRowsToInsert:[[selectedSession arpeggioSession] count]];
+    [statsTable reloadData];
 }
 
 - (void)slideDown:(id)sender
@@ -321,6 +327,8 @@
         [selSessionDisplay setText:[NSString stringWithFormat:@"Session %i, Created on %@", selSessionNum, [selectedSession date]]];
         currentPractice = NO;
     }
+    [scaleTimer changeTimeTo:[selectedSession scaleTime]];
+    [arpeggioTimer changeTimeTo:[selectedSession arpeggioTime]];
     [[sectionInfoArray objectAtIndex:0] setCountofRowsToInsert:[[selectedSession scaleSession] count]];
     [[sectionInfoArray objectAtIndex:1] setCountofRowsToInsert:[[selectedSession arpeggioSession] count]];
     [statsTable reloadData];
@@ -391,32 +399,20 @@
 		NSString *sectionName = sectionInfo.title;
         sectionInfo.headerView = [[SectionHeaderView alloc] initWithFrame:CGRectMake(0.0, 0.0, statsTable.bounds.size.width, 45) title:sectionName subTitle:@"" section:section delegate:self];
         NSString *time;
-        if (currentPractice)
+        if (section ==  0)
         {
-            if (section ==  0)
-            {
-                time = [scaleTimer timeString];
-
-            }
-            else if (section == 1)
-            {
-                time = [arpeggioTimer timeString];
-            }
-            else
-            {
-                time = [[[[selectedSession pieceSession] objectAtIndex:(section - 2)] timer] timeString];
-            }
-            [sectionInfo.headerView setSubTitle:time];
+            time = [scaleTimer timeString];
+            
+        }
+        else if (section == 1)
+        {
+            time = [arpeggioTimer timeString];
         }
         else
         {
-            if (section == 0)
-                time = [NSString TimeStringFromInt:[selectedSession scaleTime]];
-            else if (section == 1)
-                time = [NSString TimeStringFromInt:[selectedSession arpeggioTime]];
-            else
-                time = [[[[selectedSession pieceSession] objectAtIndex:(section - 2)] timer] timeString];
+            time = [[[[selectedSession pieceSession] objectAtIndex:(section - 2)] timer] timeString];
         }
+        [sectionInfo.headerView setSubTitle:time];
     }
     return sectionInfo.headerView;
 }

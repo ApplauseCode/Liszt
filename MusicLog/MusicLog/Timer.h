@@ -21,5 +21,6 @@ BOOL doubleDigit(int x);
 - (void)resetTimer;
 - (NSString *)timeString;
 - (void)disconnectTimers;
+- (void)changeTimeTo:(int)time;
 
 @end
