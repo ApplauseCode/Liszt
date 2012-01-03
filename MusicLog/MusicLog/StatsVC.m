@@ -44,8 +44,8 @@
 @property (nonatomic, strong)   Metronome *metro;
 
 - (void)makeMenu;
-- (void) makeMetronome;
-- (void) setUpScalesAndArpeggios;
+- (void)makeMetronome;
+- (void)setUpScalesAndArpeggios;
 - (void)tempoTimerFireMethod:(NSTimer*)aTimer;
 - (double)chooseBPM:(double)bpm;
 - (void)dateChanged;
@@ -254,8 +254,6 @@
     [store addSession];
     [scaleTimer resetTimer];
     [arpeggioTimer resetTimer];
-    //[scaleTimer changeTimeTo:[selectedSession scaleTime]];
-    //[arpeggioTimer changeTimeTo:[selectedSession arpeggioTime]];
     [self setSelectedSession:[store mySession]];
     [[sectionInfoArray objectAtIndex:0] setCountofRowsToInsert:[[selectedSession scaleSession] count]];
     [[sectionInfoArray objectAtIndex:1] setCountofRowsToInsert:[[selectedSession arpeggioSession] count]];
