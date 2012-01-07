@@ -75,8 +75,6 @@
 @protocol SectionHeaderViewDelegate <NSObject>
 
 @optional
--(void)sectionHeaderView:(SectionHeaderView*)sectionHeaderView sectionOpened:(NSInteger)section;
--(void)sectionHeaderView:(SectionHeaderView*)sectionHeaderView sectionClosed:(NSInteger)section;
-
+-(void)sectionHeaderView:(SectionHeaderView*)sectionHeaderView tapped:(NSInteger)section;
 @end
 

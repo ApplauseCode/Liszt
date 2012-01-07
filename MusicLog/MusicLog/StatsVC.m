@@ -5,7 +5,6 @@
 //  Created by Kyle Rosenbluth on 8/30/11.
 //  Copyright (c) 2011 __MyCompanyName__. All rights reserved.
 //
-
 #import <AVFoundation/AVFoundation.h>
 #import "StatsVC.h"
 #import "ScalePickerVC.h"
@@ -46,15 +45,14 @@
 - (void)makeMenu;
 - (void)makeMetronome;
 - (void)setUpScalesAndArpeggios;
-- (void)tempoTimerFireMethod:(NSTimer*)aTimer;
-- (double)chooseBPM:(double)bpm;
 - (void)dateChanged;
 - (void)hideMenu:(id)sender;
-
+- (void)changeTimeForTimers;
+- (void)sectionHeaderView:(SectionHeaderView *)sectionHeaderView sectionOpened:(NSInteger)section;
+- (void)sectionHeaderView:(SectionHeaderView *)sectionHeaderView sectionClosed:(NSInteger)section;
 @end
 
 @implementation StatsVC
-
 @synthesize tempoLabel, metronomeView, timerView, metroTimeScroll, scrollPage, startTimer, timerDisplay, statsTable;
 @synthesize selSessionDisplay, chooseDateButton, myPopover, chooseScalesButton, chooseArpsButton, choosePiecesButton;
 @synthesize scaleTimer;
@@ -168,13 +166,6 @@
     }
 }
 
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-   // [statsTable reloadData];
-}
-
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -190,7 +181,7 @@
     [statsTable reloadData];
 }
 
-#pragma mark - Actions
+#pragma mark - View Actions
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
 {
@@ -221,6 +212,57 @@
     [tapAwayGesture setEnabled:NO];
     for (SectionInfo *info in sectionInfoArray)
         [[[info headerView] tapGesture] setEnabled:YES];
+}
+
+- (void)slideDown:(id)sender
+{
+    //calculate rect size not hard coded
+    if ([datePicker frame].origin.y < -215.0)
+    {
+        [UIView animateWithDuration:0.25 delay:0 options:UIViewAnimationCurveEaseInOut animations:^{
+            [datePicker setFrame:CGRectMake(0.0, 10.0, 320, 253)];
+            [chooseDateButton setFrame:CGRectMake(124, 226, 72, 37)];
+        } completion:^(BOOL finished) {
+            [UIView animateWithDuration:0.15 delay:0 options:UIViewAnimationCurveEaseInOut animations:^{
+                [datePicker setFrame:CGRectMake(0.0, -12, 320, 253)];
+                [chooseDateButton setFrame:CGRectMake(124, 204, 72, 37)];
+            } completion:^(BOOL finished) {
+                [UIView animateWithDuration:0.15 delay:0 options:UIViewAnimationCurveEaseInOut animations:^{
+                    [datePicker setFrame:CGRectMake(0.0, 0.0, 320, 253)];
+                    [chooseDateButton setFrame:CGRectMake(124, 216, 72, 37)];
+                } completion:^(BOOL finished) {
+                    [chooseDateButton setTitle:@"Done" forState:UIControlStateNormal];
+                }];
+            }];
+        }];
+    }
+    else if ([datePicker frame].origin.y > -1.0)
+    {
+        [UIView animateWithDuration:0.5 animations:^{
+            [datePicker setFrame:CGRectMake(0.0, -216.0, 320, 253)];
+            [chooseDateButton setFrame:CGRectMake(124, 10, 72, 37)];
+        }completion:^(BOOL finished) {
+            [chooseDateButton setTitle:@"Date" forState:UIControlStateNormal];
+            [self dateChanged];
+        }];
+    }
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)myScrollView
+{
+    if ([myScrollView isEqual:metroTimeScroll]) 
+    {
+        CGFloat pageWidth = myScrollView.frame.size.width;
+        int page = floor((myScrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
+        scrollPage.currentPage = page;
+    }
+}
+
+#pragma mark - Model Actions
+
+- (void)valueChanged
+{
+    [metro changeTempoWithTempo:[stepper tempo]];
 }
 
 - (void)addScales:(id)sender
@@ -255,42 +297,39 @@
     [scaleTimer resetTimer];
     [arpeggioTimer resetTimer];
     [self setSelectedSession:[store mySession]];
-    [[sectionInfoArray objectAtIndex:0] setCountofRowsToInsert:[[selectedSession scaleSession] count]];
-    [[sectionInfoArray objectAtIndex:1] setCountofRowsToInsert:[[selectedSession arpeggioSession] count]];
+    [sectionInfoArray removeObjectsInRange:NSMakeRange(2, ([sectionInfoArray count] - 2))];
+    [[sectionInfoArray objectAtIndex:0] setCountofRowsToInsert:0];
+    [[sectionInfoArray objectAtIndex:1] setCountofRowsToInsert:0];
     [statsTable reloadData];
 }
 
-- (void)slideDown:(id)sender
+- (void)changeTimeForTimers
 {
-    //calculate rect size not hard coded
-    if ([datePicker frame].origin.y < -215.0)
+    if (scaleTimer)
+        [scaleTimer changeTimeTo:[selectedSession scaleTime]];
+    else
     {
-        [UIView animateWithDuration:0.25 delay:0 options:UIViewAnimationCurveEaseInOut animations:^{
-            [datePicker setFrame:CGRectMake(0.0, 10.0, 320, 253)];
-            [chooseDateButton setFrame:CGRectMake(124, 226, 72, 37)];
-        } completion:^(BOOL finished) {
-            [UIView animateWithDuration:0.15 delay:0 options:UIViewAnimationCurveEaseInOut animations:^{
-                [datePicker setFrame:CGRectMake(0.0, -12, 320, 253)];
-                [chooseDateButton setFrame:CGRectMake(124, 204, 72, 37)];
-            } completion:^(BOOL finished) {
-                [UIView animateWithDuration:0.15 delay:0 options:UIViewAnimationCurveEaseInOut animations:^{
-                    [datePicker setFrame:CGRectMake(0.0, 0.0, 320, 253)];
-                    [chooseDateButton setFrame:CGRectMake(124, 216, 72, 37)];
-                } completion:^(BOOL finished) {
-                    [chooseDateButton setTitle:@"Done" forState:UIControlStateNormal];
-                }];
-            }];
-        }];
+        Timer *s = [[Timer alloc] initWithElapsedTime:[selectedSession scaleTime]];
+        scaleTimer = s;
     }
-    else if ([datePicker frame].origin.y > -1.0)
+    
+    if (arpeggioTimer)
+        [arpeggioTimer changeTimeTo:[selectedSession arpeggioTime]];
+    else
     {
-        [UIView animateWithDuration:0.5 animations:^{
-            [datePicker setFrame:CGRectMake(0.0, -216.0, 320, 253)];
-            [chooseDateButton setFrame:CGRectMake(124, 10, 72, 37)];
-        }completion:^(BOOL finished) {
-           [chooseDateButton setTitle:@"Date" forState:UIControlStateNormal];
-            [self dateChanged];
-        }];
+        Timer *a = [[Timer alloc] initWithElapsedTime:[selectedSession arpeggioTime]];
+        arpeggioTimer = a;
+    }
+    
+    for (Piece *p in [selectedSession pieceSession])
+    {
+        if ([p timer])
+            [[p timer] changeTimeTo:[p pieceTime]];
+        else
+        {
+            Timer *t = [[Timer alloc] initWithElapsedTime:[p pieceTime]];
+            [p setTimer:t];
+        }
     }
 }
 
@@ -325,24 +364,21 @@
         [selSessionDisplay setText:[NSString stringWithFormat:@"Session %i, Created on %@", selSessionNum, [selectedSession date]]];
         currentPractice = NO;
     }
-    [scaleTimer changeTimeTo:[selectedSession scaleTime]];
-    [arpeggioTimer changeTimeTo:[selectedSession arpeggioTime]];
+    [self changeTimeForTimers];
     [[sectionInfoArray objectAtIndex:0] setCountofRowsToInsert:[[selectedSession scaleSession] count]];
     [[sectionInfoArray objectAtIndex:1] setCountofRowsToInsert:[[selectedSession arpeggioSession] count]];
+    for (int i = ([sectionInfoArray count] - 2); i < [[selectedSession pieceSession] count]; i++)
+    {
+        SectionInfo *pieceInfo = [[SectionInfo alloc] init];
+        [pieceInfo setTitle:[[[selectedSession pieceSession] objectAtIndex:i] title]];
+        [pieceInfo setCountofRowsToInsert:1];
+        [sectionInfoArray addObject:pieceInfo];
+    }
     [statsTable reloadData];
 }
 
-- (void)scrollViewDidScroll:(UIScrollView *)myScrollView
-{
-    if ([myScrollView isEqual:metroTimeScroll]) 
-    {
-        CGFloat pageWidth = myScrollView.frame.size.width;
-        int page = floor((myScrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
-        scrollPage.currentPage = page;
-    }
-}
-
 #pragma mark - Table View
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
         return (2 + [[selectedSession pieceSession] count]);
@@ -353,6 +389,32 @@
     SectionInfo *sectionInfo = [self.sectionInfoArray objectAtIndex:section];
     NSInteger numRowsInSection = [sectionInfo countofRowsToInsert];
     return sectionInfo.open ? numRowsInSection : 0;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+	SectionInfo *sectionInfo = [self.sectionInfoArray objectAtIndex:section];
+    if ((!sectionInfo.headerView) || (section == 0) || (section == 1)) 
+    {
+		NSString *sectionName = sectionInfo.title;
+        sectionInfo.headerView = [[SectionHeaderView alloc] initWithFrame:CGRectMake(0.0, 0.0, statsTable.bounds.size.width, 45) title:sectionName subTitle:@"woops" section:section delegate:self];
+        NSString *time;
+        if (section ==  0)
+        {
+            time = [scaleTimer timeString];
+            
+        }
+        else if (section == 1)
+        {
+            time = [arpeggioTimer timeString];
+        }
+        else
+        {
+            time = [[[[selectedSession pieceSession] objectAtIndex:(section - 2)] timer] timeString];
+        }
+        [sectionInfo.headerView setSubTitle:time];
+    }
+    return sectionInfo.headerView;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -389,30 +451,15 @@
     return cell;
 }
 
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+#pragma mark - Handling Sections
+
+- (void)sectionHeaderView:(SectionHeaderView *)sectionHeaderView tapped:(NSInteger)section
 {
-	SectionInfo *sectionInfo = [self.sectionInfoArray objectAtIndex:section];
-    if (!sectionInfo.headerView) 
-    {
-		NSString *sectionName = sectionInfo.title;
-        sectionInfo.headerView = [[SectionHeaderView alloc] initWithFrame:CGRectMake(0.0, 0.0, statsTable.bounds.size.width, 45) title:sectionName subTitle:@"" section:section delegate:self];
-        NSString *time;
-        if (section ==  0)
-        {
-            time = [scaleTimer timeString];
-            
-        }
-        else if (section == 1)
-        {
-            time = [arpeggioTimer timeString];
-        }
-        else
-        {
-            time = [[[[selectedSession pieceSession] objectAtIndex:(section - 2)] timer] timeString];
-        }
-        [sectionInfo.headerView setSubTitle:time];
-    }
-    return sectionInfo.headerView;
+    SectionInfo *sectionInfo = [self.sectionInfoArray objectAtIndex:section];
+    if (!sectionInfo.open)
+        [self sectionHeaderView:sectionHeaderView sectionOpened:section];
+    else
+        [self sectionHeaderView:sectionHeaderView sectionClosed:section];
 }
 
 -(void)sectionHeaderView:(SectionHeaderView *)sectionHeaderView sectionOpened:(NSInteger)section
@@ -463,7 +510,7 @@
         {
                 [[arpeggioTimer timeButton] setTitle:@"Start" forState:UIControlStateNormal];
                 [arpeggioTimer stopTimer];
-            time = [arpeggioTimer timeString];
+                time = [arpeggioTimer timeString];
         }
         else
         {
@@ -538,11 +585,5 @@
         [sender setTitle:@"Stop" forState:UIControlStateNormal];
     else if ([[sender currentTitle] isEqualToString:@"Stop"])
         [sender setTitle:@"Start" forState:UIControlStateNormal];
-    
-}
-
-- (void)valueChanged
-{
-    [metro changeTempoWithTempo:[stepper tempo]];
 }
 @end

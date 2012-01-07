@@ -78,6 +78,7 @@
 
 - (void)backToPieces:(id)sender
 {
+   // NSLog(@"%@", [[ScaleStore defaultStore] mySession]);
     [self dismissModalViewControllerAnimated:YES];
 }
 

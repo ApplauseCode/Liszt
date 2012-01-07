@@ -131,8 +131,9 @@ static ScaleStore *defaultStore = nil;
     [piecesInSession removeObject:p];
 }
 
-- (void)addSession {   
+- (void)addSession {
     [sessions addObject:[mySession copy]];
+    [self clearAll];
     Session *newSession = [[Session alloc] initWithDayOffset:1];
     [self setMySession:newSession];
 }
