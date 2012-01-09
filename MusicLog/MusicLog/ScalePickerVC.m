@@ -113,9 +113,9 @@
     int row = [tonicChooser selectedCellIndex];
     Scale *pickedScale = [[Scale alloc] init];
     ScaleStore *store = [ScaleStore defaultStore];
-    if (index == 1)
+    if (index == 0)
         [pickedScale setMode:[modeChooser selectedCellIndex]];
-    else if (index == 3)
+    else if (index == 1)
         [pickedScale setMode:([modeChooser selectedCellIndex] + 4)];
     [pickedScale setRhythm:[rhythmChooser selectedCellIndex]];
     [pickedScale setOctaves:[octavesSegmentedControl selectedSegmentIndex] + 1];

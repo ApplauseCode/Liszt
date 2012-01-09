@@ -53,7 +53,8 @@
 @end
 
 @implementation StatsVC
-@synthesize tempoLabel, metronomeView, timerView, metroTimeScroll, scrollPage, startTimer, timerDisplay, statsTable;
+//@synthesize stopTimer;
+@synthesize tempoLabel, metronomeView, timerButton, statsTable;
 @synthesize selSessionDisplay, chooseDateButton, myPopover, chooseScalesButton, chooseArpsButton, choosePiecesButton;
 @synthesize scaleTimer;
 @synthesize arpeggioTimer;
@@ -75,6 +76,7 @@
 
 - (void)viewDidUnload
 {
+    //[self setStopTimer:nil];
     [self setChoosePiecesButton:nil];
     [self setChooseArpsButton:nil];
     [self setChooseScalesButton:nil];
@@ -82,15 +84,13 @@
     [self setChooseDateButton:nil];
     [self setSelSessionDisplay:nil];
     [self setStatsTable:nil];
-    [self setTimerDisplay:nil];
-    [self setStartTimer:nil];
-    [self setScrollPage:nil];
-    [self setMetroTimeScroll:nil];
-    [self setTimerView:nil];
+    [self setTimerButton:nil];
+   // [self setScrollPage:nil];
+   // [self setMetroTimeScroll:nil];
+   // [self setTimerView:nil];
     [self setMetronomeView:nil];
     [self setTempoLabel:nil];
-    timerDisplay = nil;
-    startTimer = nil;
+   // startTimer = nil;
     self.sectionInfoArray = nil;
 }
 
@@ -113,6 +113,9 @@
     UINib *nib = [UINib nibWithNibName:@"ScalesPracticedCell" bundle:nil];
     [statsTable registerNib:nib 
      forCellReuseIdentifier:@"ScalesPracticedCell"];
+    UINib *timerNib = [UINib nibWithNibName:@"TimerCell" bundle:nil];
+    [statsTable registerNib:timerNib
+     forCellReuseIdentifier:@"TimerCell"];
 
     datePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake(0.0, -216.0, 320, 253)];
     [datePicker setDatePickerMode:UIDatePickerModeDate];
@@ -141,8 +144,6 @@
     [stepper setDelegate:self];
     [metronomeView addSubview:stepper];
     openSectionIndex = NSNotFound;
-    [metroTimeScroll setContentSize:CGSizeMake(640.0, 58)];
-    [metroTimeScroll setShowsHorizontalScrollIndicator:NO];
     metro = [[Metronome alloc] init];
 }
 
@@ -248,7 +249,7 @@
     }
 }
 
-- (void)scrollViewDidScroll:(UIScrollView *)myScrollView
+/*- (void)scrollViewDidScroll:(UIScrollView *)myScrollView
 {
     if ([myScrollView isEqual:metroTimeScroll]) 
     {
@@ -256,7 +257,7 @@
         int page = floor((myScrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
         scrollPage.currentPage = page;
     }
-}
+}*/
 
 #pragma mark - Model Actions
 
@@ -384,10 +385,18 @@
         return (2 + [[selectedSession pieceSession] count]);
 }
 
+/*- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if ([indexPath row] == 0)
+        return 55;
+    else
+        return 42;
+}*/
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     SectionInfo *sectionInfo = [self.sectionInfoArray objectAtIndex:section];
-    NSInteger numRowsInSection = [sectionInfo countofRowsToInsert];
+    NSInteger numRowsInSection = [sectionInfo countofRowsToInsert] + 1;
     return sectionInfo.open ? numRowsInSection : 0;
 }
 
@@ -420,13 +429,21 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSInteger section = [indexPath section];
+    NSInteger row = [indexPath row];
     ScalesPracticedCell *cell = (ScalesPracticedCell *) [tableView
                                                          dequeueReusableCellWithIdentifier:@"ScalesPracticedCell"];
+    TimerCell *tCell = (TimerCell *) [tableView
+                                      dequeueReusableCellWithIdentifier:@"TimerCell"];
+    if (row == 0)
+    {
+        timerButton = [tCell timerButton];
+        return tCell;
+    }
     id entry;
     if (section == 0)
-        entry = [[selectedSession scaleSession] objectAtIndex:[indexPath row]];
+        entry = [[selectedSession scaleSession] objectAtIndex:([indexPath row] - 1)];
     else if (section == 1)
-        entry = [[selectedSession arpeggioSession] objectAtIndex:[indexPath row]];
+        entry = [[selectedSession arpeggioSession] objectAtIndex:([indexPath row] - 1)];
     if (section < 2)
     {
         cell.tonicLabel.text = [entry tonicString];
@@ -464,39 +481,45 @@
 
 -(void)sectionHeaderView:(SectionHeaderView *)sectionHeaderView sectionOpened:(NSInteger)section
 {
+    SectionInfo *sectionInfo = [self.sectionInfoArray objectAtIndex:section];
     [scaleTimer disconnectTimers];
     [arpeggioTimer disconnectTimers];
     for (int i = 0; i < [[selectedSession pieceSession] count]; i++)
          [[[[selectedSession pieceSession] objectAtIndex:i] timer] disconnectTimers];
     if (section == 0)
     {
-            [scaleTimer setTimeButton:startTimer];
-            [[scaleTimer timeButton] setTitle:@"Start" forState:UIControlStateNormal];
-            [scaleTimer setTimeLabel:timerDisplay];
+        [scaleTimer setTimeButton:timerButton];
+        [[scaleTimer timeButton] setTitle:@"Start" forState:UIControlStateNormal];
+        //[scaleTimer setStopButton:stopTimer];
+        // [[scaleTimer startButton] setTitle:@"Start" forState:UIControlStateNormal];
+        //[[scaleTimer stopButton] setEnabled:NO];
+        [scaleTimer setTimeLabel:[sectionInfo.headerView subTitleLabel]];
     }
      else if (section == 1)
      {
-            [arpeggioTimer setTimeButton:startTimer];
-            [[arpeggioTimer timeButton] setTitle:@"Start" forState:UIControlStateNormal];
-            [arpeggioTimer setTimeLabel:timerDisplay];
+         [arpeggioTimer setTimeButton:timerButton];
+         [[arpeggioTimer timeButton] setTitle:@"Start" forState:UIControlStateNormal];
+          //  [[arpeggioTimer timeButton] setTitle:@"Start" forState:UIControlStateNormal];
+        // [[arpeggioTimer stopButton] setEnabled:NO];
+            [arpeggioTimer setTimeLabel:[sectionInfo.headerView subTitleLabel]];
     }
     else 
     {
         Timer *pieceTimer = [[[selectedSession pieceSession] objectAtIndex:(section - 2)] timer];
-        [pieceTimer setTimeButton:startTimer];
-        [[pieceTimer timeButton] setTitle:@"Start" forState:UIControlStateNormal];
-        [pieceTimer setTimeLabel:timerDisplay];
+        [pieceTimer setTimeButton:timerButton];
+        [[pieceTimer timeButton] setTitle:@"Start" forState:UIControlStateNormal]; 
+        //[[pieceTimer timeButton] setTitle:@"Start" forState:UIControlStateNormal];
+       // [[pieceTimer stopButton] setEnabled:NO];
+        [pieceTimer setTimeLabel:[sectionInfo.headerView subTitleLabel]];
     }
-    
-    SectionInfo *sectionInfo = [self.sectionInfoArray objectAtIndex:section];
     sectionInfo.open = YES;
     NSMutableArray *indexPathsToInsert = [[NSMutableArray alloc] init];
-    for (NSInteger i = 0; i < [sectionInfo countofRowsToInsert]; i++) 
+    [indexPathsToInsert addObject:[NSIndexPath indexPathForRow:0 inSection:section]];
+    for (NSInteger i = 1; i <= [sectionInfo countofRowsToInsert]; i++) 
         [indexPathsToInsert addObject:[NSIndexPath indexPathForRow:i inSection:section]];
 
-    
+
     NSMutableArray *indexPathsToDelete = [[NSMutableArray alloc] init];
-    
     NSInteger previousOpenSectionIndex = self.openSectionIndex;
     if (previousOpenSectionIndex != NSNotFound) {
         NSString *time;
@@ -521,11 +544,12 @@
         }
         
 		SectionInfo *previousOpenSection = [self.sectionInfoArray objectAtIndex:previousOpenSectionIndex];
+        [indexPathsToDelete addObject:[NSIndexPath indexPathForRow:0 inSection:previousOpenSectionIndex]];
         [previousOpenSection.headerView setSubTitle:time];
         previousOpenSection.open = NO;
         [previousOpenSection.headerView toggleOpenWithUserAction:NO];
         NSInteger countOfRowsToDelete = [previousOpenSection countofRowsToInsert];
-        for (NSInteger i = 0; i < countOfRowsToDelete; i++) {
+        for (NSInteger i = 1; i <= countOfRowsToDelete; i++) {
             [indexPathsToDelete addObject:[NSIndexPath indexPathForRow:i inSection:previousOpenSectionIndex]];
         }
     }
@@ -543,14 +567,14 @@
     ScaleStore *store = [ScaleStore defaultStore];
     if (section == 0)
     {
-        [[scaleTimer timeButton] setTitle:@"Start" forState:UIControlStateNormal];
+        //[[scaleTimer timeButton] setTitle:@"Start" forState:UIControlStateNormal];
         [scaleTimer stopTimer];
         time = [scaleTimer timeString];
         [[store mySession] setScaleTime:[scaleTimer elapsedTime]];
     }
     else if (section == 1)
     {
-        [[arpeggioTimer timeButton] setTitle:@"Start" forState:UIControlStateNormal];
+       // [[arpeggioTimer timeButton] setTitle:@"Start" forState:UIControlStateNormal];
         [arpeggioTimer stopTimer];
         time = [arpeggioTimer timeString];
         [[store mySession] setArpeggioTime:[arpeggioTimer elapsedTime]];
@@ -558,7 +582,7 @@
     else
     {
         Timer *pieceTimer = [[[selectedSession pieceSession] objectAtIndex:(section - 2)] timer];
-        [[pieceTimer timeButton] setTitle:@"Start" forState:UIControlStateNormal];
+        //[[pieceTimer timeButton] setTitle:@"Start" forState:UIControlStateNormal];
         [pieceTimer stopTimer];
         time = [pieceTimer timeString];
     }

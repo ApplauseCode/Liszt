@@ -13,11 +13,12 @@
 @interface StatsVC : UIViewController <UITableViewDataSource, UITableViewDelegate, SectionHeaderViewDelegate, UIGestureRecognizerDelegate, UIScrollViewDelegate, CustomStepperDelegate>
 @property (strong, nonatomic) IBOutlet UILabel *tempoLabel;
 @property (strong, nonatomic) IBOutlet UIView *metronomeView;
-@property (strong, nonatomic) IBOutlet UIView *timerView;
-@property (strong, nonatomic) IBOutlet UIScrollView *metroTimeScroll;
-@property (strong, nonatomic) IBOutlet UIPageControl *scrollPage;
-@property (strong, nonatomic) IBOutlet UIButton *startTimer;
-@property (strong, nonatomic) IBOutlet UILabel *timerDisplay;
+//@property (strong, nonatomic) IBOutlet UIView *timerView;
+//@property (strong, nonatomic) IBOutlet UIScrollView *metroTimeScroll;
+//@property (strong, nonatomic) IBOutlet UIPageControl *scrollPage;
+//@property (strong, nonatomic) IBOutlet UIButton *startTimer;
+//@property (strong, nonatomic) IBOutlet UIButton *stopTimer;
+@property (strong, nonatomic) UIButton *timerButton;
 @property (strong, nonatomic) IBOutlet UITableView *statsTable;
 @property (strong, nonatomic) IBOutlet UILabel *selSessionDisplay;
 @property (strong, nonatomic) IBOutlet UIButton *chooseDateButton;

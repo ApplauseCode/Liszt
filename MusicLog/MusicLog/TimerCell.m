@@ -9,7 +9,7 @@
 #import "TimerCell.h"
 
 @implementation TimerCell
-@synthesize timerLabel, timerButton;
+@synthesize timerButton;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {

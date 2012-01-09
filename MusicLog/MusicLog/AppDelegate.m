@@ -30,6 +30,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    [UIApplication sharedApplication].idleTimerDisabled = YES;
     StatsVC *c = [[StatsVC alloc] init];
     UINavigationController *homePage = [[UINavigationController alloc] initWithRootViewController:c];
     

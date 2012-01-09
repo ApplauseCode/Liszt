@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface TimerCell : UITableViewCell
-@property (nonatomic, strong) IBOutlet UILabel *timerLabel;
 @property (nonatomic, strong) IBOutlet UIButton *timerButton;
 
 @end

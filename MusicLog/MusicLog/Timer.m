@@ -84,24 +84,35 @@ BOOL doubleDigit(int x)
     [timeButton addTarget:self action:@selector(timerHandling:) forControlEvents:UIControlEventTouchUpInside];
 }
 
+/*- (void)setStartButton:(UIButton *)button
+{
+    startButton = button;
+    [startButton addTarget:self action:@selector(startTimer) forControlEvents:UIControlEventTouchUpInside];
+}*/
+
 - (void)timerHandling:(id)sender
 {
-    if ([[timeButton currentTitle] isEqual:@"Start"])
+    if ([[timeButton currentTitle] isEqual:@"Start"])   
     {
         [self startTimer];
-        [timeButton setTitle:@"Stop" forState:UIControlStateNormal];        
+        [timeButton setTitle:@"Stop" forState:UIControlStateNormal];       
     } 
     else if ([[timeButton currentTitle] isEqual:@"Stop"]) 
     {
         [self stopTimer];
         [timeButton setTitle:@"Start" forState:UIControlStateNormal];
     }
+
 }
 
 - (void)startTimer
 {
     if (counter < 1)
     {
+        //[startButton setEnabled:NO];
+       // [stopButton setEnabled:YES];
+       // [stopButton setTitle:@"Stop" forState:UIControlStateNormal];
+       // [stopButton setTitle:@"Stop" forState:UIControlStateNormal];
         NSRunLoop *runLoop = [NSRunLoop currentRunLoop];
         timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timerFireMethod:) userInfo:nil repeats:YES];
         [runLoop addTimer:timer forMode:NSRunLoopCommonModes];
@@ -128,6 +139,7 @@ BOOL doubleDigit(int x)
 
 - (void)stopTimer
 {
+   // [startButton setEnabled:YES];
     [timer invalidate];
     elapsedTime = (hours * 3600) + (minutes * 60) + seconds;
     counter --;
