@@ -13,6 +13,7 @@ BOOL doubleDigit(int x);
 @property (nonatomic, readonly) int elapsedTime;
 @property (nonatomic, strong) UILabel *timeLabel;
 @property (nonatomic, strong) UIButton *timeButton;
+@property (nonatomic) BOOL isTiming;
 //@property (nonatomic, strong) UIButton *startButton;
 //@property (nonatomic, strong) UIButton *stopButton;
 

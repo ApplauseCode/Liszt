@@ -21,7 +21,6 @@ CGFloat sum_2(CGFloat *a, int n);
 @property (nonatomic, assign, readonly) int selectedCellIndex;
 @property (nonatomic, weak) id delegate;
 
-// the designated intializer
 - (id)initWithFrame:(CGRect)frame;
 
 @end

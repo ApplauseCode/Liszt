@@ -11,9 +11,8 @@
 @interface AppDelegate : UIResponder <UIApplicationDelegate, UITabBarControllerDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
-@property (strong, nonatomic) UITabBarController *tabBarController;
-@property (nonatomic, assign) NSUInteger tabBarIndex;
+//@property (strong, nonatomic) UITabBarController *tabBarController;
+//@property (nonatomic, assign) NSUInteger tabBarIndex;
 
-- (void)middleTab;
 
 @end

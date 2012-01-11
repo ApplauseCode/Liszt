@@ -14,24 +14,23 @@
 #import "PiecesPickerVC.h"
 #import "StatsVC.h"
 #import "Session.h"
+#import "Piece.h"
+#import "Timer.h"
 
 @interface AppDelegate()
 {
-    ScalesArpeggiosVC *spt, *apt, *ppt;
-
+    StatsVC *c;
 }
 @end
 @implementation AppDelegate
 
 @synthesize window = _window;
-@synthesize tabBarController = _tabBarController;
-@synthesize tabBarIndex;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     [UIApplication sharedApplication].idleTimerDisabled = YES;
-    StatsVC *c = [[StatsVC alloc] init];
+    c = [[StatsVC alloc] init];
     UINavigationController *homePage = [[UINavigationController alloc] initWithRootViewController:c];
     
     UINavigationBar *homeBar = homePage.navigationBar;
@@ -47,20 +46,32 @@
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
-    [spt sessionSave];
-    [apt sessionSave];
-    [ppt sessionSave];
+    ScaleStore *store = [ScaleStore defaultStore];
+    [[c scaleTimer] stopTimer];
+    [[c arpeggioTimer] stopTimer];
+    [[store mySession] setScaleTime:[[c scaleTimer] elapsedTime]];
+    [[store mySession] setArpeggioTime:[[c arpeggioTimer] elapsedTime]];
+    for (Piece *p in [[store mySession] pieceSession])
+    {
+        [[p timer] stopTimer];
+        [p setPieceTime:[[p timer] elapsedTime]];
+    }
     [[ScaleStore defaultStore] saveChanges];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
-    [spt sessionSave];
-    [apt sessionSave];
-    [ppt sessionSave];
+    ScaleStore *store = [ScaleStore defaultStore];
+    [[c scaleTimer] stopTimer];
+    [[c arpeggioTimer] stopTimer];
+    [[store mySession] setScaleTime:[[c scaleTimer] elapsedTime]];
+    [[store mySession] setArpeggioTime:[[c arpeggioTimer] elapsedTime]];
+    for (Piece *p in [[store mySession] pieceSession])
+    {
+        [[p timer] stopTimer];
+        [p setPieceTime:[[p timer] elapsedTime]];
+    }
     [[ScaleStore defaultStore] saveChanges];
 }
-
-- (void)middleTab {}
 
 @end
