@@ -59,11 +59,16 @@
 @property (nonatomic, weak) UIButton *disclosureButton;
 @property (nonatomic, assign) NSInteger section;
 @property (nonatomic, strong) UITapGestureRecognizer *tapGesture;
+@property (nonatomic, strong) UISwipeGestureRecognizer *swipeGesture;
+@property (nonatomic, strong) UIView *deleteView;
 @property (nonatomic, weak) id <SectionHeaderViewDelegate> delegate;
 
 -(id)initWithFrame:(CGRect)frame title:(NSString*)title subTitle:(NSString *)subTitle section:(NSInteger)sectionNumber delegate:(id <SectionHeaderViewDelegate>)delegate;
 -(void)toggleOpenWithUserAction:(BOOL)userAction;
 - (void)setSubTitle:(NSString *)subName;
+- (void)toggleSwipe:(id)sender;
+- (void)cancelDelete:(id)sender;
+- (void)deleteCell:(id)sender;
 
 @end
 
@@ -75,6 +80,7 @@
 @protocol SectionHeaderViewDelegate <NSObject>
 
 @optional
--(void)sectionHeaderView:(SectionHeaderView*)sectionHeaderView tapped:(NSInteger)section;
+- (void)sectionHeaderView:(SectionHeaderView*)sectionHeaderView tapped:(NSInteger)section;
+- (void)deleteSection:(NSInteger)section headerView:(SectionHeaderView *)sectionHeaderView;
 @end
 

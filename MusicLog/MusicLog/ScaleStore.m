@@ -131,10 +131,20 @@ static ScaleStore *defaultStore = nil;
     [piecesInSession removeObject:p];
 }
 
-- (void)addSession {
+- (void)addSessionStartNew:(BOOL)fresh {
     [sessions addObject:[mySession copy]];
     [self clearAll];
-    Session *newSession = [[Session alloc] initWithDayOffset:1];
+    Session *newSession;
+    if (!fresh)
+        newSession = [[Session alloc] init];
+    else
+    {
+        newSession = [[sessions objectAtIndex:([sessions count] - 1)] copy];
+        [self setScalesInSession:[newSession scaleSession]];
+        [self setArpeggiosInSession:[newSession arpeggioSession]];
+        [self setPiecesInSession:[newSession pieceSession]];
+    }
+    
     [self setMySession:newSession];
 }
 

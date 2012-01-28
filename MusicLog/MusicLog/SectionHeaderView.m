@@ -4,7 +4,7 @@
 @implementation SectionHeaderView
 
 
-@synthesize titleLabel=_titleLabel, disclosureButton=_disclosureButton, delegate=_delegate, section=_section, tapGesture, subTitleLabel;
+@synthesize titleLabel=_titleLabel, disclosureButton=_disclosureButton, delegate=_delegate, section=_section, tapGesture, swipeGesture, subTitleLabel, deleteView;
 
 
 + (Class)layerClass {
@@ -18,10 +18,14 @@
     self = [super initWithFrame:frame];
     
     if (self != nil) {
-        
+    
+        deleteView = [[UIView alloc] initWithFrame:CGRectMake(-320, 0, 320, 45)];
+        [deleteView setBackgroundColor:[UIColor whiteColor]];
         // Set up the tap gesture recognizer.
         tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(toggleOpen:)];
+        swipeGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(toggleSwipe:)];
         [self addGestureRecognizer:tapGesture];
+        [self addGestureRecognizer:swipeGesture];
 
         _delegate = delegate;        
         self.userInteractionEnabled = YES;
@@ -126,7 +130,42 @@
     }
 }
 
+- (void)toggleSwipe:(id)sender
+{
 
+    UIButton *cancel = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 160, 45)];
+    [cancel setTitle:@"Cancel" forState:UIControlStateNormal];
+    [cancel setBackgroundColor:[UIColor blueColor]];
+    [cancel addTarget:self action:@selector(cancelDelete:) forControlEvents:UIControlEventTouchUpInside];
+    UIButton *delete = [[UIButton alloc] initWithFrame:CGRectMake(160, 0, 160, 45)];
+    [delete setTitle:@"Delete" forState:UIControlStateNormal];
+    [delete setBackgroundColor:[UIColor blueColor]];
+    [delete addTarget:self action:@selector(deleteCell:) forControlEvents:UIControlEventTouchUpInside];
+    [deleteView addSubview:delete];
+    [deleteView addSubview:cancel];
+    [self addSubview:deleteView];
+    [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationCurveEaseIn animations:^{
+        [deleteView setFrame:CGRectMake(0.0, 0.0, 320, 45)];
+        //[self setFrame:CGRectMake(640, 0, 320, 45)];
+    } completion:^(BOOL finished) {
+        [[self tapGesture] setEnabled:NO];
+    }];
+}
 
+- (void)cancelDelete:(id)sender
+{
+    [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationCurveEaseIn animations:^{
+        [deleteView setFrame:CGRectMake(-320, 0, 320, 45)];
+    } completion:^(BOOL finished) {
+        [deleteView removeFromSuperview];
+        [[self tapGesture] setEnabled:YES];
+    }];
+    
+}
+
+- (void)deleteCell:(id)sender
+{
+    [[self delegate] deleteSection:self.section headerView:self];
+}
 
 @end

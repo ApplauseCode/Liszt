@@ -31,6 +31,17 @@
     return self;
 }
 
+- (id)init
+{
+    self = [super init];
+    if (self ) {
+    scaleSession = nil;
+    arpeggioSession = nil;
+    pieceSession = nil;
+    }
+        return self;
+}
+
 - (id)copyWithZone:(NSZone *)zone
 {
     Session *copy = [[Session alloc] initWithDayOffset:0];

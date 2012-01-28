@@ -32,7 +32,7 @@
 - (void)removeScale:(Scale *)s;
 - (void)removeArpeggio:(Scale *)a;
 - (void)removePiece:(Piece *)p;
-- (void)addSession;
+- (void)addSessionStartNew:(BOOL)fresh;
 - (void)clearAll;
 
 - (void)addScalesToSession;

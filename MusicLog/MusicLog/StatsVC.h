@@ -11,16 +11,11 @@
 #import "CustomStepper.h"
 @class Timer;
 
-@interface StatsVC : UIViewController <UITableViewDataSource, UITableViewDelegate, SectionHeaderViewDelegate, UIGestureRecognizerDelegate, UIScrollViewDelegate, CustomStepperDelegate>
+@interface StatsVC : UIViewController <UITableViewDataSource, UITableViewDelegate, SectionHeaderViewDelegate, UIGestureRecognizerDelegate, UIScrollViewDelegate, CustomStepperDelegate, UIAlertViewDelegate>
 @property (nonatomic, strong)   Timer *scaleTimer;
 @property (nonatomic, strong)   Timer *arpeggioTimer;
 @property (strong, nonatomic) IBOutlet UILabel *tempoLabel;
 @property (strong, nonatomic) IBOutlet UIView *metronomeView;
-//@property (strong, nonatomic) IBOutlet UIView *timerView;
-//@property (strong, nonatomic) IBOutlet UIScrollView *metroTimeScroll;
-//@property (strong, nonatomic) IBOutlet UIPageControl *scrollPage;
-//@property (strong, nonatomic) IBOutlet UIButton *startTimer;
-//@property (strong, nonatomic) IBOutlet UIButton *stopTimer;
 @property (strong, nonatomic) UIButton *timerButton;
 @property (strong, nonatomic) IBOutlet UITableView *statsTable;
 @property (strong, nonatomic) IBOutlet UILabel *selSessionDisplay;
@@ -33,8 +28,6 @@
 - (IBAction)startMetronome:(id)sender;
 - (IBAction)slideDown:(id)sender;
 - (IBAction)showMenu:(id)sender;
-- (IBAction)addScales:(id)sender;
-- (IBAction)addArpeggios:(id)sender;
-- (IBAction)addPieces:(id)sender;
 - (IBAction)newSession:(id)sender;
+- (IBAction)presentPickerView:(id)sender;
 @end

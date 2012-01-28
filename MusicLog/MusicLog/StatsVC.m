@@ -40,6 +40,7 @@
 @property (nonatomic, assign)   NSInteger openSectionIndex;
 @property (nonatomic, strong)   Metronome *metro;
 @property (nonatomic, strong)   TimerCell *tCell;
+@property (nonatomic, assign)   BOOL shouldDisplayTime;
 
 - (void)makeMenu;
 - (void)makeMetronome;
@@ -47,6 +48,7 @@
 - (void)dateChanged;
 - (void)hideMenu:(id)sender;
 - (void)changeTimeForTimers;
+- (void)closeSections;
 - (void)sectionHeaderView:(SectionHeaderView *)sectionHeaderView sectionOpened:(NSInteger)section;
 - (void)sectionHeaderView:(SectionHeaderView *)sectionHeaderView sectionClosed:(NSInteger)section;
 @end
@@ -70,6 +72,7 @@
 @synthesize openSectionIndex;
 @synthesize metro;
 @synthesize tCell;
+@synthesize shouldDisplayTime;
 
 #pragma mark - View lifecycle
 
@@ -110,10 +113,6 @@
     UINib *timerNib = [UINib nibWithNibName:@"TimerCell" bundle:nil];
     [statsTable registerNib:timerNib
      forCellReuseIdentifier:@"TimerCell"];
-    
-    tCell = (TimerCell *) [statsTable
-                                      dequeueReusableCellWithIdentifier:@"TimerCell"];
-    timerButton = [tCell timerButton];
     
     datePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake(0.0, -216.0, 320, 253)];
     [datePicker setDatePickerMode:UIDatePickerModeDate];
@@ -255,25 +254,18 @@
     [metro changeTempoWithTempo:[stepper tempo]];
 }
 
-- (void)addScales:(id)sender
+- (void)presentPickerView:(id)sender
 {
-    ScalePickerVC *s = [[ScalePickerVC alloc] initWithIndex:0];
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:s];
+    id vc;
+    if ([[sender currentTitle] isEqualToString: @"Scales"])
+        vc = [[ScalePickerVC alloc] initWithIndex:0];
+    else if ([[sender currentTitle] isEqualToString: @"Arps"])
+        vc = [[ScalePickerVC alloc] initWithIndex:1];
+    else
+        vc = [[PiecesPickerVC alloc] init];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
     [self presentModalViewController:nav animated:YES];
-}
-
-- (void)addArpeggios:(id)sender
-{
-    ScalePickerVC *a = [[ScalePickerVC alloc] initWithIndex:1];
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:a];
-    [self presentModalViewController:nav animated:YES];
-}
-
-- (void)addPieces:(id)sender
-{
-    PiecesPickerVC *p = [[PiecesPickerVC alloc] init];
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:p];
-    [self presentModalViewController:nav animated:YES];
+    [self closeSections];
 }
 
 - (void)newSession:(id)sender
@@ -283,13 +275,35 @@
     [[store mySession] setArpeggioTime:[arpeggioTimer elapsedTime]];
     for (Piece *p in [[store mySession] pieceSession])
         [p setPieceTime:[[p timer] elapsedTime]];
-    [store addSession];
+    UIAlertView *newOrOld = [[UIAlertView alloc] initWithTitle:@"New Session" message:@"Would you like to start this session as a copy of your previous session?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
+    [newOrOld show];
+   }
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    ScaleStore *store = [ScaleStore defaultStore];
+    [store addSessionStartNew:buttonIndex];
     [scaleTimer resetTimer];
     [arpeggioTimer resetTimer];
+    if (buttonIndex)
+    {
+        for (Piece *p in [[store mySession] pieceSession])
+        {
+            [[p timer] resetTimer];
+          //  [p setPieceTime:0];
+        }
+    }
+    else
+        [sectionInfoArray removeObjectsInRange:NSMakeRange(2, ([sectionInfoArray count] - 2))];
     [self setSelectedSession:[store mySession]];
-    [sectionInfoArray removeObjectsInRange:NSMakeRange(2, ([sectionInfoArray count] - 2))];
-    [[sectionInfoArray objectAtIndex:0] setCountofRowsToInsert:0];
-    [[sectionInfoArray objectAtIndex:1] setCountofRowsToInsert:0];
+    
+    for (int i = 0; i < [[selectedSession pieceSession] count]; i++)
+    {
+        [[[sectionInfoArray objectAtIndex:i + 2] headerView] setSubTitle:[[[[selectedSession pieceSession] objectAtIndex:i] timer] timeString]];
+    }
+
+    [[sectionInfoArray objectAtIndex:0] setCountofRowsToInsert:[[selectedSession scaleSession] count]];
+    [[sectionInfoArray objectAtIndex:1] setCountofRowsToInsert:[[selectedSession arpeggioSession] count]];
     [statsTable reloadData];
 }
 
@@ -357,7 +371,8 @@
     [self changeTimeForTimers];
     [[sectionInfoArray objectAtIndex:0] setCountofRowsToInsert:[[selectedSession scaleSession] count]];
     [[sectionInfoArray objectAtIndex:1] setCountofRowsToInsert:[[selectedSession arpeggioSession] count]];
-    for (int i = ([sectionInfoArray count] - 2); i < [[selectedSession pieceSession] count]; i++)
+    [sectionInfoArray removeObjectsInRange:NSMakeRange(2, ([sectionInfoArray count] -2))];
+    for (int i = 0; i < [[selectedSession pieceSession] count]; i++)
     {
         SectionInfo *pieceInfo = [[SectionInfo alloc] init];
         [pieceInfo setTitle:[[[selectedSession pieceSession] objectAtIndex:i] title]];
@@ -369,28 +384,53 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    SectionInfo *sec;
-    if ([scaleTimer isTiming])
-    {
-        sec = [sectionInfoArray objectAtIndex:0];
-        [scaleTimer setTimeLabel:[sec.headerView subTitleLabel]];
-    }
-    else if ([arpeggioTimer isTiming])
-    {
-        sec = [sectionInfoArray objectAtIndex:1];
-        [arpeggioTimer setTimeLabel:[sec.headerView subTitleLabel]];
-    }
-    else
-    {
-        for (int i = 0; i < [[selectedSession pieceSession] count]; i++)
+     SectionInfo *openSection;
+     NSNumber *index;
+    // don't care if its timing, only care if thge section is open
+    /*[sectionInfoArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        SectionInfo *s = obj;
+        if ([s open])
         {
-            Piece *p = [[selectedSession pieceSession] objectAtIndex:i];
-            Timer *t = [p timer];
-            if ([t isTiming])
-            {
-                SectionInfo *s = [sectionInfoArray objectAtIndex:i + 2];
-                [t setTimeLabel:[s.headerView subTitleLabel]];
-            }
+            openSection = s;
+            index = idx;
+            *stop = YES;
+        }
+    }];*/
+    
+    for (int i = 0; i < [sectionInfoArray count]; i++)
+    {
+        SectionInfo *s = [sectionInfoArray objectAtIndex:i];
+        if ([s open])
+        {
+            openSection = s;
+            index = [NSNumber numberWithInt:i];
+            break;
+        }
+        else
+            index = nil;
+            
+    }
+    /*for (int i =)
+    {
+        if ([s open])
+            openSection = s;
+    }*/
+    
+    if (index)
+    {
+        if ([index intValue] == 0)
+        {
+            //sec = [sectionInfoArray objectAtIndex:0];
+            [scaleTimer setTimeLabel:[openSection.headerView subTitleLabel]];
+        }
+        else if ([index intValue] == 1)
+        {
+            [arpeggioTimer setTimeLabel:[openSection.headerView subTitleLabel]];
+        }
+        else
+        {
+            Timer *t = [[[selectedSession pieceSession] objectAtIndex:([index intValue] - 2)] timer];
+            [t setTimeLabel:[openSection.headerView subTitleLabel]];
         }
     }
 }
@@ -405,7 +445,17 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     SectionInfo *sectionInfo = [self.sectionInfoArray objectAtIndex:section];
-    NSInteger numRowsInSection = [sectionInfo countofRowsToInsert] + 1;
+    NSInteger numRowsInSection;
+   /* if ([sectionInfo countofRowsToInsert] > 0)
+    {
+        [self setShouldDisplayTime:YES];
+    }
+    else
+    {
+        [self setShouldDisplayTime:NO];
+    }*/
+    numRowsInSection = [sectionInfo countofRowsToInsert] + 1;
+    NSLog(@"%i", numRowsInSection);
     return sectionInfo.open ? numRowsInSection : 0;
 }
 
@@ -441,8 +491,7 @@
     NSInteger row = [indexPath row];
     ScalesPracticedCell *cell = (ScalesPracticedCell *) [tableView
                                                          dequeueReusableCellWithIdentifier:@"ScalesPracticedCell"];
-
-    if (row == 0)
+    if (row == 0 /*&& shouldDisplayTime*/)
     {
         return tCell;
     }
@@ -465,7 +514,7 @@
         cell.tonicLabel.text = [entry title];
         cell.modeLabel.text = [entry composer];
         cell.rhythmLabel.text = [entry keyString];
-        cell.speedLabel.text = [NSString stringWithInt:[entry opus]];
+        cell.speedLabel.text = [NSString stringWithInt:[entry tempo]];
         if ([entry major])
             cell.octavesLabel.text = @"Major";
         else
@@ -477,8 +526,20 @@
 
 #pragma mark - Handling Sections
 
+- (void)closeSections
+{
+    for (int i = 0; i < [sectionInfoArray count]; i++)
+    {
+        SectionInfo *si = [sectionInfoArray objectAtIndex:i];
+        if ([si open])
+            [self sectionHeaderView:[si headerView] sectionClosed:i];
+    }
+}
+
 - (void)sectionHeaderView:(SectionHeaderView *)sectionHeaderView tapped:(NSInteger)section
 {
+//    if (!shouldDisplayTime)
+//        return;
     SectionInfo *sectionInfo = [self.sectionInfoArray objectAtIndex:section];
     if (!sectionInfo.open)
         [self sectionHeaderView:sectionHeaderView sectionOpened:section];
@@ -488,7 +549,23 @@
 
 -(void)sectionHeaderView:(SectionHeaderView *)sectionHeaderView sectionOpened:(NSInteger)section
 {
+    tCell = (TimerCell *) [statsTable
+                           dequeueReusableCellWithIdentifier:@"TimerCell"];
+
+    timerButton = [tCell timerButton];
+    [timerButton setTitle:@"Start" forState:UIControlStateNormal];
+    
     SectionInfo *sectionInfo = [self.sectionInfoArray objectAtIndex:section];
+    if ([sectionInfo countofRowsToInsert] < 1)
+    {
+        [[tCell timerButton] setAlpha:0.5];
+        [[tCell timerButton] setEnabled:NO];
+    }
+    else
+    {
+        [[tCell timerButton] setAlpha:1.0];
+        [[tCell timerButton] setEnabled:YES];
+    }
     [scaleTimer disconnectTimers];
     [arpeggioTimer disconnectTimers];
     for (int i = 0; i < [[selectedSession pieceSession] count]; i++)
@@ -496,29 +573,29 @@
     if (section == 0)
     {
         [scaleTimer setTimeButton:timerButton];
-        [[scaleTimer timeButton] setTitle:@"Start" forState:UIControlStateNormal];
+       // [[scaleTimer timeButton] setTitle:@"Start" forState:UIControlStateNormal];
         [scaleTimer setTimeLabel:[sectionInfo.headerView subTitleLabel]];
     }
     else if (section == 1)
     {
         [arpeggioTimer setTimeButton:timerButton];
-        [[arpeggioTimer timeButton] setTitle:@"Start" forState:UIControlStateNormal];
+        //[[arpeggioTimer timeButton] setTitle:@"Start" forState:UIControlStateNormal];
         [arpeggioTimer setTimeLabel:[sectionInfo.headerView subTitleLabel]];
     }
     else 
     {
         Timer *pieceTimer = [[[selectedSession pieceSession] objectAtIndex:(section - 2)] timer];
         [pieceTimer setTimeButton:timerButton];
-        [[pieceTimer timeButton] setTitle:@"Start" forState:UIControlStateNormal]; 
+       // [[pieceTimer timeButton] setTitle:@"Start" forState:UIControlStateNormal]; 
         [pieceTimer setTimeLabel:[sectionInfo.headerView subTitleLabel]];
     }
     sectionInfo.open = YES;
     NSMutableArray *indexPathsToInsert = [[NSMutableArray alloc] init];
+    
     [indexPathsToInsert addObject:[NSIndexPath indexPathForRow:0 inSection:section]];
-    for (NSInteger i = 1; i <= [sectionInfo countofRowsToInsert]; i++) 
+    for (NSInteger i = 1; i <= [sectionInfo countofRowsToInsert]; i++) {
         [indexPathsToInsert addObject:[NSIndexPath indexPathForRow:i inSection:section]];
-    
-    
+    }
     NSMutableArray *indexPathsToDelete = [[NSMutableArray alloc] init];
     NSInteger previousOpenSectionIndex = self.openSectionIndex;
     if (previousOpenSectionIndex != NSNotFound) {
@@ -607,4 +684,68 @@
     else if ([[sender currentTitle] isEqualToString:@"Stop"])
         [sender setTitle:@"Start" forState:UIControlStateNormal];
 }
-@end
+
+#pragma mark - Table View Editing -
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated
+{
+    [super setEditing:editing animated:animated];
+    [statsTable setEditing:editing animated:animated];
+}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    int section = [indexPath section];
+    int row = [indexPath row];
+    if (row != 0)
+    {
+        if (section == 0 || section == 1)
+            return YES;
+        else
+            return NO;
+    }
+    else
+        return NO;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{  
+    int section = [indexPath section];
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        // Delete the row from the data source
+        NSOrderedSet *removers;
+        id cellToRemove;
+        
+        if (section == 0)
+        {
+            removers = [[ScaleStore defaultStore] scalesInSession];
+            cellToRemove = [removers objectAtIndex:[indexPath row] - 1];
+            [[ScaleStore defaultStore] removeScale:cellToRemove];
+            [[ScaleStore defaultStore] addScalesToSession];
+            [[sectionInfoArray objectAtIndex:0] setCountofRowsToInsert:[[selectedSession scaleSession] count]];
+        }
+        else if (section == 1)
+        {
+            removers = [[ScaleStore defaultStore] arpeggiosInSession];
+            cellToRemove = [removers objectAtIndex:[indexPath row] - 1];
+            [[ScaleStore defaultStore] removeArpeggio:cellToRemove];
+            [[ScaleStore defaultStore] addArpeggiosToSession];
+            [[sectionInfoArray objectAtIndex:1] setCountofRowsToInsert:[[selectedSession arpeggioSession] count]];
+        }
+        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    }   
+}
+
+- (void)deleteSection:(NSInteger)section headerView:(SectionHeaderView *)sectionHeaderView
+{
+    if (section > 1)
+    {
+        [self closeSections];
+        Piece *p = [[[ScaleStore defaultStore] piecesInSession] objectAtIndex:section - 2];
+        [[ScaleStore defaultStore] removePiece:p];
+        [[ScaleStore defaultStore] addPiecesToSession];
+        [sectionInfoArray removeObjectAtIndex:section];
+        [statsTable deleteSections:[NSIndexSet indexSetWithIndex:section] withRowAnimation:UITableViewRowAnimationAutomatic];
+
+    }
+}
+ @end

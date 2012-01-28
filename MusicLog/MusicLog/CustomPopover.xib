@@ -162,30 +162,30 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
-						<string key="label">addScales:</string>
+						<string key="label">presentPickerView:</string>
 						<reference key="source" ref="984971771"/>
 						<reference key="destination" ref="372490531"/>
 						<int key="IBEventType">7</int>
 					</object>
-					<int key="connectionID">7</int>
+					<int key="connectionID">24</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
-						<string key="label">addArpeggios:</string>
+						<string key="label">presentPickerView:</string>
 						<reference key="source" ref="26288303"/>
 						<reference key="destination" ref="372490531"/>
 						<int key="IBEventType">7</int>
 					</object>
-					<int key="connectionID">9</int>
+					<int key="connectionID">22</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
-						<string key="label">addPieces:</string>
+						<string key="label">presentPickerView:</string>
 						<reference key="source" ref="605819077"/>
 						<reference key="destination" ref="372490531"/>
 						<int key="IBEventType">7</int>
 					</object>
-					<int key="connectionID">8</int>
+					<int key="connectionID">23</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -212,8 +212,8 @@
 						<reference key="object" ref="206198877"/>
 						<array class="NSMutableArray" key="children">
 							<reference ref="26288303"/>
-							<reference ref="984971771"/>
 							<reference ref="605819077"/>
+							<reference ref="984971771"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -248,7 +248,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">19</int>
+			<int key="maxID">24</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes"/>
 		<int key="IBDocument.localizationMode">0</int>

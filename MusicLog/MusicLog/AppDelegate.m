@@ -7,7 +7,6 @@
 //
 
 #import "AppDelegate.h"
-#import "ScalesArpeggiosVC.h"
 #import "ScalePickerVC.h"
 #import "ScaleStore.h"
 #import "BlankVC.h"

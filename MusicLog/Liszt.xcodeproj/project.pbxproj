@@ -51,8 +51,6 @@
 		BADA3F9E140BD98200B57C49 /* FileHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = BADA3F9B140BD98200B57C49 /* FileHelpers.m */; };
 		BADA3FA2140BD9B700B57C49 /* ScalesPracticedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BADA3FA0140BD9B700B57C49 /* ScalesPracticedCell.m */; };
 		BADA3FA3140BD9B700B57C49 /* ScalesPracticedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BADA3FA1140BD9B700B57C49 /* ScalesPracticedCell.xib */; };
-		BADA3FB1140BDA5D00B57C49 /* ScalesArpeggiosVC.m in Sources */ = {isa = PBXBuildFile; fileRef = BADA3FA7140BDA5D00B57C49 /* ScalesArpeggiosVC.m */; };
-		BADA3FB2140BDA5D00B57C49 /* ScalesArpeggiosVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = BADA3FA8140BDA5D00B57C49 /* ScalesArpeggiosVC.xib */; };
 		BADA3FB3140BDA5D00B57C49 /* ScalePickerVC.m in Sources */ = {isa = PBXBuildFile; fileRef = BADA3FAA140BDA5D00B57C49 /* ScalePickerVC.m */; };
 		BADA3FB4140BDA5D00B57C49 /* ScalePickerVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = BADA3FAB140BDA5D00B57C49 /* ScalePickerVC.xib */; };
 		BADA3FB5140BDA5D00B57C49 /* BlankVC.m in Sources */ = {isa = PBXBuildFile; fileRef = BADA3FAD140BDA5D00B57C49 /* BlankVC.m */; };
@@ -124,9 +122,6 @@
 		BADA3F9F140BD9B700B57C49 /* ScalesPracticedCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScalesPracticedCell.h; sourceTree = "<group>"; };
 		BADA3FA0140BD9B700B57C49 /* ScalesPracticedCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScalesPracticedCell.m; sourceTree = "<group>"; };
 		BADA3FA1140BD9B700B57C49 /* ScalesPracticedCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScalesPracticedCell.xib; sourceTree = "<group>"; };
-		BADA3FA6140BDA5D00B57C49 /* ScalesArpeggiosVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScalesArpeggiosVC.h; sourceTree = "<group>"; };
-		BADA3FA7140BDA5D00B57C49 /* ScalesArpeggiosVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScalesArpeggiosVC.m; sourceTree = "<group>"; };
-		BADA3FA8140BDA5D00B57C49 /* ScalesArpeggiosVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScalesArpeggiosVC.xib; sourceTree = "<group>"; };
 		BADA3FA9140BDA5D00B57C49 /* ScalePickerVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScalePickerVC.h; sourceTree = "<group>"; };
 		BADA3FAA140BDA5D00B57C49 /* ScalePickerVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScalePickerVC.m; sourceTree = "<group>"; };
 		BADA3FAB140BDA5D00B57C49 /* ScalePickerVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScalePickerVC.xib; sourceTree = "<group>"; };
@@ -289,9 +284,6 @@
 		BADA3FA5140BDA4600B57C49 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				BADA3FA6140BDA5D00B57C49 /* ScalesArpeggiosVC.h */,
-				BADA3FA7140BDA5D00B57C49 /* ScalesArpeggiosVC.m */,
-				BADA3FA8140BDA5D00B57C49 /* ScalesArpeggiosVC.xib */,
 				BADA3FA9140BDA5D00B57C49 /* ScalePickerVC.h */,
 				BADA3FAA140BDA5D00B57C49 /* ScalePickerVC.m */,
 				BADA3FAB140BDA5D00B57C49 /* ScalePickerVC.xib */,
@@ -372,7 +364,6 @@
 			files = (
 				BADA3F89140BD8DF00B57C49 /* InfoPlist.strings in Resources */,
 				BADA3FA3140BD9B700B57C49 /* ScalesPracticedCell.xib in Resources */,
-				BADA3FB2140BDA5D00B57C49 /* ScalesArpeggiosVC.xib in Resources */,
 				BADA3FB4140BDA5D00B57C49 /* ScalePickerVC.xib in Resources */,
 				BA811C71140D38E100A5558A /* PiecesPickerVC.xib in Resources */,
 				BA811C77140D38F000A5558A /* StatsVC.xib in Resources */,
@@ -408,7 +399,6 @@
 				BADA3F9D140BD98200B57C49 /* ScaleStore.m in Sources */,
 				BADA3F9E140BD98200B57C49 /* FileHelpers.m in Sources */,
 				BADA3FA2140BD9B700B57C49 /* ScalesPracticedCell.m in Sources */,
-				BADA3FB1140BDA5D00B57C49 /* ScalesArpeggiosVC.m in Sources */,
 				BADA3FB3140BDA5D00B57C49 /* ScalePickerVC.m in Sources */,
 				BADA3FB5140BDA5D00B57C49 /* BlankVC.m in Sources */,
 				BA811C70140D38E100A5558A /* PiecesPickerVC.m in Sources */,
@@ -441,6 +431,43 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		BA441C4E14C7B1BB0063482F /* Ad Hoc */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = "Ad Hoc";
+		};
+		BA441C4F14C7B1BB0063482F /* Ad Hoc */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "MusicLog/Liszt-Prefix.pch";
+				INFOPLIST_FILE = "MusicLog/Liszt-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				PRODUCT_NAME = Liszt;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				WRAPPER_EXTENSION = app;
+			};
+			name = "Ad Hoc";
+		};
 		BADA3F90140BD8DF00B57C49 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -518,6 +545,7 @@
 			buildConfigurations = (
 				BADA3F90140BD8DF00B57C49 /* Debug */,
 				BADA3F91140BD8DF00B57C49 /* Release */,
+				BA441C4E14C7B1BB0063482F /* Ad Hoc */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -527,6 +555,7 @@
 			buildConfigurations = (
 				BADA3F93140BD8DF00B57C49 /* Debug */,
 				BADA3F94140BD8DF00B57C49 /* Release */,
+				BA441C4F14C7B1BB0063482F /* Ad Hoc */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
