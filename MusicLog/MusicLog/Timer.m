@@ -29,7 +29,7 @@ BOOL doubleDigit(int x)
 
 @end
 @implementation Timer
-@synthesize elapsedTime, timeLabel, timeButton, isTiming;
+@synthesize elapsedTime, timeLabel, /*timeButton,*/ isTiming;
 
 - (id)initWithElapsedTime:(int)time
 {
@@ -79,23 +79,23 @@ BOOL doubleDigit(int x)
     
 }
 
-- (void)setTimeButton:(UIButton *)button
+/*- (void)setTimeButton:(UIButton *)button
 {
     timeButton = button;
     [timeButton addTarget:self action:@selector(timerHandling:) forControlEvents:UIControlEventTouchUpInside];
-}
+}*/
 
 - (void)timerHandling:(id)sender
 {
-    if ([[timeButton currentTitle] isEqual:@"Start"])   
+    if ([[sender currentTitle] isEqual:@"Start"])   
     {
         [self startTimer];
-        [timeButton setTitle:@"Stop" forState:UIControlStateNormal];       
+        [sender setTitle:@"Stop" forState:UIControlStateNormal];       
     } 
-    else if ([[timeButton currentTitle] isEqual:@"Stop"]) 
+    else if ([[sender currentTitle] isEqual:@"Stop"]) 
     {
         [self stopTimer];
-        [timeButton setTitle:@"Start" forState:UIControlStateNormal];
+        [sender setTitle:@"Start" forState:UIControlStateNormal];
     }
 
 }
@@ -148,10 +148,10 @@ BOOL doubleDigit(int x)
     counter --;
 }
 
-- (void)disconnectTimers
+/*- (void)disconnectTimers
 {
     self.timeButton = nil;
-}
+}*/
 
 - (NSString *)timeString
 {

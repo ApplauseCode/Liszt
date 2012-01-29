@@ -54,6 +54,8 @@
 		BADA3FB3140BDA5D00B57C49 /* ScalePickerVC.m in Sources */ = {isa = PBXBuildFile; fileRef = BADA3FAA140BDA5D00B57C49 /* ScalePickerVC.m */; };
 		BADA3FB4140BDA5D00B57C49 /* ScalePickerVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = BADA3FAB140BDA5D00B57C49 /* ScalePickerVC.xib */; };
 		BADA3FB5140BDA5D00B57C49 /* BlankVC.m in Sources */ = {isa = PBXBuildFile; fileRef = BADA3FAD140BDA5D00B57C49 /* BlankVC.m */; };
+		BAF21D4814D4EC2000CA7060 /* StatsVC+TableViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BAF21D4714D4EC2000CA7060 /* StatsVC+TableViewDelegate.m */; };
+		BAF21D4C14D5953000CA7060 /* StatsVC+Header.m in Sources */ = {isa = PBXBuildFile; fileRef = BAF21D4B14D5953000CA7060 /* StatsVC+Header.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -128,6 +130,10 @@
 		BADA3FAC140BDA5D00B57C49 /* BlankVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlankVC.h; sourceTree = "<group>"; };
 		BADA3FAD140BDA5D00B57C49 /* BlankVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlankVC.m; sourceTree = "<group>"; };
 		BADA3FB8140BDA6E00B57C49 /* Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Common.h; sourceTree = "<group>"; };
+		BAF21D4614D4EC2000CA7060 /* StatsVC+TableViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "StatsVC+TableViewDelegate.h"; sourceTree = "<group>"; };
+		BAF21D4714D4EC2000CA7060 /* StatsVC+TableViewDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "StatsVC+TableViewDelegate.m"; sourceTree = "<group>"; };
+		BAF21D4A14D5953000CA7060 /* StatsVC+Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "StatsVC+Header.h"; sourceTree = "<group>"; };
+		BAF21D4B14D5953000CA7060 /* StatsVC+Header.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "StatsVC+Header.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -292,6 +298,10 @@
 				BA811C6D140D38E100A5558A /* PiecesPickerVC.h */,
 				BA811C6E140D38E100A5558A /* PiecesPickerVC.m */,
 				BA811C6F140D38E100A5558A /* PiecesPickerVC.xib */,
+				BAF21D4614D4EC2000CA7060 /* StatsVC+TableViewDelegate.h */,
+				BAF21D4714D4EC2000CA7060 /* StatsVC+TableViewDelegate.m */,
+				BAF21D4A14D5953000CA7060 /* StatsVC+Header.h */,
+				BAF21D4B14D5953000CA7060 /* StatsVC+Header.m */,
 				BA811C73140D38EF00A5558A /* StatsVC.h */,
 				BA811C74140D38EF00A5558A /* StatsVC.m */,
 				BA811C75140D38EF00A5558A /* StatsVC.xib */,
@@ -414,6 +424,8 @@
 				BA37B8531482D56E00C41484 /* SectionInfo.m in Sources */,
 				BA5605761492D97500411BA9 /* TimerCell.m in Sources */,
 				BA26622414ABAF4200D9F3F6 /* Metronome.m in Sources */,
+				BAF21D4814D4EC2000CA7060 /* StatsVC+TableViewDelegate.m in Sources */,
+				BAF21D4C14D5953000CA7060 /* StatsVC+Header.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
