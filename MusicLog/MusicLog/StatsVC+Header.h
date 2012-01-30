@@ -10,4 +10,8 @@
 
 @interface StatsVC (Header) 
 
+- (NSString *)stopTimerForSection:(NSInteger)section;
+- (void)setupTimerCellForSection:(NSInteger)section;
+
+
 @end

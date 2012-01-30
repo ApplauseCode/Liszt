@@ -10,5 +10,4 @@
 
 @interface TimerCell : UITableViewCell
 @property (nonatomic, strong) IBOutlet UIButton *timerButton;
-
 @end

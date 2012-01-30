@@ -31,13 +31,18 @@
     SectionInfo *sectionInfo = [self.sectionInfoArray objectAtIndex:section];
     NSInteger numRowsInSection;
     numRowsInSection = [sectionInfo countofRowsToInsert] + 1;
-    return sectionInfo.open ? numRowsInSection : 0;
+    if (section > 1)
+        return (sectionInfo.open) ? numRowsInSection : 0;
+    else if ((numRowsInSection == 1) || (!sectionInfo.open)) 
+        return 0;
+    else
+        return numRowsInSection;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
 	SectionInfo *sectionInfo = [self.sectionInfoArray objectAtIndex:section];
-    if ((!sectionInfo.headerView) || (section == 0) || (section == 1)) 
+    if ((!sectionInfo.headerView) || (section < 2)) 
     {
 		NSString *sectionName = sectionInfo.title;
         sectionInfo.headerView = [[SectionHeaderView alloc] initWithFrame:CGRectMake(0.0, 0.0, statsTable.bounds.size.width, 45) title:sectionName subTitle:@"" section:section delegate:self];

@@ -48,8 +48,8 @@
 - (void)setUpScalesAndArpeggios;
 - (void)dateChanged;
 - (void)hideMenu:(id)sender;
-- (void)changeTimeForTimers;
 - (void)closeSections;
+- (void)changeTimeForTimers;
 - (void)sectionHeaderView:(SectionHeaderView *)sectionHeaderView sectionOpened:(NSInteger)section;
 - (void)sectionHeaderView:(SectionHeaderView *)sectionHeaderView sectionClosed:(NSInteger)section;
 

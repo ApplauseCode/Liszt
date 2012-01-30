@@ -23,8 +23,7 @@
 {
     self = [super init];
     if (self) {
-        // Initialization code here.
-        self.timer = [[Timer alloc] init];
+        self.timer = [[Timer alloc] initWithElapsedTime:0.0];
     }
     return self;
 }
