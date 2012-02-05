@@ -84,6 +84,7 @@
 
 -(void)sectionHeaderView:(SectionHeaderView *)sectionHeaderView sectionOpened:(NSInteger)section
 {
+    // get rid of line below if archived session.
     [self setupTimerCellForSection:section];
     NSInteger previousOpenSectionIndex = [self openSectionIndex];
     [self setOpenSectionIndex:section];
@@ -91,7 +92,7 @@
     [sectionInfo setOpen:YES];
     NSMutableArray *indexPathsToInsert = [[NSMutableArray alloc] init];
     NSMutableArray *indexPathsToDelete = [[NSMutableArray alloc] init];
-    if ([sectionInfo countofRowsToInsert] > 0) {
+    if ([sectionInfo countofRowsToInsert] > 0 /*&& currentPractice*/) {
         for (NSInteger i = 0; i <= [sectionInfo countofRowsToInsert]; i++)
             [indexPathsToInsert addObject:[NSIndexPath indexPathForRow:i inSection:section]];
     }
@@ -147,6 +148,7 @@
         [[ScaleStore defaultStore] addPiecesToSession];
         [sectionInfoArray removeObjectAtIndex:section];
         [statsTable deleteSections:[NSIndexSet indexSetWithIndex:section] withRowAnimation:UITableViewRowAnimationAutomatic];
+        [self setOpenSectionIndex:NSNotFound];
     }
 }
 @end

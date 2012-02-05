@@ -47,13 +47,26 @@
 		NSString *sectionName = sectionInfo.title;
         sectionInfo.headerView = [[SectionHeaderView alloc] initWithFrame:CGRectMake(0.0, 0.0, statsTable.bounds.size.width, 45) title:sectionName subTitle:@"" section:section delegate:self];
         NSString *time;
-        if (section ==  0)
-            time = [scaleTimer timeString];
-        else if (section == 1)
-            time = [arpeggioTimer timeString];
+        if (currentPractice)
+        {
+            if (section ==  0)
+                time = [scaleTimer timeString];
+            else if (section == 1)
+                time = [arpeggioTimer timeString];
+        }
         else
+        {
+            if (section == 0)
+                time = [NSString TimeStringFromInt:[selectedSession scaleTime]];
+            else if (section == 1)
+                time = [NSString TimeStringFromInt:[selectedSession arpeggioTime]];
+        }
+        if (section > 1)
+        {
             time = [[[[selectedSession pieceSession] objectAtIndex:(section - 2)] timer] timeString];
+        }
         [sectionInfo.headerView setSubTitle:time];
+
     }
     return sectionInfo.headerView;
 }

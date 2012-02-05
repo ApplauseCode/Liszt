@@ -148,7 +148,7 @@
         [pieceInfo setCountofRowsToInsert:1];
         [sectionInfoArray addObject:pieceInfo];
     }
-    [self changeTimeForTimers];
+  //  [self changeTimeForTimers];
     [[sectionInfoArray objectAtIndex:0] setCountofRowsToInsert:[[selectedSession scaleSession] count]];
     [[sectionInfoArray objectAtIndex:1] setCountofRowsToInsert:[[selectedSession arpeggioSession] count]];
     [statsTable reloadData];
@@ -240,14 +240,18 @@
     [self presentModalViewController:nav animated:YES];
     [self closeSections];
 }
-
-- (void)newSession:(id)sender
+- (void)saveSessionTimes
 {
     ScaleStore *store = [ScaleStore defaultStore];
     [[store mySession] setScaleTime:[scaleTimer elapsedTime]];
     [[store mySession] setArpeggioTime:[arpeggioTimer elapsedTime]];
     for (Piece *p in [[store mySession] pieceSession])
         [p setPieceTime:[[p timer] elapsedTime]];
+}
+
+- (void)newSession:(id)sender
+{
+    [self saveSessionTimes];
     UIAlertView *newOrOld = [[UIAlertView alloc] initWithTitle:@"New Session" message:@"Would you like to start this session as a copy of your previous session?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
     [newOrOld show];
    }
@@ -339,7 +343,7 @@
         [selSessionDisplay setText:[NSString stringWithFormat:@"Session %i, Created on %@", selSessionNum, [selectedSession date]]];
         currentPractice = NO;
     }
-    [self changeTimeForTimers];
+   // [self changeTimeForTimers];
     [[sectionInfoArray objectAtIndex:0] setCountofRowsToInsert:[[selectedSession scaleSession] count]];
     [[sectionInfoArray objectAtIndex:1] setCountofRowsToInsert:[[selectedSession arpeggioSession] count]];
     [sectionInfoArray removeObjectsInRange:NSMakeRange(2, ([sectionInfoArray count] -2))];

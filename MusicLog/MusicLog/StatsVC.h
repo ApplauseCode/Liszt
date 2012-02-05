@@ -24,6 +24,7 @@
     Timer *arpeggioTimer;
     TimerCell *tCell;
     UIButton *timerButton;
+    BOOL currentPractice;
     
 }
 
@@ -50,6 +51,7 @@
 - (void)hideMenu:(id)sender;
 - (void)closeSections;
 - (void)changeTimeForTimers;
+- (void)saveSessionTimes;
 - (void)sectionHeaderView:(SectionHeaderView *)sectionHeaderView sectionOpened:(NSInteger)section;
 - (void)sectionHeaderView:(SectionHeaderView *)sectionHeaderView sectionClosed:(NSInteger)section;
 

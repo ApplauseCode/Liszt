@@ -140,9 +140,12 @@ static ScaleStore *defaultStore = nil;
     else
     {
         newSession = [[sessions objectAtIndex:([sessions count] - 1)] copy];
+        [newSession setScaleTime:0];
+        [newSession setArpeggioTime:0];
         [self setScalesInSession:[newSession scaleSession]];
         [self setArpeggiosInSession:[newSession arpeggioSession]];
         [self setPiecesInSession:[newSession pieceSession]];
+        
     }
     
     [self setMySession:newSession];
