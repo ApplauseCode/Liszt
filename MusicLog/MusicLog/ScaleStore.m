@@ -12,16 +12,16 @@
 #import "Session.h"
 #import "Piece.h"
 
+#define DEBUG 1
+#undef DEBUG
+
 static ScaleStore *defaultStore = nil;
 
 @interface ScaleStore ()
-
 @property (nonatomic, strong) NSArray *objectsArchive;
-
 @end
 
 @implementation ScaleStore
-
 @synthesize objectsArchive;
 @synthesize mySession;
 @synthesize scalesInSession;
@@ -29,13 +29,68 @@ static ScaleStore *defaultStore = nil;
 @synthesize piecesInSession;
 @synthesize sessions;
 
+//REMOVE LATER
++ (NSDate *)getForDays:(int)days fromDate:(NSDate *)date
+{
+    NSDateComponents *components= [[NSDateComponents alloc] init];
+    [components setDay:days];
+    
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    return [calendar dateByAddingComponents:components toDate:date options:0];
+}
+//END REMOVE
+
+
 - (id)init
 {
     if (defaultStore) {
         return defaultStore;
     }
     self = [super init];
-        if (self) {
+    if (self) {
+#ifdef DEBUG
+        sessions = [[NSMutableArray alloc] init];
+        scalesInSession = [[NSMutableOrderedSet alloc] init];
+        arpeggiosInSession = [[NSMutableOrderedSet alloc] init];
+        piecesInSession = [[NSMutableOrderedSet alloc] init];
+        mySession = [[Session alloc] init];
+        Session *tempSession = [[Session alloc] init];
+        Scale *tempScale = [[Scale alloc] init];
+        Piece *tempPiece = [[Piece alloc] init];
+        
+        [tempScale setTonic:kA];
+        [tempScale setMode:kMelodicMinor];
+        [tempScale setTempo:120];
+        [tempScale setRhythm:kSixteenth];
+        [tempScale setOctaves:4];
+        [tempSession setScaleSession:[NSMutableOrderedSet orderedSetWithObject:tempScale]];
+        [tempSession setScaleTime:900];
+        [tempSession setDate:[ScaleStore getForDays:-3 fromDate:[NSDate date]]];
+        [sessions addObject:tempSession];
+        
+        tempSession = [[Session alloc] init];
+        tempScale = [[Scale alloc] init];
+        [tempScale setTonic:kB];
+        [tempScale setMode:kArpDom7];
+        [tempScale setTempo:112];
+        [tempScale setRhythm:kTwelfth];
+        [tempScale setOctaves:3];
+        [tempSession setArpeggioSession:[NSMutableOrderedSet orderedSetWithObject:tempScale]];
+        [tempSession setArpeggioTime:500];
+        [tempSession setDate:[ScaleStore getForDays:-2 fromDate:[NSDate date]]];
+        [sessions addObject:tempSession];
+        
+        tempSession = [[Session alloc] init];
+        [tempPiece setTitle:@"Polonaise N.1 Op.26"];
+        [tempPiece setComposer:@"Chopin"];
+        [tempPiece setMajor:YES];
+        [tempPiece setTempo:80];
+        [tempPiece setPieceKey:kCD];
+        [tempPiece setPieceTime:1000];
+        [tempSession setPieceSession:[NSMutableOrderedSet orderedSetWithObject:tempPiece]];
+        [tempSession setDate:[ScaleStore getForDays:-1 fromDate:[NSDate date]]];
+        [sessions addObject:tempSession];
+#else
         NSString *path = [self scaleArchivePath];
         objectsArchive = [NSKeyedUnarchiver unarchiveObjectWithFile:path];
         if (objectsArchive) {
@@ -57,6 +112,7 @@ static ScaleStore *defaultStore = nil;
             piecesInSession = [[NSMutableOrderedSet alloc] init];
             mySession = [[Session alloc] init];
         }
+#endif    
     }
     return self;
 }
@@ -145,7 +201,6 @@ static ScaleStore *defaultStore = nil;
         [self setScalesInSession:[newSession scaleSession]];
         [self setArpeggiosInSession:[newSession arpeggioSession]];
         [self setPiecesInSession:[newSession pieceSession]];
-        
     }
     
     [self setMySession:newSession];

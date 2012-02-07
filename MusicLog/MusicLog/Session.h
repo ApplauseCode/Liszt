@@ -15,11 +15,6 @@
 @property (nonatomic, strong) NSMutableOrderedSet *pieceSession;
 @property (nonatomic) int scaleTime;
 @property (nonatomic) int arpeggioTime;
-//@property (nonatomic) int pieceTime;
 @property (nonatomic, strong) NSDate *date;
-
-//TEMP
-+ (NSDate *)getForDays:(int)days fromDate:(NSDate *)date;
-- (id)initWithDayOffset:(int)n;
 
 @end

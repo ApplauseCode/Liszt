@@ -12,58 +12,31 @@
 
 @synthesize scaleSession,       scaleTime;
 @synthesize arpeggioSession,    arpeggioTime;
-@synthesize pieceSession/*,       pieceTime*/;
+@synthesize pieceSession;
 @synthesize date;
-
-- (id)initWithDayOffset:(int)n
-{
-    self = [super init];
-    scaleSession = nil;
-    arpeggioSession = nil;
-    pieceSession = nil;
-    //[self setDate:[NSDate date]];
-    // ***** TEMPORARY DATE SET FOR DEBBUGING
-    static int d = -1;
-    [self setDate:[Session getForDays:d fromDate:[NSDate date]]];
-    d-=n;
-    // ***** END TEMP
-    
-    return self;
-}
 
 - (id)init
 {
     self = [super init];
     if (self ) {
-    scaleSession = nil;
-    arpeggioSession = nil;
-    pieceSession = nil;
+        scaleSession = nil;
+        arpeggioSession = nil;
+        pieceSession = nil;
+        [self setDate:[NSDate date]];
     }
-        return self;
+    return self;
 }
 
 - (id)copyWithZone:(NSZone *)zone
 {
-    Session *copy = [[Session alloc] initWithDayOffset:0];
+    Session *copy = [[Session alloc] init];
     [copy setScaleSession:[[self scaleSession] copy]];
     [copy setScaleTime:[self scaleTime]];
     [copy setArpeggioTime:[self arpeggioTime]];
-    //[copy setPieceTime:[self pieceTime]];
     [copy setArpeggioSession:[[self arpeggioSession] copy]];
     [copy setPieceSession:[[self pieceSession] copy]];
     return copy;
 }
-
-//REMOVE LATER
-+ (NSDate *)getForDays:(int)days fromDate:(NSDate *)date
-{
-    NSDateComponents *components= [[NSDateComponents alloc] init];
-    [components setDay:days];
-    
-    NSCalendar *calendar = [NSCalendar currentCalendar];
-    return [calendar dateByAddingComponents:components toDate:date options:0];
-}
-//END REMOVE
 
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
@@ -71,7 +44,6 @@
     [self setScaleSession:[aDecoder decodeObjectForKey:@"scaleSession"]];
     [self setScaleTime:[aDecoder decodeIntForKey:@"scaleTime"]];
     [self setArpeggioTime:[aDecoder decodeIntForKey:@"arpeggioTime"]];
-    //[self setPieceTime:[aDecoder decodeIntForKey:@"pieceTime"]];
     [self setArpeggioSession:[aDecoder decodeObjectForKey:@"arpeggioSession"]];
     [self setPieceSession:[aDecoder decodeObjectForKey:@"pieceSession"]];
     [self setDate:[aDecoder decodeObjectForKey:@"date"]];
@@ -81,11 +53,9 @@
 
 - (void)encodeWithCoder:(NSCoder *)aCoder
 {
-   // NSLog(@"Piece Time %i", pieceTime);
     [aCoder encodeObject:scaleSession forKey:@"scaleSession"];
     [aCoder encodeInt:scaleTime forKey:@"scaleTime"];
     [aCoder encodeInt:arpeggioTime forKey:@"arpeggioTime"];
-    //[aCoder encodeInt:pieceTime forKey:@"pieceTime"];
     [aCoder encodeObject:arpeggioSession forKey:@"arpeggioSession"];
     [aCoder encodeObject:pieceSession forKey:@"pieceSession"];
     [aCoder encodeObject:date forKey:@"date"];
