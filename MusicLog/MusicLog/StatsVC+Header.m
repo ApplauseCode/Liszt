@@ -31,9 +31,13 @@
 {
     SectionInfo *sectionInfo = [self.sectionInfoArray objectAtIndex:section];
     if (!sectionInfo.open)
+    {
         [self sectionHeaderView:sectionHeaderView sectionOpened:section];
+    }
     else
+    {
         [self sectionHeaderView:sectionHeaderView sectionClosed:section];
+    }
 }
 
 - (NSString *)stopTimerForSection:(NSInteger)section
@@ -84,6 +88,7 @@
 
 -(void)sectionHeaderView:(SectionHeaderView *)sectionHeaderView sectionOpened:(NSInteger)section
 {
+    [sectionHeaderView turnDownDisclosure:YES];
     NSInteger previousOpenSectionIndex = [self openSectionIndex];
     [self setOpenSectionIndex:section];
     SectionInfo *sectionInfo = [self.sectionInfoArray objectAtIndex:section];
@@ -110,7 +115,6 @@
 		SectionInfo *previousOpenSection = [self.sectionInfoArray objectAtIndex:previousOpenSectionIndex];
         [[previousOpenSection headerView] setSubTitle:time];
         [previousOpenSection setOpen:NO];
-        [previousOpenSection.headerView toggleOpenWithUserAction:NO];
         NSInteger countOfRowsToDelete = [previousOpenSection countofRowsToInsert];
         for (NSInteger i = 0; i <= countOfRowsToDelete; i++)
             [indexPathsToDelete addObject:[NSIndexPath indexPathForRow:i inSection:previousOpenSectionIndex]];
@@ -123,6 +127,7 @@
 
 - (void)sectionHeaderView:(SectionHeaderView *)sectionHeaderView sectionClosed:(NSInteger)section
 {
+    [sectionHeaderView turnDownDisclosure:NO];
     SectionInfo *sectionInfo = [self.sectionInfoArray objectAtIndex:section];
     [sectionInfo setOpen:NO];
     if (currentPractice)

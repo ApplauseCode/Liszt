@@ -85,6 +85,13 @@
 		BADA3FB3140BDA5D00B57C49 /* ScalePickerVC.m in Sources */ = {isa = PBXBuildFile; fileRef = BADA3FAA140BDA5D00B57C49 /* ScalePickerVC.m */; };
 		BADA3FB4140BDA5D00B57C49 /* ScalePickerVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = BADA3FAB140BDA5D00B57C49 /* ScalePickerVC.xib */; };
 		BADA3FB5140BDA5D00B57C49 /* BlankVC.m in Sources */ = {isa = PBXBuildFile; fileRef = BADA3FAD140BDA5D00B57C49 /* BlankVC.m */; };
+		BAE6998414E5555700D3ADF8 /* UIColor+YellowTextColor.m in Sources */ = {isa = PBXBuildFile; fileRef = BAE6998314E5555700D3ADF8 /* UIColor+YellowTextColor.m */; };
+		BAE6998814E5679B00D3ADF8 /* SectionHeader2.png in Resources */ = {isa = PBXBuildFile; fileRef = BAE6998614E5679B00D3ADF8 /* SectionHeader2.png */; };
+		BAE6998914E5679B00D3ADF8 /* SectionHeader2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BAE6998714E5679B00D3ADF8 /* SectionHeader2@2x.png */; };
+		BAE6998C14E57AF100D3ADF8 /* DisclosureArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = BAE6998A14E57AF100D3ADF8 /* DisclosureArrow.png */; };
+		BAE6998D14E57AF100D3ADF8 /* DisclosureArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BAE6998B14E57AF100D3ADF8 /* DisclosureArrow@2x.png */; };
+		BAE6999314E5B65100D3ADF8 /* DisclosureArrowDown.png in Resources */ = {isa = PBXBuildFile; fileRef = BAE6999114E5B65100D3ADF8 /* DisclosureArrowDown.png */; };
+		BAE6999414E5B65100D3ADF8 /* DisclosureArrowDown@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BAE6999214E5B65100D3ADF8 /* DisclosureArrowDown@2x.png */; };
 		BAF21D4814D4EC2000CA7060 /* StatsVC+TableViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BAF21D4714D4EC2000CA7060 /* StatsVC+TableViewDelegate.m */; };
 		BAF21D4C14D5953000CA7060 /* StatsVC+Header.m in Sources */ = {isa = PBXBuildFile; fileRef = BAF21D4B14D5953000CA7060 /* StatsVC+Header.m */; };
 /* End PBXBuildFile section */
@@ -192,6 +199,14 @@
 		BADA3FAC140BDA5D00B57C49 /* BlankVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlankVC.h; sourceTree = "<group>"; };
 		BADA3FAD140BDA5D00B57C49 /* BlankVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlankVC.m; sourceTree = "<group>"; };
 		BADA3FB8140BDA6E00B57C49 /* Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Common.h; sourceTree = "<group>"; };
+		BAE6998214E5555700D3ADF8 /* UIColor+YellowTextColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+YellowTextColor.h"; sourceTree = "<group>"; };
+		BAE6998314E5555700D3ADF8 /* UIColor+YellowTextColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+YellowTextColor.m"; sourceTree = "<group>"; };
+		BAE6998614E5679B00D3ADF8 /* SectionHeader2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SectionHeader2.png; sourceTree = "<group>"; };
+		BAE6998714E5679B00D3ADF8 /* SectionHeader2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SectionHeader2@2x.png"; sourceTree = "<group>"; };
+		BAE6998A14E57AF100D3ADF8 /* DisclosureArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DisclosureArrow.png; sourceTree = "<group>"; };
+		BAE6998B14E57AF100D3ADF8 /* DisclosureArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DisclosureArrow@2x.png"; sourceTree = "<group>"; };
+		BAE6999114E5B65100D3ADF8 /* DisclosureArrowDown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DisclosureArrowDown.png; sourceTree = "<group>"; };
+		BAE6999214E5B65100D3ADF8 /* DisclosureArrowDown@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DisclosureArrowDown@2x.png"; sourceTree = "<group>"; };
 		BAF21D4614D4EC2000CA7060 /* StatsVC+TableViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "StatsVC+TableViewDelegate.h"; sourceTree = "<group>"; };
 		BAF21D4714D4EC2000CA7060 /* StatsVC+TableViewDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "StatsVC+TableViewDelegate.m"; sourceTree = "<group>"; };
 		BAF21D4A14D5953000CA7060 /* StatsVC+Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "StatsVC+Header.h"; sourceTree = "<group>"; };
@@ -217,6 +232,12 @@
 		BA08C5E5140D3D35009C5E8D /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				BAE6999114E5B65100D3ADF8 /* DisclosureArrowDown.png */,
+				BAE6999214E5B65100D3ADF8 /* DisclosureArrowDown@2x.png */,
+				BAE6998A14E57AF100D3ADF8 /* DisclosureArrow.png */,
+				BAE6998B14E57AF100D3ADF8 /* DisclosureArrow@2x.png */,
+				BAE6998614E5679B00D3ADF8 /* SectionHeader2.png */,
+				BAE6998714E5679B00D3ADF8 /* SectionHeader2@2x.png */,
 				BA824AEE14E4CA4A00EAC74F /* SectionHeader1.png */,
 				BA824AEF14E4CA4A00EAC74F /* SectionHeader1@2x.png */,
 				BA824AE414E4BAD300EAC74F /* BackButton.png */,
@@ -276,6 +297,8 @@
 				BA37B84B1482C9C800C41484 /* SectionHeaderView.h */,
 				BA37B84C1482C9C800C41484 /* SectionHeaderView.m */,
 				BA560571148E7D6F00411BA9 /* CustomPopover.xib */,
+				BAE6998214E5555700D3ADF8 /* UIColor+YellowTextColor.h */,
+				BAE6998314E5555700D3ADF8 /* UIColor+YellowTextColor.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -517,6 +540,12 @@
 				BA824AED14E4C14C00EAC74F /* ACaslonPro-Regular.otf in Resources */,
 				BA824AF014E4CA4B00EAC74F /* SectionHeader1.png in Resources */,
 				BA824AF114E4CA4B00EAC74F /* SectionHeader1@2x.png in Resources */,
+				BAE6998814E5679B00D3ADF8 /* SectionHeader2.png in Resources */,
+				BAE6998914E5679B00D3ADF8 /* SectionHeader2@2x.png in Resources */,
+				BAE6998C14E57AF100D3ADF8 /* DisclosureArrow.png in Resources */,
+				BAE6998D14E57AF100D3ADF8 /* DisclosureArrow@2x.png in Resources */,
+				BAE6999314E5B65100D3ADF8 /* DisclosureArrowDown.png in Resources */,
+				BAE6999414E5B65100D3ADF8 /* DisclosureArrowDown@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -550,6 +579,7 @@
 				BA26622414ABAF4200D9F3F6 /* Metronome.m in Sources */,
 				BAF21D4814D4EC2000CA7060 /* StatsVC+TableViewDelegate.m in Sources */,
 				BAF21D4C14D5953000CA7060 /* StatsVC+Header.m in Sources */,
+				BAE6998414E5555700D3ADF8 /* UIColor+YellowTextColor.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

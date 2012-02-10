@@ -1,10 +1,11 @@
 #import "SectionHeaderView.h"
 #import <QuartzCore/QuartzCore.h>
+#import "UIColor+YellowTextColor.h"
 
 @implementation SectionHeaderView
 
 
-@synthesize titleLabel=_titleLabel, disclosureButton=_disclosureButton, delegate=_delegate, section=_section, tapGesture, swipeGesture, subTitleLabel, deleteView;
+@synthesize titleLabel=_titleLabel, disclosureImage, delegate=_delegate, section=_section, tapGesture, swipeGesture, subTitleLabel, deleteView;
 
 
 + (Class)layerClass {
@@ -18,6 +19,7 @@
     self = [super initWithFrame:frame];
     
     if (self != nil) {
+        _section = sectionNumber;
     
         deleteView = [[UIView alloc] initWithFrame:CGRectMake(-320, 0, 320, 45)];
         [deleteView setBackgroundColor:[UIColor whiteColor]];
@@ -30,74 +32,64 @@
         _delegate = delegate;        
         self.userInteractionEnabled = YES;
         
+        UIImageView *bg;
+        switch (sectionNumber) {
+            case 0:
+                bg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"SectionHeader1.png"]];
+                break;
+            case 1:
+                bg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"SectionHeader2.png"]];
+                break;
+            default:
+                break;
+        }
+        [self addSubview:bg];
         
-        // Create and configure the title label.
-        _section = sectionNumber;
+        disclosureImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"DisclosureArrow.png"]];
+        CGRect disclosureFrame = self.bounds;
+        disclosureFrame.origin.x += 24;
+        disclosureFrame.origin.y = (0.5 * disclosureFrame.size.height) - 4;
+        disclosureFrame.size.width = 6;
+        disclosureFrame.size.height = 7;
+        [disclosureImage setFrame:disclosureFrame];
+        [self addSubview:disclosureImage];
+        
+        
+        UIFont *caslon = [UIFont fontWithName:@"ACaslonPro-Regular" size:20];
         CGRect titleLabelFrame = self.bounds;
-        titleLabelFrame.origin.x += 35.0;
-        titleLabelFrame.size.width -= 35.0;
-        CGRectInset(titleLabelFrame, 0.0, 5.0);
-        UILabel *label = [[UILabel alloc] initWithFrame:titleLabelFrame];
-        label.text = title;
-        label.font = [UIFont boldSystemFontOfSize:17.0];
-        label.textColor = [UIColor whiteColor];
-        label.backgroundColor = [UIColor clearColor];
-        [self addSubview:label];
-        _titleLabel = label;
-        
+        titleLabelFrame.origin.x += 35;
+        titleLabelFrame.origin.y += 3;
+        titleLabelFrame.size.width -= 35;
+        UILabel *titleLabel = [[UILabel alloc] initWithFrame:titleLabelFrame];
+        [titleLabel setText:title];
+        [titleLabel setFont:caslon];
+        [titleLabel setTextColor:[UIColor yellowTextColor]];
+        [titleLabel setBackgroundColor:[UIColor clearColor]];
+        [self addSubview:titleLabel];
+        _titleLabel = titleLabel;
+                               
         CGRect subTitleLabelFrame = self.bounds;
-        subTitleLabelFrame.origin.x += 245;
-        subTitleLabelFrame.size.width -= 35.0;
-        CGRectInset(subTitleLabelFrame, 0.0, 5.0);
+        subTitleLabelFrame.origin.x += 240;
+        subTitleLabelFrame.origin.y += 3;
+        subTitleLabelFrame.size.width -= 70;
         UILabel *subLabel = [[UILabel alloc] initWithFrame:subTitleLabelFrame];
-        subLabel.text = subTitle;
-        subLabel.font = [UIFont boldSystemFontOfSize:17.0];
-        subLabel.textColor = [UIColor whiteColor];
-        subLabel.backgroundColor = [UIColor clearColor];
+        [subLabel setText:subTitle];
+        [subLabel setFont:caslon];
+        [subLabel setTextColor:[UIColor yellowTextColor]];
+        [subLabel setBackgroundColor:[UIColor clearColor]];
         [self addSubview:subLabel];
         subTitleLabel = subLabel;
-        
-        /*CGRect subTitleLabelFrame = self.bounds;
-        subTitleLabelFrame.origin.x += 285;
-        subTitleLabelFrame.size.width -= 35.0;
-        CGRectInset(subTitleLabelFrame, 0.0, 5.0);
-        UILabel *subLabel = [[UILabel alloc] initWithFrame:subTitleLabelFrame];
-        subLabel.text = title;
-        label.font = [UIFont boldSystemFontOfSize:17.0];
-        label.textColor = [UIColor whiteColor];
-        label.backgroundColor = [UIColor clearColor];*/
-        
-        
-        // Create and configure the disclosure button.
-//        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-//        button.frame = CGRectMake(0.0, 5.0, 35.0, 35.0);
-//        [button setImage:[UIImage imageNamed:@"carat.png"] forState:UIControlStateNormal];
-//        [button setImage:[UIImage imageNamed:@"carat-open.png"] forState:UIControlStateSelected];
-//        [button addTarget:self action:@selector(toggleOpen:) forControlEvents:UIControlEventTouchUpInside];
-//        [self addSubview:button];
-//        _disclosureButton = button;
-        
-        
-//        // Set the colors for the gradient layer.
-//        static NSMutableArray *colors = nil;
-//        if (colors == nil) {
-//            colors = [[NSMutableArray alloc] initWithCapacity:3];
-//            UIColor *color = nil;
-//            color = [UIColor colorWithRed:0.82 green:0.84 blue:0.87 alpha:1.0];
-//            [colors addObject:(id)[color CGColor]];
-//            color = [UIColor colorWithRed:.35 green:.35 blue:.35 alpha:1.0];
-//            [colors addObject:(id)[color CGColor]];
-//            color = [UIColor colorWithRed:.35 green:.35 blue:.35 alpha:1.0];
-//            [colors addObject:(id)[color CGColor]];
-//        }
-//        [(CAGradientLayer *)self.layer setColors:colors];
-//        [(CAGradientLayer *)self.layer setLocations:[NSArray arrayWithObjects:[NSNumber numberWithFloat:0.0], [NSNumber numberWithFloat:0.48], [NSNumber numberWithFloat:1.0], nil]];
-        
-        UIImageView *bg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"SectionHeader1.png"]];
-        [self addSubview:bg];
     }
     
     return self;
+}
+
+- (void)turnDownDisclosure:(BOOL)yesOrNo
+{
+    if (yesOrNo)
+        [disclosureImage setImage:[UIImage imageNamed:@"DisclosureArrowDown.png"]];
+    else
+        [disclosureImage setImage:[UIImage imageNamed:@"DisclosureArrow.png"]];
 }
 
 - (void)setSubTitle:(NSString *)subName
@@ -106,32 +98,32 @@
 }
 
 
--(IBAction)toggleOpen:(id)sender {
-    
+-(void)toggleOpen:(id)sender {
+    NSLog(@"%i", [self section]);
     [self.delegate sectionHeaderView:self tapped:self.section];
     //[self toggleOpenWithUserAction:YES];
 }
 
 
--(void)toggleOpenWithUserAction:(BOOL)userAction {
-    
-    // Toggle the disclosure button state.
-    self.disclosureButton.selected = !self.disclosureButton.selected;
-    
-    // If this was a user action, send the delegate the appropriate message.
-    if (userAction) {
-        if (self.disclosureButton.selected) {
-            if ([self.delegate respondsToSelector:@selector(sectionHeaderView:sectionOpened:)]) {
-                //[self.delegate sectionHeaderView:self sectionOpened:self.section];
-            }
-        }
-        else {
-            if ([self.delegate respondsToSelector:@selector(sectionHeaderView:sectionClosed:)]) {
-               // [self.delegate sectionHeaderView:self sectionClosed:self.section];
-            }
-        }
-    }
-}
+//-(void)toggleOpenWithUserAction:(BOOL)userAction {
+//    
+//    // Toggle the disclosure button state.
+//    //self.disclosureButton.selected = !self.disclosureButton.selected;
+//    
+//    // If this was a user action, send the delegate the appropriate message.
+//    if (userAction) {
+//       // if (self.disclosureButton.selected) {
+//            if ([self.delegate respondsToSelector:@selector(sectionHeaderView:sectionOpened:)]) {
+//                //[self.delegate sectionHeaderView:self sectionOpened:self.section];
+//            }
+//        }
+//        else {
+//            if ([self.delegate respondsToSelector:@selector(sectionHeaderView:sectionClosed:)]) {
+//               // [self.delegate sectionHeaderView:self sectionClosed:self.section];
+//            }
+//        }
+//    }
+//}
 
 - (void)toggleSwipe:(id)sender
 {

@@ -21,6 +21,7 @@
 #import "CustomStepper.h"
 #import "TimerCell.h"
 #import "Metronome.h"
+#import "UIColor+YellowTextColor.h"
 
 #pragma mark - Private Interface
 
@@ -94,9 +95,11 @@
     [datePicker setMaximumDate:[NSDate date]];
     [self.view addSubview:datePicker];
     
-    UIFont *caslon = [UIFont fontWithName:@"ACaslonPro-Regular" size:9];
+    UIFont *caslon = [UIFont fontWithName:@"ACaslonPro-Regular" size:11];
+
     [tempoNameLabel setFont:caslon];
     [tempoNameLabel setText:@"TEMPO:"];
+    [tempoNameLabel setTextColor:[UIColor yellowTextColor]];
     [self makeMenu];
     [self makeMetronome];
     [self setUpScalesAndArpeggios];
@@ -128,10 +131,10 @@
     {
         SectionInfo *sectionZero = [[SectionInfo alloc] init];
         [sectionZero setOpen:NO];
-        [sectionZero setTitle:@"Scales"];
+        [sectionZero setTitle:@"SCALES"];
         SectionInfo *sectionOne = [[SectionInfo alloc] init];
         [sectionOne setOpen:NO];
-        [sectionOne setTitle:@"Arpeggios"];
+        [sectionOne setTitle:@"ARPEGGIOS"];
         sectionInfoArray = [NSMutableArray arrayWithObjects:sectionZero, sectionOne, nil];
         for (int i = 0; i < [[selectedSession pieceSession] count]; i++)
         {

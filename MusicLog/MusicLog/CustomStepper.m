@@ -7,6 +7,7 @@
 //
 
 #import "CustomStepper.h"
+#import "UIColor+YellowTextColor.h"
 
 int tempoRange(int x)
 {
@@ -38,6 +39,7 @@ int tempoRange(int x)
     [self addSubview:stepperBG];
     UIFont *caslon = [UIFont fontWithName:@"ACaslonPro-Regular" size:23];
     [tempoLabel setFont:caslon];
+    [tempoLabel setTextColor:[UIColor yellowTextColor]];
     tempo = 80;
     [tempoLabel setText:[NSString stringWithFormat:@"%u BPM", tempo]];
     

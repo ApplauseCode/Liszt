@@ -41,6 +41,10 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
 	SectionInfo *sectionInfo = [self.sectionInfoArray objectAtIndex:section];
+   /* if (sectionInfo.open)
+        [sectionInfo.headerView turnDownDisclosure:YES];
+    else
+        [sectionInfo.headerView turnDownDisclosure:NO];*/
     if ((!sectionInfo.headerView) || (section < 2)) 
     {
 		NSString *sectionName = sectionInfo.title;
