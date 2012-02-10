@@ -26,11 +26,12 @@
 
 @interface StatsVC ()
 
+
 @end
 
 @implementation StatsVC
 @synthesize tempoLabel, metronomeView, timerButton, statsTable;
-@synthesize selSessionDisplay, chooseDateButton, myPopover, chooseScalesButton, chooseArpsButton, choosePiecesButton;
+@synthesize selSessionDisplay, chooseDateButton, myPopover, chooseScalesButton, chooseArpsButton, choosePiecesButton, tempoNameLabel;
 @synthesize scaleTimer;
 @synthesize arpeggioTimer;
 @synthesize tempo;
@@ -87,11 +88,15 @@
     UINib *timerNib = [UINib nibWithNibName:@"TimerCell" bundle:nil];
     [statsTable registerNib:timerNib
      forCellReuseIdentifier:@"TimerCell"];
-    
+
     datePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake(0.0, -216.0, 320, 253)];
     [datePicker setDatePickerMode:UIDatePickerModeDate];
+    [datePicker setMaximumDate:[NSDate date]];
     [self.view addSubview:datePicker];
     
+    UIFont *caslon = [UIFont fontWithName:@"ACaslonPro-Regular" size:9];
+    [tempoNameLabel setFont:caslon];
+    [tempoNameLabel setText:@"TEMPO:"];
     [self makeMenu];
     [self makeMetronome];
     [self setUpScalesAndArpeggios];
@@ -99,7 +104,7 @@
 
 - (void) makeMenu {
     myPopover = [[[NSBundle mainBundle] loadNibNamed:@"CustomPopover" owner:self options:nil] objectAtIndex:0];
-    [myPopover setFrame:CGRectMake(200, 55, 108, 145)];
+    [myPopover setFrame:CGRectMake(207, 47, 119, 116)];
     [myPopover setAlpha:0];
     tapAwayGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideMenu:)];
     [tapAwayGesture setDelegate:self];
@@ -111,7 +116,7 @@
 }
 
 - (void) makeMetronome {
-    stepper = [[CustomStepper alloc] initWithPoint:CGPointMake(224, 15) andLabel:tempoLabel];
+    stepper = [[CustomStepper alloc] initWithPoint:CGPointMake(215, -6) andLabel:tempoLabel];
     [stepper setDelegate:self];
     [metronomeView addSubview:stepper];
     openSectionIndex = NSNotFound;
@@ -152,6 +157,7 @@
     [[sectionInfoArray objectAtIndex:0] setCountofRowsToInsert:[[selectedSession scaleSession] count]];
     [[sectionInfoArray objectAtIndex:1] setCountofRowsToInsert:[[selectedSession arpeggioSession] count]];
     [statsTable reloadData];
+    [self hideMenu:nil];
 }
 
 #pragma mark - View Actions
@@ -178,32 +184,53 @@
 
 - (void)hideMenu:(id)sender
 {
-    [myPopover removeFromSuperview];
-    [myPopover setAlpha:0];
-    [greyMask removeFromSuperview];
-    [greyMask setAlpha:0];
+    [UIView animateWithDuration:0.2 animations:^{
+        [myPopover setAlpha:0];
+        [greyMask setAlpha:0];
+    } completion:^(BOOL finished) {
+        [myPopover removeFromSuperview];
+        [greyMask removeFromSuperview];
+    }];
     [tapAwayGesture setEnabled:NO];
     for (SectionInfo *info in sectionInfoArray)
         [[[info headerView] tapGesture] setEnabled:YES];
 }
 
+- (void)presentPickerView:(id)sender
+{
+    id vc;
+    switch ([sender tag]) {
+        case 0:
+            vc = [[ScalePickerVC alloc] initWithIndex:0];
+            break;
+        case 1:
+            vc = [[ScalePickerVC alloc] initWithIndex:1];
+            break;
+        case 2:
+            vc = [[PiecesPickerVC alloc] init];
+            break;
+    }        
+    [self presentModalViewController:vc animated:YES];
+    [self closeSections];
+}
+
 - (void)slideDown:(id)sender
 {
+    CGPoint center = [chooseDateButton center];
     if ([datePicker frame].origin.y < -215.0)
     {
         [UIView animateWithDuration:0.25 delay:0 options:UIViewAnimationCurveEaseInOut animations:^{
             [datePicker setFrame:CGRectMake(0.0, 10.0, 320, 253)];
-            [chooseDateButton setFrame:CGRectMake(124, 226, 72, 37)];
+            [chooseDateButton setCenter:CGPointMake(center.x, center.y + 216)];
         } completion:^(BOOL finished) {
             [UIView animateWithDuration:0.15 delay:0 options:UIViewAnimationCurveEaseInOut animations:^{
                 [datePicker setFrame:CGRectMake(0.0, -12, 320, 253)];
-                [chooseDateButton setFrame:CGRectMake(124, 204, 72, 37)];
+                [chooseDateButton setCenter:CGPointMake(center.x, center.y + 194)];
             } completion:^(BOOL finished) {
                 [UIView animateWithDuration:0.15 delay:0 options:UIViewAnimationCurveEaseInOut animations:^{
                     [datePicker setFrame:CGRectMake(0.0, 0.0, 320, 253)];
-                    [chooseDateButton setFrame:CGRectMake(124, 216, 72, 37)];
+                    [chooseDateButton setCenter:CGPointMake(center.x, center.y + 206)];
                 } completion:^(BOOL finished) {
-                    [chooseDateButton setTitle:@"Done" forState:UIControlStateNormal];
                 }];
             }];
         }];
@@ -212,9 +239,8 @@
     {
         [UIView animateWithDuration:0.5 animations:^{
             [datePicker setFrame:CGRectMake(0.0, -216.0, 320, 253)];
-            [chooseDateButton setFrame:CGRectMake(124, 10, 72, 37)];
+            [chooseDateButton setCenter:CGPointMake(center.x, center.y - 206)];
         }completion:^(BOOL finished) {
-            [chooseDateButton setTitle:@"Date" forState:UIControlStateNormal];
             [self dateChanged];
         }];
     }
@@ -227,19 +253,7 @@
     [metro changeTempoWithTempo:[stepper tempo]];
 }
 
-- (void)presentPickerView:(id)sender
-{
-    id vc;
-    if ([[sender currentTitle] isEqualToString: @"Scales"])
-        vc = [[ScalePickerVC alloc] initWithIndex:0];
-    else if ([[sender currentTitle] isEqualToString: @"Arps"])
-        vc = [[ScalePickerVC alloc] initWithIndex:1];
-    else
-        vc = [[PiecesPickerVC alloc] init];
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
-    [self presentModalViewController:nav animated:YES];
-    [self closeSections];
-}
+
 - (void)saveSessionTimes
 {
     ScaleStore *store = [ScaleStore defaultStore];
@@ -315,6 +329,7 @@
 
 - (void)dateChanged
 {
+    [self closeSections]; 
     NSArray *sessions = [[ScaleStore defaultStore] sessions];    
     NSCalendar *cal = [NSCalendar currentCalendar];
     NSDateComponents *components = [cal components:(NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit) fromDate:[datePicker date]];
@@ -343,7 +358,6 @@
         [selSessionDisplay setText:[NSString stringWithFormat:@"Session %i, Created on %@", selSessionNum, [selectedSession date]]];
         currentPractice = NO;
     }
-   // [self changeTimeForTimers];
     [[sectionInfoArray objectAtIndex:0] setCountofRowsToInsert:[[selectedSession scaleSession] count]];
     [[sectionInfoArray objectAtIndex:1] setCountofRowsToInsert:[[selectedSession arpeggioSession] count]];
     [sectionInfoArray removeObjectsInRange:NSMakeRange(2, ([sectionInfoArray count] -2))];
@@ -355,6 +369,14 @@
         [sectionInfoArray addObject:pieceInfo];
     }
     [statsTable reloadData];
+//    float height = [metronomeView bounds].size.height;
+//    float move = currentPractice ? -height : height;
+//    float yCoord = [metronomeView center].y;
+//    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+//        [metronomeView setCenter:CGPointMake([metronomeView center].x, yCoord + move)];
+//    } completion:^(BOOL finished) {
+//        
+//    }];
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView

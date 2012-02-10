@@ -15,8 +15,8 @@
 @property (nonatomic, readonly, strong) NSArray *tonicArray;
 
 - (id)initWithIndex:(NSUInteger)idx;
-//- (IBAction)addScale:(id)sender;
-- (void)backToScales:(id)sender;
+- (IBAction)addScale:(id)sender;
+- (IBAction)backToScales:(id)sender;
 - (void)repeatedScaleWarning;
 
 @end

@@ -79,12 +79,6 @@ BOOL doubleDigit(int x)
     
 }
 
-/*- (void)setTimeButton:(UIButton *)button
-{
-    timeButton = button;
-    [timeButton addTarget:self action:@selector(timerHandling:) forControlEvents:UIControlEventTouchUpInside];
-}*/
-
 - (void)timerHandling:(id)sender
 {
     if ([[sender currentTitle] isEqual:@"Start"])   
@@ -148,10 +142,7 @@ BOOL doubleDigit(int x)
     counter --;
 }
 
-/*- (void)disconnectTimers
-{
-    self.timeButton = nil;
-}*/
+
 
 - (NSString *)timeString
 {

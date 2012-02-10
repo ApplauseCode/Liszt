@@ -32,11 +32,14 @@ int tempoRange(int x)
 
 - (id)initWithPoint:(CGPoint)point andLabel:(UILabel *)label
 {
-    self = [self initWithFrame:CGRectMake(point.x, point.y, 92.0, 37.0)];
+    self = [self initWithFrame:CGRectMake(point.x, point.y, 109.0, 62.0)];
     tempoLabel = label;
-    [self setBackgroundColor:[UIColor blueColor]];
+    UIImageView *stepperBG = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"StepperGraphic.png"]];
+    [self addSubview:stepperBG];
+    UIFont *caslon = [UIFont fontWithName:@"ACaslonPro-Regular" size:23];
+    [tempoLabel setFont:caslon];
     tempo = 80;
-    [tempoLabel setText:[NSString stringWithFormat:@"%u bpm", tempo]];
+    [tempoLabel setText:[NSString stringWithFormat:@"%u BPM", tempo]];
     
     return self;
 }
@@ -70,7 +73,7 @@ int tempoRange(int x)
         }
         
         
-        [tempoLabel setText:[NSString stringWithFormat:@"%u bpm", tempo]];
+        [tempoLabel setText:[NSString stringWithFormat:@"%u BPM", tempo]];
     }
 }
 
@@ -80,12 +83,12 @@ int tempoRange(int x)
     if (timeElapsed < 0.5 && [myTouch locationInView:self].x >= ([self frame].size.width / 2))
     {
         tempo = tempoRange(tempo + 1);
-        [tempoLabel setText:[NSString stringWithFormat:@"%u bpm", tempo]];
+        [tempoLabel setText:[NSString stringWithFormat:@"%u BPM", tempo]];
     }
     else if (timeElapsed < 0.5 && [myTouch locationInView:self].x < ([self frame].size.width / 2))
     {
         tempo = tempoRange(tempo - 1);
-        [tempoLabel setText:[NSString stringWithFormat:@"%u bpm", tempo]];
+        [tempoLabel setText:[NSString stringWithFormat:@"%u BPM", tempo]];
     }
     [timer invalidate];
     timeElapsed = 0;

@@ -69,29 +69,32 @@
         
         
         // Create and configure the disclosure button.
-        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        button.frame = CGRectMake(0.0, 5.0, 35.0, 35.0);
-        [button setImage:[UIImage imageNamed:@"carat.png"] forState:UIControlStateNormal];
-        [button setImage:[UIImage imageNamed:@"carat-open.png"] forState:UIControlStateSelected];
-        [button addTarget:self action:@selector(toggleOpen:) forControlEvents:UIControlEventTouchUpInside];
-        [self addSubview:button];
-        _disclosureButton = button;
+//        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+//        button.frame = CGRectMake(0.0, 5.0, 35.0, 35.0);
+//        [button setImage:[UIImage imageNamed:@"carat.png"] forState:UIControlStateNormal];
+//        [button setImage:[UIImage imageNamed:@"carat-open.png"] forState:UIControlStateSelected];
+//        [button addTarget:self action:@selector(toggleOpen:) forControlEvents:UIControlEventTouchUpInside];
+//        [self addSubview:button];
+//        _disclosureButton = button;
         
         
-        // Set the colors for the gradient layer.
-        static NSMutableArray *colors = nil;
-        if (colors == nil) {
-            colors = [[NSMutableArray alloc] initWithCapacity:3];
-            UIColor *color = nil;
-            color = [UIColor colorWithRed:0.82 green:0.84 blue:0.87 alpha:1.0];
-            [colors addObject:(id)[color CGColor]];
-            color = [UIColor colorWithRed:.35 green:.35 blue:.35 alpha:1.0];
-            [colors addObject:(id)[color CGColor]];
-            color = [UIColor colorWithRed:.35 green:.35 blue:.35 alpha:1.0];
-            [colors addObject:(id)[color CGColor]];
-        }
-        [(CAGradientLayer *)self.layer setColors:colors];
-        [(CAGradientLayer *)self.layer setLocations:[NSArray arrayWithObjects:[NSNumber numberWithFloat:0.0], [NSNumber numberWithFloat:0.48], [NSNumber numberWithFloat:1.0], nil]];
+//        // Set the colors for the gradient layer.
+//        static NSMutableArray *colors = nil;
+//        if (colors == nil) {
+//            colors = [[NSMutableArray alloc] initWithCapacity:3];
+//            UIColor *color = nil;
+//            color = [UIColor colorWithRed:0.82 green:0.84 blue:0.87 alpha:1.0];
+//            [colors addObject:(id)[color CGColor]];
+//            color = [UIColor colorWithRed:.35 green:.35 blue:.35 alpha:1.0];
+//            [colors addObject:(id)[color CGColor]];
+//            color = [UIColor colorWithRed:.35 green:.35 blue:.35 alpha:1.0];
+//            [colors addObject:(id)[color CGColor]];
+//        }
+//        [(CAGradientLayer *)self.layer setColors:colors];
+//        [(CAGradientLayer *)self.layer setLocations:[NSArray arrayWithObjects:[NSNumber numberWithFloat:0.0], [NSNumber numberWithFloat:0.48], [NSNumber numberWithFloat:1.0], nil]];
+        
+        UIImageView *bg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"SectionHeader1.png"]];
+        [self addSubview:bg];
     }
     
     return self;

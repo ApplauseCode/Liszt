@@ -13,7 +13,6 @@
 @interface Piece : NSObject <NSCopying, NSCoding>
 @property (nonatomic, strong) NSString *title;
 @property (nonatomic, strong) NSString *composer;
-@property int opus;
 @property BOOL major;
 @property int tempo;
 @property tonicType pieceKey;

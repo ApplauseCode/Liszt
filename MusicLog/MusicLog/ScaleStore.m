@@ -11,6 +11,7 @@
 #import "Scale.h"
 #import "Session.h"
 #import "Piece.h"
+#import "Timer.h"
 
 #define DEBUG 1
 #undef DEBUG
@@ -87,6 +88,8 @@ static ScaleStore *defaultStore = nil;
         [tempPiece setTempo:80];
         [tempPiece setPieceKey:kCD];
         [tempPiece setPieceTime:1000];
+        [tempPiece setTimer:[[Timer alloc] initWithElapsedTime:[tempPiece pieceTime]]];
+
         [tempSession setPieceSession:[NSMutableOrderedSet orderedSetWithObject:tempPiece]];
         [tempSession setDate:[ScaleStore getForDays:-1 fromDate:[NSDate date]]];
         [sessions addObject:tempSession];

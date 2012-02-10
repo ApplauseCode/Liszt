@@ -84,22 +84,24 @@
 
 -(void)sectionHeaderView:(SectionHeaderView *)sectionHeaderView sectionOpened:(NSInteger)section
 {
-    // get rid of line below if archived session.
-    [self setupTimerCellForSection:section];
     NSInteger previousOpenSectionIndex = [self openSectionIndex];
     [self setOpenSectionIndex:section];
     SectionInfo *sectionInfo = [self.sectionInfoArray objectAtIndex:section];
     [sectionInfo setOpen:YES];
     NSMutableArray *indexPathsToInsert = [[NSMutableArray alloc] init];
     NSMutableArray *indexPathsToDelete = [[NSMutableArray alloc] init];
-    if ([sectionInfo countofRowsToInsert] > 0 /*&& currentPractice*/) {
+    if ([sectionInfo countofRowsToInsert] > 0 && currentPractice) {
         for (NSInteger i = 0; i <= [sectionInfo countofRowsToInsert]; i++)
             [indexPathsToInsert addObject:[NSIndexPath indexPathForRow:i inSection:section]];
-    }
-    else {
+        [self setupTimerCellForSection:section];
+    } else if ([sectionInfo countofRowsToInsert] > 0 && !currentPractice) {
+        for (NSInteger i = 0; i < [sectionInfo countofRowsToInsert]; i++)
+            [indexPathsToInsert addObject:[NSIndexPath indexPathForRow:i inSection:section]];
+    } else {
         [sectionInfo setOpen:NO];
         [self setOpenSectionIndex:NSNotFound];
     }
+    
     if (previousOpenSectionIndex != NSNotFound) {
         NSString *time;
         [timerButton setTitle:@"Start" forState:UIControlStateNormal];
@@ -121,10 +123,13 @@
 
 - (void)sectionHeaderView:(SectionHeaderView *)sectionHeaderView sectionClosed:(NSInteger)section
 {
-    NSString *time = [self stopTimerForSection:section];
     SectionInfo *sectionInfo = [self.sectionInfoArray objectAtIndex:section];
-    [[sectionInfo headerView] setSubTitle:time];
     [sectionInfo setOpen:NO];
+    if (currentPractice)
+    {
+        NSString *time = [self stopTimerForSection:section];
+        [[sectionInfo headerView] setSubTitle:time];
+    }
     
     NSInteger countofRowsToDelete = [statsTable numberOfRowsInSection:section];
     if (countofRowsToDelete > 0) {
@@ -132,7 +137,7 @@
         for (int i = 0; i < countofRowsToDelete; i++)
             [indexPathsToDelete addObject:[NSIndexPath indexPathForRow:i inSection:section]];
         [statsTable beginUpdates];
-        [statsTable deleteRowsAtIndexPaths:indexPathsToDelete withRowAnimation:UITableViewRowAnimationNone];
+        [statsTable deleteRowsAtIndexPaths:indexPathsToDelete withRowAnimation:UITableViewRowAnimationAutomatic];
         [statsTable endUpdates];
     }
     self.openSectionIndex = NSNotFound;

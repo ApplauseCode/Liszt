@@ -27,19 +27,19 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque];
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     [UIApplication sharedApplication].idleTimerDisabled = YES;
     c = [[StatsVC alloc] init];
-    UINavigationController *homePage = [[UINavigationController alloc] initWithRootViewController:c];
+    //UINavigationController *homePage = [[UINavigationController alloc] initWithRootViewController:c];
     
-    UINavigationBar *homeBar = homePage.navigationBar;
+    //UINavigationBar *homeBar = homePage.navigationBar;
     UIImage *navImage = [UIImage imageNamed:@"LisztNavBar"];
-    [homeBar setBackgroundImage:navImage forBarMetrics:UIBarMetricsDefault];
+    //[homeBar setBackgroundImage:navImage forBarMetrics:UIBarMetricsDefault];
     
-    [self.window setRootViewController:homePage];
+    [self.window setRootViewController:c];
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque];
     return YES;
 }
 

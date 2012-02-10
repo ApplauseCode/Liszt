@@ -67,6 +67,7 @@
 @property (strong, nonatomic) IBOutlet UIButton *chooseScalesButton;
 @property (strong, nonatomic) IBOutlet UIButton *chooseArpsButton;
 @property (strong, nonatomic) IBOutlet UIButton *choosePiecesButton;
+@property (strong, nonatomic) IBOutlet UILabel *tempoNameLabel;
 
 - (IBAction)startMetronome:(id)sender;
 - (IBAction)slideDown:(id)sender;

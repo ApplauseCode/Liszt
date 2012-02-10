@@ -12,7 +12,6 @@
 @implementation Piece
 @synthesize title;
 @synthesize composer;
-@synthesize opus;
 @synthesize major;
 @synthesize tempo;
 @synthesize pieceKey;
@@ -33,7 +32,6 @@
     self = [super init];
     [self setTitle:[aDecoder decodeObjectForKey:@"title"]];
     [self setComposer:[aDecoder decodeObjectForKey:@"composer"]];
-    [self setOpus:[aDecoder decodeIntForKey:@"opus"]];
     [self setTempo:[aDecoder decodeIntForKey:@"pieceTempo"]];
     [self setMajor:[aDecoder decodeBoolForKey:@"major"]];
     [self setPieceKey:[aDecoder decodeIntForKey:@"key"]];
@@ -48,7 +46,6 @@
     Piece *copy = [[self class] allocWithZone:zone];
     [copy setTitle:title];
     [copy setComposer:composer];
-    [copy setOpus:opus];
     [copy setMajor:major];
     [copy setTempo:tempo];
     [copy setPieceKey:pieceKey];
@@ -62,7 +59,6 @@
     NSUInteger result = 1;
     result = prime * result + [title intValue];
     result = prime * result + [composer intValue];
-    result = prime * result + opus;
     result = prime * result + major;
     result = prime * result + tempo;
     result = prime * result + pieceKey;
@@ -75,7 +71,6 @@
 {
     if ((title == [object title])
         && (composer == [object composer])
-        && (opus == [object opus])
         && (major == [object major])
         && (tempo == [object tempo])
         && (pieceKey == [object pieceKey])
@@ -91,14 +86,13 @@
     [aCoder encodeObject:composer forKey:@"composer"];
     [aCoder encodeInt:tempo forKey:@"pieceTempo"];
     [aCoder encodeBool:major forKey:@"major"];
-    [aCoder encodeInt:opus forKey:@"opus"];
     [aCoder encodeInt:pieceKey forKey:@"key"];
     [aCoder encodeInt:pieceTime forKey:@"time"];
 }
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"Title: %@ Composer: %@ Tempo: %i Major: %i Opus: %i", [self title], [self composer], [self tempo], [self major], [self opus]];
+    return [NSString stringWithFormat:@"Title: %@ Composer: %@ Tempo: %i Major: %i", [self title], [self composer], [self tempo], [self major]];
 }
 
 - (NSString *)keyString

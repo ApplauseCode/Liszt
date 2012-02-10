@@ -22,7 +22,6 @@
 }
 @property (strong, nonatomic) IBOutlet UITextField *titleLabel;
 @property (strong, nonatomic) IBOutlet UITextField *composerLabel;
-@property (strong, nonatomic) IBOutlet UITextField *opusLabel;
 @property (strong, nonatomic) IBOutlet UILabel *tempoLabel;
 @property (strong, nonatomic) IBOutlet UISegmentedControl *modeSeg;
 
@@ -38,7 +37,6 @@
 @implementation PiecesPickerVC
 @synthesize titleLabel;
 @synthesize composerLabel;
-@synthesize opusLabel;
 @synthesize tempoLabel;
 @synthesize modeSeg;
 
@@ -67,7 +65,6 @@
     ScaleStore *store = [ScaleStore defaultStore];
     [createdPiece setTitle:[titleLabel text]];
     [createdPiece setComposer:[composerLabel text]];
-    [createdPiece setOpus:[[opusLabel text] intValue]];
     [createdPiece setTempo:[tempoStepper tempo]];
     [createdPiece setMajor:[modeSeg selectedSegmentIndex]];
     [createdPiece setPieceKey:[keyChooser selectedCellIndex]];
@@ -99,14 +96,12 @@
     tempoStepper = [[CustomStepper alloc] initWithPoint:CGPointMake(7, 260) andLabel:tempoLabel];
     
     
-    NSArray *texFields = [NSArray arrayWithObjects:titleLabel, composerLabel, opusLabel, nil];
-    for (UITextField *field in texFields)
+    NSArray *textFields = [NSArray arrayWithObjects:titleLabel, composerLabel, nil];
+    for (UITextField *field in textFields)
     {
         [field setDelegate:self];
         [field setReturnKeyType:UIReturnKeyDone];
-    }
-    [opusLabel setKeyboardType:UIKeyboardTypeNumbersAndPunctuation];
-    
+    }    
     [keyChooser setDataArray:keys];
     [self.view addSubview:keyChooser.view];
     [self.view addSubview:tempoStepper];
@@ -123,7 +118,6 @@
 {
     [self setTitleLabel:nil];
     [self setComposerLabel:nil];
-    [self setOpusLabel:nil];
     [self setModeSeg:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
@@ -161,7 +155,6 @@
 {
     [titleLabel resignFirstResponder];
     [composerLabel resignFirstResponder];
-    [opusLabel resignFirstResponder];
 }
 
 @end

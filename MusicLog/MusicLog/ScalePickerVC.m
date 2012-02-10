@@ -59,9 +59,9 @@
                 break;
         }
         index = idx;
-        tonicChooser = [[ACchooser alloc] initWithFrame:CGRectMake(0, 20, 320, 44)];
-        modeChooser = [[ACchooser alloc] initWithFrame:CGRectMake(0, 90, 320, 44)];
-        rhythmChooser = [[ACchooser alloc] initWithFrame:CGRectMake(0, 160, 320, 44)];
+        tonicChooser = [[ACchooser alloc] initWithFrame:CGRectMake(0, 64, 320, 44)];
+        modeChooser = [[ACchooser alloc] initWithFrame:CGRectMake(0, 134, 320, 44)];
+        rhythmChooser = [[ACchooser alloc] initWithFrame:CGRectMake(0, 204, 320, 44)];
         
     }
     return self;
@@ -74,10 +74,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-        
-    // Create a bar button item to take you back to the main page
-    UIBarButtonItem *back = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(backToScales:)];
-    self.navigationItem.leftBarButtonItem = back;
     
     [addScaleButton setTitle:@"Add" forState:normal];
     [octavesLabel setText:@"Octaves"];

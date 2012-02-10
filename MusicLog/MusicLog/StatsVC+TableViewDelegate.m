@@ -30,13 +30,12 @@
 {
     SectionInfo *sectionInfo = [self.sectionInfoArray objectAtIndex:section];
     NSInteger numRowsInSection;
-    numRowsInSection = [sectionInfo countofRowsToInsert] + 1;
-    if (section > 1)
-        return (sectionInfo.open) ? numRowsInSection : 0;
-    else if ((numRowsInSection == 1) || (!sectionInfo.open)) 
-        return 0;
+    
+    if (currentPractice)
+        numRowsInSection = [sectionInfo countofRowsToInsert] + 1;
     else
-        return numRowsInSection;
+        numRowsInSection = [sectionInfo countofRowsToInsert];
+    return (sectionInfo.open) ? numRowsInSection : 0;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
@@ -45,7 +44,7 @@
     if ((!sectionInfo.headerView) || (section < 2)) 
     {
 		NSString *sectionName = sectionInfo.title;
-        sectionInfo.headerView = [[SectionHeaderView alloc] initWithFrame:CGRectMake(0.0, 0.0, statsTable.bounds.size.width, 45) title:sectionName subTitle:@"" section:section delegate:self];
+        sectionInfo.headerView = [[SectionHeaderView alloc] initWithFrame:CGRectMake(0.0, 0.0, statsTable.bounds.size.width, 42) title:sectionName subTitle:@"" section:section delegate:self];
         NSString *time;
         if (currentPractice)
         {
@@ -66,7 +65,6 @@
             time = [[[[selectedSession pieceSession] objectAtIndex:(section - 2)] timer] timeString];
         }
         [sectionInfo.headerView setSubTitle:time];
-
     }
     return sectionInfo.headerView;
 }
@@ -77,14 +75,19 @@
     NSInteger row = [indexPath row];
     ScalesPracticedCell *cell = (ScalesPracticedCell *)[tableView
                                                          dequeueReusableCellWithIdentifier:@"ScalesPracticedCell"];
-    if (row == 0)
+    NSInteger dataIndex;
+    if (row == 0 && currentPractice)
         return tCell;
+    if (!currentPractice)
+        dataIndex = row;
+    else
+        dataIndex = row - 1;
     
     id entry;
     if (section == 0)
-        entry = [[selectedSession scaleSession] objectAtIndex:([indexPath row] - 1)];
+        entry = [[selectedSession scaleSession] objectAtIndex:dataIndex];
     else if (section == 1)
-        entry = [[selectedSession arpeggioSession] objectAtIndex:([indexPath row] - 1)];
+        entry = [[selectedSession arpeggioSession] objectAtIndex:dataIndex];
     if (section < 2)
     {
         cell.tonicLabel.text = [entry tonicString];
