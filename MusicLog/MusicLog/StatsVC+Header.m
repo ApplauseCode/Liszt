@@ -103,6 +103,7 @@
         for (NSInteger i = 0; i < [sectionInfo countofRowsToInsert]; i++)
             [indexPathsToInsert addObject:[NSIndexPath indexPathForRow:i inSection:section]];
     } else {
+        [sectionHeaderView turnDownDisclosure:NO];
         [sectionInfo setOpen:NO];
         [self setOpenSectionIndex:NSNotFound];
     }

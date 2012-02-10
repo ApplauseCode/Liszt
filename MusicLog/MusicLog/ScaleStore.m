@@ -14,7 +14,7 @@
 #import "Timer.h"
 
 #define DEBUG 1
-#undef DEBUG
+//#undef DEBUG
 
 static ScaleStore *defaultStore = nil;
 
