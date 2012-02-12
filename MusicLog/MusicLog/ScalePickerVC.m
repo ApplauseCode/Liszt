@@ -12,12 +12,14 @@
 #import "ScaleStore.h"
 #import "CustomStepper.h"
 #import "ACchooser.h"
+#import "UIColor+YellowTextColor.h"
 
 @interface ScalePickerVC ()
 {
     IBOutlet UISegmentedControl *octavesSegmentedControl;
     IBOutlet UIButton *addScaleButton;
     IBOutlet UILabel *tempoLabel;
+    IBOutlet UILabel *tempoTextLabel;
     IBOutlet UILabel *octavesLabel;
     
     NSUInteger index;
@@ -59,9 +61,9 @@
                 break;
         }
         index = idx;
-        tonicChooser = [[ACchooser alloc] initWithFrame:CGRectMake(24, 80, 272, 32)];
-        modeChooser = [[ACchooser alloc] initWithFrame:CGRectMake(24, 134, 272, 32)];
-        rhythmChooser = [[ACchooser alloc] initWithFrame:CGRectMake(24, 190, 272, 32)];
+        tonicChooser = [[ACchooser alloc] initWithFrame:CGRectMake(24, 90, 272, 32)];
+        modeChooser = [[ACchooser alloc] initWithFrame:CGRectMake(24, 161, 272, 32)];
+        rhythmChooser = [[ACchooser alloc] initWithFrame:CGRectMake(24, 231, 272, 32)];
         NSArray *choosers = [NSArray arrayWithObjects:tonicChooser, modeChooser, rhythmChooser, nil];
         for (ACchooser *chooser in choosers)
         {
@@ -86,8 +88,11 @@
     [addScaleButton setTitle:@"Add" forState:normal];
     [octavesLabel setText:@"Octaves"];
     
-    stepper = [[CustomStepper alloc] initWithPoint:CGPointMake(30, 300) andLabel:tempoLabel];
+    stepper = [[CustomStepper alloc] initWithPoint:CGPointMake(175, 340) andLabel:tempoLabel];
     [self.view addSubview:stepper];
+    
+    [tempoTextLabel setFont:[UIFont fontWithName:@"ACaslonPro-Regular" size:11]];
+    [tempoTextLabel setTextColor:[UIColor yellowTextColor]];
     
     [tonicChooser setDataArray:tonicArray];
     [modeChooser setDataArray:modeArray];
@@ -100,6 +105,7 @@
     [modeChooser setSelectedTextColor:[UIColor blueColor]];
     [rhythmChooser setSelectedTextColor:[UIColor blueColor]];
 }
+
 
 - (void)viewWillDisappear:(BOOL)animated
 {

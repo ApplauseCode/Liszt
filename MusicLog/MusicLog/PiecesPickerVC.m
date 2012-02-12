@@ -12,6 +12,7 @@
 #import "Piece.h"
 #import "ScaleStore.h"
 #import "StatsVC.h"
+#import "UIColor+YellowTextColor.h"
 
 @interface PiecesPickerVC ()
 {
@@ -19,10 +20,11 @@
     NSArray *keys;
     CustomStepper *tempoStepper;
     UITapGestureRecognizer *viewTap;
+    UITextField *titleLabel;
+    UITextField *composerLabel;
 }
-@property (strong, nonatomic) IBOutlet UITextField *titleLabel;
-@property (strong, nonatomic) IBOutlet UITextField *composerLabel;
 @property (strong, nonatomic) IBOutlet UILabel *tempoLabel;
+@property (strong, nonatomic) IBOutlet UILabel *tempoTextLabel;
 @property (strong, nonatomic) IBOutlet UISegmentedControl *modeSeg;
 
 - (void)sessionSave;
@@ -34,10 +36,9 @@
 @end
 
 @implementation PiecesPickerVC
-@synthesize titleLabel;
-@synthesize composerLabel;
 @synthesize tempoLabel;
 @synthesize modeSeg;
+@synthesize tempoTextLabel;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -84,12 +85,29 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    titleLabel = [[UITextField alloc] initWithFrame:CGRectMake(33, 95, 280, 31)];
+    [titleLabel setBorderStyle:UITextBorderStyleNone];
+    composerLabel = [[UITextField alloc] initWithFrame:CGRectMake(33, 164, 280, 31)];
+    [composerLabel setBorderStyle:UITextBorderStyleNone];
+    
 
-    keyChooser = [[ACchooser alloc] initWithFrame:CGRectMake(0, 200, 320, 44)];
+    keyChooser = [[ACchooser alloc] initWithFrame:CGRectMake(24, 231, 272, 32)];
+    [keyChooser setSelectedBackgroundColor:[UIColor clearColor]];
+    [keyChooser setSelectedTextColor:[UIColor blackColor]];
+    [keyChooser setCellColor:[UIColor clearColor]];
+    [keyChooser setCellFont:[UIFont fontWithName:@"ACaslonPro-Regular" size:20]];
+
     viewTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
     [self.view addGestureRecognizer:viewTap];
     [viewTap setEnabled:NO];
     tempoStepper = [[CustomStepper alloc] initWithPoint:CGPointMake(7, 260) andLabel:tempoLabel];
+    
+    tempoStepper = [[CustomStepper alloc] initWithPoint:CGPointMake(175, 340) andLabel:tempoLabel];
+    [self.view addSubview:tempoStepper];
+    
+    [tempoTextLabel setFont:[UIFont fontWithName:@"ACaslonPro-Regular" size:11]];
+    [tempoTextLabel setTextColor:[UIColor yellowTextColor]];
     
     NSArray *textFields = [NSArray arrayWithObjects:titleLabel, composerLabel, nil];
     for (UITextField *field in textFields)
@@ -103,6 +121,8 @@
     [keyChooser setDataArray:keys];
     [self.view addSubview:keyChooser.view];
     [self.view addSubview:tempoStepper];
+    [self.view addSubview:titleLabel];
+    [self.view addSubview:composerLabel];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -114,8 +134,8 @@
 
 - (void)viewDidUnload
 {
-    [self setTitleLabel:nil];
-    [self setComposerLabel:nil];
+    titleLabel = nil;
+    composerLabel = nil;
     [self setModeSeg:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
@@ -139,14 +159,19 @@
     return YES;
 }
 
+
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
     [viewTap setEnabled:YES];
+    textField.center = CGPointMake(textField.center.x, textField.center.y-2);
+
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
     [viewTap setEnabled:NO];
+    textField.center = CGPointMake(textField.center.x, textField.center.y+2);
+
 }
 
 - (void)dismissKeyboard

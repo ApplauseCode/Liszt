@@ -109,17 +109,28 @@
     }
     
     if (previousOpenSectionIndex != NSNotFound) {
-        NSString *time;
-        [timerButton setTitle:@"Start" forState:UIControlStateNormal];
-        time = [self stopTimerForSection:previousOpenSectionIndex];
-        
-		SectionInfo *previousOpenSection = [self.sectionInfoArray objectAtIndex:previousOpenSectionIndex];
+        SectionInfo *previousOpenSection = [self.sectionInfoArray objectAtIndex:previousOpenSectionIndex];
         [previousOpenSection.headerView turnDownDisclosure:NO];
-        [[previousOpenSection headerView] setSubTitle:time];
+        if (currentPractice)
+        {
+            NSString *time;
+            [timerButton setTitle:@"Start" forState:UIControlStateNormal];
+            time = [self stopTimerForSection:previousOpenSectionIndex];
+            [[previousOpenSection headerView] setSubTitle:time];
+        }
+		
         [previousOpenSection setOpen:NO];
         NSInteger countOfRowsToDelete = [previousOpenSection countofRowsToInsert];
-        for (NSInteger i = 0; i <= countOfRowsToDelete; i++)
-            [indexPathsToDelete addObject:[NSIndexPath indexPathForRow:i inSection:previousOpenSectionIndex]];
+        if (countOfRowsToDelete > 0 && currentPractice) {
+            for (NSInteger i = 0; i <= countOfRowsToDelete; i++)
+                [indexPathsToDelete addObject:[NSIndexPath indexPathForRow:i inSection:previousOpenSectionIndex]];
+        } else if (countOfRowsToDelete > 0 && !currentPractice) {
+            for (NSInteger i = 0; i < countOfRowsToDelete; i++)
+                [indexPathsToDelete addObject:[NSIndexPath indexPathForRow:i inSection:previousOpenSectionIndex]];
+        } else {
+            [previousOpenSection.headerView turnDownDisclosure:NO];
+            [previousOpenSection setOpen:NO];
+        }
     }
     [statsTable beginUpdates];
     [statsTable deleteRowsAtIndexPaths:indexPathsToDelete withRowAnimation:UITableViewRowAnimationAutomatic];

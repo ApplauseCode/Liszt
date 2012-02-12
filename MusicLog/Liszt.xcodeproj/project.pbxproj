@@ -18,6 +18,8 @@
 		BA1E20A914E6E92200F0D2FC /* ScalesButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BA1E20A314E6E92200F0D2FC /* ScalesButton@2x.png */; };
 		BA25A08114E7694B003A71AE /* StartTimerButton.png in Resources */ = {isa = PBXBuildFile; fileRef = BA25A07F14E7694B003A71AE /* StartTimerButton.png */; };
 		BA25A08214E7694B003A71AE /* StartTimerButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BA25A08014E7694B003A71AE /* StartTimerButton@2x.png */; };
+		BA25A09614E830AE003A71AE /* backToTodayButton.png in Resources */ = {isa = PBXBuildFile; fileRef = BA25A09414E830AE003A71AE /* backToTodayButton.png */; };
+		BA25A09714E830AE003A71AE /* backToTodayButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BA25A09514E830AE003A71AE /* backToTodayButton@2x.png */; };
 		BA26622414ABAF4200D9F3F6 /* Metronome.m in Sources */ = {isa = PBXBuildFile; fileRef = BA26622314ABAF4200D9F3F6 /* Metronome.m */; };
 		BA30777D141C4713003124E6 /* tick.caf in Resources */ = {isa = PBXBuildFile; fileRef = BA30777C141C4713003124E6 /* tick.caf */; };
 		BA3077DC141E4164003124E6 /* CustomStepper.m in Sources */ = {isa = PBXBuildFile; fileRef = BA3077DB141E4164003124E6 /* CustomStepper.m */; };
@@ -85,6 +87,17 @@
 		BAC1B75114E6D3BF00649748 /* StepperRolls@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BAC1B74F14E6D3BF00649748 /* StepperRolls@2x.png */; };
 		BAC1B75414E6D4E300649748 /* SectionHeader3.png in Resources */ = {isa = PBXBuildFile; fileRef = BAC1B75214E6D4E300649748 /* SectionHeader3.png */; };
 		BAC1B75514E6D4E300649748 /* SectionHeader3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BAC1B75314E6D4E300649748 /* SectionHeader3@2x.png */; };
+		BACA58D014E866200054A634 /* BlockBackground.m in Sources */ = {isa = PBXBuildFile; fileRef = BACA58CB14E866200054A634 /* BlockBackground.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		BACA58D114E866200054A634 /* BlockActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = BACA58CD14E866200054A634 /* BlockActionSheet.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		BACA58D214E866200054A634 /* BlockAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = BACA58CF14E866200054A634 /* BlockAlertView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		BACA58DC14E8678A0054A634 /* alert-black-button.png in Resources */ = {isa = PBXBuildFile; fileRef = BACA58D414E8678A0054A634 /* alert-black-button.png */; };
+		BACA58DD14E8678A0054A634 /* alert-black-button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BACA58D514E8678A0054A634 /* alert-black-button@2x.png */; };
+		BACA58DE14E8678A0054A634 /* alert-gray-button.png in Resources */ = {isa = PBXBuildFile; fileRef = BACA58D614E8678A0054A634 /* alert-gray-button.png */; };
+		BACA58DF14E8678A0054A634 /* alert-gray-button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BACA58D714E8678A0054A634 /* alert-gray-button@2x.png */; };
+		BACA58E014E8678A0054A634 /* alert-red-button.png in Resources */ = {isa = PBXBuildFile; fileRef = BACA58D814E8678A0054A634 /* alert-red-button.png */; };
+		BACA58E114E8678A0054A634 /* alert-red-button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BACA58D914E8678A0054A634 /* alert-red-button@2x.png */; };
+		BACA58E214E8678A0054A634 /* alert-window.png in Resources */ = {isa = PBXBuildFile; fileRef = BACA58DA14E8678A0054A634 /* alert-window.png */; };
+		BACA58E314E8678A0054A634 /* alert-window@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BACA58DB14E8678A0054A634 /* alert-window@2x.png */; };
 		BADA3F81140BD8DF00B57C49 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BADA3F80140BD8DF00B57C49 /* UIKit.framework */; };
 		BADA3F83140BD8DF00B57C49 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BADA3F82140BD8DF00B57C49 /* Foundation.framework */; };
 		BADA3F89140BD8DF00B57C49 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BADA3F87140BD8DF00B57C49 /* InfoPlist.strings */; };
@@ -124,6 +137,8 @@
 		BA1E20A314E6E92200F0D2FC /* ScalesButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ScalesButton@2x.png"; sourceTree = "<group>"; };
 		BA25A07F14E7694B003A71AE /* StartTimerButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StartTimerButton.png; sourceTree = "<group>"; };
 		BA25A08014E7694B003A71AE /* StartTimerButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "StartTimerButton@2x.png"; sourceTree = "<group>"; };
+		BA25A09414E830AE003A71AE /* backToTodayButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backToTodayButton.png; sourceTree = "<group>"; };
+		BA25A09514E830AE003A71AE /* backToTodayButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "backToTodayButton@2x.png"; sourceTree = "<group>"; };
 		BA26622214ABAF4200D9F3F6 /* Metronome.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Metronome.h; sourceTree = "<group>"; };
 		BA26622314ABAF4200D9F3F6 /* Metronome.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Metronome.m; sourceTree = "<group>"; };
 		BA30777C141C4713003124E6 /* tick.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = tick.caf; sourceTree = "<group>"; };
@@ -206,6 +221,20 @@
 		BAC1B74F14E6D3BF00649748 /* StepperRolls@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "StepperRolls@2x.png"; sourceTree = "<group>"; };
 		BAC1B75214E6D4E300649748 /* SectionHeader3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SectionHeader3.png; sourceTree = "<group>"; };
 		BAC1B75314E6D4E300649748 /* SectionHeader3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SectionHeader3@2x.png"; sourceTree = "<group>"; };
+		BACA58CA14E866200054A634 /* BlockBackground.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlockBackground.h; sourceTree = "<group>"; };
+		BACA58CB14E866200054A634 /* BlockBackground.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlockBackground.m; sourceTree = "<group>"; };
+		BACA58CC14E866200054A634 /* BlockActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlockActionSheet.h; sourceTree = "<group>"; };
+		BACA58CD14E866200054A634 /* BlockActionSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlockActionSheet.m; sourceTree = "<group>"; };
+		BACA58CE14E866200054A634 /* BlockAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlockAlertView.h; sourceTree = "<group>"; };
+		BACA58CF14E866200054A634 /* BlockAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlockAlertView.m; sourceTree = "<group>"; };
+		BACA58D414E8678A0054A634 /* alert-black-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "alert-black-button.png"; sourceTree = "<group>"; };
+		BACA58D514E8678A0054A634 /* alert-black-button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "alert-black-button@2x.png"; sourceTree = "<group>"; };
+		BACA58D614E8678A0054A634 /* alert-gray-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "alert-gray-button.png"; sourceTree = "<group>"; };
+		BACA58D714E8678A0054A634 /* alert-gray-button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "alert-gray-button@2x.png"; sourceTree = "<group>"; };
+		BACA58D814E8678A0054A634 /* alert-red-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "alert-red-button.png"; sourceTree = "<group>"; };
+		BACA58D914E8678A0054A634 /* alert-red-button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "alert-red-button@2x.png"; sourceTree = "<group>"; };
+		BACA58DA14E8678A0054A634 /* alert-window.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "alert-window.png"; sourceTree = "<group>"; };
+		BACA58DB14E8678A0054A634 /* alert-window@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "alert-window@2x.png"; sourceTree = "<group>"; };
 		BADA3F7C140BD8DF00B57C49 /* Liszt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Liszt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BADA3F80140BD8DF00B57C49 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		BADA3F82140BD8DF00B57C49 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -266,6 +295,8 @@
 		BA08C5E5140D3D35009C5E8D /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				BA25A09414E830AE003A71AE /* backToTodayButton.png */,
+				BA25A09514E830AE003A71AE /* backToTodayButton@2x.png */,
 				BA25A07F14E7694B003A71AE /* StartTimerButton.png */,
 				BA25A08014E7694B003A71AE /* StartTimerButton@2x.png */,
 				BA1E209E14E6E92200F0D2FC /* ArpsButton.png */,
@@ -480,12 +511,26 @@
 		BAF3AA2514535B26004EB308 /* Custom Controls */ = {
 			isa = PBXGroup;
 			children = (
+				BACA58D414E8678A0054A634 /* alert-black-button.png */,
+				BACA58D514E8678A0054A634 /* alert-black-button@2x.png */,
+				BACA58D614E8678A0054A634 /* alert-gray-button.png */,
+				BACA58D714E8678A0054A634 /* alert-gray-button@2x.png */,
+				BACA58D814E8678A0054A634 /* alert-red-button.png */,
+				BACA58D914E8678A0054A634 /* alert-red-button@2x.png */,
+				BACA58DA14E8678A0054A634 /* alert-window.png */,
+				BACA58DB14E8678A0054A634 /* alert-window@2x.png */,
 				BA3077DA141E4164003124E6 /* CustomStepper.h */,
 				BA3077DB141E4164003124E6 /* CustomStepper.m */,
 				BA8CC24A1436088A00ADE21B /* Timer.h */,
 				BA8CC24B1436088A00ADE21B /* Timer.m */,
 				BA513256145B5D5C00043279 /* DoubleTap.h */,
 				BA513257145B5D5C00043279 /* DoubleTap.m */,
+				BACA58CA14E866200054A634 /* BlockBackground.h */,
+				BACA58CB14E866200054A634 /* BlockBackground.m */,
+				BACA58CC14E866200054A634 /* BlockActionSheet.h */,
+				BACA58CD14E866200054A634 /* BlockActionSheet.m */,
+				BACA58CE14E866200054A634 /* BlockAlertView.h */,
+				BACA58CF14E866200054A634 /* BlockAlertView.m */,
 			);
 			name = "Custom Controls";
 			sourceTree = "<group>";
@@ -610,6 +655,16 @@
 				BA1E20A914E6E92200F0D2FC /* ScalesButton@2x.png in Resources */,
 				BA25A08114E7694B003A71AE /* StartTimerButton.png in Resources */,
 				BA25A08214E7694B003A71AE /* StartTimerButton@2x.png in Resources */,
+				BA25A09614E830AE003A71AE /* backToTodayButton.png in Resources */,
+				BA25A09714E830AE003A71AE /* backToTodayButton@2x.png in Resources */,
+				BACA58DC14E8678A0054A634 /* alert-black-button.png in Resources */,
+				BACA58DD14E8678A0054A634 /* alert-black-button@2x.png in Resources */,
+				BACA58DE14E8678A0054A634 /* alert-gray-button.png in Resources */,
+				BACA58DF14E8678A0054A634 /* alert-gray-button@2x.png in Resources */,
+				BACA58E014E8678A0054A634 /* alert-red-button.png in Resources */,
+				BACA58E114E8678A0054A634 /* alert-red-button@2x.png in Resources */,
+				BACA58E214E8678A0054A634 /* alert-window.png in Resources */,
+				BACA58E314E8678A0054A634 /* alert-window@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -646,6 +701,9 @@
 				BAE6998414E5555700D3ADF8 /* UIColor+YellowTextColor.m in Sources */,
 				BAC1B73E14E6C91400649748 /* ABTableViewCell.m in Sources */,
 				BAC1B74114E6C91E00649748 /* CustomDrawnCell.m in Sources */,
+				BACA58D014E866200054A634 /* BlockBackground.m in Sources */,
+				BACA58D114E866200054A634 /* BlockActionSheet.m in Sources */,
+				BACA58D214E866200054A634 /* BlockAlertView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -22,11 +22,14 @@
 #import "TimerCell.h"
 #import "Metronome.h"
 #import "UIColor+YellowTextColor.h"
+#import "BlockAlertView.h"
 
 #pragma mark - Private Interface
 
 @interface StatsVC ()
-
+@property (nonatomic, strong) UIButton *todayButton;
+- (void)backToToday:(id)sender;
+- (void)blockAlertView:(BOOL)isYes;
 
 @end
 
@@ -52,6 +55,7 @@
 @synthesize metro;
 @synthesize tCell;
 @synthesize shouldDisplayTime;
+@synthesize todayButton;
 
 #pragma mark - View lifecycle
 
@@ -94,6 +98,11 @@
     [statsTable registerNib:timerNib
      forCellReuseIdentifier:@"TimerCell"];
     [statsTable setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    
+    todayButton = [[UIButton alloc] initWithFrame:CGRectMake(160-(139*1/2), 460, 139, 60)];
+    [todayButton setImage:[UIImage imageNamed:@"backToTodayButton.png"] forState:UIControlStateNormal];
+    [todayButton addTarget:self action:@selector(backToToday:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:todayButton];
 
     datePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake(0.0, -216.0, 320, 253)];
     [datePicker setDatePickerMode:UIDatePickerModeDate];
@@ -273,18 +282,43 @@
 
 - (void)newSession:(id)sender
 {
+    
+    NSCalendar *cal = [NSCalendar currentCalendar];
+    NSDateComponents *componentsForOld = [cal components:(NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit) fromDate:[selectedSession date]];
+    NSDate *startDateOfPreviousSession = [cal dateFromComponents:componentsForOld];
+    
+    NSDateComponents *componentsForNow = [cal components:(NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit) fromDate:[NSDate date]];
+    NSDate *today = [cal dateFromComponents:componentsForNow];
+    
+    if ([startDateOfPreviousSession isEqualToDate:today])
+    {
+        BlockAlertView *whoops = [BlockAlertView alertWithTitle:@"Whoops!" message:@"You already have a session started today. Now get back to practicing!"];
+        [whoops setDestructiveButtonWithTitle:@"Ok" block:nil];
+        [whoops show];
+        return;
+    }
+                                          
     [self saveSessionTimes];
-    UIAlertView *newOrOld = [[UIAlertView alloc] initWithTitle:@"New Session" message:@"Would you like to start this session as a copy of your previous session?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
+    
+    BlockAlertView *newOrOld = [BlockAlertView alertWithTitle:@"New Session" message:@"Would you like to start this session as a copy of your previous session?"];
+    [newOrOld addButtonWithTitle:@"No" block:^{
+        [self blockAlertView:NO];
+    }];
+    [newOrOld addButtonWithTitle:@"Yes" block:^{
+        [self blockAlertView:YES];
+    }];
+    [newOrOld setDestructiveButtonWithTitle:@"Cancel" block:nil];
+
     [newOrOld show];
    }
 
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+- (void)blockAlertView:(BOOL)isYes
 {
     ScaleStore *store = [ScaleStore defaultStore];
-    [store addSessionStartNew:buttonIndex];
+    [store addSessionStartNew:isYes];
     [scaleTimer resetTimer];
     [arpeggioTimer resetTimer];
-    if (buttonIndex)
+    if (isYes)
     {
         for (Piece *p in [[store mySession] pieceSession])
         {
@@ -299,7 +333,7 @@
     {
         [[[sectionInfoArray objectAtIndex:i + 2] headerView] setSubTitle:[[[[selectedSession pieceSession] objectAtIndex:i] timer] timeString]];
     }
-
+    
     [[sectionInfoArray objectAtIndex:0] setCountofRowsToInsert:[[selectedSession scaleSession] count]];
     [[sectionInfoArray objectAtIndex:1] setCountofRowsToInsert:[[selectedSession arpeggioSession] count]];
     [statsTable reloadData];
@@ -333,6 +367,12 @@
             [p setTimer:t];
         }
     }
+}
+
+- (void)backToToday:(id)sender
+{
+    [datePicker setDate:[NSDate date]];
+    [self dateChanged];
 }
 
 - (void)dateChanged
@@ -377,17 +417,23 @@
         [sectionInfoArray addObject:pieceInfo];
     }
     [statsTable reloadData];
+    
+    
     float metronomeCenter = self.view.frame.size.height - [metronomeView bounds].size.height / 2.0;
     float metronomeHeight = [metronomeView bounds].size.height;
     float metronomePosition = metronomeCenter;
     float buttonHeight = [aNewButton bounds].size.height;
     float buttonCenterY = currentPractice ? buttonHeight / 2.0 -3 : -buttonHeight / 2.0 - 3;
     metronomePosition += currentPractice ? 0 : metronomeHeight;
+    float todayCenterY = currentPractice ? metronomeCenter + metronomeHeight : metronomeCenter;
     [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
         [metronomeView setCenter:CGPointMake([metronomeView center].x, metronomePosition)];
         [addButton setCenter:CGPointMake([addButton center].x, buttonCenterY)];
         [aNewButton setCenter:CGPointMake([aNewButton center].x, buttonCenterY)];
     } completion:^(BOOL finished) {
+        [UIView animateWithDuration:0.3 animations:^{
+            [todayButton setCenter:CGPointMake([todayButton center].x, todayCenterY)];
+        }];
         
     }];
 }
@@ -411,11 +457,12 @@
     }
     if (index)
     {
-        if ([index intValue] == 0)
+
+        if ([index intValue] == 0 && currentPractice)
         {
             [scaleTimer setTimeLabel:[openSection.headerView subTitleLabel]];
         }
-        else if ([index intValue] == 1)
+        else if ([index intValue] == 1 && currentPractice)
         {
             [arpeggioTimer setTimeLabel:[openSection.headerView subTitleLabel]];
         }
