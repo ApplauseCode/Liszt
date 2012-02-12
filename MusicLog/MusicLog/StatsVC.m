@@ -31,6 +31,8 @@
 @end
 
 @implementation StatsVC
+@synthesize addButton;
+@synthesize aNewButton;
 @synthesize tempoLabel, metronomeView, timerButton, statsTable;
 @synthesize selSessionDisplay, chooseDateButton, myPopover, chooseScalesButton, chooseArpsButton, choosePiecesButton, tempoNameLabel;
 @synthesize scaleTimer;
@@ -55,6 +57,8 @@
 
 - (void)viewDidUnload
 {
+    [self setAddButton:nil];
+    [self setANewButton:nil];
     [self setChoosePiecesButton:nil];
     [self setChooseArpsButton:nil];
     [self setChooseScalesButton:nil];
@@ -373,14 +377,19 @@
         [sectionInfoArray addObject:pieceInfo];
     }
     [statsTable reloadData];
-//    float height = [metronomeView bounds].size.height;
-//    float move = currentPractice ? -height : height;
-//    float yCoord = [metronomeView center].y;
-//    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-//        [metronomeView setCenter:CGPointMake([metronomeView center].x, yCoord + move)];
-//    } completion:^(BOOL finished) {
-//        
-//    }];
+    float metronomeCenter = self.view.frame.size.height - [metronomeView bounds].size.height / 2.0;
+    float metronomeHeight = [metronomeView bounds].size.height;
+    float metronomePosition = metronomeCenter;
+    float buttonHeight = [aNewButton bounds].size.height;
+    float buttonCenterY = currentPractice ? buttonHeight / 2.0 -3 : -buttonHeight / 2.0 - 3;
+    metronomePosition += currentPractice ? 0 : metronomeHeight;
+    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+        [metronomeView setCenter:CGPointMake([metronomeView center].x, metronomePosition)];
+        [addButton setCenter:CGPointMake([addButton center].x, buttonCenterY)];
+        [aNewButton setCenter:CGPointMake([aNewButton center].x, buttonCenterY)];
+    } completion:^(BOOL finished) {
+        
+    }];
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView

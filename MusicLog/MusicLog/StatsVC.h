@@ -59,7 +59,9 @@
 @property (nonatomic, strong)   Timer *arpeggioTimer;
 @property (strong, nonatomic) IBOutlet UILabel *tempoLabel;
 @property (strong, nonatomic) IBOutlet UIView *metronomeView;
+@property (weak, nonatomic) IBOutlet UIButton *addButton;
 @property (strong, nonatomic) UIButton *timerButton;
+@property (weak, nonatomic) IBOutlet UIButton *aNewButton;
 @property (strong, nonatomic) IBOutlet UITableView *statsTable;
 @property (strong, nonatomic) IBOutlet UILabel *selSessionDisplay;
 @property (strong, nonatomic) IBOutlet UIButton *chooseDateButton;
