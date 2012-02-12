@@ -39,22 +39,24 @@
 					<object class="IBUIImageView" id="856439149">
 						<reference key="NSNextResponder" ref="206198877"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrameSize">{119, 116}</string>
+						<string key="NSFrameSize">{128, 150}</string>
 						<reference key="NSSuperview" ref="206198877"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="984971771"/>
 						<string key="NSReuseIdentifierKey">_NS:567</string>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<object class="NSCustomResource" key="IBUIImage">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">AddBarBG.png</string>
+							<string key="NSResourceName">AddPopupBackboard.png</string>
 						</object>
 					</object>
 					<object class="IBUIButton" id="984971771">
 						<reference key="NSNextResponder" ref="206198877"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{20, -4}, {82, 50}}</string>
+						<string key="NSFrame">{{16, -1}, {101, 58}}</string>
 						<reference key="NSSuperview" ref="206198877"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="26288303"/>
 						<string key="NSReuseIdentifierKey">_NS:225</string>
 						<bool key="IBUIOpaque">NO</bool>
@@ -90,8 +92,9 @@
 					<object class="IBUIButton" id="26288303">
 						<reference key="NSNextResponder" ref="206198877"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{20, 24}, {82, 50}}</string>
+						<string key="NSFrame">{{16, 38}, {101, 58}}</string>
 						<reference key="NSSuperview" ref="206198877"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="605819077"/>
 						<string key="NSReuseIdentifierKey">_NS:225</string>
 						<bool key="IBUIOpaque">NO</bool>
@@ -115,8 +118,9 @@
 					<object class="IBUIButton" id="605819077">
 						<reference key="NSNextResponder" ref="206198877"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{20, 54}, {82, 48}}</string>
+						<string key="NSFrame">{{16, 78}, {101, 58}}</string>
 						<reference key="NSSuperview" ref="206198877"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:225</string>
 						<bool key="IBUIOpaque">NO</bool>
@@ -138,8 +142,9 @@
 						<reference key="IBUIFont" ref="760638805"/>
 					</object>
 				</array>
-				<string key="NSFrameSize">{119, 116}</string>
+				<string key="NSFrameSize">{128, 150}</string>
 				<reference key="NSSuperview"/>
+				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="856439149"/>
 				<string key="NSReuseIdentifierKey">_NS:196</string>
 				<object class="NSColor" key="IBUIBackgroundColor">
@@ -235,9 +240,9 @@
 						<reference key="object" ref="206198877"/>
 						<array class="NSMutableArray" key="children">
 							<reference ref="856439149"/>
-							<reference ref="984971771"/>
-							<reference ref="26288303"/>
 							<reference ref="605819077"/>
+							<reference ref="26288303"/>
+							<reference ref="984971771"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -280,16 +285,110 @@
 			<nil key="sourceID"/>
 			<int key="maxID">25</int>
 		</object>
-		<object class="IBClassDescriber" key="IBDocument.Classes"/>
+		<object class="IBClassDescriber" key="IBDocument.Classes">
+			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
+				<object class="IBPartialClassDescription">
+					<string key="className">StatsVC</string>
+					<string key="superclassName">UIViewController</string>
+					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="newSession:">id</string>
+						<string key="presentPickerView:">id</string>
+						<string key="showMenu:">id</string>
+						<string key="slideDown:">id</string>
+						<string key="startMetronome:">id</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="newSession:">
+							<string key="name">newSession:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="presentPickerView:">
+							<string key="name">presentPickerView:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="showMenu:">
+							<string key="name">showMenu:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="slideDown:">
+							<string key="name">slideDown:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="startMetronome:">
+							<string key="name">startMetronome:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="chooseArpsButton">UIButton</string>
+						<string key="chooseDateButton">UIButton</string>
+						<string key="choosePiecesButton">UIButton</string>
+						<string key="chooseScalesButton">UIButton</string>
+						<string key="metronomeView">UIView</string>
+						<string key="myPopover">UIView</string>
+						<string key="selSessionDisplay">UILabel</string>
+						<string key="statsTable">UITableView</string>
+						<string key="tempoLabel">UILabel</string>
+						<string key="tempoNameLabel">UILabel</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="chooseArpsButton">
+							<string key="name">chooseArpsButton</string>
+							<string key="candidateClassName">UIButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="chooseDateButton">
+							<string key="name">chooseDateButton</string>
+							<string key="candidateClassName">UIButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="choosePiecesButton">
+							<string key="name">choosePiecesButton</string>
+							<string key="candidateClassName">UIButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="chooseScalesButton">
+							<string key="name">chooseScalesButton</string>
+							<string key="candidateClassName">UIButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="metronomeView">
+							<string key="name">metronomeView</string>
+							<string key="candidateClassName">UIView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="myPopover">
+							<string key="name">myPopover</string>
+							<string key="candidateClassName">UIView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="selSessionDisplay">
+							<string key="name">selSessionDisplay</string>
+							<string key="candidateClassName">UILabel</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="statsTable">
+							<string key="name">statsTable</string>
+							<string key="candidateClassName">UITableView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="tempoLabel">
+							<string key="name">tempoLabel</string>
+							<string key="candidateClassName">UILabel</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="tempoNameLabel">
+							<string key="name">tempoNameLabel</string>
+							<string key="candidateClassName">UILabel</string>
+						</object>
+					</dictionary>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/StatsVC.h</string>
+					</object>
+				</object>
+			</array>
+		</object>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaTouchFramework</string>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
-			<string key="AddBarBG.png">{119, 116}</string>
-			<string key="ArpsButton.png">{82, 50}</string>
-			<string key="PiecesButton.png">{82, 50}</string>
-			<string key="ScalesButton.png">{82, 50}</string>
+			<string key="AddPopupBackboard.png">{128, 150}</string>
+			<string key="ArpsButton.png">{101, 58}</string>
+			<string key="PiecesButton.png">{101, 57}</string>
+			<string key="ScalesButton.png">{101, 58}</string>
 		</dictionary>
 		<string key="IBCocoaTouchPluginVersion">931</string>
 	</data>

@@ -16,10 +16,18 @@
 #import "ScalesPracticedCell.h"
 #import "TimerCell.h"
 #import "NSString+Number.h"
+#import "CustomDrawnCell.h"
 
 @implementation StatsVC (TableViewDelegate)
 
 #pragma mark - Table View
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if ([indexPath row] == 0 && currentPractice)
+        return 27;
+    return 42;
+}
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -44,7 +52,7 @@
     if ((!sectionInfo.headerView) || (section < 2)) 
     {
 		NSString *sectionName = sectionInfo.title;
-        sectionInfo.headerView = [[SectionHeaderView alloc] initWithFrame:CGRectMake(0.0, 0.0, statsTable.bounds.size.width, 42) title:sectionName subTitle:@"" section:section delegate:self];
+        sectionInfo.headerView = [[SectionHeaderView alloc] initWithFrame:CGRectMake(0.0, 0.0, statsTable.bounds.size.width, 42) title:[sectionName capitalizedString] subTitle:@"" section:section delegate:self];
         NSString *time;
         if (currentPractice)
         {
@@ -77,8 +85,12 @@
 {
     NSInteger section = [indexPath section];
     NSInteger row = [indexPath row];
-    ScalesPracticedCell *cell = (ScalesPracticedCell *)[tableView
-                                                         dequeueReusableCellWithIdentifier:@"ScalesPracticedCell"];
+    CustomDrawnCell *cell = (CustomDrawnCell *)[tableView
+                                                         dequeueReusableCellWithIdentifier:@"CustomDrawnCell"];
+    if (cell == nil)
+    {
+        cell = [[CustomDrawnCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CustomDrawnCell"];
+    }
     NSInteger dataIndex;
     if (row == 0 && currentPractice)
         return tCell;
@@ -94,27 +106,55 @@
         entry = [[selectedSession arpeggioSession] objectAtIndex:dataIndex];
     if (section < 2)
     {
-        cell.tonicLabel.text = [entry tonicString];
-        cell.modeLabel.text = [entry modeString];
-        cell.rhythmLabel.text = [entry rhythmString];
-        cell.speedLabel.text = [entry tempoString];
-        cell.octavesLabel.text = [entry octavesString];
+        [cell setTonic:[[entry tonicString] uppercaseString]
+               octaves:[[entry octavesString] uppercaseString]
+                rhythm:[[entry rhythmString] uppercaseString]
+                  mode:[entry modeString]
+                 speed:[[entry tempoString] uppercaseString]];
+//        cell.tonicLabel.text = [entry tonicString];
+//        cell.modeLabel.text = [entry modeString];
+//        cell.rhythmLabel.text = [entry rhythmString];
+//        cell.speedLabel.text = [entry tempoString];
+//        cell.octavesLabel.text = [entry octavesString];
     }
     else
     {
         entry = [[selectedSession pieceSession] objectAtIndex:([indexPath section] - 2)];
-        cell.tonicLabel.text = [entry title];
-        cell.modeLabel.text = [entry composer];
-        cell.rhythmLabel.text = [entry keyString];
-        cell.speedLabel.text = [NSString stringWithInt:[entry tempo]];
-        if ([entry major])
-            cell.octavesLabel.text = @"Major";
-        else
-            cell.octavesLabel.text = @"Minor";
+        [cell setTonic:[[entry title] uppercaseString]
+               octaves:@""
+                rhythm:[[entry keyString] uppercaseString]
+                  mode:[entry composer]
+                 speed:[[NSString stringWithInt:[entry tempo]] uppercaseString]];
+//        cell.tonicLabel.text = [entry title];
+//        cell.modeLabel.text = [entry composer];
+//        cell.rhythmLabel.text = [entry keyString];
+//        cell.speedLabel.text = [NSString stringWithInt:[entry tempo]];
+//        if ([entry major])
+//            cell.octavesLabel.text = @"Major";
+//        else
+//            cell.octavesLabel.text = @"Minor";
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;    
     return cell;
 }
+
+//- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+//    
+//    static NSString *CellIdentifier = @"CustomDrawnCell";
+//	
+//	CustomDrawnCell *cell = (CustomDrawnCell*)[tableView dequeueReusableCellWithIdentifier: CellIdentifier];
+//	if (cell == nil) 
+//	{		
+//	}
+//	
+//    [cell setTonic:@"C"
+//           octaves:@"4"
+//            rhythm:@"1/16ths"];
+//    
+//	// other initialization goes here
+//	return cell;
+//}
+
 
 #pragma mark - Table View Editing -
 

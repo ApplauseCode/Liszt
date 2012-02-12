@@ -126,7 +126,7 @@ CGFloat sum_2(CGFloat *a, int n)
     [horizontalTable scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionMiddle animated:YES]; 
     selectedCellIndex = cellNumber - 1;
     [tableView reloadData]; // sets text color and cell background back to normal
-    [[[tableView cellForRowAtIndexPath:path] textLabel] setTextColor :selectedTextColor];
+   // [[[tableView cellForRowAtIndexPath:path] textLabel] setTextColor :selectedTextColor];
     [[[tableView cellForRowAtIndexPath:path] contentView] setBackgroundColor:selectedBackgroundColor];
     [[[tableView cellForRowAtIndexPath:path] textLabel] setBackgroundColor:selectedBackgroundColor];
     [delegate chooserDidSelectCell: self];
@@ -199,7 +199,7 @@ CGFloat sum_2(CGFloat *a, int n)
     previousOffset = sum_2(cellWidths, [self cellNumber]+1);
     [horizontalTable scrollToRowAtIndexPath:path atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
     [horizontalTable reloadData]; // sets text color and cell background back to normal
-    [[[horizontalTable cellForRowAtIndexPath:path] textLabel] setTextColor :selectedTextColor];
+    //[[[horizontalTable cellForRowAtIndexPath:path] textLabel] setTextColor :selectedTextColor];
     [[[horizontalTable cellForRowAtIndexPath:path] contentView] setBackgroundColor:selectedBackgroundColor];
     [[[horizontalTable cellForRowAtIndexPath:path] textLabel] setBackgroundColor:selectedBackgroundColor];
     [delegate chooserDidSelectCell: self];

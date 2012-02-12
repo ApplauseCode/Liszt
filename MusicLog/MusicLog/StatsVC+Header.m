@@ -114,6 +114,7 @@
         time = [self stopTimerForSection:previousOpenSectionIndex];
         
 		SectionInfo *previousOpenSection = [self.sectionInfoArray objectAtIndex:previousOpenSectionIndex];
+        [previousOpenSection.headerView turnDownDisclosure:NO];
         [[previousOpenSection headerView] setSubTitle:time];
         [previousOpenSection setOpen:NO];
         NSInteger countOfRowsToDelete = [previousOpenSection countofRowsToInsert];

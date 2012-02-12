@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface PiecesPickerVC : UIViewController <UITextFieldDelegate>
+- (IBAction)backToPieces:(id)sender;
 
 @end

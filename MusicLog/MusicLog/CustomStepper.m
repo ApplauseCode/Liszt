@@ -24,6 +24,7 @@ int tempoRange(int x)
     UITouch *myTouch;
     NSTimer *timer;
     double timeElapsed;
+    UIImageView *stepperBG;
 }
 @end
 @implementation CustomStepper
@@ -35,7 +36,7 @@ int tempoRange(int x)
 {
     self = [self initWithFrame:CGRectMake(point.x, point.y, 109.0, 62.0)];
     tempoLabel = label;
-    UIImageView *stepperBG = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"StepperGraphic.png"]];
+    stepperBG = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"StepperRolls.png"]];
     [self addSubview:stepperBG];
     UIFont *caslon = [UIFont fontWithName:@"ACaslonPro-Regular" size:23];
     [tempoLabel setFont:caslon];
@@ -50,6 +51,10 @@ int tempoRange(int x)
 {
     [super touchesBegan:touches withEvent:event];
     myTouch = [touches anyObject];
+    if ([myTouch locationInView:self].x >= ([self frame].size.width / 2))
+        [stepperBG setImage:[UIImage imageNamed:@"StepperPlusDown.png"]];
+    else
+        [stepperBG setImage:[UIImage imageNamed:@"StepperMinusDown.png"]];
 
     timer = [NSTimer scheduledTimerWithTimeInterval:0.25 target:self selector:@selector(timerFireMethod:) userInfo:nil repeats:YES];
 }
@@ -61,7 +66,6 @@ int tempoRange(int x)
     {    
         if ([myTouch locationInView:self].x >= ([self frame].size.width / 2))
         {
-            
             tempo = tempoRange(tempo + (10 - (tempo % 10)));
         }
         else
@@ -82,6 +86,7 @@ int tempoRange(int x)
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
     [super touchesEnded:touches withEvent:event];
+    [stepperBG setImage:[UIImage imageNamed:@"StepperRolls.png"]];
     if (timeElapsed < 0.5 && [myTouch locationInView:self].x >= ([self frame].size.width / 2))
     {
         tempo = tempoRange(tempo + 1);

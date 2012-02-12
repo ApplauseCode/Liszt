@@ -28,7 +28,6 @@
 - (void)sessionSave;
 
 - (IBAction)addPiece:(id)sender;
-- (void)backToPieces:(id)sender;
 - (void)dismissKeyboard;
 
 
@@ -85,23 +84,22 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    UIBarButtonItem *back = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(backToPieces:)];
-    self.navigationItem.leftBarButtonItem = back;
-    keyChooser = [[ACchooser alloc] initWithFrame:CGRectMake(0, 166, 320, 44)];
-    
+
+    keyChooser = [[ACchooser alloc] initWithFrame:CGRectMake(0, 200, 320, 44)];
     viewTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
     [self.view addGestureRecognizer:viewTap];
     [viewTap setEnabled:NO];
-    
     tempoStepper = [[CustomStepper alloc] initWithPoint:CGPointMake(7, 260) andLabel:tempoLabel];
-    
     
     NSArray *textFields = [NSArray arrayWithObjects:titleLabel, composerLabel, nil];
     for (UITextField *field in textFields)
     {
+        [field setFont:[UIFont fontWithName:@"ACaslonPro-Regular" size:19]];
         [field setDelegate:self];
         [field setReturnKeyType:UIReturnKeyDone];
-    }    
+    }   
+    [titleLabel setPlaceholder:@"Piece Name"];
+    [composerLabel setPlaceholder:@"Composer"];
     [keyChooser setDataArray:keys];
     [self.view addSubview:keyChooser.view];
     [self.view addSubview:tempoStepper];

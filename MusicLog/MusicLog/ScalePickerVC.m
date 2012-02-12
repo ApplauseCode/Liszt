@@ -59,9 +59,17 @@
                 break;
         }
         index = idx;
-        tonicChooser = [[ACchooser alloc] initWithFrame:CGRectMake(0, 64, 320, 44)];
-        modeChooser = [[ACchooser alloc] initWithFrame:CGRectMake(0, 134, 320, 44)];
-        rhythmChooser = [[ACchooser alloc] initWithFrame:CGRectMake(0, 204, 320, 44)];
+        tonicChooser = [[ACchooser alloc] initWithFrame:CGRectMake(24, 80, 272, 32)];
+        modeChooser = [[ACchooser alloc] initWithFrame:CGRectMake(24, 134, 272, 32)];
+        rhythmChooser = [[ACchooser alloc] initWithFrame:CGRectMake(24, 190, 272, 32)];
+        NSArray *choosers = [NSArray arrayWithObjects:tonicChooser, modeChooser, rhythmChooser, nil];
+        for (ACchooser *chooser in choosers)
+        {
+            [chooser setSelectedBackgroundColor:[UIColor clearColor]];
+            [chooser setSelectedTextColor:[UIColor blackColor]];
+            [chooser setCellColor:[UIColor clearColor]];
+            [chooser setCellFont:[UIFont fontWithName:@"ACaslonPro-Regular" size:20]];
+        }
         
     }
     return self;

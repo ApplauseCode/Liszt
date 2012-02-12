@@ -30,12 +30,8 @@
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque];
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     [UIApplication sharedApplication].idleTimerDisabled = YES;
+    [TestFlight takeOff:@"0bb5b0fae5868594a374b52c1cd204c3_NTQ5NTIyMDEyLTAxLTI1IDE1OjU3OjIxLjYxMTI3NA"];
     c = [[StatsVC alloc] init];
-    //UINavigationController *homePage = [[UINavigationController alloc] initWithRootViewController:c];
-    
-    //UINavigationBar *homeBar = homePage.navigationBar;
-    UIImage *navImage = [UIImage imageNamed:@"LisztNavBar"];
-    //[homeBar setBackgroundImage:navImage forBarMetrics:UIBarMetricsDefault];
     
     [self.window setRootViewController:c];
     self.window.backgroundColor = [UIColor whiteColor];

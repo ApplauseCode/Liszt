@@ -89,6 +89,7 @@
     UINib *timerNib = [UINib nibWithNibName:@"TimerCell" bundle:nil];
     [statsTable registerNib:timerNib
      forCellReuseIdentifier:@"TimerCell"];
+    [statsTable setSeparatorStyle:UITableViewCellSeparatorStyleNone];
 
     datePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake(0.0, -216.0, 320, 253)];
     [datePicker setDatePickerMode:UIDatePickerModeDate];
@@ -107,7 +108,7 @@
 
 - (void) makeMenu {
     myPopover = [[[NSBundle mainBundle] loadNibNamed:@"CustomPopover" owner:self options:nil] objectAtIndex:0];
-    [myPopover setFrame:CGRectMake(207, 47, 119, 116)];
+    [myPopover setFrame:CGRectMake(200, 47, 128, 150)];
     [myPopover setAlpha:0];
     tapAwayGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideMenu:)];
     [tapAwayGesture setDelegate:self];
@@ -131,10 +132,10 @@
     {
         SectionInfo *sectionZero = [[SectionInfo alloc] init];
         [sectionZero setOpen:NO];
-        [sectionZero setTitle:@"SCALES"];
+        [sectionZero setTitle:@"scales"];
         SectionInfo *sectionOne = [[SectionInfo alloc] init];
         [sectionOne setOpen:NO];
-        [sectionOne setTitle:@"ARPEGGIOS"];
+        [sectionOne setTitle:@"arpeggios"];
         sectionInfoArray = [NSMutableArray arrayWithObjects:sectionZero, sectionOne, nil];
         for (int i = 0; i < [[selectedSession pieceSession] count]; i++)
         {

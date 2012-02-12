@@ -41,6 +41,7 @@
                 bg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"SectionHeader2.png"]];
                 break;
             default:
+                bg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"SectionHeader3.png"]];
                 break;
         }
         [self addSubview:bg];
