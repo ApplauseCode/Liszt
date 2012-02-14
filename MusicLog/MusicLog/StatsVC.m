@@ -28,8 +28,10 @@
 
 @interface StatsVC ()
 @property (nonatomic, strong) UIButton *todayButton;
+@property (nonatomic, strong) UIView *datePickerView;
 - (void)backToToday:(id)sender;
 - (void)blockAlertView:(BOOL)isYes;
+
 
 @end
 
@@ -50,6 +52,7 @@
 @synthesize datePicker;
 @synthesize tapAwayGesture;
 @synthesize greyMask;
+@synthesize datePickerView;
 @synthesize sectionInfoArray;
 @synthesize openSectionIndex;
 @synthesize metro;
@@ -83,14 +86,28 @@
         selectedSession = [[ScaleStore defaultStore] mySession];
         scaleTimer = [[Timer alloc] initWithElapsedTime:[selectedSession scaleTime]];
         arpeggioTimer = [[Timer alloc] initWithElapsedTime:[selectedSession arpeggioTime]];
+        for (int i = 0; i < [[selectedSession pieceSession] count]; i++)
+            [[[selectedSession pieceSession] objectAtIndex:i] setTimer:[[Timer alloc] initWithElapsedTime:[[[selectedSession pieceSession] objectAtIndex:i] pieceTime]]];
         currentPractice = YES;
     }
     return self;
 }
 
+- (BOOL)canBecomeFirstResponder
+{
+    return YES;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+   // datePickerView = [[UIView alloc] initWithFrame:CGRectMake(0, -242, 320, 25)];
+    //UIView *blackness;
+    //blackness = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 25)];
+    //[blackness setBackgroundColor:[UIColor blackColor]];
+    //[datePickerView addSubview:blackness];
+    
+
     UINib *nib = [UINib nibWithNibName:@"ScalesPracticedCell" bundle:nil];
     [statsTable registerNib:nib 
      forCellReuseIdentifier:@"ScalesPracticedCell"];
@@ -107,6 +124,7 @@
     datePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake(0.0, -216.0, 320, 253)];
     [datePicker setDatePickerMode:UIDatePickerModeDate];
     [datePicker setMaximumDate:[NSDate date]];
+    //[datePickerView addSubview:datePicker];
     [self.view addSubview:datePicker];
     
     UIFont *caslon = [UIFont fontWithName:@"ACaslonPro-Regular" size:11];
@@ -160,9 +178,20 @@
     }
 }
 
+-(void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self becomeFirstResponder];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [self resignFirstResponder];
+    [super viewWillDisappear:animated];
+}
+
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
     for (int i = ([sectionInfoArray count] - 2); i < [[selectedSession pieceSession] count]; i++)
     {
         SectionInfo *pieceInfo = [[SectionInfo alloc] init];
@@ -178,6 +207,14 @@
 }
 
 #pragma mark - View Actions
+
+- (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event
+{
+    if (motion == UIEventSubtypeMotionShake)
+    {
+        [TestFlight openFeedbackView];
+    }
+}
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
 {
@@ -230,7 +267,6 @@
     [self presentModalViewController:vc animated:YES];
     [self closeSections];
 }
-
 - (void)slideDown:(id)sender
 {
     CGPoint center = [chooseDateButton center];
@@ -262,6 +298,52 @@
         }];
     }
 }
+//- (void)slideDown:(id)sender
+//{
+//    CGPoint center = [chooseDateButton center];
+//    if ([datePickerView frame].origin.y <= -242.0)
+//    {
+//        [self.view addSubview:datePickerView];
+//       // [blackness setCenter:CGPointMake(blackness.center.x, blackness.center.y + 25)];
+//        [UIView animateWithDuration:0.4
+//                              delay:0
+//                            options:UIViewAnimationCurveEaseOut
+//                         animations:^{
+//            [datePickerView setFrame:CGRectMake(0.0, 0.0, 320, 25)];
+//            [chooseDateButton setCenter:CGPointMake(center.x, center.y + 230)];
+//        } completion:^(BOOL finished) {
+//            [UIView animateWithDuration:0.1
+//                                  delay:0
+//                                options:0
+//                             animations:^{
+//                [datePickerView setFrame:CGRectMake(0.0, -25, 320, 25)];
+//                [chooseDateButton setCenter:CGPointMake(center.x, center.y + 215)];
+//            } completion:^(BOOL finished) {
+//                
+//            }];
+//        }];
+//    }
+//    else if ([datePicker frame].origin.y > -1.0)
+//    {
+//        [UIView animateWithDuration:0.1
+//                              delay:0
+//                            options:0
+//                         animations:^{
+//                             [datePickerView setFrame:CGRectMake(0.0, 0, 320, 25)];
+//                             [chooseDateButton setCenter:CGPointMake(center.x, center.y + 25)];
+//                         } completion:^(BOOL finished) {
+//                             [UIView animateWithDuration:0.5 animations:^{
+//                                 [datePickerView setFrame:CGRectMake(0.0, -242, 320, 25)];
+//                                 [chooseDateButton setCenter:CGPointMake(center.x, center.y - 215)];
+//                             }completion:^(BOOL finished) {
+//                                 [self dateChanged];
+//                                 [datePickerView removeFromSuperview];
+//                             }];
+//                         }];
+//        
+//       
+//    }
+//}
 
 #pragma mark - Model Actions
 
@@ -331,7 +413,7 @@
     
     for (int i = 0; i < [[selectedSession pieceSession] count]; i++)
     {
-        [[[sectionInfoArray objectAtIndex:i + 2] headerView] setSubTitle:[[[[selectedSession pieceSession] objectAtIndex:i] timer] timeString]];
+        [[[sectionInfoArray objectAtIndex:i + 2] headerView] setSubTitle:[NSString timeStringFromInt:[[[[selectedSession pieceSession] objectAtIndex:i] timer] elapsedTime]]];
     }
     
     [[sectionInfoArray objectAtIndex:0] setCountofRowsToInsert:[[selectedSession scaleSession] count]];
@@ -411,11 +493,14 @@
     [sectionInfoArray removeObjectsInRange:NSMakeRange(2, ([sectionInfoArray count] -2))];
     for (int i = 0; i < [[selectedSession pieceSession] count]; i++)
     {
+        int pieceT = [[[selectedSession pieceSession] objectAtIndex:i] pieceTime];
+        [[[selectedSession pieceSession] objectAtIndex:i] setTimer:[[Timer alloc] initWithElapsedTime:pieceT]];
         SectionInfo *pieceInfo = [[SectionInfo alloc] init];
         [pieceInfo setTitle:[[[selectedSession pieceSession] objectAtIndex:i] title]];
         [pieceInfo setCountofRowsToInsert:1];
         [sectionInfoArray addObject:pieceInfo];
     }
+    NSLog(@"%i", [[[[selectedSession pieceSession] objectAtIndex:0] timer] elapsedTime]);
     [statsTable reloadData];
     
     

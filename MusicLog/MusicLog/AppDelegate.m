@@ -31,6 +31,7 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     [UIApplication sharedApplication].idleTimerDisabled = YES;
     [TestFlight takeOff:@"0bb5b0fae5868594a374b52c1cd204c3_NTQ5NTIyMDEyLTAxLTI1IDE1OjU3OjIxLjYxMTI3NA"];
+    application.applicationSupportsShakeToEdit = YES;
     c = [[StatsVC alloc] init];
     
     [self.window setRootViewController:c];

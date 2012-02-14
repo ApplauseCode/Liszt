@@ -57,20 +57,20 @@
         if (currentPractice)
         {
             if (section ==  0)
-                time = [scaleTimer timeString];
+                time = [NSString timeStringFromInt:[scaleTimer elapsedTime]];
             else if (section == 1)
-                time = [arpeggioTimer timeString];
+                time = [NSString timeStringFromInt:[arpeggioTimer elapsedTime]];
         }
         else
         {
             if (section == 0)
-                time = [NSString TimeStringFromInt:[selectedSession scaleTime]];
+                time = [NSString timeStringFromInt:[selectedSession scaleTime]];
             else if (section == 1)
-                time = [NSString TimeStringFromInt:[selectedSession arpeggioTime]];
+                time = [NSString timeStringFromInt:[selectedSession arpeggioTime]];
         }
         if (section > 1)
         {
-            time = [[[[selectedSession pieceSession] objectAtIndex:(section - 2)] timer] timeString];
+            time = [NSString timeStringFromInt:[[[[selectedSession pieceSession] objectAtIndex:(section - 2)] timer] elapsedTime]];
         }
         [sectionInfo.headerView setSubTitle:time];
     }

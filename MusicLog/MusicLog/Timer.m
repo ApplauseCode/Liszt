@@ -8,6 +8,7 @@
 
 #import "Timer.h"
 #import "Common.h"
+#import "NSString+Number.h"
 BOOL doubleDigit(int x)
 {
     if (x > 9)
@@ -75,7 +76,7 @@ BOOL doubleDigit(int x)
 - (void)setTimeLabel:(UILabel *)label
 {
     timeLabel = label;
-    [timeLabel setText:[self timeString]];
+    [timeLabel setText:[NSString timeStringFromInt:[self elapsedTime]]];
     
 }
 
@@ -120,7 +121,8 @@ BOOL doubleDigit(int x)
         hours++;
         minutes = 0;
     }
-    [timeLabel setText:[self timeString]];
+    elapsedTime = (hours * 3600) + (minutes * 60) + seconds;
+    [timeLabel setText:[NSString timeStringFromInt:[self elapsedTime]]];
 }
 
 - (void)stopTimer
@@ -144,15 +146,15 @@ BOOL doubleDigit(int x)
 
 
 
-- (NSString *)timeString
-{
-    NSString *blankSeconds;
-    NSString *blankMinutes;
-    NSString *blankHours;
-    blankSeconds = doubleDigit(seconds) ? @"" : @"0";
-    blankMinutes = doubleDigit(minutes) ? @"" : @"0";
-    blankHours = doubleDigit(hours) ? @"" : @"0";
-    
-    return [NSString stringWithFormat:@"%@%i:%@%i:%@%i", blankHours, hours, blankMinutes, minutes, blankSeconds, seconds];
-}
+//- (NSString *)timeString
+//{
+//    NSString *blankSeconds;
+//    NSString *blankMinutes;
+//    NSString *blankHours;
+//    blankSeconds = doubleDigit(seconds) ? @"" : @"0";
+//    blankMinutes = doubleDigit(minutes) ? @"" : @"0";
+//    blankHours = doubleDigit(hours) ? @"" : @"0";
+//    
+//    return [NSString stringWithFormat:@"%@%i:%@%i:%@%i", blankHours, hours, blankMinutes, minutes, blankSeconds, seconds];
+//}
 @end

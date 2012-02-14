@@ -24,7 +24,7 @@ BOOL doubleNumber(int x)
     return [NSString stringWithFormat:@"%i", n];
 }
 
-+ (NSString *)TimeStringFromInt:(int)seconds
++ (NSString *)timeStringFromInt:(int)seconds
 {
     int hours, minutes, remainder;
     hours =  seconds / 3600;

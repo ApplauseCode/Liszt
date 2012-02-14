@@ -11,6 +11,6 @@ BOOL doubleNumber(int x);
 
 @interface NSString (Number)
 + (NSString *)stringWithInt:(int)n;
-+ (NSString *)TimeStringFromInt:(int)seconds;
++ (NSString *)timeStringFromInt:(int)seconds;
 
 @end

@@ -12,9 +12,10 @@
 #import "Session.h"
 #import "Piece.h"
 #import "Timer.h"
+#import "NSString+Number.h"
 
 #define DEBUG 1
-//#undef DEBUG
+#undef DEBUG
 
 static ScaleStore *defaultStore = nil;
 
@@ -66,7 +67,7 @@ static ScaleStore *defaultStore = nil;
         [tempScale setOctaves:4];
         [tempSession setScaleSession:[NSMutableOrderedSet orderedSetWithObject:tempScale]];
         [tempSession setScaleTime:900];
-        [tempSession setDate:[ScaleStore getForDays:-3 fromDate:[NSDate date]]];
+        [tempSession setDate:[ScaleStore getForDays:-4 fromDate:[NSDate date]]];
         [sessions addObject:tempSession];
         
         tempSession = [[Session alloc] init];
@@ -78,7 +79,7 @@ static ScaleStore *defaultStore = nil;
         [tempScale setOctaves:3];
         [tempSession setArpeggioSession:[NSMutableOrderedSet orderedSetWithObject:tempScale]];
         [tempSession setArpeggioTime:500];
-        [tempSession setDate:[ScaleStore getForDays:-2 fromDate:[NSDate date]]];
+        [tempSession setDate:[ScaleStore getForDays:-3 fromDate:[NSDate date]]];
         [sessions addObject:tempSession];
         
         tempSession = [[Session alloc] init];
@@ -91,8 +92,39 @@ static ScaleStore *defaultStore = nil;
         [tempPiece setTimer:[[Timer alloc] initWithElapsedTime:[tempPiece pieceTime]]];
 
         [tempSession setPieceSession:[NSMutableOrderedSet orderedSetWithObject:tempPiece]];
-        [tempSession setDate:[ScaleStore getForDays:-1 fromDate:[NSDate date]]];
+        [tempSession setDate:[ScaleStore getForDays:-2 fromDate:[NSDate date]]];
         [sessions addObject:tempSession];
+        
+        tempSession = [[Session alloc] init];
+        tempScale = [[Scale alloc] init];
+        [tempScale setTonic:kC];
+        [tempScale setMode:kMelodicMinor];
+        [tempScale setTempo:125];
+        [tempScale setRhythm:kSixteenth];
+        [tempScale setOctaves:4];
+        [tempSession setScaleSession:[NSMutableOrderedSet orderedSetWithObject:tempScale]];
+        [tempSession setScaleTime:500];
+        tempScale = [[Scale alloc] init];
+        [tempScale setTonic:kD];
+        [tempScale setMode:kArpDom7];
+        [tempScale setTempo:115];
+        [tempScale setRhythm:kTwelfth];
+        [tempScale setOctaves:4];
+        [tempSession setArpeggioTime:450];
+        [tempSession setArpeggioSession:[NSMutableOrderedSet orderedSetWithObject:tempScale]];
+
+        tempPiece = [[Piece alloc] init];
+        [tempPiece setTitle:@"Take Five"];
+        [tempPiece setComposer:@"Barnes"];
+        [tempPiece setMajor:YES];
+        [tempPiece setTempo:95];
+        [tempPiece setPieceKey:kFG];
+        [tempPiece setPieceTime:1500];
+        [tempPiece setTimer:[[Timer alloc] initWithElapsedTime:[tempPiece pieceTime]]];
+        [tempSession setPieceSession:[NSMutableOrderedSet orderedSetWithObject:tempPiece]];
+        [tempSession setDate:[ScaleStore getForDays:-1 fromDate:[NSDate date]]];
+        mySession = tempSession;
+        
 #else
         NSString *path = [self scaleArchivePath];
         objectsArchive = [NSKeyedUnarchiver unarchiveObjectWithFile:path];
@@ -192,6 +224,8 @@ static ScaleStore *defaultStore = nil;
 
 - (void)addSessionStartNew:(BOOL)fresh {
     [sessions addObject:[mySession copy]];
+
+    NSLog(@"%@", [NSString timeStringFromInt:[[[[sessions objectAtIndex:[sessions count] - 1] pieceSession] objectAtIndex:0] pieceTime]]);
     [self clearAll];
     Session *newSession;
     if (!fresh)
@@ -201,9 +235,10 @@ static ScaleStore *defaultStore = nil;
         newSession = [[sessions objectAtIndex:([sessions count] - 1)] copy];
         [newSession setScaleTime:0];
         [newSession setArpeggioTime:0];
-        [self setScalesInSession:[newSession scaleSession]];
-        [self setArpeggiosInSession:[newSession arpeggioSession]];
-        [self setPiecesInSession:[newSession pieceSession]];
+        [newSession setDate:[NSDate date]];
+        [self setScalesInSession:[NSMutableOrderedSet orderedSetWithOrderedSet:[newSession scaleSession]]];
+        [self setArpeggiosInSession:[NSMutableOrderedSet orderedSetWithOrderedSet:[newSession arpeggioSession]]];
+        [self setPiecesInSession:[NSMutableOrderedSet orderedSetWithOrderedSet:[newSession pieceSession]]];
     }
     
     [self setMySession:newSession];

@@ -20,7 +20,7 @@ BOOL doubleDigit(int x);
 - (void)startTimer;
 - (void)stopTimer;
 - (void)resetTimer;
-- (NSString *)timeString;
+//- (NSString *)timeString;
 - (void)changeTimeTo:(int)time;
 
 @end

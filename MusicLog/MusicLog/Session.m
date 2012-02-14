@@ -35,6 +35,7 @@
     [copy setArpeggioTime:[self arpeggioTime]];
     [copy setArpeggioSession:[[self arpeggioSession] copy]];
     [copy setPieceSession:[[self pieceSession] copy]];
+    [copy setDate:[self date]];
     return copy;
 }
 

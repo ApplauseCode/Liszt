@@ -22,7 +22,7 @@
 {
     self = [super init];
     if (self) {
-        self.timer = [[Timer alloc] initWithElapsedTime:0.0];
+        self.timer = [[Timer alloc] initWithElapsedTime:pieceTime];
     }
     return self;
 }
@@ -50,6 +50,7 @@
     [copy setTempo:tempo];
     [copy setPieceKey:pieceKey];
     [copy setPieceTime:pieceTime];
+    [copy setTimer:[[Timer alloc] initWithElapsedTime:pieceTime]];
     return copy;
 }
 

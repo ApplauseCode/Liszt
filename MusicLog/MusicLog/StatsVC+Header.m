@@ -13,6 +13,7 @@
 #import "Timer.h"
 #import "Piece.h"
 #import "ScaleStore.h"
+#import "NSString+Number.h"
 
 @implementation StatsVC (Header)
 #pragma mark - Handling Sections
@@ -55,10 +56,11 @@
             break;   
         default:
             timer = [[[selectedSession pieceSession] objectAtIndex:(section - 2)] timer];
+            [[[selectedSession pieceSession] objectAtIndex:(section - 2)] setPieceTime:[timer elapsedTime]];
             break;
     }
     [timer stopTimer];
-    return [timer timeString];
+    return [NSString timeStringFromInt:[timer elapsedTime]];
 }
 
 - (void)setupTimerCellForSection:(NSInteger)section
