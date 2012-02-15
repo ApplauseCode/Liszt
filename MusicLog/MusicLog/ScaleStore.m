@@ -15,7 +15,7 @@
 #import "NSString+Number.h"
 
 #define DEBUG 1
-#undef DEBUG
+//#undef DEBUG
 
 static ScaleStore *defaultStore = nil;
 
@@ -122,7 +122,7 @@ static ScaleStore *defaultStore = nil;
         [tempPiece setPieceTime:1500];
         [tempPiece setTimer:[[Timer alloc] initWithElapsedTime:[tempPiece pieceTime]]];
         [tempSession setPieceSession:[NSMutableOrderedSet orderedSetWithObject:tempPiece]];
-        [tempSession setDate:[ScaleStore getForDays:-1 fromDate:[NSDate date]]];
+        [tempSession setDate:[NSDate date]];
         mySession = tempSession;
         
 #else

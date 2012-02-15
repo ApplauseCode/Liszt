@@ -35,7 +35,7 @@
     [copy setArpeggioTime:[self arpeggioTime]];
     [copy setArpeggioSession:[[self arpeggioSession] copy]];
     [copy setPieceSession:[[self pieceSession] copy]];
-    [copy setDate:[self date]];
+    [copy setDate:[NSDate dateWithTimeInterval:0 sinceDate:[self date]]];
     return copy;
 }
 

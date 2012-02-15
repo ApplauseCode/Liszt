@@ -551,7 +551,7 @@
         {
             [arpeggioTimer setTimeLabel:[openSection.headerView subTitleLabel]];
         }
-        else
+        else if (currentPractice)
         {
             Timer *t = [[[selectedSession pieceSession] objectAtIndex:([index intValue] - 2)] timer];
             [t setTimeLabel:[openSection.headerView subTitleLabel]];
