@@ -9,7 +9,8 @@
 #import "ScalePickerVC.h"
 #import "AppDelegate.h"
 #import "Scale.h"
-#import "ScaleStore.h"
+#import "SessionStore.h"
+#import "Session.h"
 #import "CustomStepper.h"
 #import "ACchooser.h"
 #import "UIColor+YellowTextColor.h"
@@ -37,7 +38,6 @@
     ACchooser *tonicChooser;
     ACchooser *rhythmChooser;
 }
-- (void)sessionSave;
 
 @end
 @implementation ScalePickerVC
@@ -106,14 +106,6 @@
     [rhythmChooser setSelectedTextColor:[UIColor blueColor]];
 }
 
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    [self sessionSave];
-
-}
-
 #pragma mark -
 #pragma mark === Actions ===
 #pragma mark -
@@ -122,7 +114,7 @@
 {
     int row = [tonicChooser selectedCellIndex];
     Scale *pickedScale = [[Scale alloc] init];
-    ScaleStore *store = [ScaleStore defaultStore];
+    SessionStore *store = [SessionStore defaultStore];
     if (index == 0)
         [pickedScale setMode:[modeChooser selectedCellIndex]];
     else if (index == 1)
@@ -144,9 +136,9 @@
                 [sharps addObject:[pickedScale copy]];
             }
             if (index == 0)
-                [store addScaleArray:sharps];
+                [[[store mySession] scaleSession] addObjectsFromArray:sharps];
             else if (index == 1)
-                [store addArpeggioArray:sharps];
+                [[[store mySession] arpeggioSession] addObjectsFromArray:sharps];
             break;
         case 1: //flats
             for (int i = 0; i < 6; i++) {
@@ -155,9 +147,9 @@
                 [flats addObject:[pickedScale copy]];
             }
             if (index == 0)
-                [store addScaleArray:flats];
+                [[[store mySession] scaleSession] addObjectsFromArray:flats];
             else if (index == 1)
-                [store addArpeggioArray:flats];
+                [[[store mySession] arpeggioSession] addObjectsFromArray:flats];
             break;
         case 2: //all
             for (int i = 0; i < 12; i++) {
@@ -166,16 +158,16 @@
                 [all addObject:[pickedScale copy]];
             }
             if (index == 0)
-                [store addScaleArray:all];
+                [[[store mySession] scaleSession] addObjectsFromArray:all];
             else if (index == 1)
-                [store addArpeggioArray:all];
+                [[[store mySession] arpeggioSession] addObjectsFromArray:all];
             break;
         default:
             [pickedScale setTonic:row];
             if (index == 0)
-                [store addScale:[pickedScale copy]];
+                [[[store mySession] scaleSession] addObject:[pickedScale copy]];
             else if (index == 1)
-                [store addArpeggio:[pickedScale copy]];
+                [[[store mySession] arpeggioSession] addObject:[pickedScale copy]];
             break;
     }
 }
@@ -183,18 +175,6 @@
 - (void)backToScales:(id)sender
 {
     [self dismissModalViewControllerAnimated:YES]; 
-}
-
-- (void)sessionSave
-{
-        switch (index) {
-            case 0:
-                [[ScaleStore defaultStore] addScalesToSession];
-                break;
-            case 1:
-                [[ScaleStore defaultStore] addArpeggiosToSession];
-                break;
-        }
 }
 
 - (void)repeatedScaleWarning

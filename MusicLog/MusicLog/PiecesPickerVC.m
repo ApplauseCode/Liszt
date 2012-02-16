@@ -10,7 +10,8 @@
 #import "ACchooser.h"
 #import "CustomStepper.h"
 #import "Piece.h"
-#import "ScaleStore.h"
+#import "SessionStore.h"
+#import "Session.h"
 #import "StatsVC.h"
 #import "UIColor+YellowTextColor.h"
 
@@ -26,8 +27,6 @@
 @property (strong, nonatomic) IBOutlet UILabel *tempoLabel;
 @property (strong, nonatomic) IBOutlet UILabel *tempoTextLabel;
 @property (strong, nonatomic) IBOutlet UISegmentedControl *modeSeg;
-
-- (void)sessionSave;
 
 - (IBAction)addPiece:(id)sender;
 - (void)dismissKeyboard;
@@ -62,20 +61,17 @@
 - (void)addPiece:(id)sender
 {
     Piece *createdPiece = [[Piece alloc] init];
-    ScaleStore *store = [ScaleStore defaultStore];
+    SessionStore *store = [SessionStore defaultStore];
     [createdPiece setTitle:[titleLabel text]];
     [createdPiece setComposer:[composerLabel text]];
     [createdPiece setTempo:[tempoStepper tempo]];
     [createdPiece setMajor:[modeSeg selectedSegmentIndex]];
     [createdPiece setPieceKey:[keyChooser selectedCellIndex]];
-    [store addPiece:createdPiece];
-    
-    [self sessionSave];
+    [[[store mySession] pieceSession] addObject:createdPiece];    
 }
 
 - (void)backToPieces:(id)sender
 {
-   // NSLog(@"%@", [[ScaleStore defaultStore] mySession]);
     [self dismissModalViewControllerAnimated:YES];
 }
 
@@ -148,17 +144,11 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-- (void)sessionSave
-{
-    [[ScaleStore defaultStore] addPiecesToSession];
-}
-
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     [textField resignFirstResponder];
     return YES;
 }
-
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {

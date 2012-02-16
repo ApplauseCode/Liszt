@@ -100,7 +100,6 @@
 
 
 -(void)toggleOpen:(id)sender {
-    NSLog(@"%i", [self section]);
     [self.delegate sectionHeaderView:self tapped:self.section];
     //[self toggleOpenWithUserAction:YES];
 }

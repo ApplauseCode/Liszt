@@ -7,7 +7,7 @@
 //
 
 #import "StatsVC+TableViewDelegate.h"
-#import "ScaleStore.h"
+#import "SessionStore.h"
 #import "SectionInfo.h"
 #import "Session.h"
 #import "Timer.h"
@@ -111,11 +111,6 @@
                 rhythm:[[entry rhythmString] uppercaseString]
                   mode:[entry modeString]
                  speed:[[entry tempoString] uppercaseString]];
-//        cell.tonicLabel.text = [entry tonicString];
-//        cell.modeLabel.text = [entry modeString];
-//        cell.rhythmLabel.text = [entry rhythmString];
-//        cell.speedLabel.text = [entry tempoString];
-//        cell.octavesLabel.text = [entry octavesString];
     }
     else
     {
@@ -125,35 +120,10 @@
                 rhythm:[[entry keyString] uppercaseString]
                   mode:[entry composer]
                  speed:[[NSString stringWithInt:[entry tempo]] uppercaseString]];
-//        cell.tonicLabel.text = [entry title];
-//        cell.modeLabel.text = [entry composer];
-//        cell.rhythmLabel.text = [entry keyString];
-//        cell.speedLabel.text = [NSString stringWithInt:[entry tempo]];
-//        if ([entry major])
-//            cell.octavesLabel.text = @"Major";
-//        else
-//            cell.octavesLabel.text = @"Minor";
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;    
     return cell;
 }
-
-//- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-//    
-//    static NSString *CellIdentifier = @"CustomDrawnCell";
-//	
-//	CustomDrawnCell *cell = (CustomDrawnCell*)[tableView dequeueReusableCellWithIdentifier: CellIdentifier];
-//	if (cell == nil) 
-//	{		
-//	}
-//	
-//    [cell setTonic:@"C"
-//           octaves:@"4"
-//            rhythm:@"1/16ths"];
-//    
-//	// other initialization goes here
-//	return cell;
-//}
 
 
 #pragma mark - Table View Editing -
@@ -183,18 +153,16 @@
         
         if (section == 0)
         {
-            removers = [[ScaleStore defaultStore] scalesInSession];
+            removers = [[[SessionStore defaultStore] mySession] scaleSession];
             cellToRemove = [removers objectAtIndex:[indexPath row] - 1];
-            [[ScaleStore defaultStore] removeScale:cellToRemove];
-            [[ScaleStore defaultStore] addScalesToSession];
+            [[[[SessionStore defaultStore] mySession] scaleSession] removeObject:cellToRemove];
             [[sectionInfoArray objectAtIndex:0] setCountofRowsToInsert:[[selectedSession scaleSession] count]];
         }
         else if (section == 1)
         {
-            removers = [[ScaleStore defaultStore] arpeggiosInSession];
+            removers = [[[SessionStore defaultStore] mySession] arpeggioSession];
             cellToRemove = [removers objectAtIndex:[indexPath row] - 1];
-            [[ScaleStore defaultStore] removeArpeggio:cellToRemove];
-            [[ScaleStore defaultStore] addArpeggiosToSession];
+            [[[[SessionStore defaultStore] mySession] arpeggioSession] removeObject:cellToRemove];
             [[sectionInfoArray objectAtIndex:1] setCountofRowsToInsert:[[selectedSession arpeggioSession] count]];
         }
         [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];

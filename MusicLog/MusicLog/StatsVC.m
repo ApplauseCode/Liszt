@@ -9,7 +9,7 @@
 #import "StatsVC.h"
 #import "ScalePickerVC.h"
 #import "PiecesPickerVC.h"
-#import "ScaleStore.h"
+#import "SessionStore.h"
 #import "Session.h"
 #import "NSString+Number.h"
 #import "ScalesPracticedCell.h"
@@ -83,7 +83,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        selectedSession = [[ScaleStore defaultStore] mySession];
+        selectedSession = [[SessionStore defaultStore] mySession];
         scaleTimer = [[Timer alloc] initWithElapsedTime:[selectedSession scaleTime]];
         arpeggioTimer = [[Timer alloc] initWithElapsedTime:[selectedSession arpeggioTime]];
         for (int i = 0; i < [[selectedSession pieceSession] count]; i++)
@@ -355,7 +355,7 @@
 
 - (void)saveSessionTimes
 {
-    ScaleStore *store = [ScaleStore defaultStore];
+    SessionStore *store = [SessionStore defaultStore];
     [[store mySession] setScaleTime:[scaleTimer elapsedTime]];
     [[store mySession] setArpeggioTime:[arpeggioTimer elapsedTime]];
     for (Piece *p in [[store mySession] pieceSession])
@@ -396,7 +396,7 @@
 
 - (void)blockAlertView:(BOOL)isYes
 {
-    ScaleStore *store = [ScaleStore defaultStore];
+    SessionStore *store = [SessionStore defaultStore];
     [store addSessionStartNew:isYes];
     [scaleTimer resetTimer];
     [arpeggioTimer resetTimer];
@@ -460,7 +460,7 @@
 - (void)dateChanged
 {
     [self closeSections]; 
-    NSArray *sessions = [[ScaleStore defaultStore] sessions];    
+    NSArray *sessions = [[SessionStore defaultStore] sessions];    
     NSCalendar *cal = [NSCalendar currentCalendar];
     NSDateComponents *components = [cal components:(NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit) fromDate:[datePicker date]];
     NSDate *today = [cal dateFromComponents:components];
@@ -479,7 +479,7 @@
     if ((filteredSessions == nil) || ([filteredSessions count] == 0))
     {
         [selSessionDisplay setText:@"No Sessions From This Date"];
-        selectedSession = [[ScaleStore defaultStore] mySession];
+        selectedSession = [[SessionStore defaultStore] mySession];
         currentPractice = YES;
     }
     else
@@ -500,7 +500,6 @@
         [pieceInfo setCountofRowsToInsert:1];
         [sectionInfoArray addObject:pieceInfo];
     }
-    NSLog(@"%i", [[[[selectedSession pieceSession] objectAtIndex:0] timer] elapsedTime]);
     [statsTable reloadData];
     
     

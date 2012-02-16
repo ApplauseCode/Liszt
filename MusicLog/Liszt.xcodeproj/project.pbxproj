@@ -122,6 +122,7 @@
 		BAE6999D14E5D6FB00D3ADF8 /* AddItemButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BAE6999B14E5D6FB00D3ADF8 /* AddItemButton@2x.png */; };
 		BAF21D4814D4EC2000CA7060 /* StatsVC+TableViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BAF21D4714D4EC2000CA7060 /* StatsVC+TableViewDelegate.m */; };
 		BAF21D4C14D5953000CA7060 /* StatsVC+Header.m in Sources */ = {isa = PBXBuildFile; fileRef = BAF21D4B14D5953000CA7060 /* StatsVC+Header.m */; };
+		CE98858F14EC8B5000E8FA90 /* SessionStore.m in Sources */ = {isa = PBXBuildFile; fileRef = CE98858E14EC8B5000E8FA90 /* SessionStore.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -273,6 +274,8 @@
 		BAF21D4714D4EC2000CA7060 /* StatsVC+TableViewDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "StatsVC+TableViewDelegate.m"; sourceTree = "<group>"; };
 		BAF21D4A14D5953000CA7060 /* StatsVC+Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "StatsVC+Header.h"; sourceTree = "<group>"; };
 		BAF21D4B14D5953000CA7060 /* StatsVC+Header.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "StatsVC+Header.m"; sourceTree = "<group>"; };
+		CE98858D14EC8B5000E8FA90 /* SessionStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SessionStore.h; sourceTree = "<group>"; };
+		CE98858E14EC8B5000E8FA90 /* SessionStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SessionStore.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -453,6 +456,8 @@
 				BABEA1FB146368F00052D29D /* Piece.m */,
 				BADA3F98140BD98200B57C49 /* ScaleStore.h */,
 				BADA3F99140BD98200B57C49 /* ScaleStore.m */,
+				CE98858D14EC8B5000E8FA90 /* SessionStore.h */,
+				CE98858E14EC8B5000E8FA90 /* SessionStore.m */,
 				BADA3F9A140BD98200B57C49 /* FileHelpers.h */,
 				BADA3F9B140BD98200B57C49 /* FileHelpers.m */,
 				BA513253145A484600043279 /* ACchooser.h */,
@@ -704,6 +709,7 @@
 				BACA58D014E866200054A634 /* BlockBackground.m in Sources */,
 				BACA58D114E866200054A634 /* BlockActionSheet.m in Sources */,
 				BACA58D214E866200054A634 /* BlockAlertView.m in Sources */,
+				CE98858F14EC8B5000E8FA90 /* SessionStore.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

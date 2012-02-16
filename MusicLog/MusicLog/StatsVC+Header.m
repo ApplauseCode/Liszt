@@ -12,7 +12,7 @@
 #import "Session.h"
 #import "Timer.h"
 #import "Piece.h"
-#import "ScaleStore.h"
+#import "SessionStore.h"
 #import "NSString+Number.h"
 
 @implementation StatsVC (Header)
@@ -43,7 +43,7 @@
 
 - (NSString *)stopTimerForSection:(NSInteger)section
 {
-    ScaleStore *store = [ScaleStore defaultStore];
+    SessionStore *store = [SessionStore defaultStore];
     Timer *timer;
     switch (section) {
         case 0:
@@ -167,10 +167,9 @@
 {
     if (section > 1)
     {
-        Piece *p = [[[ScaleStore defaultStore] piecesInSession] objectAtIndex:section - 2];
+        Piece *p = [[[[SessionStore defaultStore] mySession] pieceSession] objectAtIndex:section - 2];
         [[p timer] resetTimer];
-        [[ScaleStore defaultStore] removePiece:p];
-        [[ScaleStore defaultStore] addPiecesToSession];
+        [[[[SessionStore defaultStore] mySession] pieceSession] removeObject:p];
         [sectionInfoArray removeObjectAtIndex:section];
         [statsTable deleteSections:[NSIndexSet indexSetWithIndex:section] withRowAnimation:UITableViewRowAnimationAutomatic];
         [self setOpenSectionIndex:NSNotFound];

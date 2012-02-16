@@ -8,7 +8,7 @@
 
 #import "AppDelegate.h"
 #import "ScalePickerVC.h"
-#import "ScaleStore.h"
+#import "SessionStore.h"
 #import "BlankVC.h"
 #import "PiecesPickerVC.h"
 #import "StatsVC.h"
@@ -42,7 +42,7 @@
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
-    ScaleStore *store = [ScaleStore defaultStore];
+    SessionStore *store = [SessionStore defaultStore];
     [[c scaleTimer] stopTimer];
     [[c arpeggioTimer] stopTimer];
     [[store mySession] setScaleTime:[[c scaleTimer] elapsedTime]];
@@ -52,12 +52,12 @@
         [[p timer] stopTimer];
         [p setPieceTime:[[p timer] elapsedTime]];
     }
-    [[ScaleStore defaultStore] saveChanges];
+    [[SessionStore defaultStore] saveChanges];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
-    ScaleStore *store = [ScaleStore defaultStore];
+    SessionStore *store = [SessionStore defaultStore];
     [[c scaleTimer] stopTimer];
     [[c arpeggioTimer] stopTimer];
     [[store mySession] setScaleTime:[[c scaleTimer] elapsedTime]];
@@ -67,7 +67,7 @@
         [[p timer] stopTimer];
         [p setPieceTime:[[p timer] elapsedTime]];
     }
-    [[ScaleStore defaultStore] saveChanges];
+    [[SessionStore defaultStore] saveChanges];
 }
 
 @end

@@ -152,28 +152,6 @@ static ScaleStore *defaultStore = nil;
     return self;
 }
 
-/*
- +(MyClass *)singleton {
- static dispatch_once_t pred;
- static MyClass *shared = nil;
- 
- dispatch_once(&pred, ^{
- shared = [[MyClass alloc] init];
- });
- return shared;
- }
- 
- + (ScaleStore *)defaultStore
-{
-    static dispatch_once_t pred = 0;
-    __strong static ScaleStore * _defaultStore = nil;
-    dispatch_once(&pred, ^{
-        _defaultStore = [[self alloc] init];
-    });
-    return _defaultStore;
-}
-*/
-
 + (ScaleStore *)defaultStore
 {
     if (!defaultStore) {
@@ -223,9 +201,7 @@ static ScaleStore *defaultStore = nil;
 }
 
 - (void)addSessionStartNew:(BOOL)fresh {
-    [sessions addObject:[mySession copy]];
-
-    NSLog(@"%@", [NSString timeStringFromInt:[[[[sessions objectAtIndex:[sessions count] - 1] pieceSession] objectAtIndex:0] pieceTime]]);
+    [sessions addObject:mySession];
     [self clearAll];
     Session *newSession;
     if (!fresh)
