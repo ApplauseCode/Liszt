@@ -18,7 +18,7 @@ static UIImage *_backgroundImage = nil;
 static NSString *octaveFinisher = nil;
 static UIFont *octaveFinisherFont = nil;
 
-- (void)setTonic:(NSString *)tonic octaves:(NSString *)octaves rhythm:(NSString *)rhythm mode:(NSString *)mode speed:(NSString *)speed
+- (void)isPiece:(BOOL)piece setTonic:(NSString *)tonic octaves:(NSString *)octaves rhythm:(NSString *)rhythm mode:(NSString *)mode speed:(NSString *)speed
 {
     if (_tonicLabel != tonic) {
         _tonicLabel = tonic;        
@@ -40,6 +40,7 @@ static UIFont *octaveFinisherFont = nil;
         _speedLabel = [NSString stringWithFormat:@"%@ BPM", speed];
     }
     
+    isPiece = piece;
     [self setNeedsDisplay];
 }
 
@@ -88,54 +89,94 @@ static UIFont *octaveFinisherFont = nil;
 //    [titleColor set];
     UIColor *blackColor = [UIColor blackColor];
     [blackColor set];
-    [_backgroundImage drawInRect:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
-    [_tonicLabel drawAtPoint:CGPointMake(80, 7) 
-                    forWidth:200 
-                    withFont:tonicFont 
-                    fontSize:20 
-               lineBreakMode:UILineBreakModeTailTruncation 
-          baselineAdjustment:UIBaselineAdjustmentAlignCenters];    
-
-//    [subTitleColor set];
-    [_speedLabel drawAtPoint:CGPointMake(80, 27) 
-               forWidth:200 
-               withFont:speedFont 
-               fontSize:14 
-          lineBreakMode:UILineBreakModeTailTruncation 
-     baselineAdjustment:UIBaselineAdjustmentAlignCenters];    
-
-//    [timeTitleColor set];
-    [_rhythmLabel drawAtPoint:CGPointMake(175, 27) 
-                  forWidth:62 
-                  withFont:rhythmFont 
-                  fontSize:14 
-             lineBreakMode:UILineBreakModeTailTruncation 
-        baselineAdjustment:UIBaselineAdjustmentAlignCenters];    
     
-    [_modeLabel drawAtPoint:CGPointMake(175, 7)
-                   forWidth:135
-                   withFont:modeFont
-                   fontSize:20
-              lineBreakMode:UILineBreakModeTailTruncation
-         baselineAdjustment:UIBaselineAdjustmentAlignCenters];
-    
-    NSInteger octavesXCoord = 185 + [_rhythmLabel sizeWithFont:rhythmFont].width + 3;
-    
-    [_octavesLabel drawAtPoint:CGPointMake(octavesXCoord , 27)
-                      forWidth:60
-                      withFont:octavesFont
-                      fontSize:14
-                 lineBreakMode:UILineBreakModeTailTruncation
-            baselineAdjustment:UIBaselineAdjustmentAlignCenters];
-    
-    NSInteger octavesFinisherXCoord = octavesXCoord + [_octavesLabel sizeWithFont:octavesFont].width + 2;
-    
-    [octaveFinisher drawAtPoint:CGPointMake(octavesFinisherXCoord, 29)
-                       forWidth:40
-                       withFont:octaveFinisherFont
-                       fontSize:12
+    if (!isPiece)
+    {
+        [_backgroundImage drawInRect:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
+        [_tonicLabel drawAtPoint:CGPointMake(80, 7) 
+                        forWidth:200 
+                        withFont:tonicFont 
+                        fontSize:20 
+                   lineBreakMode:UILineBreakModeTailTruncation 
+              baselineAdjustment:UIBaselineAdjustmentAlignCenters];    
+        
+        //    [subTitleColor set];
+        [_speedLabel drawAtPoint:CGPointMake(80, 27) 
+                        forWidth:200 
+                        withFont:speedFont 
+                        fontSize:14 
+                   lineBreakMode:UILineBreakModeTailTruncation 
+              baselineAdjustment:UIBaselineAdjustmentAlignCenters];    
+        
+        //    [timeTitleColor set];
+        [_rhythmLabel drawAtPoint:CGPointMake(175, 27) 
+                         forWidth:62 
+                         withFont:rhythmFont 
+                         fontSize:14 
+                    lineBreakMode:UILineBreakModeTailTruncation 
+               baselineAdjustment:UIBaselineAdjustmentAlignCenters];    
+        
+        [_modeLabel drawAtPoint:CGPointMake(175, 7)
+                       forWidth:135
+                       withFont:modeFont
+                       fontSize:20
                   lineBreakMode:UILineBreakModeTailTruncation
              baselineAdjustment:UIBaselineAdjustmentAlignCenters];
+        
+        NSInteger octavesXCoord = 185 + [_rhythmLabel sizeWithFont:rhythmFont].width + 3;
+        
+        NSInteger octavesFinisherXCoord = octavesXCoord + [_octavesLabel sizeWithFont:octavesFont].width + 2;
+        
+        [octaveFinisher drawAtPoint:CGPointMake(octavesFinisherXCoord, 29)
+                           forWidth:40
+                           withFont:octaveFinisherFont
+                           fontSize:12
+                      lineBreakMode:UILineBreakModeTailTruncation
+                 baselineAdjustment:UIBaselineAdjustmentAlignCenters];
+    }
+    else
+    {
+        [_backgroundImage drawInRect:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
+        [_tonicLabel drawAtPoint:CGPointMake(35, 7) 
+                        forWidth:(175 - 35) 
+                        withFont:tonicFont 
+                        fontSize:20 
+                   lineBreakMode:UILineBreakModeTailTruncation 
+              baselineAdjustment:UIBaselineAdjustmentAlignCenters];    
+        
+        //    [subTitleColor set];
+        [_speedLabel drawAtPoint:CGPointMake(35, 27) 
+                        forWidth:(175 - 35) 
+                        withFont:speedFont 
+                        fontSize:14 
+                   lineBreakMode:UILineBreakModeTailTruncation 
+              baselineAdjustment:UIBaselineAdjustmentAlignCenters];    
+        
+        //    [timeTitleColor set];
+        [_rhythmLabel drawAtPoint:CGPointMake(190, 27) 
+                         forWidth:(320 - 35 - 175)
+                         withFont:rhythmFont 
+                         fontSize:14 
+                    lineBreakMode:UILineBreakModeTailTruncation 
+               baselineAdjustment:UIBaselineAdjustmentAlignCenters];    
+        
+        [_modeLabel drawAtPoint:CGPointMake(190, 7)
+                       forWidth:(320 - 35 - 175)
+                       withFont:modeFont
+                       fontSize:20
+                  lineBreakMode:UILineBreakModeTailTruncation
+             baselineAdjustment:UIBaselineAdjustmentAlignCenters];
+        
+        NSInteger octavesXCoord = 185 + [_rhythmLabel sizeWithFont:rhythmFont].width + 3;
+        
+        [_octavesLabel drawAtPoint:CGPointMake(octavesXCoord , 27)
+                          forWidth:60
+                          withFont:octavesFont
+                          fontSize:14
+                     lineBreakMode:UILineBreakModeTailTruncation
+                baselineAdjustment:UIBaselineAdjustmentAlignCenters];
+    }
+    
 
 }
 

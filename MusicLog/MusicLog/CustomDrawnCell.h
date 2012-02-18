@@ -15,8 +15,9 @@
     NSString *_rhythmLabel;
     NSString *_modeLabel;
     NSString *_speedLabel;
+    BOOL isPiece;
 }
 
-- (void)setTonic:(NSString*) tonic octaves:(NSString*) octaves rhythm:(NSString*) rhythm mode:(NSString*) mode speed:(NSString*) speed;
+- (void) isPiece:(BOOL)piece setTonic:(NSString*) tonic octaves:(NSString*) octaves rhythm:(NSString*) rhythm mode:(NSString*) mode speed:(NSString*) speed;
 
 @end

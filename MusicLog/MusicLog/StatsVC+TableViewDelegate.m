@@ -106,20 +106,22 @@
         entry = [[selectedSession arpeggioSession] objectAtIndex:dataIndex];
     if (section < 2)
     {
-        [cell setTonic:[[entry tonicString] uppercaseString]
-               octaves:[[entry octavesString] uppercaseString]
-                rhythm:[[entry rhythmString] uppercaseString]
-                  mode:[entry modeString]
-                 speed:[[entry tempoString] uppercaseString]];
+        [cell isPiece:NO
+             setTonic:[entry tonicString]
+              octaves:[entry octavesString]
+               rhythm:[entry rhythmString]
+                 mode:[entry modeString]
+                speed:[entry tempoString]];
     }
     else
     {
         entry = [[selectedSession pieceSession] objectAtIndex:([indexPath section] - 2)];
-        [cell setTonic:[[entry title] uppercaseString]
-               octaves:@""
-                rhythm:[[entry keyString] uppercaseString]
-                  mode:[entry composer]
-                 speed:[[NSString stringWithInt:[entry tempo]] uppercaseString]];
+        [cell isPiece:YES
+             setTonic:[entry title]
+              octaves:@""
+               rhythm:[entry keyString]
+                 mode:[entry composer]
+                speed:[NSString stringWithInt:[entry tempo]]];
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;    
     return cell;

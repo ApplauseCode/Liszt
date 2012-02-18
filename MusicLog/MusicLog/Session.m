@@ -15,9 +15,9 @@
 @synthesize pieceSession;
 @synthesize date;
 
-- (id)initWithScales:(NSMutableOrderedSet *)scaleSet
-           arpeggios:(NSMutableOrderedSet *)arpeggioSet
-              pieces:(NSMutableOrderedSet *)pieceSet
+- (id)initWithScales:(NSOrderedSet *)scaleSet
+           arpeggios:(NSOrderedSet *)arpeggioSet
+              pieces:(NSOrderedSet *)pieceSet
 {
     self = [super init];
     if (self) {
@@ -26,6 +26,8 @@
         [self setArpeggioSession:[[NSMutableOrderedSet alloc] initWithOrderedSet:arpeggioSet]];
         [self setPieceSession:[[NSMutableOrderedSet alloc] initWithOrderedSet:pieceSet]];
         [self setDate:[NSDate date]];
+        if ([scaleSession respondsToSelector:@selector(addObject:)])
+            NSLog(@"It's Mutable!");
     }
     return self;
 }

@@ -128,6 +128,10 @@
     NSMutableArray *all = [[NSMutableArray alloc] initWithCapacity:12];
     int tonicNum = 0;
     
+    if ([[[store mySession] scaleSession] respondsToSelector:@selector(addObject:)])
+        NSLog(@"its mutable!");
+    else
+        NSLog(@"it aint mutabe");
     switch (row) {
         case 0: //sharps
             for (int i = 0; i < 6; i++) {
@@ -170,6 +174,7 @@
                 [[[store mySession] arpeggioSession] addObject:[pickedScale copy]];
             break;
     }
+
 }
 
 - (void)backToScales:(id)sender
