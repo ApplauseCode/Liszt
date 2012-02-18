@@ -55,8 +55,16 @@
         if (objectsArchive) {
             if ([objectsArchive objectAtIndex:0])
                 sessions = [NSMutableArray arrayWithArray:[objectsArchive objectAtIndex:0]];
-            if ([objectsArchive objectAtIndex:1])
-                mySession = [objectsArchive objectAtIndex:1];
+            if ([objectsArchive objectAtIndex:1]) {
+                mySession =[[Session alloc] init];
+//                [mySession setScaleSession:[NSMutableOrderedSet orderedSetWithOrderedSet:[[objectsArchive objectAtIndex:1] scaleSession]]];
+//                [mySession setArpeggioSession:[NSMutableOrderedSet orderedSetWithOrderedSet:[[objectsArchive objectAtIndex:1] arpeggioSession]]];
+//                [mySession setPieceSession:[NSMutableOrderedSet orderedSetWithOrderedSet:[[objectsArchive objectAtIndex:1] pieceSession]]];
+//                [mySession setScaleTime:[[objectsArchive objectAtIndex:1] scaleTime]];
+//                [mySession setArpeggioTime:[[objectsArchive objectAtIndex:1] arpeggioTime]];
+//                [mySession setDate:[[objectsArchive objectAtIndex:1] date]];
+                
+            }
         } 
         else {
             sessions = [[NSMutableArray alloc] init];

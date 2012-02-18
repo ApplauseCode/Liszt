@@ -17,4 +17,7 @@
 @property (nonatomic) int arpeggioTime;
 @property (nonatomic, strong) NSDate *date;
 
+- (id)initWithScales:(NSMutableOrderedSet *)scaleSet
+           arpeggios:(NSMutableOrderedSet *)arpeggioSet
+              pieces:(NSMutableOrderedSet *)pieceSet;
 @end

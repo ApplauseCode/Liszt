@@ -15,16 +15,32 @@
 @synthesize pieceSession;
 @synthesize date;
 
-- (id)init
+- (id)initWithScales:(NSMutableOrderedSet *)scaleSet
+           arpeggios:(NSMutableOrderedSet *)arpeggioSet
+              pieces:(NSMutableOrderedSet *)pieceSet
 {
     self = [super init];
-    if (self ) {
-        scaleSession = nil;
-        arpeggioSession = nil;
-        pieceSession = nil;
+    if (self) {
+        
+        [self setScaleSession:[[NSMutableOrderedSet alloc] initWithOrderedSet:scaleSet]];
+        [self setArpeggioSession:[[NSMutableOrderedSet alloc] initWithOrderedSet:arpeggioSet]];
+        [self setPieceSession:[[NSMutableOrderedSet alloc] initWithOrderedSet:pieceSet]];
         [self setDate:[NSDate date]];
     }
     return self;
+}
+
+- (id)init
+{
+    return [self initWithScales:nil arpeggios:nil pieces:nil];
+    //    self = [super init];
+    //    if (self ) {
+    //        scaleSession = nil;
+    //        arpeggioSession = nil;
+    //        pieceSession = nil;
+    //        [self setDate:[NSDate date]];
+    //    }
+    //    return self;
 }
 
 - (id)copyWithZone:(NSZone *)zone
