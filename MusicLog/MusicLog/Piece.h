@@ -10,7 +10,7 @@
 #import "Common.h"
 @class Timer;
 
-@interface Piece : NSObject <NSCopying, NSCoding>
+@interface Piece : NSObject <NSMutableCopying, NSCoding>
 @property (nonatomic, strong) NSString *title;
 @property (nonatomic, strong) NSString *composer;
 @property BOOL major;

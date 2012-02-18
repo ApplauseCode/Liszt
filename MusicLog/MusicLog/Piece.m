@@ -41,7 +41,7 @@
     return self;
 }
 
-- (id)copyWithZone:(NSZone *)zone
+- (id)mutableCopyWithZone:(NSZone *)zone
 {
     Piece *copy = [[self class] allocWithZone:zone];
     [copy setTitle:title];

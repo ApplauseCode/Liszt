@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface Session : NSObject <NSCoding, NSCopying>
+@interface Session : NSObject <NSCoding, NSMutableCopying>
 
 @property (nonatomic, strong) NSMutableOrderedSet *scaleSession;
 @property (nonatomic, strong) NSMutableOrderedSet *arpeggioSession;

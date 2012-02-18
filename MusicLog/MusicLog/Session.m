@@ -21,10 +21,9 @@
 {
     self = [super init];
     if (self) {
-        
-        [self setScaleSession:[[NSMutableOrderedSet alloc] initWithOrderedSet:scaleSet]];
-        [self setArpeggioSession:[[NSMutableOrderedSet alloc] initWithOrderedSet:arpeggioSet]];
-        [self setPieceSession:[[NSMutableOrderedSet alloc] initWithOrderedSet:pieceSet]];
+        [self setScaleSession:[[NSMutableOrderedSet alloc] initWithOrderedSet:scaleSet copyItems:YES]];
+        [self setArpeggioSession:[[NSMutableOrderedSet alloc] initWithOrderedSet:arpeggioSet copyItems:YES]];
+        [self setPieceSession:[[NSMutableOrderedSet alloc] initWithOrderedSet:pieceSet copyItems:YES]];
         [self setDate:[NSDate date]];
         if ([scaleSession respondsToSelector:@selector(addObject:)])
             NSLog(@"It's Mutable!");
@@ -45,14 +44,14 @@
     //    return self;
 }
 
-- (id)copyWithZone:(NSZone *)zone
+- (id)mutableCopyWithZone:(NSZone *)zone
 {
     Session *copy = [[Session alloc] init];
-    [copy setScaleSession:[[self scaleSession] copy]];
+    [copy setScaleSession:[[self scaleSession] mutableCopy]];
     [copy setScaleTime:[self scaleTime]];
     [copy setArpeggioTime:[self arpeggioTime]];
-    [copy setArpeggioSession:[[self arpeggioSession] copy]];
-    [copy setPieceSession:[[self pieceSession] copy]];
+    [copy setArpeggioSession:[[self arpeggioSession] mutableCopy]];
+    [copy setPieceSession:[[self pieceSession] mutableCopy]];
     [copy setDate:[NSDate dateWithTimeInterval:0 sinceDate:[self date]]];
     return copy;
 }

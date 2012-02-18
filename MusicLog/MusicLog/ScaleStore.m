@@ -208,7 +208,7 @@ static ScaleStore *defaultStore = nil;
         newSession = [[Session alloc] init];
     else
     {
-        newSession = [[sessions objectAtIndex:([sessions count] - 1)] copy];
+        newSession = [[sessions objectAtIndex:([sessions count] - 1)] mutableCopy];
         [newSession setScaleTime:0];
         [newSession setArpeggioTime:0];
         [newSession setDate:[NSDate date]];

@@ -77,7 +77,7 @@
     return [NSString stringWithInt:tempo]; 
 } 
 
-- (id)copyWithZone:(NSZone *)zone
+- (id)mutableCopyWithZone:(NSZone *)zone
 {
     Scale *copy = [[self class] allocWithZone:zone];
     [copy setTonic:tonic];

@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "Common.h"
 
-@interface Scale : NSObject <NSCoding, NSCopying>
+@interface Scale : NSObject <NSCoding, NSMutableCopying>
 
 @property tonicType tonic;
 @property modeType mode;

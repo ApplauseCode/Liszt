@@ -298,52 +298,6 @@
         }];
     }
 }
-//- (void)slideDown:(id)sender
-//{
-//    CGPoint center = [chooseDateButton center];
-//    if ([datePickerView frame].origin.y <= -242.0)
-//    {
-//        [self.view addSubview:datePickerView];
-//       // [blackness setCenter:CGPointMake(blackness.center.x, blackness.center.y + 25)];
-//        [UIView animateWithDuration:0.4
-//                              delay:0
-//                            options:UIViewAnimationCurveEaseOut
-//                         animations:^{
-//            [datePickerView setFrame:CGRectMake(0.0, 0.0, 320, 25)];
-//            [chooseDateButton setCenter:CGPointMake(center.x, center.y + 230)];
-//        } completion:^(BOOL finished) {
-//            [UIView animateWithDuration:0.1
-//                                  delay:0
-//                                options:0
-//                             animations:^{
-//                [datePickerView setFrame:CGRectMake(0.0, -25, 320, 25)];
-//                [chooseDateButton setCenter:CGPointMake(center.x, center.y + 215)];
-//            } completion:^(BOOL finished) {
-//                
-//            }];
-//        }];
-//    }
-//    else if ([datePicker frame].origin.y > -1.0)
-//    {
-//        [UIView animateWithDuration:0.1
-//                              delay:0
-//                            options:0
-//                         animations:^{
-//                             [datePickerView setFrame:CGRectMake(0.0, 0, 320, 25)];
-//                             [chooseDateButton setCenter:CGPointMake(center.x, center.y + 25)];
-//                         } completion:^(BOOL finished) {
-//                             [UIView animateWithDuration:0.5 animations:^{
-//                                 [datePickerView setFrame:CGRectMake(0.0, -242, 320, 25)];
-//                                 [chooseDateButton setCenter:CGPointMake(center.x, center.y - 215)];
-//                             }completion:^(BOOL finished) {
-//                                 [self dateChanged];
-//                                 [datePickerView removeFromSuperview];
-//                             }];
-//                         }];
-//        
-//       
-//    }
-//}
 
 #pragma mark - Model Actions
 
@@ -471,14 +425,14 @@
         NSDate *chosenDate = [cal dateFromComponents:newComponents];
         if ([chosenDate isEqualToDate:today])
         {
-            [filteredSessions addObject:[obj copy]];
+            [filteredSessions addObject:[obj mutableCopy]];
             selSessionNum = idx;
         }
     }];
     
     if ((filteredSessions == nil) || ([filteredSessions count] == 0))
     {
-        [selSessionDisplay setText:@"No Sessions From This Date"];
+        [selSessionDisplay setText:[NSString stringWithFormat:@"Current Session - started on: %@",[selectedSession date]]];
         selectedSession = [[SessionStore defaultStore] mySession];
         currentPractice = YES;
     }
@@ -502,7 +456,6 @@
     }
     [statsTable reloadData];
     
-    
     float metronomeCenter = self.view.frame.size.height - [metronomeView bounds].size.height / 2.0;
     float metronomeHeight = [metronomeView bounds].size.height;
     float metronomePosition = metronomeCenter;
@@ -510,16 +463,19 @@
     float buttonCenterY = currentPractice ? buttonHeight / 2.0 -3 : -buttonHeight / 2.0 - 3;
     metronomePosition += currentPractice ? 0 : metronomeHeight;
     float todayCenterY = currentPractice ? metronomeCenter + metronomeHeight : metronomeCenter;
-    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-        [metronomeView setCenter:CGPointMake([metronomeView center].x, metronomePosition)];
+    float aDelay = currentPractice ? 0.3 : 0.0;
+    [UIView animateWithDuration:0.3 
+                          delay:aDelay 
+                        options:UIViewAnimationOptionCurveEaseIn 
+                     animations:^{
+        [metronomeView setCenter:CGPointMake([metronomeView center].x,metronomePosition)];
         [addButton setCenter:CGPointMake([addButton center].x, buttonCenterY)];
-        [aNewButton setCenter:CGPointMake([aNewButton center].x, buttonCenterY)];
-    } completion:^(BOOL finished) {
-        [UIView animateWithDuration:0.3 animations:^{
-            [todayButton setCenter:CGPointMake([todayButton center].x, todayCenterY)];
-        }];
-        
-    }];
+        [aNewButton setCenter:CGPointMake([aNewButton center].x, buttonCenterY)];} completion:nil];
+    [UIView animateWithDuration:0.3 
+                          delay:0.3 - aDelay
+                        options:0 
+                     animations:^{[todayButton setCenter:CGPointMake([todayButton center].x, todayCenterY)];} 
+                     completion:nil];
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView

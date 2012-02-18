@@ -13,7 +13,7 @@
 #import "Timer.h"
 
 #define DEBUG 1
-#undef DEBUG
+//#undef DEBUG
 
 @interface SessionStore ()
 
@@ -61,14 +61,7 @@
                                                      pieces:[[objectsArchive objectAtIndex:1] pieceSession]];
                 [mySession setScaleTime:[[objectsArchive objectAtIndex:1] scaleTime]];
                 [mySession setArpeggioTime:[[objectsArchive objectAtIndex:1] arpeggioTime]];
-                [mySession setDate:[[objectsArchive objectAtIndex:1] date]];
-                //                [mySession setScaleSession:[NSMutableOrderedSet orderedSetWithOrderedSet:[[objectsArchive objectAtIndex:1] scaleSession]]];
-//                [mySession setArpeggioSession:[NSMutableOrderedSet orderedSetWithOrderedSet:[[objectsArchive objectAtIndex:1] arpeggioSession]]];
-//                [mySession setPieceSession:[NSMutableOrderedSet orderedSetWithOrderedSet:[[objectsArchive objectAtIndex:1] pieceSession]]];
-//                [mySession setScaleTime:[[objectsArchive objectAtIndex:1] scaleTime]];
-//                [mySession setArpeggioTime:[[objectsArchive objectAtIndex:1] arpeggioTime]];
-//                [mySession setDate:[[objectsArchive objectAtIndex:1] date]];
-                
+                [mySession setDate:[[objectsArchive objectAtIndex:1] date]];                
             }
         } 
         else {
@@ -87,9 +80,16 @@
         newSession = [[Session alloc] init];
     else
     {
-        newSession = [[sessions objectAtIndex:([sessions count] - 1)] copy];
+        Piece *p1, *p2;
+        newSession = [[sessions objectAtIndex:([sessions count] - 1)] mutableCopy];
         [newSession setScaleTime:0];
         [newSession setArpeggioTime:0];
+        p1 = [[[sessions objectAtIndex:([sessions count] - 1)] scaleSession] objectAtIndex:0];
+        p2 = [[newSession scaleSession] objectAtIndex:0];
+        for (Piece *p in [newSession pieceSession]) {
+            [[p timer] resetTimer];
+            [p setPieceTime:0];
+        }
         [newSession setDate:[NSDate date]];
     }
     
@@ -184,7 +184,7 @@
     [tempPiece setPieceTime:1500];
     [tempPiece setTimer:[[Timer alloc] initWithElapsedTime:[tempPiece pieceTime]]];
     [tempSession setPieceSession:[NSMutableOrderedSet orderedSetWithObject:tempPiece]];
-    [tempSession setDate:[NSDate date]];
+    [tempSession setDate:[SessionStore getForDays:-1 fromDate:[NSDate date]]];
     mySession = tempSession;
 }
 
