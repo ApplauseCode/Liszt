@@ -14,6 +14,7 @@
 #import "Session.h"
 #import "StatsVC.h"
 #import "UIColor+YellowTextColor.h"
+#import "CustomSegment.h"
 
 @interface PiecesPickerVC ()
 {
@@ -23,6 +24,7 @@
     UITapGestureRecognizer *viewTap;
     UITextField *titleLabel;
     UITextField *composerLabel;
+    CustomSegment *majOrMin;
 }
 @property (strong, nonatomic) IBOutlet UILabel *tempoLabel;
 @property (strong, nonatomic) IBOutlet UILabel *tempoTextLabel;
@@ -81,6 +83,14 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    UIImage *seg0 = [UIImage imageNamed:@"MajOrMin0.png"];
+    UIImage *seg1 = [UIImage imageNamed:@"MajOrMin1.png"];
+    NSArray *segmentImages = [NSArray arrayWithObjects:seg0, seg1, nil];
+    
+    majOrMin = [[CustomSegment alloc] initWithPoint:CGPointMake(57, 281)
+                                   numberOfSegments:2
+                                 andTouchDownImages:segmentImages];
+    [self.view addSubview:majOrMin];
     
     titleLabel = [[UITextField alloc] initWithFrame:CGRectMake(33, 95, 280, 31)];
     [titleLabel setBorderStyle:UITextBorderStyleNone];
@@ -97,7 +107,6 @@
     viewTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
     [self.view addGestureRecognizer:viewTap];
     [viewTap setEnabled:NO];
-    tempoStepper = [[CustomStepper alloc] initWithPoint:CGPointMake(7, 260) andLabel:tempoLabel];
     
     tempoStepper = [[CustomStepper alloc] initWithPoint:CGPointMake(175, 340) andLabel:tempoLabel];
     [self.view addSubview:tempoStepper];

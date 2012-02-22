@@ -14,6 +14,7 @@
 #import "CustomStepper.h"
 #import "ACchooser.h"
 #import "UIColor+YellowTextColor.h"
+#import "CustomSegment.h"
 
 @interface ScalePickerVC ()
 {
@@ -37,6 +38,9 @@
     ACchooser *modeChooser;
     ACchooser *tonicChooser;
     ACchooser *rhythmChooser;
+    CustomSegment *majOrMin;
+    
+    
 }
 
 @end
@@ -93,6 +97,15 @@
     
     [tempoTextLabel setFont:[UIFont fontWithName:@"ACaslonPro-Regular" size:11]];
     [tempoTextLabel setTextColor:[UIColor yellowTextColor]];
+    
+    UIImage *seg0 = [UIImage imageNamed:@"MajOrMin0.png"];
+    UIImage *seg1 = [UIImage imageNamed:@"MajOrMin1.png"];
+    NSArray *segmentImages = [NSArray arrayWithObjects:seg0, seg1, nil];
+    
+    majOrMin = [[CustomSegment alloc] initWithPoint:CGPointMake(157, 281)
+                                   numberOfSegments:2
+                                 andTouchDownImages:segmentImages];
+    [self.view addSubview:majOrMin];
     
     [tonicChooser setDataArray:tonicArray];
     [modeChooser setDataArray:modeArray];

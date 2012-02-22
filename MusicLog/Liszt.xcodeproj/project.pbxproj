@@ -20,6 +20,11 @@
 		BA25A08214E7694B003A71AE /* StartTimerButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BA25A08014E7694B003A71AE /* StartTimerButton@2x.png */; };
 		BA25A09614E830AE003A71AE /* backToTodayButton.png in Resources */ = {isa = PBXBuildFile; fileRef = BA25A09414E830AE003A71AE /* backToTodayButton.png */; };
 		BA25A09714E830AE003A71AE /* backToTodayButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BA25A09514E830AE003A71AE /* backToTodayButton@2x.png */; };
+		BA25B02E14F04ACA005833F3 /* CustomSegment.m in Sources */ = {isa = PBXBuildFile; fileRef = BA25B02D14F04ACA005833F3 /* CustomSegment.m */; };
+		BA25B03414F05571005833F3 /* MajOrMin0.png in Resources */ = {isa = PBXBuildFile; fileRef = BA25B03014F05571005833F3 /* MajOrMin0.png */; };
+		BA25B03514F05571005833F3 /* MajOrMin0@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BA25B03114F05571005833F3 /* MajOrMin0@2x.png */; };
+		BA25B03614F05571005833F3 /* MajOrMin1.png in Resources */ = {isa = PBXBuildFile; fileRef = BA25B03214F05571005833F3 /* MajOrMin1.png */; };
+		BA25B03714F05571005833F3 /* MajOrMin1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BA25B03314F05571005833F3 /* MajOrMin1@2x.png */; };
 		BA26622414ABAF4200D9F3F6 /* Metronome.m in Sources */ = {isa = PBXBuildFile; fileRef = BA26622314ABAF4200D9F3F6 /* Metronome.m */; };
 		BA30777D141C4713003124E6 /* tick.caf in Resources */ = {isa = PBXBuildFile; fileRef = BA30777C141C4713003124E6 /* tick.caf */; };
 		BA3077DC141E4164003124E6 /* CustomStepper.m in Sources */ = {isa = PBXBuildFile; fileRef = BA3077DB141E4164003124E6 /* CustomStepper.m */; };
@@ -140,6 +145,12 @@
 		BA25A08014E7694B003A71AE /* StartTimerButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "StartTimerButton@2x.png"; sourceTree = "<group>"; };
 		BA25A09414E830AE003A71AE /* backToTodayButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backToTodayButton.png; sourceTree = "<group>"; };
 		BA25A09514E830AE003A71AE /* backToTodayButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "backToTodayButton@2x.png"; sourceTree = "<group>"; };
+		BA25B02C14F04ACA005833F3 /* CustomSegment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomSegment.h; sourceTree = "<group>"; };
+		BA25B02D14F04ACA005833F3 /* CustomSegment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomSegment.m; sourceTree = "<group>"; };
+		BA25B03014F05571005833F3 /* MajOrMin0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MajOrMin0.png; sourceTree = "<group>"; };
+		BA25B03114F05571005833F3 /* MajOrMin0@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MajOrMin0@2x.png"; sourceTree = "<group>"; };
+		BA25B03214F05571005833F3 /* MajOrMin1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MajOrMin1.png; sourceTree = "<group>"; };
+		BA25B03314F05571005833F3 /* MajOrMin1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MajOrMin1@2x.png"; sourceTree = "<group>"; };
 		BA26622214ABAF4200D9F3F6 /* Metronome.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Metronome.h; sourceTree = "<group>"; };
 		BA26622314ABAF4200D9F3F6 /* Metronome.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Metronome.m; sourceTree = "<group>"; };
 		BA30777C141C4713003124E6 /* tick.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = tick.caf; sourceTree = "<group>"; };
@@ -298,6 +309,10 @@
 		BA08C5E5140D3D35009C5E8D /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				BA25B03014F05571005833F3 /* MajOrMin0.png */,
+				BA25B03114F05571005833F3 /* MajOrMin0@2x.png */,
+				BA25B03214F05571005833F3 /* MajOrMin1.png */,
+				BA25B03314F05571005833F3 /* MajOrMin1@2x.png */,
 				BA25A09414E830AE003A71AE /* backToTodayButton.png */,
 				BA25A09514E830AE003A71AE /* backToTodayButton@2x.png */,
 				BA25A07F14E7694B003A71AE /* StartTimerButton.png */,
@@ -536,6 +551,8 @@
 				BACA58CD14E866200054A634 /* BlockActionSheet.m */,
 				BACA58CE14E866200054A634 /* BlockAlertView.h */,
 				BACA58CF14E866200054A634 /* BlockAlertView.m */,
+				BA25B02C14F04ACA005833F3 /* CustomSegment.h */,
+				BA25B02D14F04ACA005833F3 /* CustomSegment.m */,
 			);
 			name = "Custom Controls";
 			sourceTree = "<group>";
@@ -670,6 +687,10 @@
 				BACA58E114E8678A0054A634 /* alert-red-button@2x.png in Resources */,
 				BACA58E214E8678A0054A634 /* alert-window.png in Resources */,
 				BACA58E314E8678A0054A634 /* alert-window@2x.png in Resources */,
+				BA25B03414F05571005833F3 /* MajOrMin0.png in Resources */,
+				BA25B03514F05571005833F3 /* MajOrMin0@2x.png in Resources */,
+				BA25B03614F05571005833F3 /* MajOrMin1.png in Resources */,
+				BA25B03714F05571005833F3 /* MajOrMin1@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -710,6 +731,7 @@
 				BACA58D114E866200054A634 /* BlockActionSheet.m in Sources */,
 				BACA58D214E866200054A634 /* BlockAlertView.m in Sources */,
 				CE98858F14EC8B5000E8FA90 /* SessionStore.m in Sources */,
+				BA25B02E14F04ACA005833F3 /* CustomSegment.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

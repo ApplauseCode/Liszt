@@ -34,7 +34,7 @@ int tempoRange(int x)
 
 - (id)initWithPoint:(CGPoint)point andLabel:(UILabel *)label
 {
-    self = [self initWithFrame:CGRectMake(point.x, point.y, 109.0, 62.0)];
+    self = [super initWithFrame:CGRectMake(point.x, point.y, 109.0, 62.0)];
     tempoLabel = label;
     stepperBG = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"StepperRolls.png"]];
     [self addSubview:stepperBG];
