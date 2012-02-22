@@ -80,14 +80,11 @@
         newSession = [[Session alloc] init];
     else
     {
-        Piece *p1, *p2;
         newSession = [[sessions objectAtIndex:([sessions count] - 1)] mutableCopy];
         [newSession setScaleTime:0];
         [newSession setArpeggioTime:0];
-        p1 = [[[sessions objectAtIndex:([sessions count] - 1)] scaleSession] objectAtIndex:0];
-        p2 = [[newSession scaleSession] objectAtIndex:0];
         for (Piece *p in [newSession pieceSession]) {
-            [[p timer] resetTimer];
+//            [[p timer] resetTimer];
             [p setPieceTime:0];
         }
         [newSession setDate:[NSDate date]];
@@ -151,7 +148,7 @@
     [tempPiece setTempo:80];
     [tempPiece setPieceKey:kCD];
     [tempPiece setPieceTime:1000];
-    [tempPiece setTimer:[[Timer alloc] initWithElapsedTime:[tempPiece pieceTime]]];
+//    [tempPiece setTimer:[[Timer alloc] initWithElapsedTime:[tempPiece pieceTime]]];
     
     [tempSession setPieceSession:[NSMutableOrderedSet orderedSetWithObject:tempPiece]];
     [tempSession setDate:[SessionStore getForDays:-2 fromDate:[NSDate date]]];
@@ -182,7 +179,7 @@
     [tempPiece setTempo:95];
     [tempPiece setPieceKey:kFG];
     [tempPiece setPieceTime:1500];
-    [tempPiece setTimer:[[Timer alloc] initWithElapsedTime:[tempPiece pieceTime]]];
+//    [tempPiece setTimer:[[Timer alloc] initWithElapsedTime:[tempPiece pieceTime]]];
     [tempSession setPieceSession:[NSMutableOrderedSet orderedSetWithObject:tempPiece]];
     [tempSession setDate:[SessionStore getForDays:-1 fromDate:[NSDate date]]];
     mySession = tempSession;

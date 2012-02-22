@@ -48,6 +48,7 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
+    Session *s = [[SessionStore defaultStore] mySession];
 	SectionInfo *sectionInfo = [self.sectionInfoArray objectAtIndex:section];
     if ((!sectionInfo.headerView) || (section < 2)) 
     {
@@ -57,20 +58,20 @@
         if (currentPractice)
         {
             if (section ==  0)
-                time = [NSString timeStringFromInt:[scaleTimer elapsedTime]];
-            else if (section == 1)
-                time = [NSString timeStringFromInt:[arpeggioTimer elapsedTime]];
+                time = [NSString timeStringFromInt:[s scaleTime]];
+//            else if (section == 1)
+//                time = [NSString timeStringFromInt:[arpeggioTimer elapsedTime]];
         }
-        else
-        {
-            if (section == 0)
-                time = [NSString timeStringFromInt:[selectedSession scaleTime]];
-            else if (section == 1)
-                time = [NSString timeStringFromInt:[selectedSession arpeggioTime]];
-        }
+//        else
+//        {
+//            if (section == 0)
+//                time = [NSString timeStringFromInt:[selectedSession scaleTime]];
+//            else if (section == 1)
+//                time = [NSString timeStringFromInt:[selectedSession arpeggioTime]];
+//        }
         if (section > 1)
         {
-            time = [NSString timeStringFromInt:[[[[selectedSession pieceSession] objectAtIndex:(section - 2)] timer] elapsedTime]];
+//            time = [NSString timeStringFromInt:[[[[selectedSession pieceSession] objectAtIndex:(section - 2)] timer] elapsedTime]];
         }
         [sectionInfo.headerView setSubTitle:time];
     }

@@ -89,7 +89,7 @@ static ScaleStore *defaultStore = nil;
         [tempPiece setTempo:80];
         [tempPiece setPieceKey:kCD];
         [tempPiece setPieceTime:1000];
-        [tempPiece setTimer:[[Timer alloc] initWithElapsedTime:[tempPiece pieceTime]]];
+//        [tempPiece setTimer:[[Timer alloc] initWithElapsedTime:[tempPiece pieceTime]]];
 
         [tempSession setPieceSession:[NSMutableOrderedSet orderedSetWithObject:tempPiece]];
         [tempSession setDate:[ScaleStore getForDays:-2 fromDate:[NSDate date]]];
@@ -120,7 +120,7 @@ static ScaleStore *defaultStore = nil;
         [tempPiece setTempo:95];
         [tempPiece setPieceKey:kFG];
         [tempPiece setPieceTime:1500];
-        [tempPiece setTimer:[[Timer alloc] initWithElapsedTime:[tempPiece pieceTime]]];
+//        [tempPiece setTimer:[[Timer alloc] initWithElapsedTime:[tempPiece pieceTime]]];
         [tempSession setPieceSession:[NSMutableOrderedSet orderedSetWithObject:tempPiece]];
         [tempSession setDate:[NSDate date]];
         mySession = tempSession;

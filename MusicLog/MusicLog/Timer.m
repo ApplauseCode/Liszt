@@ -9,6 +9,7 @@
 #import "Timer.h"
 #import "Common.h"
 #import "NSString+Number.h"
+
 BOOL doubleDigit(int x)
 {
     if (x > 9)
@@ -27,10 +28,10 @@ BOOL doubleDigit(int x)
 }
 - (void)timerFireMethod:(NSTimer *)theTimer;
 - (void)timerHandling:(id)sender;
-
 @end
+
 @implementation Timer
-@synthesize elapsedTime, timeLabel, /*timeButton,*/ isTiming;
+@synthesize elapsedTime, timeLabel, isTiming;
 
 - (id)initWithElapsedTime:(int)time
 {
@@ -53,24 +54,9 @@ BOOL doubleDigit(int x)
     elapsedTime = time;
 }
 
-- (id)initWithLabel:(UILabel *)label
-{
-    self = [super init];
-    if (self)
-    {
-        timeLabel = label;
-    }
-    
-    return self;
-}
-
 - (id)init
 {
-    self = [super init];
-    if (self) {
-        
-    }
-    return self;
+    return [self initWithElapsedTime:0];
 }
 
 - (void)setTimeLabel:(UILabel *)label
@@ -144,17 +130,4 @@ BOOL doubleDigit(int x)
     counter --;
 }
 
-
-
-//- (NSString *)timeString
-//{
-//    NSString *blankSeconds;
-//    NSString *blankMinutes;
-//    NSString *blankHours;
-//    blankSeconds = doubleDigit(seconds) ? @"" : @"0";
-//    blankMinutes = doubleDigit(minutes) ? @"" : @"0";
-//    blankHours = doubleDigit(hours) ? @"" : @"0";
-//    
-//    return [NSString stringWithFormat:@"%@%i:%@%i:%@%i", blankHours, hours, blankMinutes, minutes, blankSeconds, seconds];
-//}
 @end

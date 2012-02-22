@@ -43,24 +43,24 @@
 
 - (NSString *)stopTimerForSection:(NSInteger)section
 {
-    SessionStore *store = [SessionStore defaultStore];
-    Timer *timer;
-    switch (section) {
-        case 0:
-            timer = scaleTimer;
-            [[store mySession] setScaleTime:[timer elapsedTime]];
-            break;
-        case 1:
-            timer = arpeggioTimer;
-            [[store mySession] setArpeggioTime:[timer elapsedTime]];
-            break;   
-        default:
-            timer = [[[selectedSession pieceSession] objectAtIndex:(section - 2)] timer];
-            [[[selectedSession pieceSession] objectAtIndex:(section - 2)] setPieceTime:[timer elapsedTime]];
-            break;
-    }
-    [timer stopTimer];
-    return [NSString timeStringFromInt:[timer elapsedTime]];
+//    SessionStore *store = [SessionStore defaultStore];
+//    Timer *timer;
+//    switch (section) {
+//        case 0:
+//            timer = scaleTimer;
+//            [[store mySession] setScaleTime:[timer elapsedTime]];
+//            break;
+//        case 1:
+//            timer = arpeggioTimer;
+//            [[store mySession] setArpeggioTime:[timer elapsedTime]];
+//            break;   
+//        default:
+//            timer = [[[selectedSession pieceSession] objectAtIndex:(section - 2)] timer];
+//            [[[selectedSession pieceSession] objectAtIndex:(section - 2)] setPieceTime:[timer elapsedTime]];
+//            break;
+//    }
+//    [timer stopTimer];
+//    return [NSString timeStringFromInt:[timer elapsedTime]];
 }
 
 - (void)setupTimerCellForSection:(NSInteger)section
@@ -70,21 +70,21 @@
     timerButton = [tCell timerButton];
     [timerButton setTitle:@"Start" forState:UIControlStateNormal];    
     [timerButton removeTarget:nil action:NULL forControlEvents:UIControlEventTouchUpInside];
-    Timer * pieceTimer;
+//    Timer * pieceTimer;
     switch (section) {
         case 0:
-            [timerButton addTarget:scaleTimer action:@selector(timerHandling:) forControlEvents:UIControlEventTouchUpInside];
-            [scaleTimer setTimeLabel:[sectionInfo.headerView subTitleLabel]];
+            [timerButton addTarget:self action:@selector(toggleTimer:) forControlEvents:UIControlEventTouchUpInside];
+//            [scaleTimer setTimeLabel:[sectionInfo.headerView subTitleLabel]];
             break;
-        case 1:
-            [timerButton addTarget:arpeggioTimer action:@selector(timerHandling:) forControlEvents:UIControlEventTouchUpInside];
-            [arpeggioTimer setTimeLabel:[sectionInfo.headerView subTitleLabel]];
-            break;
-        default:
-            pieceTimer = [[[selectedSession pieceSession] objectAtIndex:(section - 2)] timer];
-            [timerButton addTarget:pieceTimer action:@selector(timerHandling:) forControlEvents:UIControlEventTouchUpInside];
-            [pieceTimer setTimeLabel:[sectionInfo.headerView subTitleLabel]];
-            break;
+//        case 1:
+//            [timerButton addTarget:arpeggioTimer action:@selector(timerHandling:) forControlEvents:UIControlEventTouchUpInside];
+//            [arpeggioTimer setTimeLabel:[sectionInfo.headerView subTitleLabel]];
+//            break;
+//        default:
+//            pieceTimer = [[[selectedSession pieceSession] objectAtIndex:(section - 2)] timer];
+//            [timerButton addTarget:pieceTimer action:@selector(timerHandling:) forControlEvents:UIControlEventTouchUpInside];
+//            [pieceTimer setTimeLabel:[sectionInfo.headerView subTitleLabel]];
+//            break;
     }
 }
 
@@ -168,7 +168,7 @@
     if (section > 1)
     {
         Piece *p = [[[[SessionStore defaultStore] mySession] pieceSession] objectAtIndex:section - 2];
-        [[p timer] resetTimer];
+//        [[p timer] resetTimer];
         [[[[SessionStore defaultStore] mySession] pieceSession] removeObject:p];
         [sectionInfoArray removeObjectAtIndex:section];
         [statsTable deleteSections:[NSIndexSet indexSetWithIndex:section] withRowAnimation:UITableViewRowAnimationAutomatic];

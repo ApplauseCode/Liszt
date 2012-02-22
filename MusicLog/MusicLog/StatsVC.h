@@ -1,5 +1,5 @@
 //
-//  Calender.h
+//  StatsVc.h
 //  MusicLog
 //
 //  Created by Kyle Rosenbluth on 8/30/11.
@@ -20,8 +20,8 @@
     Session *selectedSession;
     NSMutableArray *sectionInfoArray;
     IBOutlet UITableView *statsTable;
-    Timer *scaleTimer;
-    Timer *arpeggioTimer;
+//    Timer *scaleTimer;
+//    Timer *arpeggioTimer;
     TimerCell *tCell;
     UIButton *timerButton;
     BOOL currentPractice;
@@ -29,7 +29,7 @@
 }
 
 @property (nonatomic)           NSUInteger tempo;
-@property (nonatomic, strong) Session *selectedSession;
+@property (nonatomic, strong)   Session *selectedSession;
 @property (nonatomic, strong)   AVAudioPlayer *tickPlayer;
 @property (nonatomic, strong)   CustomStepper *stepper;
 @property (nonatomic)           NSUInteger selSessionNum;
@@ -50,13 +50,14 @@
 - (void)dateChanged;
 - (void)hideMenu:(id)sender;
 - (void)closeSections;
-- (void)changeTimeForTimers;
+//- (void)changeTimeForTimers;
 - (void)saveSessionTimes;
 - (void)sectionHeaderView:(SectionHeaderView *)sectionHeaderView sectionOpened:(NSInteger)section;
 - (void)sectionHeaderView:(SectionHeaderView *)sectionHeaderView sectionClosed:(NSInteger)section;
 
-@property (nonatomic, strong)   Timer *scaleTimer;
-@property (nonatomic, strong)   Timer *arpeggioTimer;
+//@property (nonatomic, strong)   Timer *scaleTimer;
+//@property (nonatomic, strong)   Timer *arpeggioTimer;
+//@property (nonatomic, strong)   NSMutableArray *pieceTimers;
 @property (strong, nonatomic) IBOutlet UILabel *tempoLabel;
 @property (strong, nonatomic) IBOutlet UIView *metronomeView;
 @property (weak, nonatomic) IBOutlet UIButton *addButton;

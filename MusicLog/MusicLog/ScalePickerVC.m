@@ -148,7 +148,7 @@
             for (int i = 0; i < 6; i++) {
                 tonicNum = (5 * (i + 1)) % 12 + 3;
                 [pickedScale setTonic:tonicNum];
-                [flats addObject:[pickedScale copy]];
+                [flats addObject:[pickedScale mutableCopy]];
             }
             if (index == 0)
                 [[[store mySession] scaleSession] addObjectsFromArray:flats];
@@ -169,9 +169,9 @@
         default:
             [pickedScale setTonic:row];
             if (index == 0)
-                [[[store mySession] scaleSession] addObject:[pickedScale copy]];
+                [[[store mySession] scaleSession] addObject:[pickedScale mutableCopy]];
             else if (index == 1)
-                [[[store mySession] arpeggioSession] addObject:[pickedScale copy]];
+                [[[store mySession] arpeggioSession] addObject:[pickedScale mutableCopy]];
             break;
     }
 

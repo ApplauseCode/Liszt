@@ -15,14 +15,14 @@
 @synthesize major;
 @synthesize tempo;
 @synthesize pieceKey;
-@synthesize timer;
+//@synthesize timer;
 @synthesize pieceTime;
 
 - (id)init
 {
     self = [super init];
     if (self) {
-        self.timer = [[Timer alloc] initWithElapsedTime:pieceTime];
+//        self.timer = [[Timer alloc] initWithElapsedTime:pieceTime];
     }
     return self;
 }
@@ -43,14 +43,14 @@
 
 - (id)mutableCopyWithZone:(NSZone *)zone
 {
-    Piece *copy = [[self class] allocWithZone:zone];
+    Piece *copy = [[Piece alloc] init];//[[self class] allocWithZone:zone];
     [copy setTitle:title];
     [copy setComposer:composer];
     [copy setMajor:major];
     [copy setTempo:tempo];
     [copy setPieceKey:pieceKey];
     [copy setPieceTime:pieceTime];
-    [copy setTimer:[[Timer alloc] initWithElapsedTime:pieceTime]];
+//    [copy setTimer:[[Timer alloc] initWithElapsedTime:pieceTime]];
     return copy;
 }
 
@@ -64,7 +64,6 @@
     result = prime * result + tempo;
     result = prime * result + pieceKey;
     result = prime * result + pieceTime;
-    
     return result;
 }
 

@@ -1,5 +1,5 @@
 //
-//  Calender.m
+//  StatsVC.m
 //  MusicLog
 //
 //  Created by Kyle Rosenbluth on 8/30/11.
@@ -23,15 +23,19 @@
 #import "Metronome.h"
 #import "UIColor+YellowTextColor.h"
 #import "BlockAlertView.h"
+#import "StopWatch.h"
 
 #pragma mark - Private Interface
 
 @interface StatsVC ()
+
 @property (nonatomic, strong) UIButton *todayButton;
 @property (nonatomic, strong) UIView *datePickerView;
+@property (nonatomic, strong) StopWatch *stopWatch;
+@property (nonatomic, strong) id theObserver;
 - (void)backToToday:(id)sender;
 - (void)blockAlertView:(BOOL)isYes;
-
+- (void)toggleTimer:(id)sender;
 
 @end
 
@@ -40,8 +44,9 @@
 @synthesize aNewButton;
 @synthesize tempoLabel, metronomeView, timerButton, statsTable;
 @synthesize selSessionDisplay, chooseDateButton, myPopover, chooseScalesButton, chooseArpsButton, choosePiecesButton, tempoNameLabel;
-@synthesize scaleTimer;
-@synthesize arpeggioTimer;
+//@synthesize scaleTimer;
+//@synthesize arpeggioTimer;
+//@synthesize pieceTimers;
 @synthesize tempo;
 @synthesize tickPlayer;
 @synthesize stepper;
@@ -59,6 +64,8 @@
 @synthesize tCell;
 @synthesize shouldDisplayTime;
 @synthesize todayButton;
+@synthesize stopWatch;
+@synthesize theObserver;
 
 #pragma mark - View lifecycle
 
@@ -83,11 +90,18 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
+//        Timer *pieceTimer;
         selectedSession = [[SessionStore defaultStore] mySession];
-        scaleTimer = [[Timer alloc] initWithElapsedTime:[selectedSession scaleTime]];
-        arpeggioTimer = [[Timer alloc] initWithElapsedTime:[selectedSession arpeggioTime]];
-        for (int i = 0; i < [[selectedSession pieceSession] count]; i++)
-            [[[selectedSession pieceSession] objectAtIndex:i] setTimer:[[Timer alloc] initWithElapsedTime:[[[selectedSession pieceSession] objectAtIndex:i] pieceTime]]];
+//        scaleTimer = [[Timer alloc] initWithElapsedTime:[selectedSession scaleTime]];
+//        arpeggioTimer = [[Timer alloc] initWithElapsedTime:[selectedSession arpeggioTime]];
+//        for (int i = 0; i < [[selectedSession pieceSession] count]; i++)
+//            [[[selectedSession pieceSession] objectAtIndex:i] setTimer:[[Timer alloc] initWithElapsedTime:[[[selectedSession pieceSession] objectAtIndex:i] pieceTime]]];
+//        pieceTimers = [[NSMutableArray alloc] initWithCapacity:3];
+//        for (int i = 0; i < [[selectedSession pieceSession] count]; i++) {
+//            pieceTimer = [[Timer alloc] initWithElapsedTime:[[[selectedSession pieceSession] objectAtIndex:i] pieceTime]];
+//            [pieceTimers addObject:pieceTimer];
+//        }
+            
         currentPractice = YES;
     }
     return self;
@@ -101,6 +115,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    stopWatch = [[StopWatch alloc] init];
    // datePickerView = [[UIView alloc] initWithFrame:CGRectMake(0, -242, 320, 25)];
     //UIView *blackness;
     //blackness = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 25)];
@@ -301,6 +316,16 @@
 
 #pragma mark - Model Actions
 
+- (void)toggleTimer:(id)sender
+{
+    Session *s = [[SessionStore defaultStore] mySession];
+    if (openSectionIndex == 0) {
+        [stopWatch addObserver:s forKeyPath:@"totalSeconds" options:NSKeyValueObservingOptionNew context:@"scales"];
+        [self setTheObserver:s];
+
+    }
+}
+
 - (void)valueChanged
 {
     [metro changeTempoWithTempo:[stepper tempo]];
@@ -309,11 +334,14 @@
 
 - (void)saveSessionTimes
 {
-    SessionStore *store = [SessionStore defaultStore];
-    [[store mySession] setScaleTime:[scaleTimer elapsedTime]];
-    [[store mySession] setArpeggioTime:[arpeggioTimer elapsedTime]];
-    for (Piece *p in [[store mySession] pieceSession])
-        [p setPieceTime:[[p timer] elapsedTime]];
+//    SessionStore *store = [SessionStore defaultStore];
+//    [[store mySession] setScaleTime:[scaleTimer elapsedTime]];
+//    [[store mySession] setArpeggioTime:[arpeggioTimer elapsedTime]];
+//    for (Piece *p in [[store mySession] pieceSession])
+//        [p setPieceTime:[[p timer] elapsedTime]];
+//    for (int i = 0; i < [[[store mySession] pieceSession] count]; i++) {
+//        [[[[store mySession] pieceSession] objectAtIndex:i] setPieceTime:[[pieceTimers objectAtIndex:i] elapsedTime]];
+//    }
 }
 
 - (void)newSession:(id)sender
@@ -352,14 +380,20 @@
 {
     SessionStore *store = [SessionStore defaultStore];
     [store addSessionStartNew:isYes];
-    [scaleTimer resetTimer];
-    [arpeggioTimer resetTimer];
+//    [scaleTimer resetTimer];
+//    [arpeggioTimer resetTimer];
     if (isYes)
     {
-        for (Piece *p in [[store mySession] pieceSession])
-        {
-            [[p timer] resetTimer];
-        }
+//        for (Timer *t in pieceTimers) {
+//            [t resetTimer];
+//        }
+//        Timer *pieceTimer;
+//        for (Piece *p in [[store mySession] pieceSession])
+//        {
+//            pieceTimer = [[Timer alloc] initWithElapsedTime:0];
+//            [pieceTimers addObject:pieceTimer]; 
+//            
+//        }
     }
     else
         [sectionInfoArray removeObjectsInRange:NSMakeRange(2, ([sectionInfoArray count] - 2))];
@@ -367,42 +401,14 @@
     
     for (int i = 0; i < [[selectedSession pieceSession] count]; i++)
     {
-        [[[sectionInfoArray objectAtIndex:i + 2] headerView] setSubTitle:[NSString timeStringFromInt:[[[[selectedSession pieceSession] objectAtIndex:i] timer] elapsedTime]]];
+        //        [[[sectionInfoArray objectAtIndex:i + 2] headerView] setSubTitle:[NSString timeStringFromInt:[[[[selectedSession pieceSession] objectAtIndex:i] timer] elapsedTime]]];
+        [[[sectionInfoArray objectAtIndex:i + 2] headerView] setSubTitle:[NSString timeStringFromInt:[[[selectedSession pieceSession] objectAtIndex:i] pieceTime]]];
+        
     }
     
     [[sectionInfoArray objectAtIndex:0] setCountofRowsToInsert:[[selectedSession scaleSession] count]];
     [[sectionInfoArray objectAtIndex:1] setCountofRowsToInsert:[[selectedSession arpeggioSession] count]];
     [statsTable reloadData];
-}
-
-- (void)changeTimeForTimers
-{
-    if (scaleTimer)
-        [scaleTimer changeTimeTo:[selectedSession scaleTime]];
-    else
-    {
-        Timer *s = [[Timer alloc] initWithElapsedTime:[selectedSession scaleTime]];
-        scaleTimer = s;
-    }
-    
-    if (arpeggioTimer)
-        [arpeggioTimer changeTimeTo:[selectedSession arpeggioTime]];
-    else
-    {
-        Timer *a = [[Timer alloc] initWithElapsedTime:[selectedSession arpeggioTime]];
-        arpeggioTimer = a;
-    }
-    
-    for (Piece *p in [selectedSession pieceSession])
-    {
-        if ([p timer])
-            [[p timer] changeTimeTo:[p pieceTime]];
-        else
-        {
-            Timer *t = [[Timer alloc] initWithElapsedTime:[p pieceTime]];
-            [p setTimer:t];
-        }
-    }
 }
 
 - (void)backToToday:(id)sender
@@ -448,7 +454,8 @@
     for (int i = 0; i < [[selectedSession pieceSession] count]; i++)
     {
         int pieceT = [[[selectedSession pieceSession] objectAtIndex:i] pieceTime];
-        [[[selectedSession pieceSession] objectAtIndex:i] setTimer:[[Timer alloc] initWithElapsedTime:pieceT]];
+//        [[[selectedSession pieceSession] objectAtIndex:i] setTimer:[[Timer alloc] initWithElapsedTime:pieceT]];
+//        [[pieceTimers objectAtIndex:i] setElapsedTime:pieceT];
         SectionInfo *pieceInfo = [[SectionInfo alloc] init];
         [pieceInfo setTitle:[[[selectedSession pieceSession] objectAtIndex:i] title]];
         [pieceInfo setCountofRowsToInsert:1];
@@ -468,9 +475,9 @@
                           delay:aDelay 
                         options:UIViewAnimationOptionCurveEaseIn 
                      animations:^{
-        [metronomeView setCenter:CGPointMake([metronomeView center].x,metronomePosition)];
-        [addButton setCenter:CGPointMake([addButton center].x, buttonCenterY)];
-        [aNewButton setCenter:CGPointMake([aNewButton center].x, buttonCenterY)];} completion:nil];
+                         [metronomeView setCenter:CGPointMake([metronomeView center].x,metronomePosition)];
+                         [addButton setCenter:CGPointMake([addButton center].x, buttonCenterY)];
+                         [aNewButton setCenter:CGPointMake([aNewButton center].x, buttonCenterY)];} completion:nil];
     [UIView animateWithDuration:0.3 
                           delay:0.3 - aDelay
                         options:0 
@@ -495,23 +502,23 @@
             index = nil;
             
     }
-    if (index)
-    {
-
-        if ([index intValue] == 0 && currentPractice)
-        {
-            [scaleTimer setTimeLabel:[openSection.headerView subTitleLabel]];
-        }
-        else if ([index intValue] == 1 && currentPractice)
-        {
-            [arpeggioTimer setTimeLabel:[openSection.headerView subTitleLabel]];
-        }
-        else if (currentPractice)
-        {
-            Timer *t = [[[selectedSession pieceSession] objectAtIndex:([index intValue] - 2)] timer];
-            [t setTimeLabel:[openSection.headerView subTitleLabel]];
-        }
-    }
+//    if (index)
+//    {
+//
+//        if ([index intValue] == 0 && currentPractice)
+//        {
+//            [scaleTimer setTimeLabel:[openSection.headerView subTitleLabel]];
+//        }
+//        else if ([index intValue] == 1 && currentPractice)
+//        {
+//            [arpeggioTimer setTimeLabel:[openSection.headerView subTitleLabel]];
+//        }
+//        else if (currentPractice)
+//        {
+//            Timer *t = [[[selectedSession pieceSession] objectAtIndex:([index intValue] - 2)] timer];
+//            [t setTimeLabel:[openSection.headerView subTitleLabel]];
+//        }
+//    }
 }
 
 - (void)startMetronome:(id)sender {

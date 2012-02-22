@@ -42,32 +42,32 @@
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
-    SessionStore *store = [SessionStore defaultStore];
-    [[c scaleTimer] stopTimer];
-    [[c arpeggioTimer] stopTimer];
-    [[store mySession] setScaleTime:[[c scaleTimer] elapsedTime]];
-    [[store mySession] setArpeggioTime:[[c arpeggioTimer] elapsedTime]];
-    for (Piece *p in [[store mySession] pieceSession])
-    {
-        [[p timer] stopTimer];
-        [p setPieceTime:[[p timer] elapsedTime]];
-    }
+//    SessionStore *store = [SessionStore defaultStore];
+//    [[c scaleTimer] stopTimer];
+//    [[c arpeggioTimer] stopTimer];
+//    [[store mySession] setScaleTime:[[c scaleTimer] elapsedTime]];
+//    [[store mySession] setArpeggioTime:[[c arpeggioTimer] elapsedTime]];
+//    for (Piece *p in [[store mySession] pieceSession])
+//    {
+//        [[p timer] stopTimer];
+//        [p setPieceTime:[[p timer] elapsedTime]];
+//    }
     [[SessionStore defaultStore] saveChanges];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
-    SessionStore *store = [SessionStore defaultStore];
-    [[c scaleTimer] stopTimer];
-    [[c arpeggioTimer] stopTimer];
-    [[store mySession] setScaleTime:[[c scaleTimer] elapsedTime]];
-    [[store mySession] setArpeggioTime:[[c arpeggioTimer] elapsedTime]];
-    for (Piece *p in [[store mySession] pieceSession])
-    {
-        [[p timer] stopTimer];
-        [p setPieceTime:[[p timer] elapsedTime]];
-    }
-    [[SessionStore defaultStore] saveChanges];
+//    SessionStore *store = [SessionStore defaultStore];
+//    [[c scaleTimer] stopTimer];
+//    [[c arpeggioTimer] stopTimer];
+//    [[store mySession] setScaleTime:[[c scaleTimer] elapsedTime]];
+//    [[store mySession] setArpeggioTime:[[c arpeggioTimer] elapsedTime]];
+//    for (Piece *p in [[store mySession] pieceSession])
+//    {
+//        [[p timer] stopTimer];
+//        [p setPieceTime:[[p timer] elapsedTime]];
+//    }
+//    [[SessionStore defaultStore] saveChanges];
 }
 
 @end

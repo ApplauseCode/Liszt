@@ -79,7 +79,7 @@
 
 - (id)mutableCopyWithZone:(NSZone *)zone
 {
-    Scale *copy = [[self class] allocWithZone:zone];
+    Scale *copy = [[Scale alloc] init];//[[self class] allocWithZone:zone];
     [copy setTonic:tonic];
     [copy setMode:mode];
     [copy setTempo:tempo];

@@ -10,17 +10,15 @@
 BOOL doubleDigit(int x);
 @interface Timer : NSObject
 
-@property (nonatomic, readonly) int elapsedTime;
+@property (nonatomic, /*readonly*/) int elapsedTime;
 @property (nonatomic, strong) UILabel *timeLabel;
 @property (nonatomic) BOOL isTiming;
 
 
 - (id)initWithElapsedTime:(int)time;
-- (id)initWithLabel:(UILabel *)label;
 - (void)startTimer;
 - (void)stopTimer;
 - (void)resetTimer;
-//- (NSString *)timeString;
 - (void)changeTimeTo:(int)time;
 
 @end

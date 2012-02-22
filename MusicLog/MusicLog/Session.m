@@ -15,9 +15,9 @@
 @synthesize pieceSession;
 @synthesize date;
 
-- (id)initWithScales:(NSOrderedSet *)scaleSet
-           arpeggios:(NSOrderedSet *)arpeggioSet
-              pieces:(NSOrderedSet *)pieceSet
+- (id)initWithScales:(NSMutableOrderedSet *)scaleSet
+           arpeggios:(NSMutableOrderedSet *)arpeggioSet
+              pieces:(NSMutableOrderedSet *)pieceSet
 {
     self = [super init];
     if (self) {
@@ -25,8 +25,8 @@
         [self setArpeggioSession:[[NSMutableOrderedSet alloc] initWithOrderedSet:arpeggioSet copyItems:YES]];
         [self setPieceSession:[[NSMutableOrderedSet alloc] initWithOrderedSet:pieceSet copyItems:YES]];
         [self setDate:[NSDate date]];
-        if ([scaleSession respondsToSelector:@selector(addObject:)])
-            NSLog(@"It's Mutable!");
+//        if ([scaleSession respondsToSelector:@selector(addObject:)])
+//            NSLog(@"It's Mutable!");
     }
     return self;
 }
@@ -34,14 +34,6 @@
 - (id)init
 {
     return [self initWithScales:nil arpeggios:nil pieces:nil];
-    //    self = [super init];
-    //    if (self ) {
-    //        scaleSession = nil;
-    //        arpeggioSession = nil;
-    //        pieceSession = nil;
-    //        [self setDate:[NSDate date]];
-    //    }
-    //    return self;
 }
 
 - (id)mutableCopyWithZone:(NSZone *)zone
@@ -77,6 +69,12 @@
     [aCoder encodeObject:arpeggioSession forKey:@"arpeggioSession"];
     [aCoder encodeObject:pieceSession forKey:@"pieceSession"];
     [aCoder encodeObject:date forKey:@"date"];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    if ([(__bridge NSString *)context isEqualToString:@"scales"])
+        [self setScaleTime:++scaleTime];
 }
 
 - (NSString *)description
