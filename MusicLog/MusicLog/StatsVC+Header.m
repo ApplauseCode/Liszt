@@ -68,24 +68,11 @@
     SectionInfo *sectionInfo = [self.sectionInfoArray objectAtIndex:section];
     tCell = (TimerCell *) [statsTable dequeueReusableCellWithIdentifier:@"TimerCell"];
     timerButton = [tCell timerButton];
-    [timerButton setTitle:@"Start" forState:UIControlStateNormal];    
+    //[timerButton setTitle:@"Start" forState:UIControlStateNormal];    
     [timerButton removeTarget:nil action:NULL forControlEvents:UIControlEventTouchUpInside];
-//    Timer * pieceTimer;
-    switch (section) {
-        case 0:
-            [timerButton addTarget:self action:@selector(toggleTimer:) forControlEvents:UIControlEventTouchUpInside];
-//            [scaleTimer setTimeLabel:[sectionInfo.headerView subTitleLabel]];
-            break;
-//        case 1:
-//            [timerButton addTarget:arpeggioTimer action:@selector(timerHandling:) forControlEvents:UIControlEventTouchUpInside];
-//            [arpeggioTimer setTimeLabel:[sectionInfo.headerView subTitleLabel]];
-//            break;
-//        default:
-//            pieceTimer = [[[selectedSession pieceSession] objectAtIndex:(section - 2)] timer];
-//            [timerButton addTarget:pieceTimer action:@selector(timerHandling:) forControlEvents:UIControlEventTouchUpInside];
-//            [pieceTimer setTimeLabel:[sectionInfo.headerView subTitleLabel]];
-//            break;
-    }
+    
+    [timerButton addTarget:self action:@selector(timerButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    //            [scaleTimer setTimeLabel:[sectionInfo.headerView subTitleLabel]];
 }
 
 -(void)sectionHeaderView:(SectionHeaderView *)sectionHeaderView sectionOpened:(NSInteger)section
@@ -114,12 +101,7 @@
         SectionInfo *previousOpenSection = [self.sectionInfoArray objectAtIndex:previousOpenSectionIndex];
         [previousOpenSection.headerView turnDownDisclosure:NO];
         if (currentPractice)
-        {
-            NSString *time;
-            [timerButton setTitle:@"Start" forState:UIControlStateNormal];
-            time = [self stopTimerForSection:previousOpenSectionIndex];
-            [[previousOpenSection headerView] setSubTitle:time];
-        }
+            [self toggleTimer:previousOpenSectionIndex];
 		
         [previousOpenSection setOpen:NO];
         NSInteger countOfRowsToDelete = [previousOpenSection countofRowsToInsert];
@@ -146,10 +128,7 @@
     SectionInfo *sectionInfo = [self.sectionInfoArray objectAtIndex:section];
     [sectionInfo setOpen:NO];
     if (currentPractice)
-    {
-        NSString *time = [self stopTimerForSection:section];
-        [[sectionInfo headerView] setSubTitle:time];
-    }
+        [self toggleTimer:section];
     
     NSInteger countofRowsToDelete = [statsTable numberOfRowsInSection:section];
     if (countofRowsToDelete > 0) {

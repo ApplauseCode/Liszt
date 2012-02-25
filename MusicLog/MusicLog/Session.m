@@ -75,6 +75,8 @@
 {
     if ([(__bridge NSString *)context isEqualToString:@"scales"])
         [self setScaleTime:++scaleTime];
+    else
+        [self setArpeggioTime:++arpeggioTime];
 }
 
 - (NSString *)description

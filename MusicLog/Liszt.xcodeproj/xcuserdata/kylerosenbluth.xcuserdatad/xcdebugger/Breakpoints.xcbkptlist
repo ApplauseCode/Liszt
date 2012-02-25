@@ -9,26 +9,12 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "MusicLog/StatsVC.m"
-         timestampString = "350882994.078508"
+         timestampString = "351734831.176981"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "460"
-         endingLineNumber = "460"
+         startingLineNumber = "484"
+         endingLineNumber = "484"
          landmarkName = "-dateChanged"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         isPathRelative = "1"
-         filePath = "MusicLog/StatsVC+Header.m"
-         timestampString = "350964465.016822"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "91"
-         endingLineNumber = "91"
-         landmarkName = "-sectionHeaderView:sectionOpened:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

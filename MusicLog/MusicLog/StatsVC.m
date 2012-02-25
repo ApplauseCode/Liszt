@@ -33,9 +33,9 @@
 @property (nonatomic, strong) UIView *datePickerView;
 @property (nonatomic, strong) StopWatch *stopWatch;
 @property (nonatomic, strong) id theObserver;
+@property (nonatomic) BOOL isTiming;
 - (void)backToToday:(id)sender;
 - (void)blockAlertView:(BOOL)isYes;
-- (void)toggleTimer:(id)sender;
 
 @end
 
@@ -66,6 +66,7 @@
 @synthesize todayButton;
 @synthesize stopWatch;
 @synthesize theObserver;
+@synthesize isTiming;
 
 #pragma mark - View lifecycle
 
@@ -121,6 +122,7 @@
     //blackness = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 25)];
     //[blackness setBackgroundColor:[UIColor blackColor]];
     //[datePickerView addSubview:blackness];
+    isTiming = NO;
     
 
     UINib *nib = [UINib nibWithNibName:@"ScalesPracticedCell" bundle:nil];
@@ -316,13 +318,35 @@
 
 #pragma mark - Model Actions
 
-- (void)toggleTimer:(id)sender
+- (void)timerButtonPressed:(id)sender
 {
-    Session *s = [[SessionStore defaultStore] mySession];
-    if (openSectionIndex == 0) {
-        [stopWatch addObserver:s forKeyPath:@"totalSeconds" options:NSKeyValueObservingOptionNew context:@"scales"];
-        [self setTheObserver:s];
+    [self toggleTimer:openSectionIndex];
+}
 
+- (void)toggleTimer:(int)section
+{
+    id observer = [[SessionStore defaultStore] mySession];
+    NSString *context;
+    if (section == 0)
+        context = @"scales";
+    else if (section == 1)
+        context = @"arpeggios";
+    else
+    {
+        context = @"piece";
+        observer = [[observer pieceSession] objectAtIndex:(section - 2)];
+    }
+    if (!isTiming)
+    {
+        [stopWatch addObserver:observer forKeyPath:@"totalSeconds" options:NSKeyValueObservingOptionNew context:(__bridge void *)context];
+        [self setTheObserver:observer];
+        [self setIsTiming:!isTiming];
+    }
+    else
+    {
+        [stopWatch removeObserver:observer forKeyPath:@"totalSeconds" context:(__bridge void *)context];
+        [self setTheObserver:nil];
+        [self setIsTiming:!isTiming];
     }
 }
 
@@ -500,7 +524,6 @@
         }
         else
             index = nil;
-            
     }
 //    if (index)
 //    {
@@ -519,6 +542,8 @@
 //            [t setTimeLabel:[openSection.headerView subTitleLabel]];
 //        }
 //    }
+    NSString *time = [NSString timeStringFromInt:[[[[[SessionStore defaultStore] mySession] pieceSession] objectAtIndex:(openSectionIndex - 2)] pieceTime]];
+    NSLog(@"%@", time);
 }
 
 - (void)startMetronome:(id)sender {

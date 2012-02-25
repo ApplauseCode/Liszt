@@ -1,6 +1,7 @@
 #import "SectionHeaderView.h"
 #import <QuartzCore/QuartzCore.h>
 #import "UIColor+YellowTextColor.h"
+#import "DynamicLabel.h"
 
 @implementation SectionHeaderView
 
@@ -73,7 +74,7 @@
         subTitleLabelFrame.origin.x += 240;
         subTitleLabelFrame.origin.y += 3;
         subTitleLabelFrame.size.width -= 70;
-        UILabel *subLabel = [[UILabel alloc] initWithFrame:subTitleLabelFrame];
+        DynamicLabel *subLabel = [[DynamicLabel alloc] initWithFrame:subTitleLabelFrame];
         [subLabel setText:subTitle];
         [subLabel setFont:caslon];
         [subLabel setTextColor:[UIColor yellowTextColor]];

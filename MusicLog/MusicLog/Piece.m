@@ -90,6 +90,11 @@
     [aCoder encodeInt:pieceTime forKey:@"time"];
 }
 
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    [self setPieceTime:++pieceTime];
+}
+
 - (NSString *)description
 {
     return [NSString stringWithFormat:@"Title: %@ Composer: %@ Tempo: %i Major: %i", [self title], [self composer], [self tempo], [self major]];

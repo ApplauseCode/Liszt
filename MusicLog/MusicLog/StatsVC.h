@@ -54,6 +54,9 @@
 - (void)saveSessionTimes;
 - (void)sectionHeaderView:(SectionHeaderView *)sectionHeaderView sectionOpened:(NSInteger)section;
 - (void)sectionHeaderView:(SectionHeaderView *)sectionHeaderView sectionClosed:(NSInteger)section;
+- (void)toggleTimer:(int)section;
+- (void)timerButtonPressed:(id)sender;
+
 
 //@property (nonatomic, strong)   Timer *scaleTimer;
 //@property (nonatomic, strong)   Timer *arpeggioTimer;

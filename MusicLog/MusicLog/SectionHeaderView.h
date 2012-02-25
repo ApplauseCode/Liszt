@@ -1,6 +1,7 @@
 
 
 #import <Foundation/Foundation.h>
+#import "DynamicLabel.h"
 
 @protocol SectionHeaderViewDelegate;
 
@@ -8,7 +9,7 @@
 @interface SectionHeaderView : UIView 
 
 @property (nonatomic, weak) UILabel *titleLabel;
-@property (nonatomic, weak) UILabel *subTitleLabel;
+@property (nonatomic, weak) DynamicLabel *subTitleLabel;
 @property (nonatomic, strong) UIImageView *disclosureImage;
 @property (nonatomic, assign) NSInteger section;
 @property (nonatomic, strong) UITapGestureRecognizer *tapGesture;

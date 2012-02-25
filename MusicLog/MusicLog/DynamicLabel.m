@@ -7,6 +7,7 @@
 //
 
 #import "DynamicLabel.h"
+#import "NSString+Number.h"
 
 @implementation DynamicLabel
 
@@ -17,8 +18,8 @@
                         change:(NSDictionary *)change
                        context:(void *)context
 {
-    seconds ++;
-    [self setText:[NSString stringWithFormat:@"%i",seconds]];
+    int time = [[change objectForKey:NSKeyValueChangeNewKey] intValue];
+    [self setText:[NSString timeStringFromInt:time]];
 }
 
 @end

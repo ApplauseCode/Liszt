@@ -58,20 +58,41 @@
         if (currentPractice)
         {
             if (section ==  0)
+            {
                 time = [NSString timeStringFromInt:[s scaleTime]];
-//            else if (section == 1)
-//                time = [NSString timeStringFromInt:[arpeggioTimer elapsedTime]];
+                [[[SessionStore defaultStore] mySession] addObserver:[[sectionInfo headerView] subTitleLabel]
+                                                          forKeyPath:@"scaleTime"
+                                                             options:NSKeyValueObservingOptionNew
+                                                             context:nil];
+            }
+            else if (section == 1)
+            {
+                time = [NSString timeStringFromInt:[s arpeggioTime]];
+                [[[SessionStore defaultStore] mySession] addObserver:[[sectionInfo headerView] subTitleLabel]
+                                                          forKeyPath:@"arpeggioTime"
+                                                             options:NSKeyValueObservingOptionNew
+                                                             context:nil];
+            }
+            else
+            {
+                Piece *currentPiece = [[s pieceSession] objectAtIndex:(section - 2)];
+                time = [NSString timeStringFromInt:[currentPiece pieceTime]];
+                [currentPiece addObserver:[[sectionInfo headerView] subTitleLabel]
+                                                          forKeyPath:@"pieceTime"
+                                                             options:NSKeyValueObservingOptionNew
+                                                             context:nil];
+                
+            }
+                
         }
-//        else
-//        {
-//            if (section == 0)
-//                time = [NSString timeStringFromInt:[selectedSession scaleTime]];
-//            else if (section == 1)
-//                time = [NSString timeStringFromInt:[selectedSession arpeggioTime]];
-//        }
-        if (section > 1)
+        else
         {
-//            time = [NSString timeStringFromInt:[[[[selectedSession pieceSession] objectAtIndex:(section - 2)] timer] elapsedTime]];
+            if (section == 0)
+                time = [NSString timeStringFromInt:[selectedSession scaleTime]];
+            else if (section == 1)
+                time = [NSString timeStringFromInt:[selectedSession arpeggioTime]];
+            else
+                time = [NSString timeStringFromInt:[[[selectedSession pieceSession] objectAtIndex:(section - 2)] pieceTime]];
         }
         [sectionInfo.headerView setSubTitle:time];
     }

@@ -85,7 +85,7 @@
         [newSession setArpeggioTime:0];
         for (Piece *p in [newSession pieceSession]) {
 //            [[p timer] resetTimer];
-            [p setPieceTime:0];
+           // [p setPieceTime:0];
         }
         [newSession setDate:[NSDate date]];
     }
