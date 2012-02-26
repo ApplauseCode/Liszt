@@ -14,19 +14,21 @@
 #import "Session.h"
 #import "StatsVC.h"
 #import "UIColor+YellowTextColor.h"
+#import "CustomSegment.h"
 
 @interface PiecesPickerVC ()
 {
     ACchooser *keyChooser;
     NSArray *keys;
     CustomStepper *tempoStepper;
+    CustomSegment *majOrMin;
     UITapGestureRecognizer *viewTap;
     UITextField *titleLabel;
     UITextField *composerLabel;
 }
 @property (strong, nonatomic) IBOutlet UILabel *tempoLabel;
 @property (strong, nonatomic) IBOutlet UILabel *tempoTextLabel;
-@property (strong, nonatomic) IBOutlet UISegmentedControl *modeSeg;
+//@property (strong, nonatomic) IBOutlet UISegmentedControl *modeSeg;
 
 - (IBAction)addPiece:(id)sender;
 - (void)dismissKeyboard;
@@ -36,7 +38,7 @@
 
 @implementation PiecesPickerVC
 @synthesize tempoLabel;
-@synthesize modeSeg;
+//@synthesize modeSeg;
 @synthesize tempoTextLabel;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -65,7 +67,7 @@
     [createdPiece setTitle:[titleLabel text]];
     [createdPiece setComposer:[composerLabel text]];
     [createdPiece setTempo:[tempoStepper tempo]];
-    [createdPiece setMajor:[modeSeg selectedSegmentIndex]];
+    [createdPiece setMajor:[majOrMin selectedIndex]];
     [createdPiece setPieceKey:[keyChooser selectedCellIndex]];
     [[[store mySession] pieceSession] addObject:createdPiece];    
 }
@@ -87,7 +89,20 @@
     composerLabel = [[UITextField alloc] initWithFrame:CGRectMake(33, 164, 280, 31)];
     [composerLabel setBorderStyle:UITextBorderStyleNone];
     
-
+    UIImage *seg0 = [UIImage imageNamed:@"MajOrMin0.png"];
+    UIImage *seg1 = [UIImage imageNamed:@"MajOrMin1.png"];
+    
+    NSArray *majOrMinImages = [NSArray arrayWithObjects:seg0, seg1, nil];
+    NSNumber *loc0 = [NSNumber numberWithFloat:48];
+    NSNumber *loc1 = [NSNumber numberWithFloat:115];
+    NSArray *segArrowLocs = [NSArray arrayWithObjects:loc0, loc1, nil];
+                              
+    majOrMin = [[CustomSegment alloc] initWithPoint:CGPointMake(95, 286)
+                                   numberOfSegments:2
+                                    touchDownImages:majOrMinImages
+                                  andArrowLocations:segArrowLocs];
+    [majOrMin setIndicatorXOffset:13];
+    [self.view addSubview:majOrMin];
     keyChooser = [[ACchooser alloc] initWithFrame:CGRectMake(24, 231, 272, 32)];
     [keyChooser setSelectedBackgroundColor:[UIColor clearColor]];
     [keyChooser setSelectedTextColor:[UIColor blackColor]];
@@ -132,7 +147,7 @@
 {
     titleLabel = nil;
     composerLabel = nil;
-    [self setModeSeg:nil];
+   // [self setModeSeg:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;

@@ -13,7 +13,7 @@
 #import "Timer.h"
 
 #define DEBUG 1
-//#undef DEBUG
+#undef DEBUG
 
 @interface SessionStore ()
 
@@ -85,8 +85,9 @@
         [newSession setArpeggioTime:0];
         for (Piece *p in [newSession pieceSession]) {
 //            [[p timer] resetTimer];
-           // [p setPieceTime:0];
+            [p setPieceTime:0];
         }
+        NSLog(@"%@", [sessions objectAtIndex:([sessions count] - 1)]);
         [newSession setDate:[NSDate date]];
     }
     

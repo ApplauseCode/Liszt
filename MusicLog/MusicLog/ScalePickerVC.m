@@ -12,12 +12,12 @@
 #import "SessionStore.h"
 #import "Session.h"
 #import "CustomStepper.h"
+#import "CustomSegment.h"
 #import "ACchooser.h"
 #import "UIColor+YellowTextColor.h"
 
 @interface ScalePickerVC ()
 {
-    IBOutlet UISegmentedControl *octavesSegmentedControl;
     IBOutlet UIButton *addScaleButton;
     IBOutlet UILabel *tempoLabel;
     IBOutlet UILabel *tempoTextLabel;
@@ -29,6 +29,7 @@
     
     NSTimer *timer;
     CustomStepper *stepper;
+    CustomSegment *octavesSegment;
     //NSArray *tonicArray;
     NSArray *modeArray;
     NSArray *rhythmArray;
@@ -91,6 +92,19 @@
     stepper = [[CustomStepper alloc] initWithPoint:CGPointMake(175, 340) andLabel:tempoLabel];
     [self.view addSubview:stepper];
     
+    UIImage *oct0 = [UIImage imageNamed:@"OctavesSegment0.png"];
+    UIImage *oct1 = [UIImage imageNamed:@"OctavesSegment1.png"];
+    UIImage *oct2 = [UIImage imageNamed:@"OctavesSegment2.png"];
+    UIImage *oct3 = [UIImage imageNamed:@"OctavesSegment3.png"];
+    
+    NSArray *octavesImages = [NSArray arrayWithObjects:oct0, oct1, oct2, oct3, nil];
+
+    octavesSegment = [[CustomSegment alloc] initWithPoint:CGPointMake(20, 286)
+                                         numberOfSegments:4
+                                       touchDownImages:octavesImages
+                                        andArrowLocations:nil];
+    [self.view addSubview:octavesSegment];
+    
     [tempoTextLabel setFont:[UIFont fontWithName:@"ACaslonPro-Regular" size:11]];
     [tempoTextLabel setTextColor:[UIColor yellowTextColor]];
     
@@ -120,7 +134,7 @@
     else if (index == 1)
         [pickedScale setMode:([modeChooser selectedCellIndex] + 4)];
     [pickedScale setRhythm:[rhythmChooser selectedCellIndex]];
-    [pickedScale setOctaves:[octavesSegmentedControl selectedSegmentIndex] + 1];
+    [pickedScale setOctaves:[octavesSegment selectedIndex] + 1];
     [pickedScale setTempo:stepper.tempo];
     
     NSMutableArray *sharps = [[NSMutableArray alloc] initWithCapacity:7];

@@ -18,15 +18,6 @@
 //@synthesize timer;
 @synthesize pieceTime;
 
-- (id)init
-{
-    self = [super init];
-    if (self) {
-//        self.timer = [[Timer alloc] initWithElapsedTime:pieceTime];
-    }
-    return self;
-}
-
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
     self = [super init];
@@ -43,6 +34,7 @@
 
 - (id)mutableCopyWithZone:(NSZone *)zone
 {
+    NSLog(@"piece mutable copy:");
     Piece *copy = [[Piece alloc] init];//[[self class] allocWithZone:zone];
     [copy setTitle:title];
     [copy setComposer:composer];

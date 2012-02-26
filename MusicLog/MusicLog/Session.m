@@ -7,6 +7,7 @@
 //
 
 #import "Session.h"
+#import "NSMutableOrderedSet+DeepCopy.h"
 
 @implementation Session
 
@@ -39,11 +40,11 @@
 - (id)mutableCopyWithZone:(NSZone *)zone
 {
     Session *copy = [[Session alloc] init];
-    [copy setScaleSession:[[self scaleSession] mutableCopy]];
+    [copy setScaleSession:[[self scaleSession] deepCopy]];
     [copy setScaleTime:[self scaleTime]];
     [copy setArpeggioTime:[self arpeggioTime]];
-    [copy setArpeggioSession:[[self arpeggioSession] mutableCopy]];
-    [copy setPieceSession:[[self pieceSession] mutableCopy]];
+    [copy setArpeggioSession:[[self arpeggioSession] deepCopy]];
+    [copy setPieceSession:[[self pieceSession] deepCopy]];
     [copy setDate:[NSDate dateWithTimeInterval:0 sinceDate:[self date]]];
     return copy;
 }

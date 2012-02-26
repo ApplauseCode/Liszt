@@ -8,6 +8,21 @@
 
 /* Begin PBXBuildFile section */
 		BA019393142C146F004DCE8D /* Session.m in Sources */ = {isa = PBXBuildFile; fileRef = BA019392142C146F004DCE8D /* Session.m */; };
+		BA19768214F95AC000085FAD /* CustomSegment.m in Sources */ = {isa = PBXBuildFile; fileRef = BA19768114F95AC000085FAD /* CustomSegment.m */; };
+		BA19768814F9644B00085FAD /* MajOrMin0.png in Resources */ = {isa = PBXBuildFile; fileRef = BA19768414F9644B00085FAD /* MajOrMin0.png */; };
+		BA19768914F9644B00085FAD /* MajOrMin0@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BA19768514F9644B00085FAD /* MajOrMin0@2x.png */; };
+		BA19768A14F9644B00085FAD /* MajOrMin1.png in Resources */ = {isa = PBXBuildFile; fileRef = BA19768614F9644B00085FAD /* MajOrMin1.png */; };
+		BA19768B14F9644B00085FAD /* MajOrMin1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BA19768714F9644B00085FAD /* MajOrMin1@2x.png */; };
+		BA19768E14F97A2000085FAD /* SegmentArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = BA19768C14F97A2000085FAD /* SegmentArrow.png */; };
+		BA19768F14F97A2000085FAD /* SegmentArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BA19768D14F97A2000085FAD /* SegmentArrow@2x.png */; };
+		BA19769814F9802200085FAD /* OctavesSegment0.png in Resources */ = {isa = PBXBuildFile; fileRef = BA19769014F9802200085FAD /* OctavesSegment0.png */; };
+		BA19769914F9802200085FAD /* OctavesSegment0@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BA19769114F9802200085FAD /* OctavesSegment0@2x.png */; };
+		BA19769A14F9802200085FAD /* OctavesSegment1.png in Resources */ = {isa = PBXBuildFile; fileRef = BA19769214F9802200085FAD /* OctavesSegment1.png */; };
+		BA19769B14F9802200085FAD /* OctavesSegment1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BA19769314F9802200085FAD /* OctavesSegment1@2x.png */; };
+		BA19769C14F9802200085FAD /* OctavesSegment2.png in Resources */ = {isa = PBXBuildFile; fileRef = BA19769414F9802200085FAD /* OctavesSegment2.png */; };
+		BA19769D14F9802200085FAD /* OctavesSegment2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BA19769514F9802200085FAD /* OctavesSegment2@2x.png */; };
+		BA19769E14F9802200085FAD /* OctavesSegment3.png in Resources */ = {isa = PBXBuildFile; fileRef = BA19769614F9802200085FAD /* OctavesSegment3.png */; };
+		BA19769F14F9802200085FAD /* OctavesSegment3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BA19769714F9802200085FAD /* OctavesSegment3@2x.png */; };
 		BA1E209B14E6E7E400F0D2FC /* AddPopupBackboard.png in Resources */ = {isa = PBXBuildFile; fileRef = BA1E209914E6E7E400F0D2FC /* AddPopupBackboard.png */; };
 		BA1E209C14E6E7E400F0D2FC /* AddPopupBackboard@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BA1E209A14E6E7E400F0D2FC /* AddPopupBackboard@2x.png */; };
 		BA1E20A414E6E92200F0D2FC /* ArpsButton.png in Resources */ = {isa = PBXBuildFile; fileRef = BA1E209E14E6E92200F0D2FC /* ArpsButton.png */; };
@@ -26,6 +41,7 @@
 		BA37B84D1482C9C800C41484 /* SectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = BA37B84C1482C9C800C41484 /* SectionHeaderView.m */; };
 		BA37B8531482D56E00C41484 /* SectionInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = BA37B8521482D56E00C41484 /* SectionInfo.m */; };
 		BA37B8551482DB9800C41484 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA37B8541482DB9700C41484 /* QuartzCore.framework */; };
+		BA44684114F92E0400AE0A0D /* NSMutableOrderedSet+DeepCopy.m in Sources */ = {isa = PBXBuildFile; fileRef = BA44684014F92E0400AE0A0D /* NSMutableOrderedSet+DeepCopy.m */; };
 		BA513255145A484600043279 /* ACchooser.m in Sources */ = {isa = PBXBuildFile; fileRef = BA513254145A484600043279 /* ACchooser.m */; };
 		BA513258145B5D5C00043279 /* DoubleTap.m in Sources */ = {isa = PBXBuildFile; fileRef = BA513257145B5D5C00043279 /* DoubleTap.m */; };
 		BA560572148E7D6F00411BA9 /* CustomPopover.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA560571148E7D6F00411BA9 /* CustomPopover.xib */; };
@@ -130,6 +146,22 @@
 /* Begin PBXFileReference section */
 		BA019391142C146F004DCE8D /* Session.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Session.h; sourceTree = "<group>"; };
 		BA019392142C146F004DCE8D /* Session.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Session.m; sourceTree = "<group>"; };
+		BA19768014F95AC000085FAD /* CustomSegment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomSegment.h; sourceTree = "<group>"; };
+		BA19768114F95AC000085FAD /* CustomSegment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomSegment.m; sourceTree = "<group>"; };
+		BA19768414F9644B00085FAD /* MajOrMin0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MajOrMin0.png; sourceTree = "<group>"; };
+		BA19768514F9644B00085FAD /* MajOrMin0@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MajOrMin0@2x.png"; sourceTree = "<group>"; };
+		BA19768614F9644B00085FAD /* MajOrMin1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MajOrMin1.png; sourceTree = "<group>"; };
+		BA19768714F9644B00085FAD /* MajOrMin1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MajOrMin1@2x.png"; sourceTree = "<group>"; };
+		BA19768C14F97A2000085FAD /* SegmentArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SegmentArrow.png; sourceTree = "<group>"; };
+		BA19768D14F97A2000085FAD /* SegmentArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SegmentArrow@2x.png"; sourceTree = "<group>"; };
+		BA19769014F9802200085FAD /* OctavesSegment0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = OctavesSegment0.png; sourceTree = "<group>"; };
+		BA19769114F9802200085FAD /* OctavesSegment0@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "OctavesSegment0@2x.png"; sourceTree = "<group>"; };
+		BA19769214F9802200085FAD /* OctavesSegment1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = OctavesSegment1.png; sourceTree = "<group>"; };
+		BA19769314F9802200085FAD /* OctavesSegment1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "OctavesSegment1@2x.png"; sourceTree = "<group>"; };
+		BA19769414F9802200085FAD /* OctavesSegment2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = OctavesSegment2.png; sourceTree = "<group>"; };
+		BA19769514F9802200085FAD /* OctavesSegment2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "OctavesSegment2@2x.png"; sourceTree = "<group>"; };
+		BA19769614F9802200085FAD /* OctavesSegment3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = OctavesSegment3.png; sourceTree = "<group>"; };
+		BA19769714F9802200085FAD /* OctavesSegment3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "OctavesSegment3@2x.png"; sourceTree = "<group>"; };
 		BA1E209914E6E7E400F0D2FC /* AddPopupBackboard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AddPopupBackboard.png; sourceTree = "<group>"; };
 		BA1E209A14E6E7E400F0D2FC /* AddPopupBackboard@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AddPopupBackboard@2x.png"; sourceTree = "<group>"; };
 		BA1E209E14E6E92200F0D2FC /* ArpsButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ArpsButton.png; sourceTree = "<group>"; };
@@ -152,6 +184,8 @@
 		BA37B8511482D56E00C41484 /* SectionInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SectionInfo.h; sourceTree = "<group>"; };
 		BA37B8521482D56E00C41484 /* SectionInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SectionInfo.m; sourceTree = "<group>"; };
 		BA37B8541482DB9700C41484 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		BA44683F14F92E0400AE0A0D /* NSMutableOrderedSet+DeepCopy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableOrderedSet+DeepCopy.h"; sourceTree = "<group>"; };
+		BA44684014F92E0400AE0A0D /* NSMutableOrderedSet+DeepCopy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableOrderedSet+DeepCopy.m"; sourceTree = "<group>"; };
 		BA513253145A484600043279 /* ACchooser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACchooser.h; sourceTree = "<group>"; };
 		BA513254145A484600043279 /* ACchooser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACchooser.m; sourceTree = "<group>"; };
 		BA513256145B5D5C00043279 /* DoubleTap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DoubleTap.h; sourceTree = "<group>"; };
@@ -304,6 +338,20 @@
 		BA08C5E5140D3D35009C5E8D /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				BA19769014F9802200085FAD /* OctavesSegment0.png */,
+				BA19769114F9802200085FAD /* OctavesSegment0@2x.png */,
+				BA19769214F9802200085FAD /* OctavesSegment1.png */,
+				BA19769314F9802200085FAD /* OctavesSegment1@2x.png */,
+				BA19769414F9802200085FAD /* OctavesSegment2.png */,
+				BA19769514F9802200085FAD /* OctavesSegment2@2x.png */,
+				BA19769614F9802200085FAD /* OctavesSegment3.png */,
+				BA19769714F9802200085FAD /* OctavesSegment3@2x.png */,
+				BA19768C14F97A2000085FAD /* SegmentArrow.png */,
+				BA19768D14F97A2000085FAD /* SegmentArrow@2x.png */,
+				BA19768414F9644B00085FAD /* MajOrMin0.png */,
+				BA19768514F9644B00085FAD /* MajOrMin0@2x.png */,
+				BA19768614F9644B00085FAD /* MajOrMin1.png */,
+				BA19768714F9644B00085FAD /* MajOrMin1@2x.png */,
 				BA25A09414E830AE003A71AE /* backToTodayButton.png */,
 				BA25A09514E830AE003A71AE /* backToTodayButton@2x.png */,
 				BA25A07F14E7694B003A71AE /* StartTimerButton.png */,
@@ -470,6 +518,8 @@
 				BA513254145A484600043279 /* ACchooser.m */,
 				BA019391142C146F004DCE8D /* Session.h */,
 				BA019392142C146F004DCE8D /* Session.m */,
+				BA44683F14F92E0400AE0A0D /* NSMutableOrderedSet+DeepCopy.h */,
+				BA44684014F92E0400AE0A0D /* NSMutableOrderedSet+DeepCopy.m */,
 				BA64B00D147468C400B71D18 /* NSString+Number.h */,
 				BA64B00E147468C400B71D18 /* NSString+Number.m */,
 				BA37B8511482D56E00C41484 /* SectionInfo.h */,
@@ -536,6 +586,8 @@
 				BACA58DB14E8678A0054A634 /* alert-window@2x.png */,
 				BA3077DA141E4164003124E6 /* CustomStepper.h */,
 				BA3077DB141E4164003124E6 /* CustomStepper.m */,
+				BA19768014F95AC000085FAD /* CustomSegment.h */,
+				BA19768114F95AC000085FAD /* CustomSegment.m */,
 				BA8CC24A1436088A00ADE21B /* Timer.h */,
 				BA8CC24B1436088A00ADE21B /* Timer.m */,
 				BA513256145B5D5C00043279 /* DoubleTap.h */,
@@ -680,6 +732,20 @@
 				BACA58E114E8678A0054A634 /* alert-red-button@2x.png in Resources */,
 				BACA58E214E8678A0054A634 /* alert-window.png in Resources */,
 				BACA58E314E8678A0054A634 /* alert-window@2x.png in Resources */,
+				BA19768814F9644B00085FAD /* MajOrMin0.png in Resources */,
+				BA19768914F9644B00085FAD /* MajOrMin0@2x.png in Resources */,
+				BA19768A14F9644B00085FAD /* MajOrMin1.png in Resources */,
+				BA19768B14F9644B00085FAD /* MajOrMin1@2x.png in Resources */,
+				BA19768E14F97A2000085FAD /* SegmentArrow.png in Resources */,
+				BA19768F14F97A2000085FAD /* SegmentArrow@2x.png in Resources */,
+				BA19769814F9802200085FAD /* OctavesSegment0.png in Resources */,
+				BA19769914F9802200085FAD /* OctavesSegment0@2x.png in Resources */,
+				BA19769A14F9802200085FAD /* OctavesSegment1.png in Resources */,
+				BA19769B14F9802200085FAD /* OctavesSegment1@2x.png in Resources */,
+				BA19769C14F9802200085FAD /* OctavesSegment2.png in Resources */,
+				BA19769D14F9802200085FAD /* OctavesSegment2@2x.png in Resources */,
+				BA19769E14F9802200085FAD /* OctavesSegment3.png in Resources */,
+				BA19769F14F9802200085FAD /* OctavesSegment3@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -722,6 +788,8 @@
 				CE98858F14EC8B5000E8FA90 /* SessionStore.m in Sources */,
 				CE48BEC314F31D27002535E5 /* DynamicLabel.m in Sources */,
 				CE48BEC414F31D27002535E5 /* StopWatch.m in Sources */,
+				BA44684114F92E0400AE0A0D /* NSMutableOrderedSet+DeepCopy.m in Sources */,
+				BA19768214F95AC000085FAD /* CustomSegment.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

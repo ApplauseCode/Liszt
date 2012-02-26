@@ -20,12 +20,10 @@
     Session *selectedSession;
     NSMutableArray *sectionInfoArray;
     IBOutlet UITableView *statsTable;
-//    Timer *scaleTimer;
-//    Timer *arpeggioTimer;
     TimerCell *tCell;
     UIButton *timerButton;
     BOOL currentPractice;
-    
+    BOOL isTiming;
 }
 
 @property (nonatomic)           NSUInteger tempo;
@@ -43,6 +41,7 @@
 @property (nonatomic, strong)   Metronome *metro;
 @property (nonatomic, strong)   TimerCell *tCell;
 @property (nonatomic, assign)   BOOL shouldDisplayTime;
+@property (nonatomic) BOOL isTiming;
 
 - (void)makeMenu;
 - (void)makeMetronome;
@@ -50,17 +49,11 @@
 - (void)dateChanged;
 - (void)hideMenu:(id)sender;
 - (void)closeSections;
-//- (void)changeTimeForTimers;
-- (void)saveSessionTimes;
 - (void)sectionHeaderView:(SectionHeaderView *)sectionHeaderView sectionOpened:(NSInteger)section;
 - (void)sectionHeaderView:(SectionHeaderView *)sectionHeaderView sectionClosed:(NSInteger)section;
 - (void)toggleTimer:(int)section;
 - (void)timerButtonPressed:(id)sender;
 
-
-//@property (nonatomic, strong)   Timer *scaleTimer;
-//@property (nonatomic, strong)   Timer *arpeggioTimer;
-//@property (nonatomic, strong)   NSMutableArray *pieceTimers;
 @property (strong, nonatomic) IBOutlet UILabel *tempoLabel;
 @property (strong, nonatomic) IBOutlet UIView *metronomeView;
 @property (weak, nonatomic) IBOutlet UIButton *addButton;

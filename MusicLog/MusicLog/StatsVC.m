@@ -33,7 +33,6 @@
 @property (nonatomic, strong) UIView *datePickerView;
 @property (nonatomic, strong) StopWatch *stopWatch;
 @property (nonatomic, strong) id theObserver;
-@property (nonatomic) BOOL isTiming;
 - (void)backToToday:(id)sender;
 - (void)blockAlertView:(BOOL)isYes;
 
@@ -44,9 +43,6 @@
 @synthesize aNewButton;
 @synthesize tempoLabel, metronomeView, timerButton, statsTable;
 @synthesize selSessionDisplay, chooseDateButton, myPopover, chooseScalesButton, chooseArpsButton, choosePiecesButton, tempoNameLabel;
-//@synthesize scaleTimer;
-//@synthesize arpeggioTimer;
-//@synthesize pieceTimers;
 @synthesize tempo;
 @synthesize tickPlayer;
 @synthesize stepper;
@@ -91,18 +87,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-//        Timer *pieceTimer;
         selectedSession = [[SessionStore defaultStore] mySession];
-//        scaleTimer = [[Timer alloc] initWithElapsedTime:[selectedSession scaleTime]];
-//        arpeggioTimer = [[Timer alloc] initWithElapsedTime:[selectedSession arpeggioTime]];
-//        for (int i = 0; i < [[selectedSession pieceSession] count]; i++)
-//            [[[selectedSession pieceSession] objectAtIndex:i] setTimer:[[Timer alloc] initWithElapsedTime:[[[selectedSession pieceSession] objectAtIndex:i] pieceTime]]];
-//        pieceTimers = [[NSMutableArray alloc] initWithCapacity:3];
-//        for (int i = 0; i < [[selectedSession pieceSession] count]; i++) {
-//            pieceTimer = [[Timer alloc] initWithElapsedTime:[[[selectedSession pieceSession] objectAtIndex:i] pieceTime]];
-//            [pieceTimers addObject:pieceTimer];
-//        }
-            
         currentPractice = YES;
     }
     return self;
@@ -117,13 +102,7 @@
 {
     [super viewDidLoad];
     stopWatch = [[StopWatch alloc] init];
-   // datePickerView = [[UIView alloc] initWithFrame:CGRectMake(0, -242, 320, 25)];
-    //UIView *blackness;
-    //blackness = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 25)];
-    //[blackness setBackgroundColor:[UIColor blackColor]];
-    //[datePickerView addSubview:blackness];
     isTiming = NO;
-    
 
     UINib *nib = [UINib nibWithNibName:@"ScalesPracticedCell" bundle:nil];
     [statsTable registerNib:nib 
@@ -141,7 +120,6 @@
     datePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake(0.0, -216.0, 320, 253)];
     [datePicker setDatePickerMode:UIDatePickerModeDate];
     [datePicker setMaximumDate:[NSDate date]];
-    //[datePickerView addSubview:datePicker];
     [self.view addSubview:datePicker];
     
     UIFont *caslon = [UIFont fontWithName:@"ACaslonPro-Regular" size:11];
@@ -216,7 +194,6 @@
         [pieceInfo setCountofRowsToInsert:1];
         [sectionInfoArray addObject:pieceInfo];
     }
-  //  [self changeTimeForTimers];
     [[sectionInfoArray objectAtIndex:0] setCountofRowsToInsert:[[selectedSession scaleSession] count]];
     [[sectionInfoArray objectAtIndex:1] setCountofRowsToInsert:[[selectedSession arpeggioSession] count]];
     [statsTable reloadData];
@@ -228,9 +205,7 @@
 - (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event
 {
     if (motion == UIEventSubtypeMotionShake)
-    {
         [TestFlight openFeedbackView];
-    }
 }
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
@@ -340,13 +315,13 @@
     {
         [stopWatch addObserver:observer forKeyPath:@"totalSeconds" options:NSKeyValueObservingOptionNew context:(__bridge void *)context];
         [self setTheObserver:observer];
-        [self setIsTiming:!isTiming];
+        [self setIsTiming:YES];
     }
     else
     {
         [stopWatch removeObserver:observer forKeyPath:@"totalSeconds" context:(__bridge void *)context];
         [self setTheObserver:nil];
-        [self setIsTiming:!isTiming];
+        [self setIsTiming:NO];
     }
 }
 
@@ -355,26 +330,11 @@
     [metro changeTempoWithTempo:[stepper tempo]];
 }
 
-
-- (void)saveSessionTimes
-{
-//    SessionStore *store = [SessionStore defaultStore];
-//    [[store mySession] setScaleTime:[scaleTimer elapsedTime]];
-//    [[store mySession] setArpeggioTime:[arpeggioTimer elapsedTime]];
-//    for (Piece *p in [[store mySession] pieceSession])
-//        [p setPieceTime:[[p timer] elapsedTime]];
-//    for (int i = 0; i < [[[store mySession] pieceSession] count]; i++) {
-//        [[[[store mySession] pieceSession] objectAtIndex:i] setPieceTime:[[pieceTimers objectAtIndex:i] elapsedTime]];
-//    }
-}
-
 - (void)newSession:(id)sender
 {
-    
     NSCalendar *cal = [NSCalendar currentCalendar];
     NSDateComponents *componentsForOld = [cal components:(NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit) fromDate:[selectedSession date]];
     NSDate *startDateOfPreviousSession = [cal dateFromComponents:componentsForOld];
-    
     NSDateComponents *componentsForNow = [cal components:(NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit) fromDate:[NSDate date]];
     NSDate *today = [cal dateFromComponents:componentsForNow];
     
@@ -385,9 +345,6 @@
         [whoops show];
         return;
     }
-                                          
-    [self saveSessionTimes];
-    
     BlockAlertView *newOrOld = [BlockAlertView alertWithTitle:@"New Session" message:@"Would you like to start this session as a copy of your previous session?"];
     [newOrOld addButtonWithTitle:@"No" block:^{
         [self blockAlertView:NO];
@@ -404,20 +361,8 @@
 {
     SessionStore *store = [SessionStore defaultStore];
     [store addSessionStartNew:isYes];
-//    [scaleTimer resetTimer];
-//    [arpeggioTimer resetTimer];
     if (isYes)
     {
-//        for (Timer *t in pieceTimers) {
-//            [t resetTimer];
-//        }
-//        Timer *pieceTimer;
-//        for (Piece *p in [[store mySession] pieceSession])
-//        {
-//            pieceTimer = [[Timer alloc] initWithElapsedTime:0];
-//            [pieceTimers addObject:pieceTimer]; 
-//            
-//        }
     }
     else
         [sectionInfoArray removeObjectsInRange:NSMakeRange(2, ([sectionInfoArray count] - 2))];
@@ -425,9 +370,7 @@
     
     for (int i = 0; i < [[selectedSession pieceSession] count]; i++)
     {
-        //        [[[sectionInfoArray objectAtIndex:i + 2] headerView] setSubTitle:[NSString timeStringFromInt:[[[[selectedSession pieceSession] objectAtIndex:i] timer] elapsedTime]]];
         [[[sectionInfoArray objectAtIndex:i + 2] headerView] setSubTitle:[NSString timeStringFromInt:[[[selectedSession pieceSession] objectAtIndex:i] pieceTime]]];
-        
     }
     
     [[sectionInfoArray objectAtIndex:0] setCountofRowsToInsert:[[selectedSession scaleSession] count]];
@@ -477,9 +420,6 @@
     [sectionInfoArray removeObjectsInRange:NSMakeRange(2, ([sectionInfoArray count] -2))];
     for (int i = 0; i < [[selectedSession pieceSession] count]; i++)
     {
-        int pieceT = [[[selectedSession pieceSession] objectAtIndex:i] pieceTime];
-//        [[[selectedSession pieceSession] objectAtIndex:i] setTimer:[[Timer alloc] initWithElapsedTime:pieceT]];
-//        [[pieceTimers objectAtIndex:i] setElapsedTime:pieceT];
         SectionInfo *pieceInfo = [[SectionInfo alloc] init];
         [pieceInfo setTitle:[[[selectedSession pieceSession] objectAtIndex:i] title]];
         [pieceInfo setCountofRowsToInsert:1];
@@ -525,25 +465,6 @@
         else
             index = nil;
     }
-//    if (index)
-//    {
-//
-//        if ([index intValue] == 0 && currentPractice)
-//        {
-//            [scaleTimer setTimeLabel:[openSection.headerView subTitleLabel]];
-//        }
-//        else if ([index intValue] == 1 && currentPractice)
-//        {
-//            [arpeggioTimer setTimeLabel:[openSection.headerView subTitleLabel]];
-//        }
-//        else if (currentPractice)
-//        {
-//            Timer *t = [[[selectedSession pieceSession] objectAtIndex:([index intValue] - 2)] timer];
-//            [t setTimeLabel:[openSection.headerView subTitleLabel]];
-//        }
-//    }
-    NSString *time = [NSString timeStringFromInt:[[[[[SessionStore defaultStore] mySession] pieceSession] objectAtIndex:(openSectionIndex - 2)] pieceTime]];
-    NSLog(@"%@", time);
 }
 
 - (void)startMetronome:(id)sender {
