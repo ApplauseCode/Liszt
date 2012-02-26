@@ -151,7 +151,7 @@
             for (int i = 0; i < 6; i++) {
                 tonicNum = (i * 7) % 12 + 3;
                 [pickedScale setTonic:tonicNum];
-                [sharps addObject:[pickedScale copy]];
+                [sharps addObject:[pickedScale mutableCopy]];
             }
             if (index == 0)
                 [[[store mySession] scaleSession] addObjectsFromArray:sharps];
@@ -173,7 +173,7 @@
             for (int i = 0; i < 12; i++) {
                 tonicNum = (i * 7) % 12 + 3;
                 [pickedScale setTonic:tonicNum];
-                [all addObject:[pickedScale copy]];
+                [all addObject:[pickedScale mutableCopy]];
             }
             if (index == 0)
                 [[[store mySession] scaleSession] addObjectsFromArray:all];
