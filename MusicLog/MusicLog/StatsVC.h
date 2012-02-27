@@ -25,6 +25,7 @@
     BOOL currentPractice;
     BOOL isTiming;
 }
+- (void)blockAlertView:(BOOL)isYes;
 
 @property (nonatomic)           NSUInteger tempo;
 @property (nonatomic, strong)   Session *selectedSession;

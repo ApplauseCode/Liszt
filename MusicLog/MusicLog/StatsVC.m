@@ -34,7 +34,6 @@
 @property (nonatomic, strong) StopWatch *stopWatch;
 @property (nonatomic, strong) id theObserver;
 - (void)backToToday:(id)sender;
-- (void)blockAlertView:(BOOL)isYes;
 
 @end
 
@@ -93,10 +92,14 @@
     return self;
 }
 
+////////////////////////// REMOVE LATER //////////////////
+
 - (BOOL)canBecomeFirstResponder
 {
     return YES;
 }
+
+/////////////////////////////////////////////////////////
 
 - (void)viewDidLoad
 {
@@ -125,7 +128,7 @@
     UIFont *caslon = [UIFont fontWithName:@"ACaslonPro-Regular" size:11];
 
     [tempoNameLabel setFont:caslon];
-    [tempoNameLabel setText:@"TEMPO:"];
+    [tempoNameLabel setText:@"METRONOME:"];
     [tempoNameLabel setTextColor:[UIColor yellowTextColor]];
     [self makeMenu];
     [self makeMetronome];
@@ -202,11 +205,15 @@
 
 #pragma mark - View Actions
 
+////////////////////// REMOVE LATER ////////////////////////
+
 - (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event
 {
     if (motion == UIEventSubtypeMotionShake)
         [TestFlight openFeedbackView];
 }
+
+///////////////////////////////////////////////////////////
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
 {
@@ -341,41 +348,38 @@
     [metro changeTempoWithTempo:[stepper tempo]];
 }
 
-- (void)newSession:(id)sender
-{
-    NSCalendar *cal = [NSCalendar currentCalendar];
-    NSDateComponents *componentsForOld = [cal components:(NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit) fromDate:[selectedSession date]];
-    NSDate *startDateOfPreviousSession = [cal dateFromComponents:componentsForOld];
-    NSDateComponents *componentsForNow = [cal components:(NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit) fromDate:[NSDate date]];
-    NSDate *today = [cal dateFromComponents:componentsForNow];
-    
-    if ([startDateOfPreviousSession isEqualToDate:today])
-    {
-        BlockAlertView *whoops = [BlockAlertView alertWithTitle:@"Whoops!" message:@"You already have a session started today. Now get back to practicing!"];
-        [whoops setDestructiveButtonWithTitle:@"Ok" block:nil];
-        [whoops show];
-        return;
-    }
-    BlockAlertView *newOrOld = [BlockAlertView alertWithTitle:@"New Session" message:@"Would you like to start this session as a copy of your previous session?"];
-    [newOrOld addButtonWithTitle:@"No" block:^{
-        [self blockAlertView:NO];
-    }];
-    [newOrOld addButtonWithTitle:@"Yes" block:^{
-        [self blockAlertView:YES];
-    }];
-    [newOrOld setDestructiveButtonWithTitle:@"Cancel" block:nil];
-
-    [newOrOld show];
-   }
+//- (void)newSession:(id)sender
+//{
+//    NSCalendar *cal = [NSCalendar currentCalendar];
+//    NSDateComponents *componentsForOld = [cal components:(NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit) fromDate:[selectedSession date]];
+//    NSDate *startDateOfPreviousSession = [cal dateFromComponents:componentsForOld];
+//    NSDateComponents *componentsForNow = [cal components:(NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit) fromDate:[NSDate date]];
+//    NSDate *today = [cal dateFromComponents:componentsForNow];
+//    
+//    if ([startDateOfPreviousSession isEqualToDate:today])
+//    {
+//        BlockAlertView *whoops = [BlockAlertView alertWithTitle:@"Whoops!" message:@"You already have a session started today. Now get back to practicing!"];
+//        [whoops setDestructiveButtonWithTitle:@"Ok" block:nil];
+//        [whoops show];
+//        return;
+//    }
+//    BlockAlertView *newOrOld = [BlockAlertView alertWithTitle:@"New Session" message:@"Would you like to start this session as a copy of your previous session?"];
+//    [newOrOld addButtonWithTitle:@"No" block:^{
+//        [self blockAlertView:NO];
+//    }];
+//    [newOrOld addButtonWithTitle:@"Yes" block:^{
+//        [self blockAlertView:YES];
+//    }];
+//    [newOrOld setDestructiveButtonWithTitle:@"Cancel" block:nil];
+//
+//    [newOrOld show];
+//   }
 
 - (void)blockAlertView:(BOOL)isYes
 {
     SessionStore *store = [SessionStore defaultStore];
     [store addSessionStartNew:isYes];
     if (isYes)
-    {
-    }
-    else
         [sectionInfoArray removeObjectsInRange:NSMakeRange(2, ([sectionInfoArray count] - 2))];
     [self setSelectedSession:[store mySession]];
     

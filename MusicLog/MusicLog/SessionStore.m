@@ -14,7 +14,7 @@
 #import "NSMutableOrderedSet+DeepCopy.h"
 
 #define DEBUG 1
-#undef DEBUG
+//#undef DEBUG
 
 @interface SessionStore ()
 
@@ -78,7 +78,7 @@
 - (void)addSessionStartNew:(BOOL)fresh {
     [sessions addObject:mySession];    
     Session *newSession;
-    if (!fresh)
+    if (fresh)
         newSession = [[Session alloc] init];
     else
     {
@@ -94,6 +94,7 @@
     }
     
     [self setMySession:newSession];
+    NSLog(@"%@", [mySession scaleSession]);
 }
 
 - (BOOL)saveChanges {

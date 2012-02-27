@@ -15,6 +15,8 @@
 #import "Session.h"
 #import "Piece.h"
 #import "Timer.h"
+#import "BlockAlertView.h"
+#import "SectionInfo.h"
 
 @interface AppDelegate()
 {
@@ -31,8 +33,8 @@
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque];
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     [UIApplication sharedApplication].idleTimerDisabled = YES;
-    [TestFlight takeOff:@"0bb5b0fae5868594a374b52c1cd204c3_NTQ5NTIyMDEyLTAxLTI1IDE1OjU3OjIxLjYxMTI3NA"];
-    application.applicationSupportsShakeToEdit = YES;
+    /*remove later*/[TestFlight takeOff:@"0bb5b0fae5868594a374b52c1cd204c3_NTQ5NTIyMDEyLTAxLTI1IDE1OjU3OjIxLjYxMTI3NA"];
+     application.applicationSupportsShakeToEdit = YES; /**/
     [self checkDate];
     
     c = [[StatsVC alloc] init];
@@ -54,37 +56,28 @@
     NSDate *sessionDate = [cal dateFromComponents:components];
     
     if ([sessionDate isEqualToDate:yesterday])
-        [[SessionStore defaultStore] addSessionStartNew:YES];
+    {
+        BlockAlertView *newDay = [BlockAlertView alertWithTitle:@"A New Day, A New Practice"
+                                                        message:@"Would you like your new practice to start out with all of the same items (scales, pieces, etc.) as your last practice?"];
+        [newDay addButtonWithTitle:@"Yes Please!" block:^{
+            [c blockAlertView:NO];
+        }];
+        [newDay setCancelButtonWithTitle:@"No Thanks" block:^{
+            [c blockAlertView:YES];
+        }];
+        [newDay show];
+    }
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
-//    SessionStore *store = [SessionStore defaultStore];
-//    [[c scaleTimer] stopTimer];
-//    [[c arpeggioTimer] stopTimer];
-//    [[store mySession] setScaleTime:[[c scaleTimer] elapsedTime]];
-//    [[store mySession] setArpeggioTime:[[c arpeggioTimer] elapsedTime]];
-//    for (Piece *p in [[store mySession] pieceSession])
-//    {
-//        [[p timer] stopTimer];
-//        [p setPieceTime:[[p timer] elapsedTime]];
-//    }
+
     [[SessionStore defaultStore] saveChanges];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
-//    SessionStore *store = [SessionStore defaultStore];
-//    [[c scaleTimer] stopTimer];
-//    [[c arpeggioTimer] stopTimer];
-//    [[store mySession] setScaleTime:[[c scaleTimer] elapsedTime]];
-//    [[store mySession] setArpeggioTime:[[c arpeggioTimer] elapsedTime]];
-//    for (Piece *p in [[store mySession] pieceSession])
-//    {
-//        [[p timer] stopTimer];
-//        [p setPieceTime:[[p timer] elapsedTime]];
-//    }
-//    [[SessionStore defaultStore] saveChanges];
+    [[SessionStore defaultStore] saveChanges];
 }
 
 @end
