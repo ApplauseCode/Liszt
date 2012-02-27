@@ -50,40 +50,40 @@
 {
     Session *s = [[SessionStore defaultStore] mySession];
 	SectionInfo *sectionInfo = [self.sectionInfoArray objectAtIndex:section];
-    if ((!sectionInfo.headerView) || (section < 2)) 
-    {
+//    if ((!sectionInfo.headerView) || (section < 2)) 
+//    {
 		NSString *sectionName = sectionInfo.title;
         sectionInfo.headerView = [[SectionHeaderView alloc] initWithFrame:CGRectMake(0.0, 0.0, statsTable.bounds.size.width, 42) title:[sectionName capitalizedString] subTitle:@"" section:section delegate:self];
         NSString *time;
         if (currentPractice)
         {
             if (section ==  0)
-            {
+//            {
                 time = [NSString timeStringFromInt:[s scaleTime]];
-                [[[SessionStore defaultStore] mySession] addObserver:[[sectionInfo headerView] subTitleLabel]
-                                                          forKeyPath:@"scaleTime"
-                                                             options:NSKeyValueObservingOptionNew
-                                                             context:nil];
-            }
+//                [s addObserver:self
+//                    forKeyPath:@"scaleTime"
+//                       options:NSKeyValueObservingOptionNew
+//                       context:nil];
+//            }
             else if (section == 1)
-            {
+//            {
                 time = [NSString timeStringFromInt:[s arpeggioTime]];
-                [[[SessionStore defaultStore] mySession] addObserver:[[sectionInfo headerView] subTitleLabel]
-                                                          forKeyPath:@"arpeggioTime"
-                                                             options:NSKeyValueObservingOptionNew
-                                                             context:nil];
-            }
+//                [s addObserver:[[sectionInfo headerView] subTitleLabel]
+//                    forKeyPath:@"arpeggioTime"
+//                       options:NSKeyValueObservingOptionNew
+//                       context:nil];
+//            }
             else
             {
                 Piece *currentPiece = [[s pieceSession] objectAtIndex:(section - 2)];
                 time = [NSString timeStringFromInt:[currentPiece pieceTime]];
-                [currentPiece addObserver:[[sectionInfo headerView] subTitleLabel]
-                                                          forKeyPath:@"pieceTime"
-                                                             options:NSKeyValueObservingOptionNew
-                                                             context:nil];
-                
+//                [currentPiece addObserver:[[sectionInfo headerView] subTitleLabel]
+//                               forKeyPath:@"pieceTime"
+//                                  options:NSKeyValueObservingOptionNew
+//                                  context:nil];
+//                
             }
-                
+//            
         }
         else
         {
@@ -95,7 +95,7 @@
                 time = [NSString timeStringFromInt:[[[selectedSession pieceSession] objectAtIndex:(section - 2)] pieceTime]];
         }
         [sectionInfo.headerView setSubTitle:time];
-    }
+//    }
     if (sectionInfo.open)
         [sectionInfo.headerView turnDownDisclosure:YES];
     else

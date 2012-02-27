@@ -314,15 +314,26 @@
     if (!isTiming)
     {
         [stopWatch addObserver:observer forKeyPath:@"totalSeconds" options:NSKeyValueObservingOptionNew context:(__bridge void *)context];
+        [stopWatch addObserver:self
+                    forKeyPath:@"totalSeconds"
+                       options:NSKeyValueObservingOptionNew
+                       context:nil];
+        
         [self setTheObserver:observer];
         [self setIsTiming:YES];
     }
     else
     {
         [stopWatch removeObserver:observer forKeyPath:@"totalSeconds" context:(__bridge void *)context];
+        [stopWatch removeObserver:self forKeyPath:@"totalSeconds"];
         [self setTheObserver:nil];
         [self setIsTiming:NO];
     }
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    [statsTable reloadData];
 }
 
 - (void)valueChanged

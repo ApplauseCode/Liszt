@@ -22,12 +22,22 @@
 {
     self = [super init];
     if (self) {
-        [self setScaleSession:[[NSMutableOrderedSet alloc] initWithOrderedSet:scaleSet copyItems:YES]];
-        [self setArpeggioSession:[[NSMutableOrderedSet alloc] initWithOrderedSet:arpeggioSet copyItems:YES]];
-        [self setPieceSession:[[NSMutableOrderedSet alloc] initWithOrderedSet:pieceSet copyItems:YES]];
+        if ([scaleSet respondsToSelector:@selector(addObject:)])
+            NSLog(@"scale set responds to selector");
+            
+        if (!scaleSet)
+            [self setScaleSession:[[NSMutableOrderedSet alloc] init]];
+        else
+            [self setScaleSession:scaleSet];
+        if (!arpeggioSet)
+            [self setArpeggioSession:[[NSMutableOrderedSet alloc] init]];
+        else
+            [self setArpeggioSession:arpeggioSet];
+        if (!pieceSet)
+            [self setPieceSession:[[NSMutableOrderedSet alloc] init]];
+        else
+            [self setPieceSession:pieceSet];
         [self setDate:[NSDate date]];
-//        if ([scaleSession respondsToSelector:@selector(addObject:)])
-//            NSLog(@"It's Mutable!");
     }
     return self;
 }

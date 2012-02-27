@@ -16,7 +16,6 @@
 @property BOOL major;
 @property int tempo;
 @property tonicType pieceKey;
-//@property (nonatomic, strong) Timer *timer;
 @property int pieceTime;
 
 - (NSString *)keyString;

@@ -11,6 +11,7 @@
 #import "Scale.h"
 #import "Piece.h"
 #import "Timer.h"
+#import "NSMutableOrderedSet+DeepCopy.h"
 
 #define DEBUG 1
 #undef DEBUG
@@ -34,7 +35,7 @@
 
 + (SessionStore *)defaultStore
 {
-    __strong static SessionStore * defaultStore = nil;
+    __strong static SessionStore *defaultStore = nil;
     static dispatch_once_t onceToken = 0;
     dispatch_once(&onceToken, ^{
         defaultStore = [[SessionStore alloc] init];
@@ -56,9 +57,10 @@
             if ([objectsArchive objectAtIndex:0])
                 sessions = [NSMutableArray arrayWithArray:[objectsArchive objectAtIndex:0]];
             if ([objectsArchive objectAtIndex:1]) {
-                mySession = [[Session alloc] initWithScales:[[objectsArchive objectAtIndex:1] scaleSession]
-                                                  arpeggios:[[objectsArchive objectAtIndex:1] arpeggioSession]
-                                                     pieces:[[objectsArchive objectAtIndex:1] pieceSession]];
+                Session *archivedSession = [objectsArchive objectAtIndex:1];
+                mySession = [[Session alloc] initWithScales:[NSMutableOrderedSet fromMutableOrderedSet:[archivedSession scaleSession]]
+                                                  arpeggios:[NSMutableOrderedSet fromMutableOrderedSet:[archivedSession arpeggioSession]]
+                                                     pieces:[NSMutableOrderedSet fromMutableOrderedSet:[archivedSession pieceSession]]];
                 [mySession setScaleTime:[[objectsArchive objectAtIndex:1] scaleTime]];
                 [mySession setArpeggioTime:[[objectsArchive objectAtIndex:1] arpeggioTime]];
                 [mySession setDate:[[objectsArchive objectAtIndex:1] date]];                

@@ -145,7 +145,7 @@
     if ([[[store mySession] scaleSession] respondsToSelector:@selector(addObject:)])
         NSLog(@"its mutable!");
     else
-        NSLog(@"it aint mutabe");
+        NSLog(@"it aint mutable");
     switch (row) {
         case 0: //sharps
             for (int i = 0; i < 6; i++) {
