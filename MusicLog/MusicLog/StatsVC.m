@@ -125,7 +125,7 @@
     [datePicker setMaximumDate:[NSDate date]];
     [self.view addSubview:datePicker];
     
-    UIFont *caslon = [UIFont fontWithName:@"ACaslonPro-Regular" size:11];
+    UIFont *caslon = [UIFont fontWithName:@"ACaslonPro-Regular" size:12];
 
     [tempoNameLabel setFont:caslon];
     [tempoNameLabel setText:@"METRONOME:"];
@@ -302,6 +302,10 @@
 
 - (void)timerButtonPressed:(id)sender
 {
+    if ([[sender imageForState:UIControlStateNormal] isEqual:[UIImage imageNamed:@"StartTimer.png"]])
+        [sender setImage:[UIImage imageNamed:@"StopTimer.png"] forState:UIControlStateNormal];
+    else if ([[sender imageForState:UIControlStateNormal] isEqual:[UIImage imageNamed:@"StopTimer.png"]])
+        [sender setImage:[UIImage imageNamed:@"StartTimer.png"] forState:UIControlStateNormal];
     [self toggleTimer:openSectionIndex];
 }
 
@@ -484,9 +488,9 @@
 
 - (void)startMetronome:(id)sender {
     [metro startMetronomeWithTempo:[stepper tempo]];
-    if ([[sender currentTitle] isEqualToString: @"Start"])
-        [sender setTitle:@"Stop" forState:UIControlStateNormal];
-    else if ([[sender currentTitle] isEqualToString:@"Stop"])
-        [sender setTitle:@"Start" forState:UIControlStateNormal];
+    if ([[sender imageForState:UIControlStateNormal] isEqual:[UIImage imageNamed:@"StartMetronomeButton.png"]])
+        [sender setImage:[UIImage imageNamed:@"StopButton.png"] forState:UIControlStateNormal];
+    else if ([[sender imageForState:UIControlStateNormal] isEqual:[UIImage imageNamed:@"StopButton.png"]])
+        [sender setImage:[UIImage imageNamed:@"StartMetronomeButton.png"] forState:UIControlStateNormal];
 }
 @end
