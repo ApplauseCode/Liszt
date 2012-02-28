@@ -20,6 +20,7 @@
 {
     StatsVC *c;
 }
+- (void)checkDate;
 @end
 @implementation AppDelegate
 
@@ -32,12 +33,28 @@
     [UIApplication sharedApplication].idleTimerDisabled = YES;
     [TestFlight takeOff:@"0bb5b0fae5868594a374b52c1cd204c3_NTQ5NTIyMDEyLTAxLTI1IDE1OjU3OjIxLjYxMTI3NA"];
     application.applicationSupportsShakeToEdit = YES;
-    c = [[StatsVC alloc] init];
+    [self checkDate];
     
+    c = [[StatsVC alloc] init];
     [self.window setRootViewController:c];
+    
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     return YES;
+}
+
+- (void)checkDate
+{
+    NSCalendar *cal = [NSCalendar currentCalendar];
+    NSDateComponents *components = [cal components:(NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit) fromDate:[NSDate dateWithTimeIntervalSinceNow:-86400/*seconds in a day*/]];
+    NSDate *yesterday = [cal dateFromComponents:components];
+    NSLog(@"yesterday: %@", yesterday);
+    
+    components = [cal components:(NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit) fromDate:[[[SessionStore defaultStore] mySession] date]];
+    NSDate *sessionDate = [cal dateFromComponents:components];
+    
+    if ([sessionDate isEqualToDate:yesterday])
+        [[SessionStore defaultStore] addSessionStartNew:YES];
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
