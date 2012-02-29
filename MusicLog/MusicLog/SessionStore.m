@@ -58,9 +58,9 @@
                 sessions = [NSMutableArray arrayWithArray:[objectsArchive objectAtIndex:0]];
             if ([objectsArchive objectAtIndex:1]) {
                 Session *archivedSession = [objectsArchive objectAtIndex:1];
-                mySession = [[Session alloc] initWithScales:[NSMutableOrderedSet fromMutableOrderedSet:[archivedSession scaleSession]]
-                                                  arpeggios:[NSMutableOrderedSet fromMutableOrderedSet:[archivedSession arpeggioSession]]
-                                                     pieces:[NSMutableOrderedSet fromMutableOrderedSet:[archivedSession pieceSession]]];
+                mySession = [[Session alloc] initWithScales:[NSMutableOrderedSet fromOrderedSet:[archivedSession scaleSession]]
+                                                  arpeggios:[NSMutableOrderedSet fromOrderedSet:[archivedSession arpeggioSession]]
+                                                     pieces:[NSMutableOrderedSet fromOrderedSet:[archivedSession pieceSession]]];
                 [mySession setScaleTime:[[objectsArchive objectAtIndex:1] scaleTime]];
                 [mySession setArpeggioTime:[[objectsArchive objectAtIndex:1] arpeggioTime]];
                 [mySession setDate:[[objectsArchive objectAtIndex:1] date]];                
@@ -86,7 +86,6 @@
         [newSession setScaleTime:0];
         [newSession setArpeggioTime:0];
         for (Piece *p in [newSession pieceSession]) {
-//            [[p timer] resetTimer];
             [p setPieceTime:0];
         }
         NSLog(@"%@", [sessions objectAtIndex:([sessions count] - 1)]);

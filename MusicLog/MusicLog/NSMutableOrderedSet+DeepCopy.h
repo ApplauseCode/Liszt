@@ -12,6 +12,6 @@
 
 - (NSMutableOrderedSet *)deepCopy;
 
-+ (NSMutableOrderedSet *)fromMutableOrderedSet:(NSMutableOrderedSet *)set;
++ (NSMutableOrderedSet *)fromOrderedSet:(NSOrderedSet *)set;
 
 @end

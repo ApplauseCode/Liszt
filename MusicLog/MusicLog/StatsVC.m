@@ -383,7 +383,8 @@
     NSDateComponents *components = [cal components:(NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit) fromDate:[datePicker date]];
     NSDate *today = [cal dateFromComponents:components];
     filteredSessions = [[NSMutableArray alloc] initWithCapacity:1];
-    
+    if ([[[sessions objectAtIndex:0] scaleSession] respondsToSelector:@selector(addObject:)])
+        NSLog(@"the old session responds");
     [sessions enumerateObjectsUsingBlock:^(Session *obj, NSUInteger idx, BOOL *stop) {
         NSDateComponents *newComponents = [cal components:(NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit) fromDate:[obj date]];
         NSDate *chosenDate = [cal dateFromComponents:newComponents];

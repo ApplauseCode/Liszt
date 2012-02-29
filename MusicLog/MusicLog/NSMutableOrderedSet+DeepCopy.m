@@ -23,7 +23,7 @@
     return copiedSet;
 }
 
-+ (NSMutableOrderedSet *)fromMutableOrderedSet:(NSMutableOrderedSet *)set
++ (NSMutableOrderedSet *)fromOrderedSet:(NSOrderedSet *)set
 {
     NSMutableOrderedSet *newSet = [[NSMutableOrderedSet alloc] init];
     for (id obj in set)
