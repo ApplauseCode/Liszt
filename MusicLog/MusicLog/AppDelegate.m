@@ -45,6 +45,11 @@
     return YES;
 }
 
+- (void)applicationWillEnterForeground:(UIApplication *)application
+{
+    [self checkDate];
+}
+
 - (void)checkDate
 {
     NSCalendar *cal = [NSCalendar currentCalendar];

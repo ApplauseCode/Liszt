@@ -352,35 +352,10 @@
     [metro changeTempoWithTempo:[stepper tempo]];
 }
 
-//- (void)newSession:(id)sender
-//{
-//    NSCalendar *cal = [NSCalendar currentCalendar];
-//    NSDateComponents *componentsForOld = [cal components:(NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit) fromDate:[selectedSession date]];
-//    NSDate *startDateOfPreviousSession = [cal dateFromComponents:componentsForOld];
-//    NSDateComponents *componentsForNow = [cal components:(NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit) fromDate:[NSDate date]];
-//    NSDate *today = [cal dateFromComponents:componentsForNow];
-//    
-//    if ([startDateOfPreviousSession isEqualToDate:today])
-//    {
-//        BlockAlertView *whoops = [BlockAlertView alertWithTitle:@"Whoops!" message:@"You already have a session started today. Now get back to practicing!"];
-//        [whoops setDestructiveButtonWithTitle:@"Ok" block:nil];
-//        [whoops show];
-//        return;
-//    }
-//    BlockAlertView *newOrOld = [BlockAlertView alertWithTitle:@"New Session" message:@"Would you like to start this session as a copy of your previous session?"];
-//    [newOrOld addButtonWithTitle:@"No" block:^{
-//        [self blockAlertView:NO];
-//    }];
-//    [newOrOld addButtonWithTitle:@"Yes" block:^{
-//        [self blockAlertView:YES];
-//    }];
-//    [newOrOld setDestructiveButtonWithTitle:@"Cancel" block:nil];
-//
-//    [newOrOld show];
-//   }
-
 - (void)blockAlertView:(BOOL)isYes
 {
+    [[self datePicker] setMaximumDate:[NSDate date]];
+    [[self datePicker] setDate:[NSDate date]];
     SessionStore *store = [SessionStore defaultStore];
     [store addSessionStartNew:isYes];
     if (isYes)
@@ -388,10 +363,7 @@
     [self setSelectedSession:[store mySession]];
     
     for (int i = 0; i < [[selectedSession pieceSession] count]; i++)
-    {
         [[[sectionInfoArray objectAtIndex:i + 2] headerView] setSubTitle:[NSString timeStringFromInt:[[[selectedSession pieceSession] objectAtIndex:i] pieceTime]]];
-    }
-    
     [[sectionInfoArray objectAtIndex:0] setCountofRowsToInsert:[[selectedSession scaleSession] count]];
     [[sectionInfoArray objectAtIndex:1] setCountofRowsToInsert:[[selectedSession arpeggioSession] count]];
     [statsTable reloadData];

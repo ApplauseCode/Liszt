@@ -65,7 +65,7 @@
 //        chars[1] = 0x00;
 //    }
 //    NSString *wholeNote = [[NSString alloc] initWithUTF8String:chars];
-    tonicArray = [NSArray arrayWithObjects:@"Sharps", @"Flats", @"All", @"C",@"C\u266f/D\u266d",@"D",@"D\u266f/E\u266d",@"E",@"F",@"F\u266f/G\u266d",@"G",@"G\u266f/A\u266d",@"A",@"A\u266f/B\u266d",@"B", nil];
+    tonicArray = [NSArray arrayWithObjects:@"Sharps", @"Flats", @"All", @"  C  ",@"C\u266f/D\u266d",@"  D  ",@"D\u266f/E\u266d",@"  E  ",@"  F  ",@"F\u266f/G\u266d",@"  G  ",@"G\u266f/A\u266d",@"  A  ",@"A\u266f/B\u266d",@"  B  ", nil];
     rhythmArray = [NSArray arrayWithObjects:@"Whole", @"1/2", @"\u2669", @"\u266b", @"1/12", @"\u266c", @"1/32", @"1/64",@"Bursts", nil];
 
     {
@@ -128,7 +128,7 @@
     [tonicChooser setDataArray:tonicArray];
     [modeChooser setDataArray:modeArray];
     [rhythmChooser setDataArray:rhythmArray];
-    [tonicChooser setVariableCellWidth:NO];
+//    [tonicChooser setVariableCellWidth:NO];
     [self.view addSubview:tonicChooser.view];
     [self.view addSubview:modeChooser.view];
     [self.view addSubview:rhythmChooser.view];
