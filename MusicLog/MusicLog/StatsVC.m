@@ -106,6 +106,9 @@
     [super viewDidLoad];
     stopWatch = [[StopWatch alloc] init];
     isTiming = NO;
+    
+    [selSessionDisplay setFont:[UIFont fontWithName:@"ACaslonPro-Regular" size:20]];
+    [selSessionDisplay setTextColor:[UIColor whiteColor]];
 
     UINib *nib = [UINib nibWithNibName:@"ScalesPracticedCell" bundle:nil];
     [statsTable registerNib:nib 
@@ -271,27 +274,18 @@
     CGPoint center = [chooseDateButton center];
     if ([datePicker frame].origin.y < -215.0)
     {
-        [UIView animateWithDuration:0.25 delay:0 options:UIViewAnimationCurveEaseInOut animations:^{
-            [datePicker setFrame:CGRectMake(0.0, 10.0, 320, 253)];
-            [chooseDateButton setCenter:CGPointMake(center.x, center.y + 216)];
+        [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationCurveEaseIn animations:^{
+            [datePicker setFrame:CGRectMake(0.0, 0.0, 320, 253)];
+            [chooseDateButton setCenter:CGPointMake(center.x, center.y + 210)];
         } completion:^(BOOL finished) {
-            [UIView animateWithDuration:0.15 delay:0 options:UIViewAnimationCurveEaseInOut animations:^{
-                [datePicker setFrame:CGRectMake(0.0, -12, 320, 253)];
-                [chooseDateButton setCenter:CGPointMake(center.x, center.y + 194)];
-            } completion:^(BOOL finished) {
-                [UIView animateWithDuration:0.15 delay:0 options:UIViewAnimationCurveEaseInOut animations:^{
-                    [datePicker setFrame:CGRectMake(0.0, 0.0, 320, 253)];
-                    [chooseDateButton setCenter:CGPointMake(center.x, center.y + 206)];
-                } completion:^(BOOL finished) {
-                }];
-            }];
         }];
+        
     }
     else if ([datePicker frame].origin.y > -1.0)
     {
-        [UIView animateWithDuration:0.5 animations:^{
+        [UIView animateWithDuration:0.35 animations:^{
             [datePicker setFrame:CGRectMake(0.0, -216.0, 320, 253)];
-            [chooseDateButton setCenter:CGPointMake(center.x, center.y - 206)];
+            [chooseDateButton setCenter:CGPointMake(center.x, center.y - 210)];
         }completion:^(BOOL finished) {
             [self dateChanged];
         }];
@@ -377,14 +371,12 @@
 
 - (void)dateChanged
 {
+    NSMutableArray *sessions = [[SessionStore defaultStore] sessions];    
     [self closeSections]; 
-    NSArray *sessions = [[SessionStore defaultStore] sessions];    
     NSCalendar *cal = [NSCalendar currentCalendar];
     NSDateComponents *components = [cal components:(NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit) fromDate:[datePicker date]];
     NSDate *today = [cal dateFromComponents:components];
     filteredSessions = [[NSMutableArray alloc] initWithCapacity:1];
-    if ([[[sessions objectAtIndex:0] scaleSession] respondsToSelector:@selector(addObject:)])
-        NSLog(@"the old session responds");
     [sessions enumerateObjectsUsingBlock:^(Session *obj, NSUInteger idx, BOOL *stop) {
         NSDateComponents *newComponents = [cal components:(NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit) fromDate:[obj date]];
         NSDate *chosenDate = [cal dateFromComponents:newComponents];
@@ -397,14 +389,44 @@
     
     if ((filteredSessions == nil) || ([filteredSessions count] == 0))
     {
-        [selSessionDisplay setText:[NSString stringWithFormat:@"Current Session - started on: %@",[selectedSession date]]];
+        [selSessionDisplay setText:@"Current Practice"];
         selectedSession = [[SessionStore defaultStore] mySession];
         currentPractice = YES;
+        NSDateComponents *compare = [cal components:(NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit) fromDate:[NSDate date]];
+        if (![today isEqualToDate:[cal dateFromComponents:compare]])
+        {
+            UIImageView *noSession = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"LisztHUD.png"]];
+            [noSession setCenter:CGPointMake(160, 220)];
+            [noSession setAlpha:0];
+            UILabel *text = [[UILabel alloc] init];
+            [text setBounds:CGRectMake(0, 0, 90, 80)];
+            [text setCenter:CGPointMake(noSession.frame.size.width/2, noSession.frame.size.height/2)];
+            [text setNumberOfLines:0];
+            [text setText:@"No practice found on this date."];
+            [text setFont:[UIFont systemFontOfSize:17]];
+            [text setTextAlignment:UITextAlignmentCenter];
+            [text setBackgroundColor:[UIColor clearColor]];
+            [text setTextColor:[UIColor whiteColor]];
+            [noSession addSubview:text];
+            [self.view addSubview:noSession];
+            [UIView animateWithDuration:0.5
+                             animations:^{
+                                 [noSession setAlpha:1.0];
+                             } completion:^(BOOL finished) {
+                                 [UIView animateWithDuration:0.5 delay:0.8 options:0 animations:^{
+                                     [noSession setAlpha:0.0];
+                                 } completion:^(BOOL finished) {
+                                     [noSession removeFromSuperview];
+                                     [datePicker setDate:[NSDate date]];
+                                 }];
+                             }];
+        }
+
     }
     else
     {
         selectedSession = [filteredSessions objectAtIndex:0];
-        [selSessionDisplay setText:[NSString stringWithFormat:@"Session %i, Created on %@", selSessionNum, [selectedSession date]]];
+        [selSessionDisplay setText:[NSString stringWithFormat:@"%@", [selectedSession date]]];
         currentPractice = NO;
     }
     [[sectionInfoArray objectAtIndex:0] setCountofRowsToInsert:[[selectedSession scaleSession] count]];
@@ -422,7 +444,7 @@
     float metronomeCenter = self.view.frame.size.height - [metronomeView bounds].size.height / 2.0;
     float metronomeHeight = [metronomeView bounds].size.height;
     float metronomePosition = metronomeCenter;
-    float buttonHeight = [aNewButton bounds].size.height;
+    float buttonHeight = [addButton bounds].size.height;
     float buttonCenterY = currentPractice ? buttonHeight / 2.0 -3 : -buttonHeight / 2.0 - 3;
     metronomePosition += currentPractice ? 0 : metronomeHeight;
     float todayCenterY = currentPractice ? metronomeCenter + metronomeHeight : metronomeCenter;
@@ -432,8 +454,9 @@
                         options:UIViewAnimationOptionCurveEaseIn 
                      animations:^{
                          [metronomeView setCenter:CGPointMake([metronomeView center].x,metronomePosition)];
-                         [addButton setCenter:CGPointMake([addButton center].x, buttonCenterY)];
-                         [aNewButton setCenter:CGPointMake([aNewButton center].x, buttonCenterY)];} completion:nil];
+                         [addButton setCenter:CGPointMake([addButton center].x, buttonCenterY)];}
+                        // [aNewButton setCenter:CGPointMake([aNewButton center].x, buttonCenterY)];}
+                     completion:nil];
     [UIView animateWithDuration:0.3 
                           delay:0.3 - aDelay
                         options:0 

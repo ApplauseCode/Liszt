@@ -127,6 +127,13 @@ static UIFont *octaveFinisherFont = nil;
         
         NSInteger octavesFinisherXCoord = octavesXCoord + [_octavesLabel sizeWithFont:octavesFont].width + 2;
         
+        [_octavesLabel drawAtPoint:CGPointMake(octavesXCoord , 27)
+                          forWidth:60
+                          withFont:octavesFont
+                          fontSize:14
+                     lineBreakMode:UILineBreakModeTailTruncation
+                baselineAdjustment:UIBaselineAdjustmentAlignCenters];
+        
         [octaveFinisher drawAtPoint:CGPointMake(octavesFinisherXCoord, 29)
                            forWidth:40
                            withFont:octaveFinisherFont
@@ -169,7 +176,7 @@ static UIFont *octaveFinisherFont = nil;
         
         NSInteger octavesXCoord = 185 + [_rhythmLabel sizeWithFont:rhythmFont].width + 3;
         
-        [_octavesLabel drawAtPoint:CGPointMake(octavesXCoord , 27)
+        [_octavesLabel drawAtPoint:CGPointMake(octavesXCoord + 5 , 27)
                           forWidth:60
                           withFont:octavesFont
                           fontSize:14

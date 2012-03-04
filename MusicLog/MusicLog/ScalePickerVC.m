@@ -15,6 +15,7 @@
 #import "CustomSegment.h"
 #import "ACchooser.h"
 #import "UIColor+YellowTextColor.h"
+#import "DCRoundSwitch.h"
 
 @interface ScalePickerVC ()
 {
@@ -22,7 +23,7 @@
     IBOutlet UILabel *tempoLabel;
     IBOutlet UILabel *tempoTextLabel;
     IBOutlet UILabel *octavesLabel;
-    
+//    IBOutlet UIButton *onOffButton;
     NSUInteger index;
     BOOL buttonDown;
     double timeElapsed;
@@ -38,6 +39,7 @@
     ACchooser *modeChooser;
     ACchooser *tonicChooser;
     ACchooser *rhythmChooser;
+    
 }
 
 @end
@@ -49,22 +51,6 @@
     self = [super initWithNibName:nil bundle:nil];
     if (self)
         [self setTitle:@"ScalePickerVC"];
-//    unichar utf8char = 1D15D;
-//    char chars[4];
-//    if (utf8char > 65535) {
-//        chars[0] = (utf8char >> 16) & 255;
-//        chars[1] = (utf8char >> 8) & 255;
-//        chars[2] = utf8char & 255; 
-//        chars[3] = 0x00;
-//    } else if (utf8char > 127) {
-//        chars[0] = (utf8char >> 8) & 255;
-//        chars[1] = utf8char & 255; 
-//        chars[2] = 0x00;
-//    } else {
-//        chars[0] = utf8char;
-//        chars[1] = 0x00;
-//    }
-//    NSString *wholeNote = [[NSString alloc] initWithUTF8String:chars];
     tonicArray = [NSArray arrayWithObjects:@"Sharps", @"Flats", @"All", @"  C  ",@"C\u266f/D\u266d",@"  D  ",@"D\u266f/E\u266d",@"  E  ",@"  F  ",@"F\u266f/G\u266d",@"  G  ",@"G\u266f/A\u266d",@"  A  ",@"A\u266f/B\u266d",@"  B  ", nil];
     rhythmArray = [NSArray arrayWithObjects:@"Whole", @"1/2", @"\u2669", @"\u266b", @"1/12", @"\u266c", @"1/32", @"1/64",@"Bursts", nil];
 
@@ -103,8 +89,8 @@
     [super viewDidLoad];
     
     [addScaleButton setTitle:@"Add" forState:normal];
-    [octavesLabel setFont:[UIFont fontWithName:@"AcaslonPro-Regular" size:20]];
-    [octavesLabel setText:@"Octaves"];
+    [octavesLabel setFont:[UIFont fontWithName:@"ACaslonPro-Regular" size:20]];
+    [octavesLabel setText:@"OCTAVES"];
     
     stepper = [[CustomStepper alloc] initWithPoint:CGPointMake(175, 340) andLabel:tempoLabel];
     [self.view addSubview:stepper];
@@ -128,7 +114,6 @@
     [tonicChooser setDataArray:tonicArray];
     [modeChooser setDataArray:modeArray];
     [rhythmChooser setDataArray:rhythmArray];
-//    [tonicChooser setVariableCellWidth:NO];
     [self.view addSubview:tonicChooser.view];
     [self.view addSubview:modeChooser.view];
     [self.view addSubview:rhythmChooser.view];

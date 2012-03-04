@@ -19,26 +19,28 @@
 #import "SectionInfo.h"
 
 @interface AppDelegate()
-{
-    StatsVC *c;
-}
+@property (nonatomic, strong) StatsVC *c;
+@property (nonatomic) BOOL alertViewVisible;
 - (void)checkDate;
 @end
 @implementation AppDelegate
 
-@synthesize window = _window;
+@synthesize window = _window, c, alertViewVisible;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque];
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    [UIApplication sharedApplication].idleTimerDisabled = YES;
+//    [UIApplication sharedApplication].idleTimerDisabled = YES;
     /*remove later*/[TestFlight takeOff:@"0bb5b0fae5868594a374b52c1cd204c3_NTQ5NTIyMDEyLTAxLTI1IDE1OjU3OjIxLjYxMTI3NA"];
      application.applicationSupportsShakeToEdit = YES; /**/
+    [self setAlertViewVisible:NO];
+    [SessionStore defaultStore];
     [self checkDate];
     
     c = [[StatsVC alloc] init];
     [self.window setRootViewController:c];
+    [self checkDate];
     
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
@@ -47,6 +49,7 @@
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
+    [UIApplication sharedApplication].idleTimerDisabled = YES;
     [self checkDate];
 }
 
@@ -60,23 +63,28 @@
     components = [cal components:(NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit) fromDate:[[[SessionStore defaultStore] mySession] date]];
     NSDate *sessionDate = [cal dateFromComponents:components];
     
-    if ([sessionDate isEqualToDate:yesterday])
+    if ([sessionDate isEqualToDate:yesterday] && !alertViewVisible)
     {
-        BlockAlertView *newDay = [BlockAlertView alertWithTitle:@"A New Day, A New Practice"
+        
+        BlockAlertView *freshDay = [BlockAlertView alertWithTitle:@"A New Day, A New Practice"
                                                         message:@"Would you like your new practice to start out with all of the same items (scales, pieces, etc.) as your last practice?"];
-        [newDay addButtonWithTitle:@"Yes Please!" block:^{
+        [freshDay addButtonWithTitle:@"Yes Please!" block:^{
             [c blockAlertView:NO];
+            [self setAlertViewVisible:NO];
         }];
-        [newDay setCancelButtonWithTitle:@"No Thanks" block:^{
+        [freshDay setCancelButtonWithTitle:@"No Thanks" block:^{
             [c blockAlertView:YES];
+            [self setAlertViewVisible:NO];
         }];
-        [newDay show];
+        [freshDay show];
+        [self setAlertViewVisible:YES];
     }
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
 
+    
     [[SessionStore defaultStore] saveChanges];
 }
 

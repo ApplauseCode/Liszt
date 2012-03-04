@@ -138,9 +138,18 @@
     else
     {
         entry = [[selectedSession pieceSession] objectAtIndex:([indexPath section] - 2)];
+        NSString *modeString;
+        switch ([entry major]) {
+            case 0:
+                modeString = @"Minor";
+                break;
+            case 1:
+                modeString = @"Major";
+                break;
+        }
         [cell isPiece:YES
              setTonic:[entry title]
-              octaves:@""
+              octaves:modeString
                rhythm:[entry keyString]
                  mode:[entry composer]
                 speed:[NSString stringWithInt:[entry tempo]]];
@@ -190,6 +199,8 @@
             [[sectionInfoArray objectAtIndex:1] setCountofRowsToInsert:[[selectedSession arpeggioSession] count]];
         }
         [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        if ([statsTable numberOfRowsInSection:section] == 1)
+            [self closeSections];
     }   
 }
 @end

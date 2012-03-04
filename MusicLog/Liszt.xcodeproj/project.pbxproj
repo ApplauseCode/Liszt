@@ -29,6 +29,12 @@
 		BA19769D14F9802200085FAD /* OctavesSegment2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BA19769514F9802200085FAD /* OctavesSegment2@2x.png */; };
 		BA19769E14F9802200085FAD /* OctavesSegment3.png in Resources */ = {isa = PBXBuildFile; fileRef = BA19769614F9802200085FAD /* OctavesSegment3.png */; };
 		BA19769F14F9802200085FAD /* OctavesSegment3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BA19769714F9802200085FAD /* OctavesSegment3@2x.png */; };
+		BA1A9F20150191250010C39E /* DCRoundSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = BA1A9F19150191250010C39E /* DCRoundSwitch.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		BA1A9F21150191250010C39E /* DCRoundSwitchKnobLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = BA1A9F1B150191250010C39E /* DCRoundSwitchKnobLayer.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		BA1A9F22150191250010C39E /* DCRoundSwitchOutlineLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = BA1A9F1D150191250010C39E /* DCRoundSwitchOutlineLayer.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		BA1A9F23150191250010C39E /* DCRoundSwitchToggleLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = BA1A9F1F150191250010C39E /* DCRoundSwitchToggleLayer.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		BA1A9F351502EE090010C39E /* LisztIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BA1A9F341502EE090010C39E /* LisztIcon@2x.png */; };
+		BA1A9F371502EE230010C39E /* LisztIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = BA1A9F361502EE230010C39E /* LisztIcon.png */; };
 		BA1E209B14E6E7E400F0D2FC /* AddPopupBackboard.png in Resources */ = {isa = PBXBuildFile; fileRef = BA1E209914E6E7E400F0D2FC /* AddPopupBackboard.png */; };
 		BA1E209C14E6E7E400F0D2FC /* AddPopupBackboard@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BA1E209A14E6E7E400F0D2FC /* AddPopupBackboard@2x.png */; };
 		BA1E20A414E6E92200F0D2FC /* ArpsButton.png in Resources */ = {isa = PBXBuildFile; fileRef = BA1E209E14E6E92200F0D2FC /* ArpsButton.png */; };
@@ -37,6 +43,12 @@
 		BA1E20A714E6E92200F0D2FC /* PiecesButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BA1E20A114E6E92200F0D2FC /* PiecesButton@2x.png */; };
 		BA1E20A814E6E92200F0D2FC /* ScalesButton.png in Resources */ = {isa = PBXBuildFile; fileRef = BA1E20A214E6E92200F0D2FC /* ScalesButton.png */; };
 		BA1E20A914E6E92200F0D2FC /* ScalesButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BA1E20A314E6E92200F0D2FC /* ScalesButton@2x.png */; };
+		BA2294FD1502F23500EA8DB1 /* HelpButton.png in Resources */ = {isa = PBXBuildFile; fileRef = BA2294FB1502F23500EA8DB1 /* HelpButton.png */; };
+		BA2294FE1502F23500EA8DB1 /* HelpButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BA2294FC1502F23500EA8DB1 /* HelpButton@2x.png */; };
+		BA229506150313D600EA8DB1 /* LisztHUD.png in Resources */ = {isa = PBXBuildFile; fileRef = BA229504150313D600EA8DB1 /* LisztHUD.png */; };
+		BA229507150313D600EA8DB1 /* LisztHUD@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BA229505150313D600EA8DB1 /* LisztHUD@2x.png */; };
+		BA22950A1503C43600EA8DB1 /* LisztText.png in Resources */ = {isa = PBXBuildFile; fileRef = BA2295081503C43600EA8DB1 /* LisztText.png */; };
+		BA22950B1503C43600EA8DB1 /* LisztText@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BA2295091503C43600EA8DB1 /* LisztText@2x.png */; };
 		BA25A09614E830AE003A71AE /* backToTodayButton.png in Resources */ = {isa = PBXBuildFile; fileRef = BA25A09414E830AE003A71AE /* backToTodayButton.png */; };
 		BA25A09714E830AE003A71AE /* backToTodayButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BA25A09514E830AE003A71AE /* backToTodayButton@2x.png */; };
 		BA26622414ABAF4200D9F3F6 /* Metronome.m in Sources */ = {isa = PBXBuildFile; fileRef = BA26622314ABAF4200D9F3F6 /* Metronome.m */; };
@@ -172,6 +184,16 @@
 		BA19769514F9802200085FAD /* OctavesSegment2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "OctavesSegment2@2x.png"; sourceTree = "<group>"; };
 		BA19769614F9802200085FAD /* OctavesSegment3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = OctavesSegment3.png; sourceTree = "<group>"; };
 		BA19769714F9802200085FAD /* OctavesSegment3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "OctavesSegment3@2x.png"; sourceTree = "<group>"; };
+		BA1A9F18150191250010C39E /* DCRoundSwitch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCRoundSwitch.h; sourceTree = "<group>"; };
+		BA1A9F19150191250010C39E /* DCRoundSwitch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCRoundSwitch.m; sourceTree = "<group>"; };
+		BA1A9F1A150191250010C39E /* DCRoundSwitchKnobLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCRoundSwitchKnobLayer.h; sourceTree = "<group>"; };
+		BA1A9F1B150191250010C39E /* DCRoundSwitchKnobLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCRoundSwitchKnobLayer.m; sourceTree = "<group>"; };
+		BA1A9F1C150191250010C39E /* DCRoundSwitchOutlineLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCRoundSwitchOutlineLayer.h; sourceTree = "<group>"; };
+		BA1A9F1D150191250010C39E /* DCRoundSwitchOutlineLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCRoundSwitchOutlineLayer.m; sourceTree = "<group>"; };
+		BA1A9F1E150191250010C39E /* DCRoundSwitchToggleLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCRoundSwitchToggleLayer.h; sourceTree = "<group>"; };
+		BA1A9F1F150191250010C39E /* DCRoundSwitchToggleLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCRoundSwitchToggleLayer.m; sourceTree = "<group>"; };
+		BA1A9F341502EE090010C39E /* LisztIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LisztIcon@2x.png"; sourceTree = "<group>"; };
+		BA1A9F361502EE230010C39E /* LisztIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LisztIcon.png; sourceTree = "<group>"; };
 		BA1E209914E6E7E400F0D2FC /* AddPopupBackboard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AddPopupBackboard.png; sourceTree = "<group>"; };
 		BA1E209A14E6E7E400F0D2FC /* AddPopupBackboard@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AddPopupBackboard@2x.png"; sourceTree = "<group>"; };
 		BA1E209E14E6E92200F0D2FC /* ArpsButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ArpsButton.png; sourceTree = "<group>"; };
@@ -180,6 +202,12 @@
 		BA1E20A114E6E92200F0D2FC /* PiecesButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PiecesButton@2x.png"; sourceTree = "<group>"; };
 		BA1E20A214E6E92200F0D2FC /* ScalesButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ScalesButton.png; sourceTree = "<group>"; };
 		BA1E20A314E6E92200F0D2FC /* ScalesButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ScalesButton@2x.png"; sourceTree = "<group>"; };
+		BA2294FB1502F23500EA8DB1 /* HelpButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = HelpButton.png; path = ../../../../Desktop/HelpButton.png; sourceTree = "<group>"; };
+		BA2294FC1502F23500EA8DB1 /* HelpButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "HelpButton@2x.png"; path = "../../../../Desktop/HelpButton@2x.png"; sourceTree = "<group>"; };
+		BA229504150313D600EA8DB1 /* LisztHUD.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = LisztHUD.png; path = ../../../../Desktop/LisztHUD.png; sourceTree = "<group>"; };
+		BA229505150313D600EA8DB1 /* LisztHUD@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "LisztHUD@2x.png"; path = "../../../../Desktop/LisztHUD@2x.png"; sourceTree = "<group>"; };
+		BA2295081503C43600EA8DB1 /* LisztText.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = LisztText.png; path = ../../../../Desktop/LisztText.png; sourceTree = "<group>"; };
+		BA2295091503C43600EA8DB1 /* LisztText@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "LisztText@2x.png"; path = "../../../../Desktop/LisztText@2x.png"; sourceTree = "<group>"; };
 		BA25A09414E830AE003A71AE /* backToTodayButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backToTodayButton.png; sourceTree = "<group>"; };
 		BA25A09514E830AE003A71AE /* backToTodayButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "backToTodayButton@2x.png"; sourceTree = "<group>"; };
 		BA26622214ABAF4200D9F3F6 /* Metronome.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Metronome.h; sourceTree = "<group>"; };
@@ -346,6 +374,12 @@
 		BA08C5E5140D3D35009C5E8D /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				BA2295081503C43600EA8DB1 /* LisztText.png */,
+				BA2295091503C43600EA8DB1 /* LisztText@2x.png */,
+				BA229504150313D600EA8DB1 /* LisztHUD.png */,
+				BA229505150313D600EA8DB1 /* LisztHUD@2x.png */,
+				BA2294FB1502F23500EA8DB1 /* HelpButton.png */,
+				BA2294FC1502F23500EA8DB1 /* HelpButton@2x.png */,
 				BA01203D14FC34A600E1956E /* StartTimer.png */,
 				BA01203E14FC34A600E1956E /* StartTimer@2x.png */,
 				BA01203F14FC34A600E1956E /* StopTimer.png */,
@@ -452,6 +486,8 @@
 		BADA3F71140BD8DF00B57C49 = {
 			isa = PBXGroup;
 			children = (
+				BA1A9F361502EE230010C39E /* LisztIcon.png */,
+				BA1A9F341502EE090010C39E /* LisztIcon@2x.png */,
 				BAC1B73514E6BF2300649748 /* libTestFlight.a */,
 				BAC1B73614E6BF2300649748 /* TestFlight.h */,
 				BA824AA614E4589600EAC74F /* Default@2x.png */,
@@ -588,6 +624,14 @@
 		BAF3AA2514535B26004EB308 /* Custom Controls */ = {
 			isa = PBXGroup;
 			children = (
+				BA1A9F18150191250010C39E /* DCRoundSwitch.h */,
+				BA1A9F19150191250010C39E /* DCRoundSwitch.m */,
+				BA1A9F1A150191250010C39E /* DCRoundSwitchKnobLayer.h */,
+				BA1A9F1B150191250010C39E /* DCRoundSwitchKnobLayer.m */,
+				BA1A9F1C150191250010C39E /* DCRoundSwitchOutlineLayer.h */,
+				BA1A9F1D150191250010C39E /* DCRoundSwitchOutlineLayer.m */,
+				BA1A9F1E150191250010C39E /* DCRoundSwitchToggleLayer.h */,
+				BA1A9F1F150191250010C39E /* DCRoundSwitchToggleLayer.m */,
 				BACA58D414E8678A0054A634 /* alert-black-button.png */,
 				BACA58D514E8678A0054A634 /* alert-black-button@2x.png */,
 				BACA58D614E8678A0054A634 /* alert-gray-button.png */,
@@ -762,6 +806,14 @@
 				BA01204214FC34A600E1956E /* StartTimer@2x.png in Resources */,
 				BA01204314FC34A600E1956E /* StopTimer.png in Resources */,
 				BA01204414FC34A600E1956E /* StopTimer@2x.png in Resources */,
+				BA1A9F351502EE090010C39E /* LisztIcon@2x.png in Resources */,
+				BA1A9F371502EE230010C39E /* LisztIcon.png in Resources */,
+				BA2294FD1502F23500EA8DB1 /* HelpButton.png in Resources */,
+				BA2294FE1502F23500EA8DB1 /* HelpButton@2x.png in Resources */,
+				BA229506150313D600EA8DB1 /* LisztHUD.png in Resources */,
+				BA229507150313D600EA8DB1 /* LisztHUD@2x.png in Resources */,
+				BA22950A1503C43600EA8DB1 /* LisztText.png in Resources */,
+				BA22950B1503C43600EA8DB1 /* LisztText@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -806,6 +858,10 @@
 				CE48BEC414F31D27002535E5 /* StopWatch.m in Sources */,
 				BA44684114F92E0400AE0A0D /* NSMutableOrderedSet+DeepCopy.m in Sources */,
 				BA19768214F95AC000085FAD /* CustomSegment.m in Sources */,
+				BA1A9F20150191250010C39E /* DCRoundSwitch.m in Sources */,
+				BA1A9F21150191250010C39E /* DCRoundSwitchKnobLayer.m in Sources */,
+				BA1A9F22150191250010C39E /* DCRoundSwitchOutlineLayer.m in Sources */,
+				BA1A9F23150191250010C39E /* DCRoundSwitchToggleLayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

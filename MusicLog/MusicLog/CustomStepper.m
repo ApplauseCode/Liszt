@@ -65,17 +65,18 @@ int tempoRange(int x)
     if (timeElapsed >= 0.5)
     {    
         if ([myTouch locationInView:self].x >= ([self frame].size.width / 2))
-        {
+        {        
+            [stepperBG setImage:[UIImage imageNamed:@"StepperPlusDown.png"]];
+
             tempo = tempoRange(tempo + (10 - (tempo % 10)));
         }
         else
         {
-            {
-                if (tempo % 10 == 0)
-                    tempo = tempoRange(tempo - 10);
-                else
-                    tempo = tempoRange(tempo - (tempo % 10));
-            }
+            [stepperBG setImage:[UIImage imageNamed:@"StepperMinusDown.png"]];
+            if (tempo % 10 == 0)
+                tempo = tempoRange(tempo - 10);
+            else
+                tempo = tempoRange(tempo - (tempo % 10));
         }
         
         
