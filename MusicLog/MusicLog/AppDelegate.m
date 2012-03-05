@@ -9,7 +9,6 @@
 #import "AppDelegate.h"
 #import "ScalePickerVC.h"
 #import "SessionStore.h"
-#import "BlankVC.h"
 #import "PiecesPickerVC.h"
 #import "StatsVC.h"
 #import "Session.h"
@@ -34,6 +33,8 @@
 //    [UIApplication sharedApplication].idleTimerDisabled = YES;
     /*remove later*/[TestFlight takeOff:@"0bb5b0fae5868594a374b52c1cd204c3_NTQ5NTIyMDEyLTAxLTI1IDE1OjU3OjIxLjYxMTI3NA"];
      application.applicationSupportsShakeToEdit = YES; /**/
+    [UIApplication sharedApplication].idleTimerDisabled = YES;
+
     [self setAlertViewVisible:NO];
     [SessionStore defaultStore];
     [self checkDate];
@@ -49,7 +50,6 @@
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
-    [UIApplication sharedApplication].idleTimerDisabled = YES;
     [self checkDate];
 }
 

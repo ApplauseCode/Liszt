@@ -61,7 +61,7 @@
         CGRect titleLabelFrame = self.bounds;
         titleLabelFrame.origin.x += 35;
         titleLabelFrame.origin.y += 3;
-        titleLabelFrame.size.width -= 113;
+        titleLabelFrame.size.width -= 114;
         UILabel *titleLabel = [[UILabel alloc] initWithFrame:titleLabelFrame];
         [titleLabel setText:title];
         [titleLabel setFont:caslon];

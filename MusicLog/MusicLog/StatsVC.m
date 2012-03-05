@@ -113,10 +113,12 @@
     UINib *nib = [UINib nibWithNibName:@"ScalesPracticedCell" bundle:nil];
     [statsTable registerNib:nib 
      forCellReuseIdentifier:@"ScalesPracticedCell"];
-    UINib *timerNib = [UINib nibWithNibName:@"TimerCell" bundle:nil];
-    [statsTable registerNib:timerNib
-     forCellReuseIdentifier:@"TimerCell"];
+//    UINib *timerNib = [UINib nibWithNibName:@"TimerCell" bundle:nil];
+//    [statsTable registerNib:timerNib
+//     forCellReuseIdentifier:@"TimerCell"];
     [statsTable setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+//    UIView *footer = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 245)];
+//    [statsTable setTableFooterView:footer];
     
     todayButton = [[UIButton alloc] initWithFrame:CGRectMake(160-(139*1/2), 460, 139, 60)];
     [todayButton setImage:[UIImage imageNamed:@"backToTodayButton.png"] forState:UIControlStateNormal];
@@ -395,6 +397,7 @@
         NSDateComponents *compare = [cal components:(NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit) fromDate:[NSDate date]];
         if (![today isEqualToDate:[cal dateFromComponents:compare]])
         {
+            [datePicker setDate:[NSDate date]];
             UIImageView *noSession = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"LisztHUD.png"]];
             [noSession setCenter:CGPointMake(160, 220)];
             [noSession setAlpha:0];
@@ -417,7 +420,6 @@
                                      [noSession setAlpha:0.0];
                                  } completion:^(BOOL finished) {
                                      [noSession removeFromSuperview];
-                                     [datePicker setDate:[NSDate date]];
                                  }];
                              }];
         }

@@ -41,9 +41,11 @@
     ACchooser *rhythmChooser;
     
 }
+@property (strong, nonatomic) IBOutlet UIImageView *viewBG;
 
 @end
 @implementation ScalePickerVC
+@synthesize viewBG;
 @synthesize tonicArray;
 
 - (id)initWithIndex:(NSUInteger)idx
@@ -87,6 +89,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    if (index == 1)
+        [viewBG setImage:[UIImage imageNamed:@"arpeggiosBG.png"]];
     
     [addScaleButton setTitle:@"Add" forState:normal];
     [octavesLabel setFont:[UIFont fontWithName:@"ACaslonPro-Regular" size:20]];
@@ -190,7 +195,37 @@
                 [[[store mySession] arpeggioSession] addObject:[pickedScale mutableCopy]];
             break;
     }
-
+    UIImageView *hud = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"LisztHUD.png"]];
+    [hud setCenter:CGPointMake(160, 220)];
+    [hud setAlpha:0];
+    UILabel *text = [[UILabel alloc] init];
+    [text setBounds:CGRectMake(0, 0, 90, 80)];
+    [text setCenter:CGPointMake(hud.frame.size.width/2, hud.frame.size.height/2)];
+    [text setNumberOfLines:0];
+    switch (index) {
+        case 0:
+            [text setText:@"Scales Added"];
+            break;
+        default:
+            [text setText:@"Arpeggios Added"];
+            break;
+    }
+    [text setFont:[UIFont systemFontOfSize:17]];
+    [text setTextAlignment:UITextAlignmentCenter];
+    [text setBackgroundColor:[UIColor clearColor]];
+    [text setTextColor:[UIColor whiteColor]];
+    [hud addSubview:text];
+    [self.view addSubview:hud];
+    [UIView animateWithDuration:0.3
+                     animations:^{
+                         [hud setAlpha:1.0];
+                     } completion:^(BOOL finished) {
+                         [UIView animateWithDuration:0.5 delay:0.2 options:0 animations:^{
+                             [hud setAlpha:0.0];
+                         } completion:^(BOOL finished) {
+                             [hud removeFromSuperview];
+                         }];
+                     }];
 }
 
 - (void)backToScales:(id)sender
@@ -211,4 +246,8 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+- (void)viewDidUnload {
+    [self setViewBG:nil];
+    [super viewDidUnload];
+}
 @end

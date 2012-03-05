@@ -15,6 +15,7 @@
 #import "StatsVC.h"
 #import "UIColor+YellowTextColor.h"
 #import "CustomSegment.h"
+#import "UITextField+Placeholder.h"
 
 @interface PiecesPickerVC ()
 {
@@ -69,7 +70,34 @@
     [createdPiece setTempo:[tempoStepper tempo]];
     [createdPiece setMajor:[majOrMin selectedIndex]];
     [createdPiece setPieceKey:[keyChooser selectedCellIndex]];
-    [[[store mySession] pieceSession] addObject:createdPiece];    
+    [[[store mySession] pieceSession] addObject:createdPiece];
+    [titleLabel setText:@""];
+    [composerLabel setText:@""];
+    
+    UIImageView *hud = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"LisztHUD.png"]];
+    [hud setCenter:CGPointMake(160, 220)];
+    [hud setAlpha:0];
+    UILabel *text = [[UILabel alloc] init];
+    [text setBounds:CGRectMake(0, 0, 90, 80)];
+    [text setCenter:CGPointMake(hud.frame.size.width/2, hud.frame.size.height/2)];
+    [text setNumberOfLines:0];
+    [text setText:@"Piece Added"];
+    [text setFont:[UIFont systemFontOfSize:17]];
+    [text setTextAlignment:UITextAlignmentCenter];
+    [text setBackgroundColor:[UIColor clearColor]];
+    [text setTextColor:[UIColor whiteColor]];
+    [hud addSubview:text];
+    [self.view addSubview:hud];
+    [UIView animateWithDuration:0.1
+                     animations:^{
+                         [hud setAlpha:1.0];
+                     } completion:^(BOOL finished) {
+                         [UIView animateWithDuration:0.5 delay:0.2 options:0 animations:^{
+                             [hud setAlpha:0.0];
+                         } completion:^(BOOL finished) {
+                             [hud removeFromSuperview];
+                         }];
+                     }];
 }
 
 - (void)backToPieces:(id)sender
@@ -85,8 +113,10 @@
     // Do any additional setup after loading the view from its nib.
     
     titleLabel = [[UITextField alloc] initWithFrame:CGRectMake(33, 95, 280, 31)];
+    titleLabel.autocapitalizationType = UITextAutocapitalizationTypeWords;
     [titleLabel setBorderStyle:UITextBorderStyleNone];
     composerLabel = [[UITextField alloc] initWithFrame:CGRectMake(33, 164, 280, 31)];
+    composerLabel.autocapitalizationType = UITextAutocapitalizationTypeWords;
     [composerLabel setBorderStyle:UITextBorderStyleNone];
     
     UIImage *seg0 = [UIImage imageNamed:@"MajOrMin0.png"];
@@ -136,6 +166,8 @@
     [self.view addSubview:composerLabel];
 }
 
+
+
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
@@ -168,6 +200,7 @@
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
     [viewTap setEnabled:YES];
+    textField.placeholder = nil;
     textField.center = CGPointMake(textField.center.x, textField.center.y-2);
 
 }
@@ -175,6 +208,10 @@
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
     [viewTap setEnabled:NO];
+    if (!titleLabel.placeholder)
+        titleLabel.placeholder = @"Title";
+    else if (!composerLabel.placeholder)
+        composerLabel.placeholder = @"Composer";
     textField.center = CGPointMake(textField.center.x, textField.center.y+2);
 
 }

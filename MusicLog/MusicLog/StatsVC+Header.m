@@ -39,7 +39,8 @@
 
 - (void)setupTimerCellForSection:(NSInteger)section
 {
-    tCell = (TimerCell *) [statsTable dequeueReusableCellWithIdentifier:@"TimerCell"];
+//    tCell = (TimerCell *) [statsTable dequeueReusableCellWithIdentifier:@"TimerCell"];
+    tCell = [[[NSBundle mainBundle] loadNibNamed:@"TimerCell" owner:self options:nil] objectAtIndex:0];
     timerButton = [tCell timerButton];
     [timerButton removeTarget:nil action:NULL forControlEvents:UIControlEventTouchUpInside];
     [timerButton addTarget:self action:@selector(timerButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
@@ -92,6 +93,10 @@
     [statsTable deleteRowsAtIndexPaths:indexPathsToDelete withRowAnimation:UITableViewRowAnimationAutomatic];
     [statsTable insertRowsAtIndexPaths:indexPathsToInsert withRowAnimation:UITableViewRowAnimationAutomatic];
     [statsTable endUpdates];
+    // calling cellForRowAtIndexPath, is this bad?
+    if (![[statsTable visibleCells] containsObject: 
+        [statsTable cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:section]]])
+        [statsTable scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:section] atScrollPosition:UITableViewScrollPositionBottom animated:YES];     
 }
 
 - (void)sectionHeaderView:(SectionHeaderView *)sectionHeaderView sectionClosed:(NSInteger)section
