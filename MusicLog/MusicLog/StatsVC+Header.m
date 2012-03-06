@@ -94,9 +94,10 @@
     [statsTable insertRowsAtIndexPaths:indexPathsToInsert withRowAnimation:UITableViewRowAnimationAutomatic];
     [statsTable endUpdates];
     // calling cellForRowAtIndexPath, is this bad?
-    if (![[statsTable visibleCells] containsObject: 
-        [statsTable cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:section]]])
-        [statsTable scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:section] atScrollPosition:UITableViewScrollPositionBottom animated:YES];     
+    if (section > 1 && ![[statsTable visibleCells] containsObject: 
+        [statsTable cellForRowAtIndexPath:
+         [NSIndexPath indexPathForRow:[statsTable numberOfRowsInSection:section] -1 inSection:section]]])
+        [statsTable scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:[statsTable numberOfRowsInSection:section] - 1 inSection:section] atScrollPosition:UITableViewScrollPositionBottom animated:YES];     
 }
 
 - (void)sectionHeaderView:(SectionHeaderView *)sectionHeaderView sectionClosed:(NSInteger)section

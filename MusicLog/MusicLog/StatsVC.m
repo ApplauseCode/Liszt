@@ -33,11 +33,14 @@
 @property (nonatomic, strong) UIView *datePickerView;
 @property (nonatomic, strong) StopWatch *stopWatch;
 @property (nonatomic, strong) id theObserver;
+@property (nonatomic, strong) UILabel *totalTime;
 - (void)backToToday:(id)sender;
+- (NSInteger)calculateTotalTime;
 
 @end
 
 @implementation StatsVC
+@synthesize totalTime;
 @synthesize addButton;
 @synthesize aNewButton;
 @synthesize tempoLabel, metronomeView, timerButton, statsTable;
@@ -113,12 +116,16 @@
     UINib *nib = [UINib nibWithNibName:@"ScalesPracticedCell" bundle:nil];
     [statsTable registerNib:nib 
      forCellReuseIdentifier:@"ScalesPracticedCell"];
-//    UINib *timerNib = [UINib nibWithNibName:@"TimerCell" bundle:nil];
-//    [statsTable registerNib:timerNib
-//     forCellReuseIdentifier:@"TimerCell"];
     [statsTable setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-//    UIView *footer = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 245)];
-//    [statsTable setTableFooterView:footer];
+
+    
+    totalTime = [[UILabel alloc] initWithFrame:CGRectMake(239, 68, 100, 28)];
+    [totalTime setFont:[UIFont fontWithName:@"ACaslonPro-Regular" size:20]];
+    [totalTime setTextColor:[UIColor blackColor]];
+    [totalTime setBackgroundColor:[UIColor clearColor]];
+    NSString *timeString = [NSString timeStringFromInt:[self calculateTotalTime]];
+    [totalTime setText:timeString];
+    [self.view addSubview:totalTime];
     
     todayButton = [[UIButton alloc] initWithFrame:CGRectMake(160-(139*1/2), 460, 139, 60)];
     [todayButton setImage:[UIImage imageNamed:@"backToTodayButton.png"] forState:UIControlStateNormal];
@@ -296,6 +303,17 @@
 
 #pragma mark - Model Actions
 
+- (NSInteger)calculateTotalTime
+{
+    NSInteger total = 0;
+    
+    total += [selectedSession scaleTime];
+    total += [selectedSession arpeggioTime];
+    for (Piece *p in [selectedSession pieceSession])
+        total += [p pieceTime];
+    return total;
+}
+
 - (void)timerButtonPressed:(id)sender
 {
     if ([[sender imageForState:UIControlStateNormal] isEqual:[UIImage imageNamed:@"StartTimer.png"]])
@@ -341,6 +359,8 @@
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
     [statsTable reloadData];
+    NSString *timeString = [NSString timeStringFromInt:[self calculateTotalTime]];
+    [totalTime setText:timeString];
 }
 
 - (void)valueChanged
@@ -363,6 +383,8 @@
     [[sectionInfoArray objectAtIndex:0] setCountofRowsToInsert:[[selectedSession scaleSession] count]];
     [[sectionInfoArray objectAtIndex:1] setCountofRowsToInsert:[[selectedSession arpeggioSession] count]];
     [statsTable reloadData];
+    NSString *timeString = [NSString timeStringFromInt:[self calculateTotalTime]];
+    [totalTime setText:timeString];
 }
 
 - (void)backToToday:(id)sender
@@ -442,6 +464,8 @@
         [sectionInfoArray addObject:pieceInfo];
     }
     [statsTable reloadData];
+    NSString *timeString = [NSString timeStringFromInt:[self calculateTotalTime]];
+    [totalTime setText:timeString];
     
     float metronomeCenter = self.view.frame.size.height - [metronomeView bounds].size.height / 2.0;
     float metronomeHeight = [metronomeView bounds].size.height;
