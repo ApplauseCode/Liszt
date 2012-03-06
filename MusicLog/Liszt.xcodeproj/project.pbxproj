@@ -43,8 +43,6 @@
 		BA1E20A714E6E92200F0D2FC /* PiecesButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BA1E20A114E6E92200F0D2FC /* PiecesButton@2x.png */; };
 		BA1E20A814E6E92200F0D2FC /* ScalesButton.png in Resources */ = {isa = PBXBuildFile; fileRef = BA1E20A214E6E92200F0D2FC /* ScalesButton.png */; };
 		BA1E20A914E6E92200F0D2FC /* ScalesButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BA1E20A314E6E92200F0D2FC /* ScalesButton@2x.png */; };
-		BA22950E1503DE4400EA8DB1 /* LisztText.png in Resources */ = {isa = PBXBuildFile; fileRef = BA22950C1503DE4400EA8DB1 /* LisztText.png */; };
-		BA22950F1503DE4400EA8DB1 /* LisztText@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BA22950D1503DE4400EA8DB1 /* LisztText@2x.png */; };
 		BA25A09614E830AE003A71AE /* backToTodayButton.png in Resources */ = {isa = PBXBuildFile; fileRef = BA25A09414E830AE003A71AE /* backToTodayButton.png */; };
 		BA25A09714E830AE003A71AE /* backToTodayButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BA25A09514E830AE003A71AE /* backToTodayButton@2x.png */; };
 		BA26622414ABAF4200D9F3F6 /* Metronome.m in Sources */ = {isa = PBXBuildFile; fileRef = BA26622314ABAF4200D9F3F6 /* Metronome.m */; };
@@ -143,6 +141,8 @@
 		BADA3FA3140BD9B700B57C49 /* ScalesPracticedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BADA3FA1140BD9B700B57C49 /* ScalesPracticedCell.xib */; };
 		BADA3FB3140BDA5D00B57C49 /* ScalePickerVC.m in Sources */ = {isa = PBXBuildFile; fileRef = BADA3FAA140BDA5D00B57C49 /* ScalePickerVC.m */; };
 		BADA3FB4140BDA5D00B57C49 /* ScalePickerVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = BADA3FAB140BDA5D00B57C49 /* ScalePickerVC.xib */; };
+		BAE1FFD815063910004D63E0 /* LisztTopText.png in Resources */ = {isa = PBXBuildFile; fileRef = BAE1FFD615063910004D63E0 /* LisztTopText.png */; };
+		BAE1FFD915063910004D63E0 /* LisztTopText@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BAE1FFD715063910004D63E0 /* LisztTopText@2x.png */; };
 		BAE6998414E5555700D3ADF8 /* UIColor+YellowTextColor.m in Sources */ = {isa = PBXBuildFile; fileRef = BAE6998314E5555700D3ADF8 /* UIColor+YellowTextColor.m */; };
 		BAE6998814E5679B00D3ADF8 /* SectionHeader2.png in Resources */ = {isa = PBXBuildFile; fileRef = BAE6998614E5679B00D3ADF8 /* SectionHeader2.png */; };
 		BAE6998914E5679B00D3ADF8 /* SectionHeader2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BAE6998714E5679B00D3ADF8 /* SectionHeader2@2x.png */; };
@@ -202,8 +202,6 @@
 		BA1E20A114E6E92200F0D2FC /* PiecesButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PiecesButton@2x.png"; sourceTree = "<group>"; };
 		BA1E20A214E6E92200F0D2FC /* ScalesButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ScalesButton.png; sourceTree = "<group>"; };
 		BA1E20A314E6E92200F0D2FC /* ScalesButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ScalesButton@2x.png"; sourceTree = "<group>"; };
-		BA22950C1503DE4400EA8DB1 /* LisztText.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = LisztText.png; path = ../../../../Desktop/LisztText.png; sourceTree = "<group>"; };
-		BA22950D1503DE4400EA8DB1 /* LisztText@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "LisztText@2x.png"; path = "../../../../Desktop/LisztText@2x.png"; sourceTree = "<group>"; };
 		BA25A09414E830AE003A71AE /* backToTodayButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backToTodayButton.png; sourceTree = "<group>"; };
 		BA25A09514E830AE003A71AE /* backToTodayButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "backToTodayButton@2x.png"; sourceTree = "<group>"; };
 		BA26622214ABAF4200D9F3F6 /* Metronome.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Metronome.h; sourceTree = "<group>"; };
@@ -332,6 +330,8 @@
 		BADA3FAA140BDA5D00B57C49 /* ScalePickerVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScalePickerVC.m; sourceTree = "<group>"; };
 		BADA3FAB140BDA5D00B57C49 /* ScalePickerVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScalePickerVC.xib; sourceTree = "<group>"; };
 		BADA3FB8140BDA6E00B57C49 /* Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Common.h; sourceTree = "<group>"; };
+		BAE1FFD615063910004D63E0 /* LisztTopText.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LisztTopText.png; sourceTree = "<group>"; };
+		BAE1FFD715063910004D63E0 /* LisztTopText@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LisztTopText@2x.png"; sourceTree = "<group>"; };
 		BAE6998214E5555700D3ADF8 /* UIColor+YellowTextColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+YellowTextColor.h"; sourceTree = "<group>"; };
 		BAE6998314E5555700D3ADF8 /* UIColor+YellowTextColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+YellowTextColor.m"; sourceTree = "<group>"; };
 		BAE6998614E5679B00D3ADF8 /* SectionHeader2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SectionHeader2.png; sourceTree = "<group>"; };
@@ -374,6 +374,8 @@
 		BA08C5E5140D3D35009C5E8D /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				BAE1FFD615063910004D63E0 /* LisztTopText.png */,
+				BAE1FFD715063910004D63E0 /* LisztTopText@2x.png */,
 				BAB01A4115040FA400F8747B /* piecesBG.png */,
 				BAB01A4215040FA400F8747B /* piecesBG@2x.png */,
 				BAB01A3D1503F80E00F8747B /* arpeggiosBG.png */,
@@ -384,8 +386,6 @@
 				BA7AA6681503E58D00502553 /* doneButton@2x.png */,
 				BA7AA6631503E36500502553 /* arpsChooserBG.png */,
 				BA7AA6641503E36500502553 /* arpsChooserBG@2x.png */,
-				BA22950C1503DE4400EA8DB1 /* LisztText.png */,
-				BA22950D1503DE4400EA8DB1 /* LisztText@2x.png */,
 				BA7AA65F1503E0DC00502553 /* LisztHUD.png */,
 				BA7AA6601503E0DC00502553 /* LisztHUD@2x.png */,
 				BA01203D14FC34A600E1956E /* StartTimer.png */,
@@ -800,8 +800,6 @@
 				BA01204414FC34A600E1956E /* StopTimer@2x.png in Resources */,
 				BA1A9F351502EE090010C39E /* LisztIcon@2x.png in Resources */,
 				BA1A9F371502EE230010C39E /* LisztIcon.png in Resources */,
-				BA22950E1503DE4400EA8DB1 /* LisztText.png in Resources */,
-				BA22950F1503DE4400EA8DB1 /* LisztText@2x.png in Resources */,
 				BA7AA6611503E0DC00502553 /* LisztHUD.png in Resources */,
 				BA7AA6621503E0DC00502553 /* LisztHUD@2x.png in Resources */,
 				BA7AA6651503E36500502553 /* arpsChooserBG.png in Resources */,
@@ -814,6 +812,8 @@
 				BAB01A401503F80E00F8747B /* arpeggiosBG@2x.png in Resources */,
 				BAB01A4315040FA400F8747B /* piecesBG.png in Resources */,
 				BAB01A4415040FA400F8747B /* piecesBG@2x.png in Resources */,
+				BAE1FFD815063910004D63E0 /* LisztTopText.png in Resources */,
+				BAE1FFD915063910004D63E0 /* LisztTopText@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

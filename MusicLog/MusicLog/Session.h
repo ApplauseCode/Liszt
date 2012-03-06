@@ -15,6 +15,8 @@
 @property (nonatomic, strong) NSMutableOrderedSet *pieceSession;
 @property (nonatomic) int scaleTime;
 @property (nonatomic) int arpeggioTime;
+@property (nonatomic, strong) NSString *scaleNotes;
+@property (nonatomic, strong) NSString *arpeggioNotes;
 @property (nonatomic, strong) NSDate *date;
 
 - (id)initWithScales:(NSMutableOrderedSet *)scaleSet

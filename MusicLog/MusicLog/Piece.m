@@ -15,7 +15,7 @@
 @synthesize major;
 @synthesize tempo;
 @synthesize pieceKey;
-//@synthesize timer;
+@synthesize pieceNotes;
 @synthesize pieceTime;
 
 - (id)initWithCoder:(NSCoder *)aDecoder
@@ -27,22 +27,21 @@
     [self setMajor:[aDecoder decodeBoolForKey:@"major"]];
     [self setPieceKey:[aDecoder decodeIntForKey:@"key"]];
     [self setPieceTime:[aDecoder decodeIntForKey:@"time"]];
-    
+    [self setPieceNotes:[aDecoder decodeObjectForKey:@"pieceNotes"]];
     
     return self;
 }
 
 - (id)mutableCopyWithZone:(NSZone *)zone
 {
-    NSLog(@"piece mutable copy:");
-    Piece *copy = [[Piece alloc] init];//[[self class] allocWithZone:zone];
+    Piece *copy = [[Piece alloc] init];
     [copy setTitle:title];
     [copy setComposer:composer];
     [copy setMajor:major];
     [copy setTempo:tempo];
     [copy setPieceKey:pieceKey];
     [copy setPieceTime:pieceTime];
-//    [copy setTimer:[[Timer alloc] initWithElapsedTime:pieceTime]];
+    [copy setPieceNotes:pieceNotes];
     return copy;
 }
 
@@ -56,13 +55,14 @@
     result = prime * result + tempo;
     result = prime * result + pieceKey;
     result = prime * result + pieceTime;
+    result = prime * result + [pieceNotes intValue];
     return result;
 }
 
 - (BOOL)isEqual:(Piece *)object
 {
-    if ((title == [object title])
-        && (composer == [object composer])
+    if (([title isEqualToString:[object title]])
+        && ([composer isEqualToString:[object composer]])
         && (major == [object major])
         && (tempo == [object tempo])
         && (pieceKey == [object pieceKey])
@@ -80,6 +80,7 @@
     [aCoder encodeBool:major forKey:@"major"];
     [aCoder encodeInt:pieceKey forKey:@"key"];
     [aCoder encodeInt:pieceTime forKey:@"time"];
+    [aCoder encodeObject:pieceNotes forKey:@"pieceNotes"];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context

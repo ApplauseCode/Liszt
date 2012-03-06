@@ -63,6 +63,10 @@
 
 - (void)addPiece:(id)sender
 {
+    if (![titleLabel text])
+        [titleLabel setText:@""];
+    if (![composerLabel text])
+        [composerLabel setText:@""];
     Piece *createdPiece = [[Piece alloc] init];
     SessionStore *store = [SessionStore defaultStore];
     [createdPiece setTitle:[titleLabel text]];

@@ -56,14 +56,13 @@
 - (void)checkDate
 {
     NSCalendar *cal = [NSCalendar currentCalendar];
-    NSDateComponents *components = [cal components:(NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit) fromDate:[NSDate dateWithTimeIntervalSinceNow:-86400/*seconds in a day*/]];
-    NSDate *yesterday = [cal dateFromComponents:components];
-    NSLog(@"yesterday: %@", yesterday);
+    NSDateComponents *components = [cal components:(NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit) fromDate:[NSDate date]];
+    NSDate *today = [cal dateFromComponents:components];
     
     components = [cal components:(NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit) fromDate:[[[SessionStore defaultStore] mySession] date]];
     NSDate *sessionDate = [cal dateFromComponents:components];
     
-    if ([sessionDate isEqualToDate:yesterday] && !alertViewVisible)
+    if (![sessionDate isEqualToDate:today] && !alertViewVisible)
     {
         
         BlockAlertView *freshDay = [BlockAlertView alertWithTitle:@"A New Day, A New Practice"

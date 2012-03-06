@@ -117,7 +117,6 @@
     [statsTable registerNib:nib 
      forCellReuseIdentifier:@"ScalesPracticedCell"];
     [statsTable setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-
     
     totalTime = [[UILabel alloc] initWithFrame:CGRectMake(239, 68, 100, 28)];
     [totalTime setFont:[UIFont fontWithName:@"ACaslonPro-Regular" size:20]];
@@ -358,9 +357,10 @@
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-    [statsTable reloadData];
     NSString *timeString = [NSString timeStringFromInt:[self calculateTotalTime]];
     [totalTime setText:timeString];
+    [statsTable reloadData];
+
 }
 
 - (void)valueChanged

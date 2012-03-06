@@ -141,7 +141,7 @@
     [tempScale setOctaves:3];
     [tempSession setArpeggioSession:[NSMutableOrderedSet orderedSetWithObject:tempScale]];
     [tempSession setArpeggioTime:500];
-    [tempSession setDate:[SessionStore getForDays:-3 fromDate:[NSDate date]]];
+    [tempSession setDate:[SessionStore getForDays:-4 fromDate:[NSDate date]]];
     [sessions addObject:tempSession];
     
     tempSession = [[Session alloc] init];
@@ -154,7 +154,7 @@
 //    [tempPiece setTimer:[[Timer alloc] initWithElapsedTime:[tempPiece pieceTime]]];
     
     [tempSession setPieceSession:[NSMutableOrderedSet orderedSetWithObject:tempPiece]];
-    [tempSession setDate:[SessionStore getForDays:-2 fromDate:[NSDate date]]];
+    [tempSession setDate:[SessionStore getForDays:-3 fromDate:[NSDate date]]];
     [sessions addObject:tempSession];
     
     tempSession = [[Session alloc] init];
@@ -184,7 +184,7 @@
     [tempPiece setPieceTime:1500];
 //    [tempPiece setTimer:[[Timer alloc] initWithElapsedTime:[tempPiece pieceTime]]];
     [tempSession setPieceSession:[NSMutableOrderedSet orderedSetWithObject:tempPiece]];
-    [tempSession setDate:[SessionStore getForDays:-1 fromDate:[NSDate date]]];
+    [tempSession setDate:[SessionStore getForDays:-2 fromDate:[NSDate date]]];
     mySession = tempSession;
 }
 
