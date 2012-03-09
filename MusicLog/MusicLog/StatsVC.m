@@ -42,7 +42,6 @@
 @implementation StatsVC
 @synthesize totalTime;
 @synthesize addButton;
-@synthesize aNewButton;
 @synthesize tempoLabel, metronomeView, timerButton, statsTable;
 @synthesize selSessionDisplay, chooseDateButton, myPopover, chooseScalesButton, chooseArpsButton, choosePiecesButton, tempoNameLabel;
 @synthesize tempo;
@@ -71,7 +70,6 @@
 - (void)viewDidUnload
 {
     [self setAddButton:nil];
-    [self setANewButton:nil];
     [self setChoosePiecesButton:nil];
     [self setChooseArpsButton:nil];
     [self setChooseScalesButton:nil];
@@ -327,19 +325,19 @@
     id observer = [[SessionStore defaultStore] mySession];
     NSString *context;
     if (section == 0)
-        context = @"scales";
+        context = @"scaleTime";
     else if (section == 1)
-        context = @"arpeggios";
+        context = @"arpeggioTime";
     else
     {
-        context = @"piece";
+        context = @"pieceTime";
         observer = [[observer pieceSession] objectAtIndex:(section - 2)];
     }
     if (!isTiming)
     {
         [stopWatch addObserver:observer forKeyPath:@"totalSeconds" options:NSKeyValueObservingOptionNew context:(__bridge void *)context];
-        [stopWatch addObserver:self
-                    forKeyPath:@"totalSeconds"
+        [observer addObserver:self
+                    forKeyPath:context
                        options:NSKeyValueObservingOptionNew
                        context:nil];
         
@@ -349,7 +347,7 @@
     else
     {
         [stopWatch removeObserver:observer forKeyPath:@"totalSeconds" context:(__bridge void *)context];
-        [stopWatch removeObserver:self forKeyPath:@"totalSeconds"];
+        [observer removeObserver:self forKeyPath:context];
         [self setTheObserver:nil];
         [self setIsTiming:NO];
     }
@@ -471,7 +469,7 @@
     float metronomeHeight = [metronomeView bounds].size.height;
     float metronomePosition = metronomeCenter;
     float buttonHeight = [addButton bounds].size.height;
-    float buttonCenterY = currentPractice ? buttonHeight / 2.0 -3 : -buttonHeight / 2.0 - 3;
+    float buttonCenterY = currentPractice ? buttonHeight / 2.0 + 6 : -buttonHeight / 2.0 - 6;
     metronomePosition += currentPractice ? 0 : metronomeHeight;
     float todayCenterY = currentPractice ? metronomeCenter + metronomeHeight : metronomeCenter;
     float aDelay = currentPractice ? 0.3 : 0.0;
@@ -481,7 +479,6 @@
                      animations:^{
                          [metronomeView setCenter:CGPointMake([metronomeView center].x,metronomePosition)];
                          [addButton setCenter:CGPointMake([addButton center].x, buttonCenterY)];}
-                        // [aNewButton setCenter:CGPointMake([aNewButton center].x, buttonCenterY)];}
                      completion:nil];
     [UIView animateWithDuration:0.3 
                           delay:0.3 - aDelay

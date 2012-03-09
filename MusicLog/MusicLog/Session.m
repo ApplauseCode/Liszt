@@ -8,6 +8,7 @@
 
 #import "Session.h"
 #import "NSMutableOrderedSet+DeepCopy.h"
+#import "Piece.h"
 
 @implementation Session
 
@@ -103,9 +104,10 @@
     [aCoder encodeObject:date forKey:@"date"];
 }
 
+
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-    if ([(__bridge NSString *)context isEqualToString:@"scales"])
+    if ([(__bridge NSString *)context isEqualToString:@"scaleTime"])
         [self setScaleTime:++scaleTime];
     else
         [self setArpeggioTime:++arpeggioTime];

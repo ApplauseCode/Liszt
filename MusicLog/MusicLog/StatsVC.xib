@@ -54,7 +54,7 @@
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<object class="NSCustomResource" key="IBUIImage">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">StatsBG.png</string>
+							<string key="NSResourceName">StatsBGR.png</string>
 						</object>
 					</object>
 					<object class="IBUIView" id="308995282">
@@ -236,7 +236,7 @@
 					<object class="IBUIButton" id="852815561">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{208, -3}, {117, 64}}</string>
+						<string key="NSFrame">{{232, 6}, {78, 37}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="683567922"/>
@@ -253,7 +253,7 @@
 						<reference key="IBUINormalTitleShadowColor" ref="841140819"/>
 						<object class="NSCustomResource" key="IBUINormalImage">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">AddButton.png</string>
+							<string key="NSResourceName">AddButtonR.png</string>
 						</object>
 						<reference key="IBUIFontDescription" ref="223704109"/>
 						<reference key="IBUIFont" ref="534195044"/>
@@ -261,7 +261,7 @@
 					<object class="IBUIButton" id="52651695">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{0, -3}, {117, 64}}</string>
+						<string key="NSFrame">{{10, 6}, {78, 37}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="58946238"/>
@@ -278,7 +278,7 @@
 						<reference key="IBUINormalTitleShadowColor" ref="841140819"/>
 						<object class="NSCustomResource" key="IBUINormalImage">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">DateButton.png</string>
+							<string key="NSResourceName">DateButtonR.png</string>
 						</object>
 						<reference key="IBUIFontDescription" ref="223704109"/>
 						<reference key="IBUIFont" ref="534195044"/>
@@ -437,11 +437,11 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="308995282"/>
 							<reference ref="683567922"/>
-							<reference ref="52651695"/>
 							<reference ref="365176113"/>
-							<reference ref="852815561"/>
 							<reference ref="58946238"/>
 							<reference ref="702653632"/>
+							<reference ref="852815561"/>
+							<reference ref="52651695"/>
 						</object>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -752,16 +752,16 @@
 			<bool key="EncodedWithXMLCoder">YES</bool>
 			<object class="NSArray" key="dict.sortedKeys">
 				<bool key="EncodedWithXMLCoder">YES</bool>
-				<string>AddButton.png</string>
-				<string>DateButton.png</string>
+				<string>AddButtonR.png</string>
+				<string>DateButtonR.png</string>
 				<string>LisztTopText.png</string>
 				<string>StartMetronomeButton.png</string>
-				<string>StatsBG.png</string>
+				<string>StatsBGR.png</string>
 			</object>
 			<object class="NSMutableArray" key="dict.values">
 				<bool key="EncodedWithXMLCoder">YES</bool>
-				<string>{117, 64}</string>
-				<string>{117, 64}</string>
+				<string>{78, 37}</string>
+				<string>{78, 38}</string>
 				<string>{201, 121}</string>
 				<string>{117, 64}</string>
 				<string>{320, 480}</string>

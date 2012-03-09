@@ -73,14 +73,6 @@
 		BA811C77140D38F000A5558A /* StatsVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA811C75140D38EF00A5558A /* StatsVC.xib */; };
 		BA824AA514E4588E00EAC74F /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = BA824AA414E4588E00EAC74F /* Default.png */; };
 		BA824AA714E4589600EAC74F /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BA824AA614E4589600EAC74F /* Default@2x.png */; };
-		BA824AAA14E465BC00EAC74F /* StatsBG@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BA824AA814E465BC00EAC74F /* StatsBG@2x.png */; };
-		BA824AAB14E465BC00EAC74F /* StatsBG.png in Resources */ = {isa = PBXBuildFile; fileRef = BA824AA914E465BC00EAC74F /* StatsBG.png */; };
-		BA824AB214E46C1700EAC74F /* NewButton.png in Resources */ = {isa = PBXBuildFile; fileRef = BA824AB014E46C1700EAC74F /* NewButton.png */; };
-		BA824AB314E46C1700EAC74F /* NewButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BA824AB114E46C1700EAC74F /* NewButton@2x.png */; };
-		BA824AB614E46D1D00EAC74F /* DateButton.png in Resources */ = {isa = PBXBuildFile; fileRef = BA824AB414E46D1D00EAC74F /* DateButton.png */; };
-		BA824AB714E46D1D00EAC74F /* DateButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BA824AB514E46D1D00EAC74F /* DateButton@2x.png */; };
-		BA824ABA14E46DBC00EAC74F /* AddButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BA824AB814E46DBB00EAC74F /* AddButton@2x.png */; };
-		BA824ABB14E46DBC00EAC74F /* AddButton.png in Resources */ = {isa = PBXBuildFile; fileRef = BA824AB914E46DBB00EAC74F /* AddButton.png */; };
 		BA824ABE14E4777900EAC74F /* StartMetronomeButton.png in Resources */ = {isa = PBXBuildFile; fileRef = BA824ABC14E4777900EAC74F /* StartMetronomeButton.png */; };
 		BA824ABF14E4777900EAC74F /* StartMetronomeButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BA824ABD14E4777900EAC74F /* StartMetronomeButton@2x.png */; };
 		BA824AED14E4C14C00EAC74F /* ACaslonPro-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = BA824AEC14E4C14C00EAC74F /* ACaslonPro-Regular.otf */; };
@@ -143,6 +135,12 @@
 		BADA3FB4140BDA5D00B57C49 /* ScalePickerVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = BADA3FAB140BDA5D00B57C49 /* ScalePickerVC.xib */; };
 		BAE1FFD815063910004D63E0 /* LisztTopText.png in Resources */ = {isa = PBXBuildFile; fileRef = BAE1FFD615063910004D63E0 /* LisztTopText.png */; };
 		BAE1FFD915063910004D63E0 /* LisztTopText@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BAE1FFD715063910004D63E0 /* LisztTopText@2x.png */; };
+		BAE1FFDC1506F546004D63E0 /* StatsBGR.png in Resources */ = {isa = PBXBuildFile; fileRef = BAE1FFDA1506F546004D63E0 /* StatsBGR.png */; };
+		BAE1FFDD1506F546004D63E0 /* StatsBGR@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BAE1FFDB1506F546004D63E0 /* StatsBGR@2x.png */; };
+		BAE1FFE21506F60B004D63E0 /* AddButtonR.png in Resources */ = {isa = PBXBuildFile; fileRef = BAE1FFDE1506F60B004D63E0 /* AddButtonR.png */; };
+		BAE1FFE31506F60B004D63E0 /* AddButtonR@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BAE1FFDF1506F60B004D63E0 /* AddButtonR@2x.png */; };
+		BAE1FFE41506F60B004D63E0 /* DateButtonR.png in Resources */ = {isa = PBXBuildFile; fileRef = BAE1FFE01506F60B004D63E0 /* DateButtonR.png */; };
+		BAE1FFE51506F60B004D63E0 /* DateButtonR@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BAE1FFE11506F60B004D63E0 /* DateButtonR@2x.png */; };
 		BAE6998414E5555700D3ADF8 /* UIColor+YellowTextColor.m in Sources */ = {isa = PBXBuildFile; fileRef = BAE6998314E5555700D3ADF8 /* UIColor+YellowTextColor.m */; };
 		BAE6998814E5679B00D3ADF8 /* SectionHeader2.png in Resources */ = {isa = PBXBuildFile; fileRef = BAE6998614E5679B00D3ADF8 /* SectionHeader2.png */; };
 		BAE6998914E5679B00D3ADF8 /* SectionHeader2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BAE6998714E5679B00D3ADF8 /* SectionHeader2@2x.png */; };
@@ -243,14 +241,6 @@
 		BA811C75140D38EF00A5558A /* StatsVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StatsVC.xib; sourceTree = "<group>"; };
 		BA824AA414E4588E00EAC74F /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		BA824AA614E4589600EAC74F /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
-		BA824AA814E465BC00EAC74F /* StatsBG@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "StatsBG@2x.png"; sourceTree = "<group>"; };
-		BA824AA914E465BC00EAC74F /* StatsBG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StatsBG.png; sourceTree = "<group>"; };
-		BA824AB014E46C1700EAC74F /* NewButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NewButton.png; sourceTree = "<group>"; };
-		BA824AB114E46C1700EAC74F /* NewButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NewButton@2x.png"; sourceTree = "<group>"; };
-		BA824AB414E46D1D00EAC74F /* DateButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DateButton.png; sourceTree = "<group>"; };
-		BA824AB514E46D1D00EAC74F /* DateButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DateButton@2x.png"; sourceTree = "<group>"; };
-		BA824AB814E46DBB00EAC74F /* AddButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AddButton@2x.png"; sourceTree = "<group>"; };
-		BA824AB914E46DBB00EAC74F /* AddButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AddButton.png; sourceTree = "<group>"; };
 		BA824ABC14E4777900EAC74F /* StartMetronomeButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StartMetronomeButton.png; sourceTree = "<group>"; };
 		BA824ABD14E4777900EAC74F /* StartMetronomeButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "StartMetronomeButton@2x.png"; sourceTree = "<group>"; };
 		BA824AEC14E4C14C00EAC74F /* ACaslonPro-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ACaslonPro-Regular.otf"; sourceTree = "<group>"; };
@@ -332,6 +322,12 @@
 		BADA3FB8140BDA6E00B57C49 /* Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Common.h; sourceTree = "<group>"; };
 		BAE1FFD615063910004D63E0 /* LisztTopText.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LisztTopText.png; sourceTree = "<group>"; };
 		BAE1FFD715063910004D63E0 /* LisztTopText@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LisztTopText@2x.png"; sourceTree = "<group>"; };
+		BAE1FFDA1506F546004D63E0 /* StatsBGR.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StatsBGR.png; sourceTree = "<group>"; };
+		BAE1FFDB1506F546004D63E0 /* StatsBGR@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "StatsBGR@2x.png"; sourceTree = "<group>"; };
+		BAE1FFDE1506F60B004D63E0 /* AddButtonR.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AddButtonR.png; sourceTree = "<group>"; };
+		BAE1FFDF1506F60B004D63E0 /* AddButtonR@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AddButtonR@2x.png"; sourceTree = "<group>"; };
+		BAE1FFE01506F60B004D63E0 /* DateButtonR.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DateButtonR.png; sourceTree = "<group>"; };
+		BAE1FFE11506F60B004D63E0 /* DateButtonR@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DateButtonR@2x.png"; sourceTree = "<group>"; };
 		BAE6998214E5555700D3ADF8 /* UIColor+YellowTextColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+YellowTextColor.h"; sourceTree = "<group>"; };
 		BAE6998314E5555700D3ADF8 /* UIColor+YellowTextColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+YellowTextColor.m"; sourceTree = "<group>"; };
 		BAE6998614E5679B00D3ADF8 /* SectionHeader2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SectionHeader2.png; sourceTree = "<group>"; };
@@ -374,6 +370,12 @@
 		BA08C5E5140D3D35009C5E8D /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				BAE1FFDE1506F60B004D63E0 /* AddButtonR.png */,
+				BAE1FFDF1506F60B004D63E0 /* AddButtonR@2x.png */,
+				BAE1FFE01506F60B004D63E0 /* DateButtonR.png */,
+				BAE1FFE11506F60B004D63E0 /* DateButtonR@2x.png */,
+				BAE1FFDA1506F546004D63E0 /* StatsBGR.png */,
+				BAE1FFDB1506F546004D63E0 /* StatsBGR@2x.png */,
 				BAE1FFD615063910004D63E0 /* LisztTopText.png */,
 				BAE1FFD715063910004D63E0 /* LisztTopText@2x.png */,
 				BAB01A4115040FA400F8747B /* piecesBG.png */,
@@ -448,14 +450,6 @@
 				BA824AEF14E4CA4A00EAC74F /* SectionHeader1@2x.png */,
 				BA824ABC14E4777900EAC74F /* StartMetronomeButton.png */,
 				BA824ABD14E4777900EAC74F /* StartMetronomeButton@2x.png */,
-				BA824AB814E46DBB00EAC74F /* AddButton@2x.png */,
-				BA824AB914E46DBB00EAC74F /* AddButton.png */,
-				BA824AB414E46D1D00EAC74F /* DateButton.png */,
-				BA824AB514E46D1D00EAC74F /* DateButton@2x.png */,
-				BA824AB014E46C1700EAC74F /* NewButton.png */,
-				BA824AB114E46C1700EAC74F /* NewButton@2x.png */,
-				BA824AA814E465BC00EAC74F /* StatsBG@2x.png */,
-				BA824AA914E465BC00EAC74F /* StatsBG.png */,
 			);
 			name = Images;
 			sourceTree = "<group>";
@@ -721,14 +715,6 @@
 				BA5605771492D97500411BA9 /* TimerCell.xib in Resources */,
 				BA824AA514E4588E00EAC74F /* Default.png in Resources */,
 				BA824AA714E4589600EAC74F /* Default@2x.png in Resources */,
-				BA824AAA14E465BC00EAC74F /* StatsBG@2x.png in Resources */,
-				BA824AAB14E465BC00EAC74F /* StatsBG.png in Resources */,
-				BA824AB214E46C1700EAC74F /* NewButton.png in Resources */,
-				BA824AB314E46C1700EAC74F /* NewButton@2x.png in Resources */,
-				BA824AB614E46D1D00EAC74F /* DateButton.png in Resources */,
-				BA824AB714E46D1D00EAC74F /* DateButton@2x.png in Resources */,
-				BA824ABA14E46DBC00EAC74F /* AddButton@2x.png in Resources */,
-				BA824ABB14E46DBC00EAC74F /* AddButton.png in Resources */,
 				BA824ABE14E4777900EAC74F /* StartMetronomeButton.png in Resources */,
 				BA824ABF14E4777900EAC74F /* StartMetronomeButton@2x.png in Resources */,
 				BA824AED14E4C14C00EAC74F /* ACaslonPro-Regular.otf in Resources */,
@@ -814,6 +800,12 @@
 				BAB01A4415040FA400F8747B /* piecesBG@2x.png in Resources */,
 				BAE1FFD815063910004D63E0 /* LisztTopText.png in Resources */,
 				BAE1FFD915063910004D63E0 /* LisztTopText@2x.png in Resources */,
+				BAE1FFDC1506F546004D63E0 /* StatsBGR.png in Resources */,
+				BAE1FFDD1506F546004D63E0 /* StatsBGR@2x.png in Resources */,
+				BAE1FFE21506F60B004D63E0 /* AddButtonR.png in Resources */,
+				BAE1FFE31506F60B004D63E0 /* AddButtonR@2x.png in Resources */,
+				BAE1FFE41506F60B004D63E0 /* DateButtonR.png in Resources */,
+				BAE1FFE51506F60B004D63E0 /* DateButtonR@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

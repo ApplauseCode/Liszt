@@ -59,7 +59,6 @@
 @property (strong, nonatomic) IBOutlet UIView *metronomeView;
 @property (weak, nonatomic) IBOutlet UIButton *addButton;
 @property (strong, nonatomic) UIButton *timerButton;
-@property (weak, nonatomic) IBOutlet UIButton *aNewButton;
 @property (strong, nonatomic) IBOutlet UITableView *statsTable;
 @property (strong, nonatomic) IBOutlet UILabel *selSessionDisplay;
 @property (strong, nonatomic) IBOutlet UIButton *chooseDateButton;
@@ -72,6 +71,5 @@
 - (IBAction)startMetronome:(id)sender;
 - (IBAction)slideDown:(id)sender;
 - (IBAction)showMenu:(id)sender;
-- (IBAction)newSession:(id)sender;
 - (IBAction)presentPickerView:(id)sender;
 @end

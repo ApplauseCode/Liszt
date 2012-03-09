@@ -33,8 +33,8 @@
 //    [UIApplication sharedApplication].idleTimerDisabled = YES;
     /*remove later*/[TestFlight takeOff:@"0bb5b0fae5868594a374b52c1cd204c3_NTQ5NTIyMDEyLTAxLTI1IDE1OjU3OjIxLjYxMTI3NA"];
      application.applicationSupportsShakeToEdit = YES; /**/
+    [UIApplication sharedApplication].idleTimerDisabled = NO;
     [UIApplication sharedApplication].idleTimerDisabled = YES;
-
     [self setAlertViewVisible:NO];
     [SessionStore defaultStore];
     [self checkDate];
