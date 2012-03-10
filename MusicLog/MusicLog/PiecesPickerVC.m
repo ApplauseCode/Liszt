@@ -146,9 +146,8 @@
     viewTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
     [self.view addGestureRecognizer:viewTap];
     [viewTap setEnabled:NO];
-    tempoStepper = [[CustomStepper alloc] initWithPoint:CGPointMake(7, 260) andLabel:tempoLabel];
     
-    tempoStepper = [[CustomStepper alloc] initWithPoint:CGPointMake(175, 340) andLabel:tempoLabel];
+    tempoStepper = [[CustomStepper alloc] initWithPoint:CGPointMake(175, 340) label:tempoLabel andCanBeNone:YES];
     [self.view addSubview:tempoStepper];
     
     [tempoTextLabel setFont:[UIFont fontWithName:@"ACaslonPro-Regular" size:11]];

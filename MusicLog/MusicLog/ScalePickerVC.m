@@ -97,7 +97,8 @@
     [octavesLabel setFont:[UIFont fontWithName:@"ACaslonPro-Regular" size:20]];
     [octavesLabel setText:@"OCTAVES"];
     
-    stepper = [[CustomStepper alloc] initWithPoint:CGPointMake(175, 340) andLabel:tempoLabel];
+    stepper = [[CustomStepper alloc] initWithPoint:CGPointMake(175, 340) label:tempoLabel andCanBeNone:YES];
+    [stepper setCanBeNone:YES];
     [self.view addSubview:stepper];
     
     UIImage *oct0 = [UIImage imageNamed:@"OctavesSegment0.png"];

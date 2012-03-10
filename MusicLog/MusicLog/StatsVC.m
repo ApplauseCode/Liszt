@@ -158,7 +158,7 @@
 }
 
 - (void) makeMetronome {
-    stepper = [[CustomStepper alloc] initWithPoint:CGPointMake(215, -6) andLabel:tempoLabel];
+    stepper = [[CustomStepper alloc] initWithPoint:CGPointMake(215, -6) label:tempoLabel andCanBeNone:NO];
     [stepper setDelegate:self];
     [metronomeView addSubview:stepper];
     openSectionIndex = NSNotFound;

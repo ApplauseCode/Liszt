@@ -17,10 +17,11 @@ int tempoRange(int x);
 @interface CustomStepper : UIControl
 
 @property NSUInteger tempo;
+@property (nonatomic, assign) BOOL canBeNone;
 @property (nonatomic, weak) id <CustomStepperDelegate> delegate;
 
 
-- (id)initWithPoint:(CGPoint)point andLabel:(UILabel *)label;
+- (id)initWithPoint:(CGPoint)point label:(UILabel *)label andCanBeNone:(BOOL)_canBeNone;
 - (void)timerFireMethod:(NSTimer*)theTimer;
 
 @end

@@ -29,10 +29,6 @@
 		BA19769D14F9802200085FAD /* OctavesSegment2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BA19769514F9802200085FAD /* OctavesSegment2@2x.png */; };
 		BA19769E14F9802200085FAD /* OctavesSegment3.png in Resources */ = {isa = PBXBuildFile; fileRef = BA19769614F9802200085FAD /* OctavesSegment3.png */; };
 		BA19769F14F9802200085FAD /* OctavesSegment3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BA19769714F9802200085FAD /* OctavesSegment3@2x.png */; };
-		BA1A9F20150191250010C39E /* DCRoundSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = BA1A9F19150191250010C39E /* DCRoundSwitch.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		BA1A9F21150191250010C39E /* DCRoundSwitchKnobLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = BA1A9F1B150191250010C39E /* DCRoundSwitchKnobLayer.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		BA1A9F22150191250010C39E /* DCRoundSwitchOutlineLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = BA1A9F1D150191250010C39E /* DCRoundSwitchOutlineLayer.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		BA1A9F23150191250010C39E /* DCRoundSwitchToggleLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = BA1A9F1F150191250010C39E /* DCRoundSwitchToggleLayer.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		BA1A9F351502EE090010C39E /* LisztIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BA1A9F341502EE090010C39E /* LisztIcon@2x.png */; };
 		BA1A9F371502EE230010C39E /* LisztIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = BA1A9F361502EE230010C39E /* LisztIcon.png */; };
 		BA1E209B14E6E7E400F0D2FC /* AddPopupBackboard.png in Resources */ = {isa = PBXBuildFile; fileRef = BA1E209914E6E7E400F0D2FC /* AddPopupBackboard.png */; };
@@ -182,14 +178,6 @@
 		BA19769514F9802200085FAD /* OctavesSegment2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "OctavesSegment2@2x.png"; sourceTree = "<group>"; };
 		BA19769614F9802200085FAD /* OctavesSegment3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = OctavesSegment3.png; sourceTree = "<group>"; };
 		BA19769714F9802200085FAD /* OctavesSegment3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "OctavesSegment3@2x.png"; sourceTree = "<group>"; };
-		BA1A9F18150191250010C39E /* DCRoundSwitch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCRoundSwitch.h; sourceTree = "<group>"; };
-		BA1A9F19150191250010C39E /* DCRoundSwitch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCRoundSwitch.m; sourceTree = "<group>"; };
-		BA1A9F1A150191250010C39E /* DCRoundSwitchKnobLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCRoundSwitchKnobLayer.h; sourceTree = "<group>"; };
-		BA1A9F1B150191250010C39E /* DCRoundSwitchKnobLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCRoundSwitchKnobLayer.m; sourceTree = "<group>"; };
-		BA1A9F1C150191250010C39E /* DCRoundSwitchOutlineLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCRoundSwitchOutlineLayer.h; sourceTree = "<group>"; };
-		BA1A9F1D150191250010C39E /* DCRoundSwitchOutlineLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCRoundSwitchOutlineLayer.m; sourceTree = "<group>"; };
-		BA1A9F1E150191250010C39E /* DCRoundSwitchToggleLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCRoundSwitchToggleLayer.h; sourceTree = "<group>"; };
-		BA1A9F1F150191250010C39E /* DCRoundSwitchToggleLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCRoundSwitchToggleLayer.m; sourceTree = "<group>"; };
 		BA1A9F341502EE090010C39E /* LisztIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LisztIcon@2x.png"; sourceTree = "<group>"; };
 		BA1A9F361502EE230010C39E /* LisztIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LisztIcon.png; sourceTree = "<group>"; };
 		BA1E209914E6E7E400F0D2FC /* AddPopupBackboard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AddPopupBackboard.png; sourceTree = "<group>"; };
@@ -618,14 +606,6 @@
 		BAF3AA2514535B26004EB308 /* Custom Controls */ = {
 			isa = PBXGroup;
 			children = (
-				BA1A9F18150191250010C39E /* DCRoundSwitch.h */,
-				BA1A9F19150191250010C39E /* DCRoundSwitch.m */,
-				BA1A9F1A150191250010C39E /* DCRoundSwitchKnobLayer.h */,
-				BA1A9F1B150191250010C39E /* DCRoundSwitchKnobLayer.m */,
-				BA1A9F1C150191250010C39E /* DCRoundSwitchOutlineLayer.h */,
-				BA1A9F1D150191250010C39E /* DCRoundSwitchOutlineLayer.m */,
-				BA1A9F1E150191250010C39E /* DCRoundSwitchToggleLayer.h */,
-				BA1A9F1F150191250010C39E /* DCRoundSwitchToggleLayer.m */,
 				BACA58D414E8678A0054A634 /* alert-black-button.png */,
 				BACA58D514E8678A0054A634 /* alert-black-button@2x.png */,
 				BACA58D614E8678A0054A634 /* alert-gray-button.png */,
@@ -849,10 +829,6 @@
 				CE48BEC414F31D27002535E5 /* StopWatch.m in Sources */,
 				BA44684114F92E0400AE0A0D /* NSMutableOrderedSet+DeepCopy.m in Sources */,
 				BA19768214F95AC000085FAD /* CustomSegment.m in Sources */,
-				BA1A9F20150191250010C39E /* DCRoundSwitch.m in Sources */,
-				BA1A9F21150191250010C39E /* DCRoundSwitchKnobLayer.m in Sources */,
-				BA1A9F22150191250010C39E /* DCRoundSwitchOutlineLayer.m in Sources */,
-				BA1A9F23150191250010C39E /* DCRoundSwitchToggleLayer.m in Sources */,
 				BAB01A47150411AE00F8747B /* UITextField+Placeholder.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

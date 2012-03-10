@@ -31,17 +31,22 @@ int tempoRange(int x)
 
 @synthesize tempo;
 @synthesize delegate;
+@synthesize canBeNone;
 
-- (id)initWithPoint:(CGPoint)point andLabel:(UILabel *)label
+- (id)initWithPoint:(CGPoint)point label:(UILabel *)label andCanBeNone:(BOOL)_canBeNone
 {
     self = [self initWithFrame:CGRectMake(point.x, point.y, 109.0, 62.0)];
+    canBeNone = _canBeNone;
     tempoLabel = label;
     stepperBG = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"StepperRolls.png"]];
     [self addSubview:stepperBG];
     UIFont *caslon = [UIFont fontWithName:@"ACaslonPro-Regular" size:23];
     [tempoLabel setFont:caslon];
     [tempoLabel setTextColor:[UIColor yellowTextColor]];
-    tempo = 80;
+    if (canBeNone)
+        tempo = 0;
+    else
+        tempo = 80;
     [tempoLabel setText:[NSString stringWithFormat:@"%u BPM", tempo]];
     
     return self;
@@ -56,7 +61,7 @@ int tempoRange(int x)
     else
         [stepperBG setImage:[UIImage imageNamed:@"StepperMinusDown.png"]];
 
-    timer = [NSTimer scheduledTimerWithTimeInterval:0.25 target:self selector:@selector(timerFireMethod:) userInfo:nil repeats:YES];
+    timer = [NSTimer scheduledTimerWithTimeInterval:0.35 target:self selector:@selector(timerFireMethod:) userInfo:nil repeats:YES];
 }
 
 - (void)timerFireMethod:(NSTimer*)theTimer
@@ -68,15 +73,24 @@ int tempoRange(int x)
         {        
             [stepperBG setImage:[UIImage imageNamed:@"StepperPlusDown.png"]];
 
-            tempo = tempoRange(tempo + (10 - (tempo % 10)));
+            if (tempo == 0 && canBeNone)
+                tempo = 30;
+            else
+                tempo = tempoRange(tempo + (10 - (tempo % 10)));
         }
         else
         {
             [stepperBG setImage:[UIImage imageNamed:@"StepperMinusDown.png"]];
-            if (tempo % 10 == 0)
-                tempo = tempoRange(tempo - 10);
+
+            if (tempo == 30 && canBeNone)
+                tempo = 0;
             else
-                tempo = tempoRange(tempo - (tempo % 10));
+            {        
+                if (tempo % 10 == 0 && tempo != 0)
+                    tempo = tempoRange(tempo - 10);
+                else if (tempo != 0)
+                    tempo = tempoRange(tempo - (tempo % 10));
+            }
         }
         
         
@@ -90,12 +104,18 @@ int tempoRange(int x)
     [stepperBG setImage:[UIImage imageNamed:@"StepperRolls.png"]];
     if (timeElapsed < 0.5 && [myTouch locationInView:self].x >= ([self frame].size.width / 2))
     {
-        tempo = tempoRange(tempo + 1);
+        if (tempo == 0 && canBeNone)
+            tempo = 30;
+        else
+            tempo = tempoRange(tempo + 1);
         [tempoLabel setText:[NSString stringWithFormat:@"%u BPM", tempo]];
     }
     else if (timeElapsed < 0.5 && [myTouch locationInView:self].x < ([self frame].size.width / 2))
     {
-        tempo = tempoRange(tempo - 1);
+        if (tempo == 30 && canBeNone)
+            tempo = 0;
+        else if (tempo != 0)
+            tempo = tempoRange(tempo - 1);
         [tempoLabel setText:[NSString stringWithFormat:@"%u BPM", tempo]];
     }
     [timer invalidate];
