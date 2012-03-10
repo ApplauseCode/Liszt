@@ -123,7 +123,6 @@
 		BADA3F8B140BD8DF00B57C49 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BADA3F8A140BD8DF00B57C49 /* main.m */; };
 		BADA3F8F140BD8DF00B57C49 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BADA3F8E140BD8DF00B57C49 /* AppDelegate.m */; };
 		BADA3F9C140BD98200B57C49 /* Scale.m in Sources */ = {isa = PBXBuildFile; fileRef = BADA3F97140BD98200B57C49 /* Scale.m */; };
-		BADA3F9D140BD98200B57C49 /* ScaleStore.m in Sources */ = {isa = PBXBuildFile; fileRef = BADA3F99140BD98200B57C49 /* ScaleStore.m */; };
 		BADA3F9E140BD98200B57C49 /* FileHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = BADA3F9B140BD98200B57C49 /* FileHelpers.m */; };
 		BADA3FA2140BD9B700B57C49 /* ScalesPracticedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BADA3FA0140BD9B700B57C49 /* ScalesPracticedCell.m */; };
 		BADA3FA3140BD9B700B57C49 /* ScalesPracticedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BADA3FA1140BD9B700B57C49 /* ScalesPracticedCell.xib */; };
@@ -295,19 +294,17 @@
 		BADA3F8C140BD8DF00B57C49 /* Liszt-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Liszt-Prefix.pch"; sourceTree = "<group>"; };
 		BADA3F8D140BD8DF00B57C49 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		BADA3F8E140BD8DF00B57C49 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		BADA3F96140BD98200B57C49 /* Scale.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Scale.h; sourceTree = "<group>"; };
-		BADA3F97140BD98200B57C49 /* Scale.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Scale.m; sourceTree = "<group>"; };
-		BADA3F98140BD98200B57C49 /* ScaleStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScaleStore.h; sourceTree = "<group>"; };
-		BADA3F99140BD98200B57C49 /* ScaleStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScaleStore.m; sourceTree = "<group>"; };
+		BADA3F96140BD98200B57C49 /* Scale.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = Scale.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		BADA3F97140BD98200B57C49 /* Scale.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = Scale.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		BADA3F9A140BD98200B57C49 /* FileHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileHelpers.h; sourceTree = "<group>"; };
 		BADA3F9B140BD98200B57C49 /* FileHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileHelpers.m; sourceTree = "<group>"; };
 		BADA3F9F140BD9B700B57C49 /* ScalesPracticedCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScalesPracticedCell.h; sourceTree = "<group>"; };
 		BADA3FA0140BD9B700B57C49 /* ScalesPracticedCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScalesPracticedCell.m; sourceTree = "<group>"; };
 		BADA3FA1140BD9B700B57C49 /* ScalesPracticedCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScalesPracticedCell.xib; sourceTree = "<group>"; };
 		BADA3FA9140BDA5D00B57C49 /* ScalePickerVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScalePickerVC.h; sourceTree = "<group>"; };
-		BADA3FAA140BDA5D00B57C49 /* ScalePickerVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScalePickerVC.m; sourceTree = "<group>"; };
+		BADA3FAA140BDA5D00B57C49 /* ScalePickerVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ScalePickerVC.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		BADA3FAB140BDA5D00B57C49 /* ScalePickerVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScalePickerVC.xib; sourceTree = "<group>"; };
-		BADA3FB8140BDA6E00B57C49 /* Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Common.h; sourceTree = "<group>"; };
+		BADA3FB8140BDA6E00B57C49 /* Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = Common.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		BAE1FFD615063910004D63E0 /* LisztTopText.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LisztTopText.png; sourceTree = "<group>"; };
 		BAE1FFD715063910004D63E0 /* LisztTopText@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LisztTopText@2x.png"; sourceTree = "<group>"; };
 		BAE1FFDA1506F546004D63E0 /* StatsBGR.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StatsBGR.png; sourceTree = "<group>"; };
@@ -335,7 +332,7 @@
 		CE48BEC114F31D27002535E5 /* StopWatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StopWatch.h; sourceTree = "<group>"; };
 		CE48BEC214F31D27002535E5 /* StopWatch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StopWatch.m; sourceTree = "<group>"; };
 		CE98858D14EC8B5000E8FA90 /* SessionStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SessionStore.h; sourceTree = "<group>"; };
-		CE98858E14EC8B5000E8FA90 /* SessionStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SessionStore.m; sourceTree = "<group>"; };
+		CE98858E14EC8B5000E8FA90 /* SessionStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SessionStore.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -540,8 +537,6 @@
 				BADA3F97140BD98200B57C49 /* Scale.m */,
 				BABEA1FA146368F00052D29D /* Piece.h */,
 				BABEA1FB146368F00052D29D /* Piece.m */,
-				BADA3F98140BD98200B57C49 /* ScaleStore.h */,
-				BADA3F99140BD98200B57C49 /* ScaleStore.m */,
 				CE98858D14EC8B5000E8FA90 /* SessionStore.h */,
 				CE98858E14EC8B5000E8FA90 /* SessionStore.m */,
 				BADA3F9A140BD98200B57C49 /* FileHelpers.h */,
@@ -799,7 +794,6 @@
 				BADA3F8B140BD8DF00B57C49 /* main.m in Sources */,
 				BADA3F8F140BD8DF00B57C49 /* AppDelegate.m in Sources */,
 				BADA3F9C140BD98200B57C49 /* Scale.m in Sources */,
-				BADA3F9D140BD98200B57C49 /* ScaleStore.m in Sources */,
 				BADA3F9E140BD98200B57C49 /* FileHelpers.m in Sources */,
 				BADA3FA2140BD9B700B57C49 /* ScalesPracticedCell.m in Sources */,
 				BADA3FB3140BDA5D00B57C49 /* ScalePickerVC.m in Sources */,

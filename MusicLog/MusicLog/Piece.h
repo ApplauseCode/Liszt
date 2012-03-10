@@ -15,7 +15,7 @@
 @property (nonatomic, strong) NSString *composer;
 @property BOOL major;
 @property int tempo;
-@property tonicType pieceKey;
+@property pieceTonicType pieceKey;
 @property int pieceTime;
 @property (nonatomic, strong )NSString *pieceNotes;
 

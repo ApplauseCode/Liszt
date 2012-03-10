@@ -101,14 +101,21 @@
         dataIndex = row - 1;
     
     id entry;
+    NSString *caseTonicString;
     if (section == 0)
+    {
         entry = [[selectedSession scaleSession] objectAtIndex:dataIndex];
+        if ([entry scaleMode] > 1 && [entry scaleMode] < 4)
+            caseTonicString = [[entry tonicString] lowercaseString];
+        else
+            caseTonicString = [entry tonicString];
+    }
     else if (section == 1)
         entry = [[selectedSession arpeggioSession] objectAtIndex:dataIndex];
     if (section < 2)
     {
         [cell isPiece:NO
-             setTonic:[entry tonicString]
+             setTonic:caseTonicString
               octaves:[entry octavesString]
                rhythm:[entry rhythmString]
                  mode:[entry modeString]

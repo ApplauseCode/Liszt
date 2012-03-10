@@ -12,7 +12,7 @@
 @interface Scale : NSObject <NSCoding, NSMutableCopying>
 
 @property tonicType tonic;
-@property modeType mode;
+@property modeType scaleMode;
 @property int tempo;
 @property rhythmType rhythm;
 @property int octaves;

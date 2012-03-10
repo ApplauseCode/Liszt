@@ -14,7 +14,7 @@
 #import "NSMutableOrderedSet+DeepCopy.h"
 
 #define DEBUG 1
-#undef DEBUG
+//#undef DEBUG
 
 @interface SessionStore ()
 
@@ -123,7 +123,7 @@
     Piece *tempPiece = [[Piece alloc] init];
     
     [tempScale setTonic:kA];
-    [tempScale setMode:kMelodicMinor];
+    [tempScale setScaleMode:kMelodicMinor];
     [tempScale setTempo:120];
     [tempScale setRhythm:kSixteenth];
     [tempScale setOctaves:4];
@@ -135,7 +135,7 @@
     tempSession = [[Session alloc] init];
     tempScale = [[Scale alloc] init];
     [tempScale setTonic:kB];
-    [tempScale setMode:kArpDom7];
+    [tempScale setScaleMode:kArpDom7];
     [tempScale setTempo:112];
     [tempScale setRhythm:kTwelfth];
     [tempScale setOctaves:3];
@@ -149,7 +149,7 @@
     [tempPiece setComposer:@"Chopin"];
     [tempPiece setMajor:YES];
     [tempPiece setTempo:80];
-    [tempPiece setPieceKey:kCD];
+    [tempPiece setPieceKey:kpCSharp];
     [tempPiece setPieceTime:1000];
 //    [tempPiece setTimer:[[Timer alloc] initWithElapsedTime:[tempPiece pieceTime]]];
     
@@ -160,7 +160,7 @@
     tempSession = [[Session alloc] init];
     tempScale = [[Scale alloc] init];
     [tempScale setTonic:kC];
-    [tempScale setMode:kMelodicMinor];
+    [tempScale setScaleMode:kMelodicMinor];
     [tempScale setTempo:125];
     [tempScale setRhythm:kSixteenth];
     [tempScale setOctaves:4];
@@ -168,7 +168,7 @@
     [tempSession setScaleTime:500];
     tempScale = [[Scale alloc] init];
     [tempScale setTonic:kD];
-    [tempScale setMode:kArpDom7];
+    [tempScale setScaleMode:kArpDom7];
     [tempScale setTempo:115];
     [tempScale setRhythm:kTwelfth];
     [tempScale setOctaves:4];
@@ -180,7 +180,7 @@
     [tempPiece setComposer:@"Barnes"];
     [tempPiece setMajor:YES];
     [tempPiece setTempo:95];
-    [tempPiece setPieceKey:kFG];
+    [tempPiece setPieceKey:kpFSharp];
     [tempPiece setPieceTime:1500];
 //    [tempPiece setTimer:[[Timer alloc] initWithElapsedTime:[tempPiece pieceTime]]];
     [tempSession setPieceSession:[NSMutableOrderedSet orderedSetWithObject:tempPiece]];

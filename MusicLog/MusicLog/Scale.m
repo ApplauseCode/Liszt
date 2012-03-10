@@ -12,7 +12,7 @@
 @implementation Scale
 
 @synthesize tonic;
-@synthesize mode;
+@synthesize scaleMode;
 @synthesize tempo;
 @synthesize rhythm;
 @synthesize octaves;
@@ -30,7 +30,7 @@
 {
     self = [super init];
     [self setTonic:[aDecoder decodeIntForKey:@"tonic"]];
-    [self setMode:[aDecoder decodeIntForKey:@"mode"]];
+    [self setScaleMode:[aDecoder decodeIntForKey:@"mode"]];
     [self setTempo:[aDecoder decodeIntForKey:@"tempo"]];
     [self setRhythm:[aDecoder decodeIntForKey:@"rhythm"]];
     [self setOctaves:[aDecoder decodeIntForKey:@"octaves"]];
@@ -40,13 +40,13 @@
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"\nTonic: %i. Type: %i. \nSpeed: %i. Rhythm: %i. Octaves: %i." , tonic, mode, tempo, rhythm, octaves];
+    return [NSString stringWithFormat:@"\nTonic: %i. Type: %i. \nSpeed: %i. Rhythm: %i. Octaves: %i." , tonic, scaleMode, tempo, rhythm, octaves];
 }
 
 - (NSString *)tonicString
 {
     // display the typedef in proper string form on screen
-    NSArray *tonicArray = [NSArray arrayWithObjects:@"", @"", @"",@"C",@"D Flat",@"D",@"E Flat",@"E",@"F",@"G Flat",@"G",@"A Flat",@"A",@"B Flat",@"B", nil];
+    NSArray *tonicArray = [NSArray arrayWithObjects:@"", @"", @"", @"C",@"C\u266f/D\u266d",@"D",@"D\u266f/E\u266d",@"E",@"F",@"F\u266f/G\u266d",@"G",@"G\u266f/A\u266d",@"A",@"A\u266f/B\u266d",@"B", nil];
     
     return [tonicArray objectAtIndex:tonic];
 }
@@ -54,9 +54,9 @@
 - (NSString *)modeString
 {
     // display the typedef in proper string form on screen
-    NSArray *modeArray = [NSArray arrayWithObjects:@"Major", @"Natural Minor", @"Melodic Minor", @"Harmonic Minor", @"Major", @"Minor", @"Major 7", @"Dom 7", @"Min 7", @"Half Dim 7", @"Dim 7", nil];
+    NSArray *modeArray = [NSArray arrayWithObjects:@"Major", @"Natural", @"Melodic", @"Harmonic", @"Major", @"Minor", @"Major 7", @"Dom 7", @"Min 7", @"Half Dim 7", @"Dim 7", nil];
     
-    return [modeArray objectAtIndex:mode];
+    return [modeArray objectAtIndex:scaleMode];
 } 
 
 - (NSString *) rhythmString
@@ -81,7 +81,7 @@
 {
     Scale *copy = [[Scale alloc] init];//[[self class] allocWithZone:zone];
     [copy setTonic:tonic];
-    [copy setMode:mode];
+    [copy setScaleMode:scaleMode];
     [copy setTempo:tempo];
     [copy setRhythm:rhythm];
     [copy setOctaves:octaves];
@@ -93,7 +93,7 @@
     NSUInteger prime = 31;
     NSUInteger result = 1;
     result = prime * result + tonic;
-    result = prime * result + mode;
+    result = prime * result + scaleMode;
     result = prime * result + rhythm;
     result = prime * result + octaves;
     result = prime * result + tempo;
@@ -104,7 +104,7 @@
 - (BOOL)isEqual:(Scale *)object
 {
     if ((tonic == [object tonic])
-        && (mode == [object mode])
+        && (scaleMode == [object scaleMode])
         && (rhythm == [object rhythm])
         && (octaves == [object octaves])
         && (tempo == [object tempo]))
@@ -116,7 +116,7 @@
 - (void)encodeWithCoder:(NSCoder *)aCoder
 {
     [aCoder encodeInt:tonic forKey:@"tonic"];
-    [aCoder encodeInt:mode forKey:@"mode"];
+    [aCoder encodeInt:scaleMode forKey:@"mode"];
     [aCoder encodeInt:tempo forKey:@"tempo"];
     [aCoder encodeInt:rhythm forKey:@"rhythm"];
     [aCoder encodeInt:octaves forKey:@"octaves"];

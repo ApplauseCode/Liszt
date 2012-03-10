@@ -48,7 +48,7 @@
     if (self) {
         // Custom initialization
         [self setTitle:@"Pieces"];
-    keys = [NSArray arrayWithObjects:@"C",@"C Sharp/D Flat",@"D",@"D Sharp/E Flat",@"E",@"F",@"F Sharp/G Flat",@"G",@"G Sharp/A Flat",@"A",@"A Sharp/B Flat",@"B", nil];        
+    keys = [NSArray arrayWithObjects:@"C",@"C\u266f",@"D\u266d", @"D", @"D\u266f",@"E\u266d",@"E",@"F",@"F\u266f",@"G\u266d",@"G",@"G\u266f",@"A\u266d",@"A",@"A\u266f",@"B\u266d",@"B", nil];     
     }
     return self;
 }

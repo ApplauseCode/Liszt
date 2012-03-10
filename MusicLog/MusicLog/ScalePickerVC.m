@@ -50,6 +50,8 @@
 
 - (id)initWithIndex:(NSUInteger)idx
 {
+    // sharp: \u266f
+    // flat: \u266d
     self = [super initWithNibName:nil bundle:nil];
     if (self)
         [self setTitle:@"ScalePickerVC"];
@@ -138,9 +140,9 @@
     Scale *pickedScale = [[Scale alloc] init];
     SessionStore *store = [SessionStore defaultStore];
     if (index == 0)
-        [pickedScale setMode:[modeChooser selectedCellIndex]];
+        [pickedScale setScaleMode:[modeChooser selectedCellIndex]];
     else if (index == 1)
-        [pickedScale setMode:([modeChooser selectedCellIndex] + 4)];
+        [pickedScale setScaleMode:([modeChooser selectedCellIndex] + 4)];
     [pickedScale setRhythm:[rhythmChooser selectedCellIndex]];
     [pickedScale setOctaves:[octavesSegment selectedIndex] + 1];
     [pickedScale setTempo:stepper.tempo];

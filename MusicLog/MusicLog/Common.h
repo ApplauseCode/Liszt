@@ -20,6 +20,7 @@ BOOL doubleDigit(int x)
 
 
 typedef enum {kSharps, kFlats, kAll, kC, kCD, kD, kDE, kE, kF, kFG, kG, kGA, kA, kAB, kB} tonicType;
+typedef enum {kpC, kpCSharp, kpDFlat, kpD, kpDSharp, kpEFlat, kpE, kpF, kpFSharp, kpGFlat, kpG, kpGSharp, kpAFlat, kpA, kpASharp, kpBFlat, kpB} pieceTonicType;
 
 typedef enum {kMajor, kNaturalMinor, kMelodicMinor, kHarmonicMinor, kArpMajor, kArpMinor, kArpMaj7, kArpDom7, kArpMin7, kArpHalfDim7, kArpDim7, kArpMajMin7} modeType;
 
