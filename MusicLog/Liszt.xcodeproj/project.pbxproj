@@ -149,6 +149,7 @@
 		BAF21D4C14D5953000CA7060 /* StatsVC+Header.m in Sources */ = {isa = PBXBuildFile; fileRef = BAF21D4B14D5953000CA7060 /* StatsVC+Header.m */; };
 		CE48BEC314F31D27002535E5 /* DynamicLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE48BEC014F31D27002535E5 /* DynamicLabel.m */; };
 		CE48BEC414F31D27002535E5 /* StopWatch.m in Sources */ = {isa = PBXBuildFile; fileRef = CE48BEC214F31D27002535E5 /* StopWatch.m */; };
+		CE510092150BE50B00B56D91 /* Rhyth.otf in Resources */ = {isa = PBXBuildFile; fileRef = CE510090150BE05B00B56D91 /* Rhyth.otf */; };
 		CE98858F14EC8B5000E8FA90 /* SessionStore.m in Sources */ = {isa = PBXBuildFile; fileRef = CE98858E14EC8B5000E8FA90 /* SessionStore.m */; };
 /* End PBXBuildFile section */
 
@@ -331,6 +332,7 @@
 		CE48BEC014F31D27002535E5 /* DynamicLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DynamicLabel.m; sourceTree = "<group>"; };
 		CE48BEC114F31D27002535E5 /* StopWatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StopWatch.h; sourceTree = "<group>"; };
 		CE48BEC214F31D27002535E5 /* StopWatch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StopWatch.m; sourceTree = "<group>"; };
+		CE510090150BE05B00B56D91 /* Rhyth.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Rhyth.otf; sourceTree = "<group>"; };
 		CE98858D14EC8B5000E8FA90 /* SessionStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SessionStore.h; sourceTree = "<group>"; };
 		CE98858E14EC8B5000E8FA90 /* SessionStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SessionStore.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 /* End PBXFileReference section */
@@ -474,6 +476,7 @@
 				BA824AA614E4589600EAC74F /* Default@2x.png */,
 				BA824AA414E4588E00EAC74F /* Default.png */,
 				BA824AEC14E4C14C00EAC74F /* ACaslonPro-Regular.otf */,
+				CE510090150BE05B00B56D91 /* Rhyth.otf */,
 				BADA3F84140BD8DF00B57C49 /* Liszt */,
 				BADA3F7F140BD8DF00B57C49 /* Frameworks */,
 				BADA3F7D140BD8DF00B57C49 /* Products */,
@@ -677,6 +680,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE510092150BE50B00B56D91 /* Rhyth.otf in Resources */,
 				BADA3F89140BD8DF00B57C49 /* InfoPlist.strings in Resources */,
 				BADA3FA3140BD9B700B57C49 /* ScalesPracticedCell.xib in Resources */,
 				BADA3FB4140BDA5D00B57C49 /* ScalePickerVC.xib in Resources */,

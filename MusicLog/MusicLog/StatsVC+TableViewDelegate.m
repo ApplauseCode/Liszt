@@ -134,10 +134,10 @@
                 break;
         }
         [cell isPiece:YES
-             setTonic:[entry title]
+             setTonic:[entry composer]
               octaves:modeString
                rhythm:[entry keyString]
-                 mode:[entry composer]
+                 mode:nil //[entry composer]
                 speed:[NSString stringWithInt:[entry tempo]]];
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;    

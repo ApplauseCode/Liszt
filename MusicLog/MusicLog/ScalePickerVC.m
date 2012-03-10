@@ -52,11 +52,12 @@
 {
     // sharp: \u266f
     // flat: \u266d
+    
     self = [super initWithNibName:nil bundle:nil];
     if (self)
         [self setTitle:@"ScalePickerVC"];
     tonicArray = [NSArray arrayWithObjects:@"Sharps", @"Flats", @"All", @"  C  ",@"C\u266f/D\u266d",@"  D  ",@"D\u266f/E\u266d",@"  E  ",@"  F  ",@"F\u266f/G\u266d",@"  G  ",@"G\u266f/A\u266d",@"  A  ",@"A\u266f/B\u266d",@"  B  ", nil];
-    rhythmArray = [NSArray arrayWithObjects:@"Whole", @"1/2", @"\u2669", @"\u266b", @"1/12", @"\u266c", @"1/32", @"1/64",@"Bursts", nil];
+    rhythmArray = [NSArray arrayWithObjects:@"   w",@" h ",@" q ",@"ry",@"rty",@"dffg", nil];
 
     {
         switch (idx) {
@@ -70,7 +71,7 @@
         index = idx;
         tonicChooser = [[ACchooser alloc] initWithFrame:CGRectMake(24, 90, 272, 32)];
         modeChooser = [[ACchooser alloc] initWithFrame:CGRectMake(24, 161, 272, 32)];
-        rhythmChooser = [[ACchooser alloc] initWithFrame:CGRectMake(24, 231, 272, 32)];
+        rhythmChooser = [[ACchooser alloc] initWithFrame:CGRectMake(24, 228, 272, 32)];
         NSArray *choosers = [NSArray arrayWithObjects:tonicChooser, modeChooser, rhythmChooser, nil];
         for (ACchooser *chooser in choosers)
         {
@@ -79,6 +80,7 @@
             [chooser setCellColor:[UIColor clearColor]];
             [chooser setCellFont:[UIFont fontWithName:@"ACaslonPro-Regular" size:20]];
         }
+        [rhythmChooser setCellFont:[UIFont fontWithName:@"Rhythms" size:24]];
         
     }
     return self;
