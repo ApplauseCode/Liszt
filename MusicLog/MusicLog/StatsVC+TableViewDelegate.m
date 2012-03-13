@@ -16,7 +16,9 @@
 #import "ScalesPracticedCell.h"
 #import "TimerCell.h"
 #import "NSString+Number.h"
-#import "CustomDrawnCell.h"
+#import "LisztCell.h"
+#import "ScaleCell.h"
+#import "PieceCell.h"
 
 @implementation StatsVC (TableViewDelegate)
 
@@ -86,11 +88,17 @@
 {
     NSInteger section = [indexPath section];
     NSInteger row = [indexPath row];
-    CustomDrawnCell *cell = (CustomDrawnCell *)[tableView
-                                                         dequeueReusableCellWithIdentifier:@"CustomDrawnCell"];
-    if (cell == nil)
-    {
-        cell = [[CustomDrawnCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CustomDrawnCell"];
+    LisztCell *cell;
+    id entry;
+    if (section < 2) {
+        cell = (ScaleCell *)[tableView dequeueReusableCellWithIdentifier:@"ScaleCell"];
+        if (cell == nil) 
+            cell = [[ScaleCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"ScaleCell"];
+    }
+    else {
+        cell = (PieceCell *)[tableView dequeueReusableCellWithIdentifier:@"PieceCell"];
+        if (cell == nil) 
+            cell = [[PieceCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"PieceCell"];
     }
     NSInteger dataIndex;
     if (row == 0 && currentPractice)
@@ -99,48 +107,16 @@
         dataIndex = row;
     else
         dataIndex = row - 1;
-    
-    id entry;
-    NSString *caseTonicString;
     if (section == 0)
-    {
         entry = [[selectedSession scaleSession] objectAtIndex:dataIndex];
-        if ([entry scaleMode] > 1 && [entry scaleMode] < 4)
-            caseTonicString = [[entry tonicString] lowercaseString];
-        else
-            caseTonicString = [entry tonicString];
-    }
     else if (section == 1)
         entry = [[selectedSession arpeggioSession] objectAtIndex:dataIndex];
-    if (section < 2)
-    {
-        [cell isPiece:NO
-             setTonic:caseTonicString
-              octaves:[entry octavesString]
-               rhythm:[entry rhythmString]
-                 mode:[entry modeString]
-                speed:[entry tempoString]];
-    }
-    else
-    {
+    else {
         entry = [[selectedSession pieceSession] objectAtIndex:([indexPath section] - 2)];
-        NSString *modeString;
-        switch ([entry major]) {
-            case 0:
-                modeString = @"Minor";
-                break;
-            case 1:
-                modeString = @"Major";
-                break;
-        }
-        [cell isPiece:YES
-             setTonic:[entry composer]
-              octaves:modeString
-               rhythm:[entry keyString]
-                 mode:nil //[entry composer]
-                speed:[NSString stringWithInt:[entry tempo]]];
     }
+    [cell updateLabels:entry];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;    
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     return cell;
 }
 

@@ -14,7 +14,7 @@
 #import "NSMutableOrderedSet+DeepCopy.h"
 
 #define DEBUG 1
-//#undef DEBUG
+#undef DEBUG
 
 @interface SessionStore ()
 

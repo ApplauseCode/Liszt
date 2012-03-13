@@ -94,8 +94,6 @@
 		BAC1B73314E60C4300649748 /* EnterComposer.png in Resources */ = {isa = PBXBuildFile; fileRef = BAC1B73114E60C4300649748 /* EnterComposer.png */; };
 		BAC1B73414E60C4300649748 /* EnterComposer@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BAC1B73214E60C4300649748 /* EnterComposer@2x.png */; };
 		BAC1B73714E6BF2300649748 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BAC1B73514E6BF2300649748 /* libTestFlight.a */; };
-		BAC1B73E14E6C91400649748 /* ABTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BAC1B73D14E6C91400649748 /* ABTableViewCell.m */; };
-		BAC1B74114E6C91E00649748 /* CustomDrawnCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BAC1B74014E6C91E00649748 /* CustomDrawnCell.m */; };
 		BAC1B74414E6CBCB00649748 /* ScalesCellBG.png in Resources */ = {isa = PBXBuildFile; fileRef = BAC1B74214E6CBCB00649748 /* ScalesCellBG.png */; };
 		BAC1B74514E6CBCB00649748 /* ScalesCellBG@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BAC1B74314E6CBCB00649748 /* ScalesCellBG@2x.png */; };
 		BAC1B74A14E6D1B100649748 /* StepperMinusDown.png in Resources */ = {isa = PBXBuildFile; fileRef = BAC1B74614E6D1B000649748 /* StepperMinusDown.png */; };
@@ -150,7 +148,11 @@
 		CE48BEC314F31D27002535E5 /* DynamicLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE48BEC014F31D27002535E5 /* DynamicLabel.m */; };
 		CE48BEC414F31D27002535E5 /* StopWatch.m in Sources */ = {isa = PBXBuildFile; fileRef = CE48BEC214F31D27002535E5 /* StopWatch.m */; };
 		CE510092150BE50B00B56D91 /* Rhyth.otf in Resources */ = {isa = PBXBuildFile; fileRef = CE510090150BE05B00B56D91 /* Rhyth.otf */; };
+		CE83174D150E7EEA00611DB5 /* CompoundString.m in Sources */ = {isa = PBXBuildFile; fileRef = CE83174C150E7EEA00611DB5 /* CompoundString.m */; };
+		CE831751150E9F1E00611DB5 /* PieceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE831750150E9F1E00611DB5 /* PieceCell.m */; };
 		CE98858F14EC8B5000E8FA90 /* SessionStore.m in Sources */ = {isa = PBXBuildFile; fileRef = CE98858E14EC8B5000E8FA90 /* SessionStore.m */; };
+		CECCE171150CF1650084B147 /* LisztCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CECCE170150CF1650084B147 /* LisztCell.m */; };
+		CECCE175150D42060084B147 /* ScaleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CECCE174150D42060084B147 /* ScaleCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -258,10 +260,6 @@
 		BAC1B73214E60C4300649748 /* EnterComposer@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "EnterComposer@2x.png"; sourceTree = "<group>"; };
 		BAC1B73514E6BF2300649748 /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
 		BAC1B73614E6BF2300649748 /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
-		BAC1B73C14E6C91400649748 /* ABTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABTableViewCell.h; sourceTree = "<group>"; };
-		BAC1B73D14E6C91400649748 /* ABTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABTableViewCell.m; sourceTree = "<group>"; };
-		BAC1B73F14E6C91E00649748 /* CustomDrawnCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomDrawnCell.h; sourceTree = "<group>"; };
-		BAC1B74014E6C91E00649748 /* CustomDrawnCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomDrawnCell.m; sourceTree = "<group>"; };
 		BAC1B74214E6CBCB00649748 /* ScalesCellBG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ScalesCellBG.png; sourceTree = "<group>"; };
 		BAC1B74314E6CBCB00649748 /* ScalesCellBG@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ScalesCellBG@2x.png"; sourceTree = "<group>"; };
 		BAC1B74614E6D1B000649748 /* StepperMinusDown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StepperMinusDown.png; sourceTree = "<group>"; };
@@ -333,8 +331,16 @@
 		CE48BEC114F31D27002535E5 /* StopWatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StopWatch.h; sourceTree = "<group>"; };
 		CE48BEC214F31D27002535E5 /* StopWatch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StopWatch.m; sourceTree = "<group>"; };
 		CE510090150BE05B00B56D91 /* Rhyth.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Rhyth.otf; sourceTree = "<group>"; };
+		CE83174B150E7EEA00611DB5 /* CompoundString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompoundString.h; sourceTree = "<group>"; };
+		CE83174C150E7EEA00611DB5 /* CompoundString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompoundString.m; sourceTree = "<group>"; };
+		CE83174F150E9F1E00611DB5 /* PieceCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PieceCell.h; sourceTree = "<group>"; };
+		CE831750150E9F1E00611DB5 /* PieceCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PieceCell.m; sourceTree = "<group>"; };
 		CE98858D14EC8B5000E8FA90 /* SessionStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SessionStore.h; sourceTree = "<group>"; };
 		CE98858E14EC8B5000E8FA90 /* SessionStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SessionStore.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		CECCE16F150CF1650084B147 /* LisztCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LisztCell.h; sourceTree = "<group>"; };
+		CECCE170150CF1650084B147 /* LisztCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LisztCell.m; sourceTree = "<group>"; };
+		CECCE173150D42060084B147 /* ScaleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScaleCell.h; sourceTree = "<group>"; };
+		CECCE174150D42060084B147 /* ScaleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScaleCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -462,6 +468,8 @@
 				BAE6998314E5555700D3ADF8 /* UIColor+YellowTextColor.m */,
 				BAB01A45150411AE00F8747B /* UITextField+Placeholder.h */,
 				BAB01A46150411AE00F8747B /* UITextField+Placeholder.m */,
+				CE83174B150E7EEA00611DB5 /* CompoundString.h */,
+				CE83174C150E7EEA00611DB5 /* CompoundString.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -567,10 +575,12 @@
 		BADA3FA4140BD9C200B57C49 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				BAC1B73C14E6C91400649748 /* ABTableViewCell.h */,
-				BAC1B73D14E6C91400649748 /* ABTableViewCell.m */,
-				BAC1B73F14E6C91E00649748 /* CustomDrawnCell.h */,
-				BAC1B74014E6C91E00649748 /* CustomDrawnCell.m */,
+				CECCE16F150CF1650084B147 /* LisztCell.h */,
+				CECCE170150CF1650084B147 /* LisztCell.m */,
+				CECCE173150D42060084B147 /* ScaleCell.h */,
+				CECCE174150D42060084B147 /* ScaleCell.m */,
+				CE83174F150E9F1E00611DB5 /* PieceCell.h */,
+				CE831750150E9F1E00611DB5 /* PieceCell.m */,
 				BADA3F9F140BD9B700B57C49 /* ScalesPracticedCell.h */,
 				BADA3FA0140BD9B700B57C49 /* ScalesPracticedCell.m */,
 				BADA3FA1140BD9B700B57C49 /* ScalesPracticedCell.xib */,
@@ -817,8 +827,6 @@
 				BAF21D4814D4EC2000CA7060 /* StatsVC+TableViewDelegate.m in Sources */,
 				BAF21D4C14D5953000CA7060 /* StatsVC+Header.m in Sources */,
 				BAE6998414E5555700D3ADF8 /* UIColor+YellowTextColor.m in Sources */,
-				BAC1B73E14E6C91400649748 /* ABTableViewCell.m in Sources */,
-				BAC1B74114E6C91E00649748 /* CustomDrawnCell.m in Sources */,
 				BACA58D014E866200054A634 /* BlockBackground.m in Sources */,
 				BACA58D114E866200054A634 /* BlockActionSheet.m in Sources */,
 				BACA58D214E866200054A634 /* BlockAlertView.m in Sources */,
@@ -828,6 +836,10 @@
 				BA44684114F92E0400AE0A0D /* NSMutableOrderedSet+DeepCopy.m in Sources */,
 				BA19768214F95AC000085FAD /* CustomSegment.m in Sources */,
 				BAB01A47150411AE00F8747B /* UITextField+Placeholder.m in Sources */,
+				CECCE171150CF1650084B147 /* LisztCell.m in Sources */,
+				CECCE175150D42060084B147 /* ScaleCell.m in Sources */,
+				CE83174D150E7EEA00611DB5 /* CompoundString.m in Sources */,
+				CE831751150E9F1E00611DB5 /* PieceCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

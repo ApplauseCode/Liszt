@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "Common.h"
 @class Timer;
+@class CompoundString;
 
 @interface Piece : NSObject <NSMutableCopying, NSCoding>
 @property (nonatomic, strong) NSString *title;
@@ -19,6 +20,7 @@
 @property int pieceTime;
 @property (nonatomic, strong )NSString *pieceNotes;
 
-- (NSString *)keyString;
+- (CompoundString *)keyCompoundString;
+
 
 @end

@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "Common.h"
 
+@class CompoundString;
+
 @interface Scale : NSObject <NSCoding, NSMutableCopying>
 
 @property tonicType tonic;
@@ -17,11 +19,11 @@
 @property rhythmType rhythm;
 @property int octaves;
 
--(NSString *) tonicString;
 -(NSString *) modeString;
 -(NSString *) rhythmString;
 -(NSString *) octavesString;
 -(NSString *) tempoString;
+- (CompoundString *)tonicCompoundString;
 
 
 @end

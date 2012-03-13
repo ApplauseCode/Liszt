@@ -8,6 +8,8 @@
 
 #import "Piece.h"
 #import "Timer.h"
+#import "CompoundString.h"
+
 
 @implementation Piece
 @synthesize title;
@@ -93,14 +95,82 @@
     return [NSString stringWithFormat:@"Title: %@ Composer: %@ Tempo: %i Major: %i", [self title], [self composer], [self tempo], [self major]];
 }
 
-- (NSString *)keyString
+- (CompoundString *)keyCompoundString
 {
-    // sharp: \u266f
-    // flat: \u266d
-    // display the typedef in proper string form on screen
-    NSArray *keysArray = [NSArray arrayWithObjects:@"C",@"C\u266f",@"D\u266d", @"D", @"D\u266f",@"E\u266d",@"E",@"F",@"F\u266f",@"G\u266d",@"G",@"G\u266f",@"A\u266d",@"A",@"A\u266f",@"B\u266d",@"B", nil];
+    CompoundString *result = [[CompoundString alloc] init];
+    UIFont *defaultFont = [UIFont fontWithName:@"ACaslonPro-Regular" size:18];
+    UIFont *accidentalFont = [UIFont fontWithName:@"ACaslonPro-Regular" size:15];
+    NSMutableArray *s;
+    NSMutableArray *f = [NSMutableArray arrayWithObjects:defaultFont, accidentalFont, nil];
+    NSNumber *zero = [NSNumber numberWithFloat:0.0];
+    NSNumber *adj = [NSNumber numberWithFloat:-2.0];
+    NSNumber *badj = [NSNumber numberWithFloat:-1.0];
+    NSMutableArray *k = [NSMutableArray arrayWithObjects:adj, zero, nil];
+    NSMutableArray *b = [NSMutableArray arrayWithObjects:zero, badj, nil];
     
-    return [keysArray objectAtIndex:pieceKey];
+    switch (pieceKey) {
+        case 0:
+            s = [NSMutableArray arrayWithObject:@"C"];
+            break;
+        case 1:
+            s = [NSMutableArray arrayWithObjects:@"C",@"\u266f",nil];
+            break;
+        case 2:
+            s = [NSMutableArray arrayWithObjects:@"D",@"\u266d",nil];
+            break;
+        case 3:
+            s = [NSMutableArray arrayWithObject:@"D"];
+            break;
+        case 4:
+            s = [NSMutableArray arrayWithObjects:@"D",@"\u266f",nil];
+            break;
+        case 5:
+            s = [NSMutableArray arrayWithObjects:@"E",@"\u266d",nil];
+            break;
+        case 6:
+            s = [NSMutableArray arrayWithObject:@"E"];
+            break;
+        case 7:
+            s = [NSMutableArray arrayWithObject:@"F"];
+            break;
+        case 8:
+            s = [NSMutableArray arrayWithObjects:@"F",@"\u266f",nil];
+            break;
+        case 9:
+            s = [NSMutableArray arrayWithObjects:@"G",@"\u266d",nil];
+            break;
+        case 10:
+            s = [NSMutableArray arrayWithObject:@"G"];
+            break;
+        case 11:
+            s = [NSMutableArray arrayWithObjects:@"G",@"\u266f",nil];
+            break;
+        case 12:
+            s = [NSMutableArray arrayWithObjects:@"A",@"\u266d",nil];
+            break;
+        case 13:
+            s = [NSMutableArray arrayWithObject:@"A"];
+            break;
+        case 14:
+            s = [NSMutableArray arrayWithObjects:@"A",@"\u266f",nil];
+            break;
+        case 15:
+            s = [NSMutableArray arrayWithObjects:@"B",@"\u266d",nil];
+            break;
+        case 16:
+            s = [NSMutableArray arrayWithObject:@"B"];
+            break;
+        default:
+            break;
+    }
+    [result setFonts:f];
+    [result setKerns:k];
+    [result setBase:b];
+    if (!major) 
+        [s replaceObjectAtIndex:0 withObject:[[s objectAtIndex:0] lowercaseString]];   
+    [result setStrings:s];
+    return  result;
+ 
 }
 
 @end

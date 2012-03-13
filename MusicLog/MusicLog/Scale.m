@@ -8,6 +8,7 @@
 
 #import "Scale.h"
 #import "NSString+Number.h"
+#import "CompoundString.h"
 
 @implementation Scale
 
@@ -43,12 +44,75 @@
     return [NSString stringWithFormat:@"\nTonic: %i. Type: %i. \nSpeed: %i. Rhythm: %i. Octaves: %i." , tonic, scaleMode, tempo, rhythm, octaves];
 }
 
-- (NSString *)tonicString
+- (CompoundString *)tonicCompoundString
 {
-    // display the typedef in proper string form on screen
-    NSArray *tonicArray = [NSArray arrayWithObjects:@"", @"", @"", @"C",@"C\u266f/D\u266d",@"D",@"D\u266f/E\u266d",@"E",@"F",@"F\u266f/G\u266d",@"G",@"G\u266f/A\u266d",@"A",@"A\u266f/B\u266d",@"B", nil];
-    
-    return [tonicArray objectAtIndex:tonic];
+    CompoundString *result = [[CompoundString alloc] init];
+    UIFont *defaultFont = [UIFont fontWithName:@"ACaslonPro-Regular" size:18];
+    UIFont *accidentalFont = [UIFont fontWithName:@"ACaslonPro-Regular" size:15];
+    NSMutableArray *s;
+    NSMutableArray *f = [NSMutableArray arrayWithObjects:defaultFont, accidentalFont, defaultFont, accidentalFont, nil];
+    NSNumber *zero = [NSNumber numberWithFloat:0.0];
+    NSNumber *adj = [NSNumber numberWithFloat:-4.0];
+    NSNumber *badj = [NSNumber numberWithFloat:-2.0];
+    NSMutableArray *k = [NSMutableArray arrayWithObjects:zero, zero, adj, zero, nil];
+    NSMutableArray *b = [NSMutableArray arrayWithObjects:zero, badj, zero, badj, nil];
+
+    switch (tonic) {
+        case 0:
+        case 1:
+        case 2:
+            s = [NSMutableArray arrayWithObject:@""];
+             break;
+        case 3:
+             s = [NSMutableArray arrayWithObject:@"C"];
+             break;
+        case 4:
+            s = [NSMutableArray arrayWithObjects:@"C",@"\u266f",@"/ D",@"\u266d",nil];
+            break;
+        case 5:
+            s = [NSMutableArray arrayWithObject:@"D"];
+            break;
+        case 6:
+            s = [NSMutableArray arrayWithObjects:@"D",@"\u266f",@"/ E",@"\u266d",nil];
+            break;
+        case 7:
+            s = [NSMutableArray arrayWithObject:@"E"];
+            break;
+        case 8:
+            s = [NSMutableArray arrayWithObject:@"F"];
+            break;
+        case 9:
+            s = [NSMutableArray arrayWithObjects:@"F",@"\u266f",@"/ G",@"\u266d",nil];
+            break;
+        case 10:
+            s = [NSMutableArray arrayWithObject:@"G"];
+            break;
+        case 11:
+            s = [NSMutableArray arrayWithObjects:@"G",@"\u266f",@"/ A",@"\u266d",nil];
+            break;
+        case 12:
+            s = [NSMutableArray arrayWithObject:@"A"];
+            break;
+        case 13:
+            s = [NSMutableArray arrayWithObjects:@"A",@"\u266f",@"/ B",@"\u266d",nil];
+            break;
+        case 14:
+            s = [NSMutableArray arrayWithObject:@"B"];
+            break;
+        default:
+             break;
+    }
+    [result setFonts:f];
+    [result setKerns:k];
+    [result setBase:b];
+    if (scaleMode > 0 && scaleMode < 4) {
+        [s replaceObjectAtIndex:0 withObject:[[s objectAtIndex:0] lowercaseString]];   
+        if ([s count] > 3) {
+            [s replaceObjectAtIndex:2 withObject:[[s objectAtIndex:2] lowercaseString]];
+        }
+    }
+    [result setStrings:s];
+    return  result;
 }
 
 - (NSString *)modeString
