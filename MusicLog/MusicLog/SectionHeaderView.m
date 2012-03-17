@@ -6,7 +6,7 @@
 @implementation SectionHeaderView
 
 
-@synthesize titleLabel=_titleLabel, disclosureImage, delegate=_delegate, section=_section, tapGesture, swipeGesture, subTitleLabel, deleteView;
+@synthesize titleLabel=_titleLabel, disclosureImage, delegate=_delegate, section=_section, tapGesture, swipeGesture, subTitleLabel, deleteView, longTap;
 
 
 + (Class)layerClass {
@@ -27,8 +27,10 @@
         // Set up the tap gesture recognizer.
         tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(toggleOpen:)];
         swipeGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(toggleSwipe:)];
+        longTap = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(toggleLongTap:)];
         [self addGestureRecognizer:tapGesture];
         [self addGestureRecognizer:swipeGesture];
+        [self addGestureRecognizer:longTap];
 
         _delegate = delegate;        
         self.userInteractionEnabled = YES;
@@ -162,6 +164,12 @@
 - (void)deleteCell:(id)sender
 {
     [[self delegate] deleteSection:self.section headerView:self];
+}
+
+- (void)toggleLongTap:(UILongPressGestureRecognizer *)sender
+{
+    if (sender.state == UIGestureRecognizerStateBegan)
+        [[self delegate] moveSection:self.section headerView:self];
 }
 
 @end

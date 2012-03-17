@@ -7,7 +7,8 @@
 //
 
 #import "StatsVC.h"
+@class CustomSectionMove;
 
-@interface StatsVC (Header) 
+@interface StatsVC (Header) <CustomSectionMoveDelegate>
 
 @end

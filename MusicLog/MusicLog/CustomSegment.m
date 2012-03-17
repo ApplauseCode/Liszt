@@ -60,12 +60,9 @@
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    //[super touchesBegan:touches withEvent:event];
     UITouch *touch = [touches anyObject];
-    NSLog(@"%f", [touch locationInView:self].x);
     float widthOfSegment = [self frame].size.width / segments;
     selectedIndex = [touch locationInView:self].x / widthOfSegment;
-    NSLog(@"%i", selectedIndex);
     [UIView animateWithDuration:0.3 animations:^{
         if (arrowLocations)
             [arrowIndicator setCenter:CGPointMake([[arrowLocations objectAtIndex:selectedIndex] floatValue], arrowIndicator.center.y)];

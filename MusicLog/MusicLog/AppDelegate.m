@@ -33,8 +33,7 @@
 //    [UIApplication sharedApplication].idleTimerDisabled = YES;
     /*remove later*/[TestFlight takeOff:@"0bb5b0fae5868594a374b52c1cd204c3_NTQ5NTIyMDEyLTAxLTI1IDE1OjU3OjIxLjYxMTI3NA"];
      application.applicationSupportsShakeToEdit = YES; /**/
-    [UIApplication sharedApplication].idleTimerDisabled = NO;
-    [UIApplication sharedApplication].idleTimerDisabled = YES;
+    [NSTimer scheduledTimerWithTimeInterval:30 target:self selector:@selector(timerFireMethod:) userInfo:nil repeats:YES];
     [self setAlertViewVisible:NO];
     [SessionStore defaultStore];
     [self checkDate];
@@ -46,6 +45,11 @@
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     return YES;
+}
+
+- (void)timerFireMethod:(NSTimer *)timer
+{
+    [UIApplication sharedApplication].idleTimerDisabled = YES;
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
@@ -82,12 +86,15 @@
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
-
-    
     [[SessionStore defaultStore] saveChanges];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
+{
+    [[SessionStore defaultStore] saveChanges];
+}
+
+- (void)applicationWillResignActive:(UIApplication *)application
 {
     [[SessionStore defaultStore] saveChanges];
 }

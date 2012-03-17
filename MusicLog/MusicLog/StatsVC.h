@@ -10,6 +10,7 @@
 #import "SectionHeaderView.h"
 #import "CustomStepper.h"
 #import <AVFoundation/AVFoundation.h>
+#import "CustomSectionMove.h"
 @class Timer;
 @class Metronome;
 @class Session;
@@ -24,6 +25,8 @@
     UIButton *timerButton;
     BOOL currentPractice;
     BOOL isTiming;
+    UILabel *totalTime;
+    CustomSectionMove *sectionMover;
 }
 - (void)blockAlertView:(BOOL)isYes;
 
@@ -43,6 +46,10 @@
 @property (nonatomic, strong)   TimerCell *tCell;
 @property (nonatomic, assign)   BOOL shouldDisplayTime;
 @property (nonatomic) BOOL isTiming;
+@property (nonatomic, strong) UILabel *totalTime;
+@property (nonatomic, strong) CustomSectionMove *sectionMover;
+
+
 
 - (void)makeMenu;
 - (void)makeMetronome;
@@ -54,6 +61,7 @@
 - (void)sectionHeaderView:(SectionHeaderView *)sectionHeaderView sectionClosed:(NSInteger)section;
 - (void)toggleTimer:(int)section;
 - (void)timerButtonPressed:(id)sender;
+- (NSInteger)calculateTotalTime;
 
 @property (strong, nonatomic) IBOutlet UILabel *tempoLabel;
 @property (strong, nonatomic) IBOutlet UIView *metronomeView;

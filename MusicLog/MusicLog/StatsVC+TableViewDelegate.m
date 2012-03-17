@@ -19,6 +19,7 @@
 #import "LisztCell.h"
 #import "ScaleCell.h"
 #import "PieceCell.h"
+#import "NotesVC.h"
 
 @implementation StatsVC (TableViewDelegate)
 
@@ -164,5 +165,13 @@
         if ([statsTable numberOfRowsInSection:section] == 1)
             [self closeSections];
     }   
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NotesVC *notes = [[NotesVC alloc] initWithIndexPath:indexPath session:selectedSession];
+    [self presentViewController:notes animated:YES completion:^{
+        
+    }];
 }
 @end

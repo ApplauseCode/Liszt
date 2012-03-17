@@ -84,6 +84,8 @@
 		BAB01A4415040FA400F8747B /* piecesBG@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BAB01A4215040FA400F8747B /* piecesBG@2x.png */; };
 		BAB01A47150411AE00F8747B /* UITextField+Placeholder.m in Sources */ = {isa = PBXBuildFile; fileRef = BAB01A46150411AE00F8747B /* UITextField+Placeholder.m */; };
 		BAB8C0E11447368F00887CDA /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BAB8C0E01447368F00887CDA /* CoreGraphics.framework */; };
+		BABD7C7815102955006C81BE /* NotesVC.m in Sources */ = {isa = PBXBuildFile; fileRef = BABD7C7715102955006C81BE /* NotesVC.m */; };
+		BABD7C7F151413C3006C81BE /* CustomSectionMove.m in Sources */ = {isa = PBXBuildFile; fileRef = BABD7C7E151413C3006C81BE /* CustomSectionMove.m */; };
 		BABEA1FC146368F00052D29D /* Piece.m in Sources */ = {isa = PBXBuildFile; fileRef = BABEA1FB146368F00052D29D /* Piece.m */; };
 		BAC1B72714E5E8CF00649748 /* ACChooserUnderlay.png in Resources */ = {isa = PBXBuildFile; fileRef = BAC1B72514E5E8CF00649748 /* ACChooserUnderlay.png */; };
 		BAC1B72814E5E8CF00649748 /* ACChooserUnderlay@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BAC1B72614E5E8CF00649748 /* ACChooserUnderlay@2x.png */; };
@@ -248,6 +250,10 @@
 		BAB01A45150411AE00F8747B /* UITextField+Placeholder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextField+Placeholder.h"; sourceTree = "<group>"; };
 		BAB01A46150411AE00F8747B /* UITextField+Placeholder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextField+Placeholder.m"; sourceTree = "<group>"; };
 		BAB8C0E01447368F00887CDA /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		BABD7C7615102955006C81BE /* NotesVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotesVC.h; sourceTree = "<group>"; };
+		BABD7C7715102955006C81BE /* NotesVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotesVC.m; sourceTree = "<group>"; };
+		BABD7C7D151413C3006C81BE /* CustomSectionMove.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomSectionMove.h; sourceTree = "<group>"; };
+		BABD7C7E151413C3006C81BE /* CustomSectionMove.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomSectionMove.m; sourceTree = "<group>"; };
 		BABEA1FA146368F00052D29D /* Piece.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Piece.h; sourceTree = "<group>"; };
 		BABEA1FB146368F00052D29D /* Piece.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Piece.m; sourceTree = "<group>"; };
 		BAC1B72514E5E8CF00649748 /* ACChooserUnderlay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ACChooserUnderlay.png; sourceTree = "<group>"; };
@@ -607,6 +613,8 @@
 				BA811C73140D38EF00A5558A /* StatsVC.h */,
 				BA811C74140D38EF00A5558A /* StatsVC.m */,
 				BA811C75140D38EF00A5558A /* StatsVC.xib */,
+				BABD7C7615102955006C81BE /* NotesVC.h */,
+				BABD7C7715102955006C81BE /* NotesVC.m */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -626,6 +634,8 @@
 				BA3077DB141E4164003124E6 /* CustomStepper.m */,
 				BA19768014F95AC000085FAD /* CustomSegment.h */,
 				BA19768114F95AC000085FAD /* CustomSegment.m */,
+				BABD7C7D151413C3006C81BE /* CustomSectionMove.h */,
+				BABD7C7E151413C3006C81BE /* CustomSectionMove.m */,
 				BA8CC24A1436088A00ADE21B /* Timer.h */,
 				BA8CC24B1436088A00ADE21B /* Timer.m */,
 				BA513256145B5D5C00043279 /* DoubleTap.h */,
@@ -666,7 +676,7 @@
 		BADA3F73140BD8DF00B57C49 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0420;
+				LastUpgradeCheck = 0430;
 			};
 			buildConfigurationList = BADA3F76140BD8DF00B57C49 /* Build configuration list for PBXProject "Liszt" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -840,6 +850,8 @@
 				CECCE175150D42060084B147 /* ScaleCell.m in Sources */,
 				CE83174D150E7EEA00611DB5 /* CompoundString.m in Sources */,
 				CE831751150E9F1E00611DB5 /* PieceCell.m in Sources */,
+				BABD7C7815102955006C81BE /* NotesVC.m in Sources */,
+				BABD7C7F151413C3006C81BE /* CustomSectionMove.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

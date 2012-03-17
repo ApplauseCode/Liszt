@@ -33,9 +33,7 @@
 @property (nonatomic, strong) UIView *datePickerView;
 @property (nonatomic, strong) StopWatch *stopWatch;
 @property (nonatomic, strong) id theObserver;
-@property (nonatomic, strong) UILabel *totalTime;
 - (void)backToToday:(id)sender;
-- (NSInteger)calculateTotalTime;
 
 @end
 
@@ -64,6 +62,7 @@
 @synthesize stopWatch;
 @synthesize theObserver;
 @synthesize isTiming;
+@synthesize sectionMover;
 
 #pragma mark - View lifecycle
 
@@ -116,7 +115,7 @@
      forCellReuseIdentifier:@"ScalesPracticedCell"];
     [statsTable setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     
-    totalTime = [[UILabel alloc] initWithFrame:CGRectMake(239, 68, 100, 28)];
+    totalTime = [[UILabel alloc] initWithFrame:CGRectMake(239, 57, 100, 28)];
     [totalTime setFont:[UIFont fontWithName:@"ACaslonPro-Regular" size:20]];
     [totalTime setTextColor:[UIColor blackColor]];
     [totalTime setBackgroundColor:[UIColor clearColor]];
@@ -448,7 +447,9 @@
     else
     {
         selectedSession = [filteredSessions objectAtIndex:0];
-        [selSessionDisplay setText:[NSString stringWithFormat:@"%@", [selectedSession date]]];
+        NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+        [dateFormat setDateFormat:@"MMM dd, yyyy"];
+        [selSessionDisplay setText:[dateFormat stringFromDate:[selectedSession date]]];
         currentPractice = NO;
     }
     [[sectionInfoArray objectAtIndex:0] setCountofRowsToInsert:[[selectedSession scaleSession] count]];

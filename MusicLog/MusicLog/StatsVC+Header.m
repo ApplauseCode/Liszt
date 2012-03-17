@@ -14,6 +14,7 @@
 #import "Piece.h"
 #import "SessionStore.h"
 #import "NSString+Number.h"
+#import "CustomSectionMove.h"
 
 @implementation StatsVC (Header)
 #pragma mark - Handling Sections
@@ -131,6 +132,64 @@
         [sectionInfoArray removeObjectAtIndex:section];
         [statsTable deleteSections:[NSIndexSet indexSetWithIndex:section] withRowAnimation:UITableViewRowAnimationAutomatic];
         [self setOpenSectionIndex:NSNotFound];
+        NSString *timeString = [NSString timeStringFromInt:[self calculateTotalTime]];
+        [totalTime setText:timeString];
+        for (int i = section; i < [sectionInfoArray count]; i++)
+        {
+            NSInteger currentSection = [[[sectionInfoArray objectAtIndex:i] headerView] section];
+            SectionHeaderView *currentHeader = [[sectionInfoArray objectAtIndex:i] headerView];
+            [currentHeader setSection:(currentSection - 1)];
+        }
     }
+}
+
+- (void)moveSection:(NSInteger)section headerView:(SectionHeaderView *)sectionHeaderView
+{
+    if (section > 1)
+    {
+        sectionMover = [[CustomSectionMove alloc] initWithFrame:[statsTable frame]
+                                               numberOfSections:[statsTable numberOfSections]
+                                                heightOfSection:[statsTable sectionHeaderHeight]];
+        [sectionMover setOldSection:section];
+        [sectionMover setDelegate:self];
+        [self.view addSubview:sectionMover];
+    }
+//    if (section > 1)
+//    {
+//        NSInteger oldSectionFirst = [[[sectionInfoArray objectAtIndex:section] headerView] section];
+//        NSInteger oldSectionSecond = [[[sectionInfoArray objectAtIndex:section + 1] headerView] section];
+//        [[[sectionInfoArray objectAtIndex:section] headerView] setSection:oldSectionSecond];
+//        [[[sectionInfoArray objectAtIndex:section + 1] headerView] setSection:oldSectionFirst];
+//        [statsTable beginUpdates];
+//        [statsTable moveSection:section toSection:section + 1];
+//        [statsTable endUpdates];
+//    }
+    
+}
+
+- (void)sectionMoveLocationSelected:(NSInteger)section
+{
+    if (section > 1)
+    {
+        [[[sectionInfoArray objectAtIndex:[sectionMover oldSection]] headerView] setSection:section];
+        NSInteger largerSection = MAX([sectionMover oldSection], section);
+        NSInteger smallerSection = MIN([sectionMover oldSection], section);
+        for (int i = smallerSection; i < largerSection; i++)
+        {
+            [[[sectionInfoArray objectAtIndex:i] headerView] setSection:i + 1];
+            
+        }
+        SectionInfo *objectToMove = [sectionInfoArray objectAtIndex:[sectionMover oldSection]];
+        [sectionInfoArray removeObject:objectToMove];
+        [sectionInfoArray insertObject:objectToMove atIndex:section];
+        [sectionMover removeFromSuperview];
+        [statsTable beginUpdates];
+        [statsTable moveSection:[sectionMover oldSection] toSection:section];
+        [statsTable endUpdates];
+        // for debugging
+        for (SectionInfo *info in sectionInfoArray)
+            NSLog(@"objectAtIndex:%i section:%i title:%@", [sectionInfoArray indexOfObject:info], [[info headerView] section], [[[info headerView] titleLabel] text]);
+    }
+    
 }
 @end

@@ -54,7 +54,6 @@ int tempoRange(int x)
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    [super touchesBegan:touches withEvent:event];
     myTouch = [touches anyObject];
     if ([myTouch locationInView:self].x >= ([self frame].size.width / 2))
         [stepperBG setImage:[UIImage imageNamed:@"StepperPlusDown.png"]];
@@ -67,7 +66,7 @@ int tempoRange(int x)
 - (void)timerFireMethod:(NSTimer*)theTimer
 {
     timeElapsed += [timer timeInterval];
-    if (timeElapsed >= 0.5)
+    if (timeElapsed >= 0.35)
     {    
         if ([myTouch locationInView:self].x >= ([self frame].size.width / 2))
         {        
