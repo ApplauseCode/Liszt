@@ -11,12 +11,14 @@
 #import "CustomStepper.h"
 #import <AVFoundation/AVFoundation.h>
 #import "CustomSectionMove.h"
+#import "StatsView.h"
 @class Timer;
 @class Metronome;
 @class Session;
 @class TimerCell;
+@class SectionHeaderView;
 
-@interface StatsVC : UIViewController <SectionHeaderViewDelegate, UIGestureRecognizerDelegate, UIScrollViewDelegate, CustomStepperDelegate, UIAlertViewDelegate>
+@interface StatsVC : UIViewController <SectionHeaderViewDelegate, UIGestureRecognizerDelegate, UIScrollViewDelegate, CustomStepperDelegate, UIAlertViewDelegate, StatsViewHitTestDelegate>
 {
     Session *selectedSession;
     NSMutableArray *sectionInfoArray;
@@ -27,6 +29,9 @@
     BOOL isTiming;
     UILabel *totalTime;
     CustomSectionMove *sectionMover;
+    SectionHeaderView *swipedHeader;
+    UITextView *notesView;
+    UITapGestureRecognizer *notesTapGesture;
 }
 - (void)blockAlertView:(BOOL)isYes;
 
@@ -48,6 +53,11 @@
 @property (nonatomic) BOOL isTiming;
 @property (nonatomic, strong) UILabel *totalTime;
 @property (nonatomic, strong) CustomSectionMove *sectionMover;
+@property (nonatomic, strong) SectionHeaderView *swipedHeader;
+@property (nonatomic, strong) UITextView *notesView;
+@property (nonatomic, strong) UITapGestureRecognizer *notesTapGesture;
+//@property (nonatomic, strong) UISwipeGestureRecognizer *tableSwipe;
+
 
 
 
@@ -61,6 +71,7 @@
 - (void)sectionHeaderView:(SectionHeaderView *)sectionHeaderView sectionClosed:(NSInteger)section;
 - (void)toggleTimer:(int)section;
 - (void)timerButtonPressed:(id)sender;
+- (void)swipeDetected:(id)sender;
 - (NSInteger)calculateTotalTime;
 
 @property (strong, nonatomic) IBOutlet UILabel *tempoLabel;

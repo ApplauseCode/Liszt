@@ -6,7 +6,7 @@
 @implementation SectionHeaderView
 
 
-@synthesize titleLabel=_titleLabel, disclosureImage, delegate=_delegate, section=_section, tapGesture, swipeGesture, subTitleLabel, deleteView, longTap;
+@synthesize titleLabel=_titleLabel, disclosureImage, delegate=_delegate, section=_section, tapGesture, subTitleLabel, swipeGesture, deleteView, notesButton, deleteButton;
 
 
 + (Class)layerClass {
@@ -22,15 +22,33 @@
     if (self != nil) {
         _section = sectionNumber;
     
-        deleteView = [[UIView alloc] initWithFrame:CGRectMake(-320, 0, 320, 45)];
+        deleteView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
+        [deleteView setBackgroundColor:[UIColor clearColor]];
+        [deleteView setOpaque:NO];
+        notesButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 160, 45)];
+        [notesButton setTitle:@"Notations" forState:UIControlStateNormal];
+        [notesButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [notesButton setBackgroundColor:[UIColor clearColor]];
+        [notesButton setOpaque:NO];
+        [notesButton addTarget:self action:@selector(addNotes:) forControlEvents:UIControlEventTouchUpInside];
+        deleteButton = [[UIButton alloc] initWithFrame:CGRectMake(160, 0, 160, 45)];
+        [deleteButton setTitle:@"Delete" forState:UIControlStateNormal];
+        [deleteButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [deleteButton setOpaque:NO];
+        [deleteButton setBackgroundColor:[UIColor clearColor]];
+        [deleteButton addTarget:self action:@selector(deleteCell:) forControlEvents:UIControlEventTouchUpInside];
+        [deleteView addSubview:deleteButton];
+        [deleteView addSubview:notesButton];
+        [self insertSubview:deleteView belowSubview:self];
         [deleteView setBackgroundColor:[UIColor whiteColor]];
         // Set up the tap gesture recognizer.
         tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(toggleOpen:)];
         swipeGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(toggleSwipe:)];
-        longTap = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(toggleLongTap:)];
+        [swipeGesture setDirection:UISwipeGestureRecognizerDirectionLeft];
+        //ongTap = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(toggleLongTap:)];
         [self addGestureRecognizer:tapGesture];
         [self addGestureRecognizer:swipeGesture];
-        [self addGestureRecognizer:longTap];
+        //[self addGestureRecognizer:longTap];
 
         _delegate = delegate;        
         self.userInteractionEnabled = YES;
@@ -104,58 +122,33 @@
 
 -(void)toggleOpen:(id)sender {
     [self.delegate sectionHeaderView:self tapped:self.section];
-    //[self toggleOpenWithUserAction:YES];
 }
-
-
-//-(void)toggleOpenWithUserAction:(BOOL)userAction {
-//    
-//    // Toggle the disclosure button state.
-//    //self.disclosureButton.selected = !self.disclosureButton.selected;
-//    
-//    // If this was a user action, send the delegate the appropriate message.
-//    if (userAction) {
-//       // if (self.disclosureButton.selected) {
-//            if ([self.delegate respondsToSelector:@selector(sectionHeaderView:sectionOpened:)]) {
-//                //[self.delegate sectionHeaderView:self sectionOpened:self.section];
-//            }
-//        }
-//        else {
-//            if ([self.delegate respondsToSelector:@selector(sectionHeaderView:sectionClosed:)]) {
-//               // [self.delegate sectionHeaderView:self sectionClosed:self.section];
-//            }
-//        }
-//    }
-//}
 
 - (void)toggleSwipe:(id)sender
 {
-
-    UIButton *cancel = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 160, 45)];
-    [cancel setTitle:@"Cancel" forState:UIControlStateNormal];
-    [cancel setBackgroundColor:[UIColor blueColor]];
-    [cancel addTarget:self action:@selector(cancelDelete:) forControlEvents:UIControlEventTouchUpInside];
-    UIButton *delete = [[UIButton alloc] initWithFrame:CGRectMake(160, 0, 160, 45)];
-    [delete setTitle:@"Delete" forState:UIControlStateNormal];
-    [delete setBackgroundColor:[UIColor blueColor]];
-    [delete addTarget:self action:@selector(deleteCell:) forControlEvents:UIControlEventTouchUpInside];
-    [deleteView addSubview:delete];
-    [deleteView addSubview:cancel];
-    [self addSubview:deleteView];
-    [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationCurveEaseIn animations:^{
-        [deleteView setFrame:CGRectMake(0.0, 0.0, 320, 45)];
-        //[self setFrame:CGRectMake(640, 0, 320, 45)];
+    [[self delegate] sectionSwiped:self.section headerView:self];
+    [UIView animateWithDuration:0.2 animations:^{        
+        // Move the side swipe view to offset 0
+        deleteView.frame = CGRectMake(self.frame.size.width, 0, deleteView.frame.size.width, deleteView.frame.size.height);
+        // While simultaneously moving the cell's frame offscreen
+        // The net effect is that the side swipe view is pushing the cell offscreen
+        self.frame = CGRectMake(-self.frame.size.width, self.frame.origin.y, self.frame.size.width, self.frame.size.height);
     } completion:^(BOOL finished) {
         [[self tapGesture] setEnabled:NO];
     }];
 }
 
+- (void)addNotes:(id)sender
+{
+    [[self delegate] displayNotesViewForSection:self.section headerView:self];
+}
 - (void)cancelDelete:(id)sender
 {
     [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationCurveEaseIn animations:^{
-        [deleteView setFrame:CGRectMake(-320, 0, 320, 45)];
+        [deleteView setFrame:CGRectMake(0, 0, deleteView.frame.size.width, deleteView.frame.size.height)];
+        [self setFrame:CGRectMake(0, self.frame.origin.y, self.frame.size.width, self.frame.size.height)];
     } completion:^(BOOL finished) {
-        [deleteView removeFromSuperview];
+       // [deleteView removeFromSuperview];
         [[self tapGesture] setEnabled:YES];
     }];
     
@@ -171,5 +164,4 @@
     if (sender.state == UIGestureRecognizerStateBegan)
         [[self delegate] moveSection:self.section headerView:self];
 }
-
 @end

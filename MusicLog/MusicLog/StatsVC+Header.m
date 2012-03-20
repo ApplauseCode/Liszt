@@ -15,6 +15,7 @@
 #import "SessionStore.h"
 #import "NSString+Number.h"
 #import "CustomSectionMove.h"
+#import "StatsView.h"
 
 @implementation StatsVC (Header)
 #pragma mark - Handling Sections
@@ -141,55 +142,147 @@
             [currentHeader setSection:(currentSection - 1)];
         }
     }
+    [self setSwipedHeader:nil];
 }
 
-- (void)moveSection:(NSInteger)section headerView:(SectionHeaderView *)sectionHeaderView
+- (void)displayNotesViewForSection:(NSInteger)section headerView:(SectionHeaderView *)headerView
 {
-    if (section > 1)
-    {
-        sectionMover = [[CustomSectionMove alloc] initWithFrame:[statsTable frame]
-                                               numberOfSections:[statsTable numberOfSections]
-                                                heightOfSection:[statsTable sectionHeaderHeight]];
-        [sectionMover setOldSection:section];
-        [sectionMover setDelegate:self];
-        [self.view addSubview:sectionMover];
+    CGRect frameOfExcludedArea = [self.view.superview convertRect:headerView.deleteView.frame fromView:headerView.deleteView.superview];
+    CGPoint center = CGPointMake(frameOfExcludedArea.origin.x + (frameOfExcludedArea.size.width / 2),
+                                 frameOfExcludedArea.origin.y + (frameOfExcludedArea.size.height / 2));
+    [notesTapGesture addTarget:self action:@selector(getRidOfNotes:)];
+    [notesTapGesture setEnabled:YES];
+    [self.view addGestureRecognizer:notesTapGesture];
+    notesView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, 280, 50)];
+    [notesView setDelegate:self];
+    [notesView setCenter:CGPointMake(center.x, center.y - 75)];
+    Session *mySession = [[SessionStore defaultStore] mySession];
+    NSString *notesViewText;
+    switch (swipedHeader.section) {
+        case 0:
+            notesViewText = [mySession scaleNotes];
+            break;
+        case 1:
+            notesViewText = [mySession arpeggioNotes];
+        default:
+            notesViewText = [[[mySession pieceSession] objectAtIndex:swipedHeader.section - 2] pieceNotes];
+            break;
     }
+    [notesView setText:notesViewText];
+    [self.view addSubview:notesView];
+}
+- (void)getRidOfNotes:(id)sender
+{
+    [notesView removeFromSuperview];
+    [notesTapGesture setEnabled:NO];
+    Session *mySession = [[SessionStore defaultStore] mySession];
+    switch (swipedHeader.section) {
+        case 0:
+            [mySession setScaleNotes:[notesView text]];
+            break;
+        case 1:
+            [mySession setArpeggioNotes:[notesView text]];
+        default:
+            [[[mySession pieceSession] objectAtIndex:swipedHeader.section - 2] setPieceNotes:[notesView text]];
+            break;
+    }
+}
+
+
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range 
+ replacementText:(NSString *)text
+{
+    if ([text isEqualToString:@"\n"]) {
+        Session *mySession = [[SessionStore defaultStore] mySession];
+        [textView resignFirstResponder];
+        [textView removeFromSuperview];
+        [notesTapGesture setEnabled:NO];
+        switch (swipedHeader.section) {
+            case 0:
+                [mySession setScaleNotes:[textView text]];
+                break;
+            case 1:
+                [mySession setArpeggioNotes:[textView text]];
+            default:
+                [[[mySession pieceSession] objectAtIndex:swipedHeader.section - 2] setPieceNotes:[textView text]];
+                break;
+        }
+        return FALSE;
+    }
+    return TRUE;
+}
+
+- (void)sectionSwiped:(NSInteger)section headerView:(SectionHeaderView *)sectionHeaderView
+{
+    self.swipedHeader = sectionHeaderView;
+}
+
+- (UIView *)hitWithPoint:(CGPoint)point
+{
+    if (swipedHeader)
+    {
+        if ([notesView isDescendantOfView:self.view])
+            return nil;
+        CGRect frameOfExcludedArea = [self.view.superview convertRect:swipedHeader.deleteView.frame fromView:swipedHeader.deleteView.superview];
+        if ((point.y > frameOfExcludedArea.origin.y-20) && (point.y < frameOfExcludedArea.origin.y-20 + frameOfExcludedArea.size.height))
+        {
+            if(point.x > (self.view.frame.size.width / 2))
+                return swipedHeader.deleteButton;
+            else
+                return swipedHeader.notesButton;
+        }
+        else if (CGRectContainsPoint([notesView frame], point))
+        {
+            return notesView;
+        }
+        else if (CGRectContainsPoint([statsTable frame], point))
+        {
+            [swipedHeader cancelDelete:nil];
+            [self setSwipedHeader:nil];
+            return statsTable;
+        }
+        else 
+        {
+            [swipedHeader cancelDelete:nil];
+            [self setSwipedHeader:nil];
+             return nil;
+        }
+    }
+    return nil;
+}
+
+//- (void)moveSection:(NSInteger)section headerView:(SectionHeaderView *)sectionHeaderView
+//{
 //    if (section > 1)
 //    {
-//        NSInteger oldSectionFirst = [[[sectionInfoArray objectAtIndex:section] headerView] section];
-//        NSInteger oldSectionSecond = [[[sectionInfoArray objectAtIndex:section + 1] headerView] section];
-//        [[[sectionInfoArray objectAtIndex:section] headerView] setSection:oldSectionSecond];
-//        [[[sectionInfoArray objectAtIndex:section + 1] headerView] setSection:oldSectionFirst];
+//        sectionMover = [[CustomSectionMove alloc] initWithFrame:[statsTable frame]
+//                                               numberOfSections:[statsTable numberOfSections]
+//                                                heightOfSection:[statsTable sectionHeaderHeight]];
+//        [sectionMover setOldSection:section];
+//        [sectionMover setDelegate:self];
+//        [self.view addSubview:sectionMover];
+//    }
+//}
+
+//- (void)sectionMoveLocationSelected:(NSInteger)section
+//{
+//    if (section > 1)
+//    {
+//        [[[sectionInfoArray objectAtIndex:[sectionMover oldSection]] headerView] setSection:section];
+//        NSInteger largerSection = MAX([sectionMover oldSection], section);
+//        NSInteger smallerSection = MIN([sectionMover oldSection], section);
+//        for (int i = smallerSection; i < largerSection; i++)
+//        {
+//            [[[sectionInfoArray objectAtIndex:i] headerView] setSection:i + 1];
+//            
+//        }
+//        SectionInfo *objectToMove = [sectionInfoArray objectAtIndex:[sectionMover oldSection]];
+//        [sectionInfoArray removeObject:objectToMove];
+//        [sectionInfoArray insertObject:objectToMove atIndex:section];
+//        [sectionMover removeFromSuperview];
 //        [statsTable beginUpdates];
-//        [statsTable moveSection:section toSection:section + 1];
+//        [statsTable moveSection:[sectionMover oldSection] toSection:section];
 //        [statsTable endUpdates];
 //    }
-    
-}
-
-- (void)sectionMoveLocationSelected:(NSInteger)section
-{
-    if (section > 1)
-    {
-        [[[sectionInfoArray objectAtIndex:[sectionMover oldSection]] headerView] setSection:section];
-        NSInteger largerSection = MAX([sectionMover oldSection], section);
-        NSInteger smallerSection = MIN([sectionMover oldSection], section);
-        for (int i = smallerSection; i < largerSection; i++)
-        {
-            [[[sectionInfoArray objectAtIndex:i] headerView] setSection:i + 1];
-            
-        }
-        SectionInfo *objectToMove = [sectionInfoArray objectAtIndex:[sectionMover oldSection]];
-        [sectionInfoArray removeObject:objectToMove];
-        [sectionInfoArray insertObject:objectToMove atIndex:section];
-        [sectionMover removeFromSuperview];
-        [statsTable beginUpdates];
-        [statsTable moveSection:[sectionMover oldSection] toSection:section];
-        [statsTable endUpdates];
-        // for debugging
-        for (SectionInfo *info in sectionInfoArray)
-            NSLog(@"objectAtIndex:%i section:%i title:%@", [sectionInfoArray indexOfObject:info], [[info headerView] section], [[[info headerView] titleLabel] text]);
-    }
-    
-}
+//}
 @end

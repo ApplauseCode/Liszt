@@ -50,6 +50,7 @@
 		BA44684114F92E0400AE0A0D /* NSMutableOrderedSet+DeepCopy.m in Sources */ = {isa = PBXBuildFile; fileRef = BA44684014F92E0400AE0A0D /* NSMutableOrderedSet+DeepCopy.m */; };
 		BA513255145A484600043279 /* ACchooser.m in Sources */ = {isa = PBXBuildFile; fileRef = BA513254145A484600043279 /* ACchooser.m */; };
 		BA513258145B5D5C00043279 /* DoubleTap.m in Sources */ = {isa = PBXBuildFile; fileRef = BA513257145B5D5C00043279 /* DoubleTap.m */; };
+		BA52EED615156FEB00C2A012 /* StatsView.m in Sources */ = {isa = PBXBuildFile; fileRef = BA52EED515156FEB00C2A012 /* StatsView.m */; };
 		BA560572148E7D6F00411BA9 /* CustomPopover.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA560571148E7D6F00411BA9 /* CustomPopover.xib */; };
 		BA5605761492D97500411BA9 /* TimerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BA5605741492D97500411BA9 /* TimerCell.m */; };
 		BA5605771492D97500411BA9 /* TimerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA5605751492D97500411BA9 /* TimerCell.xib */; };
@@ -210,6 +211,8 @@
 		BA513254145A484600043279 /* ACchooser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACchooser.m; sourceTree = "<group>"; };
 		BA513256145B5D5C00043279 /* DoubleTap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DoubleTap.h; sourceTree = "<group>"; };
 		BA513257145B5D5C00043279 /* DoubleTap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DoubleTap.m; sourceTree = "<group>"; };
+		BA52EED415156FEB00C2A012 /* StatsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatsView.h; sourceTree = "<group>"; };
+		BA52EED515156FEB00C2A012 /* StatsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatsView.m; sourceTree = "<group>"; };
 		BA560571148E7D6F00411BA9 /* CustomPopover.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomPopover.xib; sourceTree = "<group>"; };
 		BA5605731492D97500411BA9 /* TimerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimerCell.h; sourceTree = "<group>"; };
 		BA5605741492D97500411BA9 /* TimerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimerCell.m; sourceTree = "<group>"; };
@@ -612,6 +615,8 @@
 				BAF21D4B14D5953000CA7060 /* StatsVC+Header.m */,
 				BA811C73140D38EF00A5558A /* StatsVC.h */,
 				BA811C74140D38EF00A5558A /* StatsVC.m */,
+				BA52EED415156FEB00C2A012 /* StatsView.h */,
+				BA52EED515156FEB00C2A012 /* StatsView.m */,
 				BA811C75140D38EF00A5558A /* StatsVC.xib */,
 				BABD7C7615102955006C81BE /* NotesVC.h */,
 				BABD7C7715102955006C81BE /* NotesVC.m */,
@@ -852,6 +857,7 @@
 				CE831751150E9F1E00611DB5 /* PieceCell.m in Sources */,
 				BABD7C7815102955006C81BE /* NotesVC.m in Sources */,
 				BABD7C7F151413C3006C81BE /* CustomSectionMove.m in Sources */,
+				BA52EED615156FEB00C2A012 /* StatsView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

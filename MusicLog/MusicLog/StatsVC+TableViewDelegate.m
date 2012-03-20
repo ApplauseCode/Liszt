@@ -169,9 +169,9 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
     NotesVC *notes = [[NotesVC alloc] initWithIndexPath:indexPath session:selectedSession];
     [self presentViewController:notes animated:YES completion:^{
-        
     }];
 }
 @end

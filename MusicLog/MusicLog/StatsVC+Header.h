@@ -8,7 +8,9 @@
 
 #import "StatsVC.h"
 @class CustomSectionMove;
+@class AllGesturesRecognizer;
 
-@interface StatsVC (Header) <CustomSectionMoveDelegate>
+@interface StatsVC (Header) <CustomSectionMoveDelegate, UIGestureRecognizerDelegate, UITextViewDelegate>
+- (void)getRidOfNotes:(id)sender;
 
 @end

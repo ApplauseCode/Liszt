@@ -63,6 +63,10 @@
 @synthesize theObserver;
 @synthesize isTiming;
 @synthesize sectionMover;
+@synthesize swipedHeader;
+@synthesize notesView;
+@synthesize notesTapGesture;
+//@synthesize tableSwipe;
 
 #pragma mark - View lifecycle
 
@@ -104,11 +108,14 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [(StatsView *) self.view setDelegate:self];
     stopWatch = [[StopWatch alloc] init];
     isTiming = NO;
-    
     [selSessionDisplay setFont:[UIFont fontWithName:@"ACaslonPro-Regular" size:20]];
     [selSessionDisplay setTextColor:[UIColor whiteColor]];
+    
+    notesTapGesture = [[UITapGestureRecognizer alloc] init];
 
     UINib *nib = [UINib nibWithNibName:@"ScalesPracticedCell" bundle:nil];
     [statsTable registerNib:nib 
@@ -225,9 +232,17 @@
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
 {
-    if ((touch.view == myPopover) || (touch.view == chooseScalesButton) || (touch.view == chooseArpsButton) || (touch.view == choosePiecesButton))
-        return NO;
-    return YES;
+    if ([gestureRecognizer isEqual:tapAwayGesture])
+    {
+        if ((touch.view == myPopover) || (touch.view == chooseScalesButton) || (touch.view == chooseArpsButton) || (touch.view == choosePiecesButton))
+            return NO;
+        return YES;
+    }
+    else {
+//        if (touch.view == notesView)
+//            return NO;
+        return YES;
+    }
 }
 
 - (void)showMenu:(id)sender
@@ -504,6 +519,11 @@
         else
             index = nil;
     }
+}
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    [notesView removeFromSuperview];
 }
 
 - (void)startMetronome:(id)sender {
