@@ -3,7 +3,7 @@
 //  MusicLog
 //
 //  Created by Kyle Rosenbluth on 8/30/11.
-//  Copyright (c) 2011 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2011 __Applause Code__. All rights reserved.
 //
 
 #import <AVFoundation/AVFoundation.h>
@@ -105,14 +105,9 @@
     }
     return self;
 }
-
 ////////////////////////// REMOVE LATER //////////////////
-- (BOOL)canBecomeFirstResponder
-{
-    return YES;
-}
+- (BOOL)canBecomeFirstResponder { return YES;}
 /////////////////////////////////////////////////////////
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -159,11 +154,14 @@
     [self makeMetronome];
     [self setUpScalesAndArpeggios];
     
+    [[[self view] layer] setShadowColor:[UIColor blackColor].CGColor];
+    [[[self view] layer] setShadowOpacity: 0.7f];
+    [[[self view] layer] setShadowOffset:CGSizeMake(-5.0f, 0.0)];
+    [[[self view] layer] setShadowRadius:3.0f];
+
     slideBack = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 460)];
     [slideBack addTarget:self action:@selector(slideLeft:) forControlEvents:UIControlEventTouchUpInside];
     [slideBack setBackgroundColor:[UIColor clearColor]];
-    [slideBack setEnabled:NO];
-    [self.view addSubview:slideBack];
 }
 
 -(void)viewDidAppear:(BOOL)animated {
@@ -193,7 +191,7 @@
     [self hideMenu:nil];
 }
 
-#pragma mark - Setup custom controls
+# pragma mark - Popover Menu
 
 - (void) makeMenu {
     myPopover = [[[NSBundle mainBundle] loadNibNamed:@"CustomPopover" owner:self options:nil] objectAtIndex:0];
@@ -208,6 +206,43 @@
     [greyMask setAlpha:0];
 }
 
+- (void)showMenu:(id)sender
+{
+    [self.view addSubview:greyMask];
+    [self.view addSubview:myPopover];
+    [UIView animateWithDuration:0.2 animations:^{
+        [greyMask setAlpha:0.2];
+        [myPopover setAlpha:1.0];
+    }];
+    [tapAwayGesture setEnabled:YES];
+    for (SectionInfo *info in sectionInfoArray)
+        [[[info headerView] tapGesture] setEnabled:NO];
+}
+
+- (void)hideMenu:(id)sender
+{
+    [UIView animateWithDuration:0.2 animations:^{
+        [myPopover setAlpha:0];
+        [greyMask setAlpha:0];
+    } completion:^(BOOL finished) {
+        [myPopover removeFromSuperview];
+        [greyMask removeFromSuperview];
+    }];
+    [tapAwayGesture setEnabled:NO];
+    for (SectionInfo *info in sectionInfoArray)
+        [[[info headerView] tapGesture] setEnabled:YES];
+}
+
+#pragma mark - Metronome
+
+- (void)startMetronome:(id)sender {
+    [metro startMetronomeWithTempo:[stepper tempo]];
+    if ([[sender imageForState:UIControlStateNormal] isEqual:[UIImage imageNamed:@"StartMetronomeButton.png"]])
+        [sender setImage:[UIImage imageNamed:@"StopButton.png"] forState:UIControlStateNormal];
+    else if ([[sender imageForState:UIControlStateNormal] isEqual:[UIImage imageNamed:@"StopButton.png"]])
+        [sender setImage:[UIImage imageNamed:@"StartMetronomeButton.png"] forState:UIControlStateNormal];
+}
+
 - (void) makeMetronome {
     stepper = [[CustomStepper alloc] initWithPoint:CGPointMake(215, -6) label:tempoLabel andCanBeNone:NO];
     [stepper setDelegate:self];
@@ -215,6 +250,13 @@
     openSectionIndex = NSNotFound;
     metro = [[Metronome alloc] init];
 }
+
+- (void)valueChanged
+{
+    [metro changeTempoWithTempo:[stepper tempo]];
+}
+
+#pragma mark - Custom controls, actions & gestures
 
 - (void) setUpScalesAndArpeggios {
     if (self.sectionInfoArray == nil)
@@ -235,10 +277,6 @@
         }
     }
 }
-
-
-#pragma mark - View Actions and Gestures
-
 ////////////////////// REMOVE LATER ////////////////////////
 
 - (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event
@@ -246,9 +284,7 @@
     if (motion == UIEventSubtypeMotionShake)
         [TestFlight openFeedbackView];
 }
-
 ///////////////////////////////////////////////////////////
-
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
 {
     if ([gestureRecognizer isEqual:tapAwayGesture])
@@ -311,7 +347,7 @@
                 [[self view] setCenter:CGPointMake(rightX + bounceX, theCenter.y)];
             } completion:^(BOOL finished){
                 [statsTable setScrollEnabled:NO];
-                [slideBack setEnabled:YES];
+                [self.view addSubview:slideBack];
                 [UIView animateWithDuration:0.08 animations:^{
                     [[self view] setCenter:CGPointMake(rightX, theCenter.y)];
                 }];
@@ -322,7 +358,7 @@
                 [[self view] setCenter:theCenter];
             } completion:^(BOOL finished){
                 [statsTable setScrollEnabled:YES];
-                [slideBack setEnabled:NO];
+                [slideBack removeFromSuperview];
             }];
         }
     }
@@ -337,35 +373,8 @@
         [[self view] setCenter:theCenter];
     } completion:^(BOOL finished){
         [statsTable setScrollEnabled:YES];
-        [slideBack setEnabled:NO];
+        [slideBack removeFromSuperview];
     }];
-}
-
-- (void)showMenu:(id)sender
-{
-    [self.view addSubview:greyMask];
-    [self.view addSubview:myPopover];
-    [UIView animateWithDuration:0.2 animations:^{
-        [greyMask setAlpha:0.2];
-        [myPopover setAlpha:1.0];
-    }];
-    [tapAwayGesture setEnabled:YES];
-    for (SectionInfo *info in sectionInfoArray)
-        [[[info headerView] tapGesture] setEnabled:NO];
-}
-
-- (void)hideMenu:(id)sender
-{
-    [UIView animateWithDuration:0.2 animations:^{
-        [myPopover setAlpha:0];
-        [greyMask setAlpha:0];
-    } completion:^(BOOL finished) {
-        [myPopover removeFromSuperview];
-        [greyMask removeFromSuperview];
-    }];
-    [tapAwayGesture setEnabled:NO];
-    for (SectionInfo *info in sectionInfoArray)
-        [[[info headerView] tapGesture] setEnabled:YES];
 }
 
 - (void)presentPickerView:(id)sender
@@ -408,7 +417,7 @@
     }
 }
 
-#pragma mark - Model Actions
+#pragma mark - Timers
 
 - (NSInteger)calculateTotalTime
 {
@@ -471,10 +480,7 @@
 
 }
 
-- (void)valueChanged
-{
-    [metro changeTempoWithTempo:[stepper tempo]];
-}
+#pragma mark - Date Selection
 
 - (void)blockAlertView:(BOOL)isYes
 {
@@ -599,10 +605,12 @@
                      completion:nil];
 }
 
+#pragma mark - ScrollView & TableView
+
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-     SectionInfo *openSection;
-     NSNumber *index;
+    SectionInfo *openSection;
+    NSNumber *index;
     for (int i = 0; i < [sectionInfoArray count]; i++)
     {
         SectionInfo *s = [sectionInfoArray objectAtIndex:i];
@@ -620,23 +628,13 @@
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
     [notesView removeFromSuperview];
-//    [panGestureRecognizer setEnabled:NO];
+    //    [panGestureRecognizer setEnabled:NO];
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
-//    [panGestureRecognizer setEnabled:YES];
+    //    [panGestureRecognizer setEnabled:YES];
 }
-
-- (void)startMetronome:(id)sender {
-    [metro startMetronomeWithTempo:[stepper tempo]];
-    if ([[sender imageForState:UIControlStateNormal] isEqual:[UIImage imageNamed:@"StartMetronomeButton.png"]])
-        [sender setImage:[UIImage imageNamed:@"StopButton.png"] forState:UIControlStateNormal];
-    else if ([[sender imageForState:UIControlStateNormal] isEqual:[UIImage imageNamed:@"StopButton.png"]])
-        [sender setImage:[UIImage imageNamed:@"StartMetronomeButton.png"] forState:UIControlStateNormal];
-}
-
-#pragma mark - TableView
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -911,48 +909,6 @@
     [self setSwipedHeader:nil];
 }
 
-- (void)displayNotesViewForSection:(NSInteger)section headerView:(SectionHeaderView *)headerView
-{
-    CGRect frameOfExcludedArea = [self.view.superview convertRect:headerView.deleteView.frame fromView:headerView.deleteView.superview];
-    CGPoint center = CGPointMake(frameOfExcludedArea.origin.x + (frameOfExcludedArea.size.width / 2),
-                                 frameOfExcludedArea.origin.y + (frameOfExcludedArea.size.height / 2));
-    [notesTapGesture addTarget:self action:@selector(getRidOfNotes:)];
-    [notesTapGesture setEnabled:YES];
-    [self.view addGestureRecognizer:notesTapGesture];
-    notesView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, 280, 50)];
-    [notesView setDelegate:self];
-    [notesView setCenter:CGPointMake(center.x, center.y - 75)];
-    Session *mySession = [[SessionStore defaultStore] mySession];
-    NSString *notesViewText;
-    switch (swipedHeader.section) {
-        case 0:
-            notesViewText = [mySession scaleNotes];
-            break;
-        case 1:
-            notesViewText = [mySession arpeggioNotes];
-        default:
-            notesViewText = [[[mySession pieceSession] objectAtIndex:swipedHeader.section - 2] pieceNotes];
-            break;
-    }
-    [notesView setText:notesViewText];
-    [self.view addSubview:notesView];
-}
-- (void)getRidOfNotes:(id)sender
-{
-    [notesView removeFromSuperview];
-    [notesTapGesture setEnabled:NO];
-    Session *mySession = [[SessionStore defaultStore] mySession];
-    switch (swipedHeader.section) {
-        case 0:
-            [mySession setScaleNotes:[notesView text]];
-            break;
-        case 1:
-            [mySession setArpeggioNotes:[notesView text]];
-        default:
-            [[[mySession pieceSession] objectAtIndex:swipedHeader.section - 2] setPieceNotes:[notesView text]];
-            break;
-    }
-}
 
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range 
@@ -981,6 +937,51 @@
 - (void)sectionSwiped:(NSInteger)section headerView:(SectionHeaderView *)sectionHeaderView
 {
     self.swipedHeader = sectionHeaderView;
+}
+
+#pragma mark - Notations
+- (void)displayNotesViewForSection:(NSInteger)section headerView:(SectionHeaderView *)headerView
+{
+    CGRect frameOfExcludedArea = [self.view.superview convertRect:headerView.deleteView.frame fromView:headerView.deleteView.superview];
+    CGPoint center = CGPointMake(frameOfExcludedArea.origin.x + (frameOfExcludedArea.size.width / 2),
+                                 frameOfExcludedArea.origin.y + (frameOfExcludedArea.size.height / 2));
+    [notesTapGesture addTarget:self action:@selector(getRidOfNotes:)];
+    [notesTapGesture setEnabled:YES];
+    [self.view addGestureRecognizer:notesTapGesture];
+    notesView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, 280, 50)];
+    [notesView setDelegate:self];
+    [notesView setCenter:CGPointMake(center.x, center.y - 75)];
+    Session *mySession = [[SessionStore defaultStore] mySession];
+    NSString *notesViewText;
+    switch (swipedHeader.section) {
+        case 0:
+            notesViewText = [mySession scaleNotes];
+            break;
+        case 1:
+            notesViewText = [mySession arpeggioNotes];
+        default:
+            notesViewText = [[[mySession pieceSession] objectAtIndex:swipedHeader.section - 2] pieceNotes];
+            break;
+    }
+    [notesView setText:notesViewText];
+    [self.view addSubview:notesView];
+}
+
+- (void)getRidOfNotes:(id)sender
+{
+    [notesView removeFromSuperview];
+    [notesTapGesture setEnabled:NO];
+    Session *mySession = [[SessionStore defaultStore] mySession];
+    switch (swipedHeader.section) {
+        case 0:
+            [mySession setScaleNotes:[notesView text]];
+            break;
+        case 1:
+            [mySession setArpeggioNotes:[notesView text]];
+        default:
+            [[[mySession pieceSession] objectAtIndex:swipedHeader.section - 2] setPieceNotes:[notesView text]];
+            break;
+    }
 }
 
 - (UIView *)hitWithPoint:(CGPoint)point
@@ -1016,6 +1017,8 @@
     }
     return nil;
 }
+
+#pragma mark - Reorder Sections
 
 //- (void)moveSection:(NSInteger)section headerView:(SectionHeaderView *)sectionHeaderView
 //{

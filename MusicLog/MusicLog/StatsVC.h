@@ -3,7 +3,7 @@
 //  MusicLog
 //
 //  Created by Kyle Rosenbluth on 8/30/11.
-//  Copyright (c) 2011 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2011 __Applause Code__. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
@@ -21,8 +21,6 @@
 @class AllGesturesRecognizer;
 
 @interface StatsVC : UIViewController <UITableViewDelegate, UITableViewDataSource, SectionHeaderViewDelegate, UIGestureRecognizerDelegate, UIScrollViewDelegate, CustomStepperDelegate, UIAlertViewDelegate, StatsViewHitTestDelegate, CustomSectionMoveDelegate, UITextViewDelegate>
-
-
 
 @property (nonatomic, assign)   NSUInteger tempo;
 @property (nonatomic, strong)   Session *selectedSession;
@@ -59,7 +57,6 @@
 @property (strong, nonatomic)   IBOutlet UIButton *chooseArpsButton;
 @property (strong, nonatomic)   IBOutlet UIButton *choosePiecesButton;
 @property (strong, nonatomic)   IBOutlet UILabel *tempoNameLabel;
-
 
 - (void)blockAlertView:(BOOL)isYes;
 - (void)makeMenu;

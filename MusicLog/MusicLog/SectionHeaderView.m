@@ -18,8 +18,10 @@
     
     if (self != nil) {
         _section = sectionNumber;
-    
-        deleteView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
+        
+        // *** Don't forget to fix the -5 ***
+        deleteView = [[UIView alloc] initWithFrame:CGRectMake(0, 2, self.frame.size.width, self.frame.size.height - 5)];
+        
         [deleteView setBackgroundColor:[UIColor clearColor]];
         [deleteView setOpaque:NO];
         notesButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 160, 45)];

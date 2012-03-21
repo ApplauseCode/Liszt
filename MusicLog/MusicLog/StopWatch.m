@@ -3,7 +3,7 @@
 //  KayVeeO
 //
 //  Created by Jeffrey Rosenbluth on 2/19/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2012 __Applause Code__. All rights reserved.
 //
 
 #import "StopWatch.h"

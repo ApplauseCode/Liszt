@@ -3,7 +3,7 @@
 //  InstrumentLog
 //
 //  Created by Kyle Rosenbluth on 8/11/11.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//  Copyright 2011 __Applause Code__. All rights reserved.
 //
 
 #ifndef InstrumentLog_Common_h

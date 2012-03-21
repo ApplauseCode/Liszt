@@ -3,7 +3,7 @@
 //  PianoLog
 //
 //  Created by Kyle Rosenbluth on 8/7/11.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//  Copyright 2011 __Applause Code__. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
