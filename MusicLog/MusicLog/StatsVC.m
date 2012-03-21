@@ -38,6 +38,7 @@
 @property (nonatomic, strong) StopWatch *stopWatch;
 @property (nonatomic, strong) id theObserver;
 @property (nonatomic, strong) UIPanGestureRecognizer *panGestureRecognizer;
+@property (nonatomic, strong) UIButton *slideBack;
 
 - (void)backToToday:(id)sender;
 - (void)handlePan:(UIPanGestureRecognizer *)gesture;
@@ -74,6 +75,7 @@
 @synthesize notesView;
 @synthesize notesTapGesture;
 @synthesize panGestureRecognizer;
+@synthesize slideBack;
 
 #pragma mark - View lifecycle
 
@@ -156,6 +158,12 @@
     [self makeMenu];
     [self makeMetronome];
     [self setUpScalesAndArpeggios];
+    
+    slideBack = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 460)];
+    [slideBack addTarget:self action:@selector(slideLeft:) forControlEvents:UIControlEventTouchUpInside];
+    [slideBack setBackgroundColor:[UIColor clearColor]];
+    [slideBack setEnabled:NO];
+    [self.view addSubview:slideBack];
 }
 
 -(void)viewDidAppear:(BOOL)animated {
@@ -264,7 +272,7 @@
 }
 
 - (void)handlePan:(UIPanGestureRecognizer *)gesture
-{   
+{  
     static BOOL isVerticle;
     static CGFloat startingX;
     const CGFloat initiateX = 40.0;
@@ -303,6 +311,7 @@
                 [[self view] setCenter:CGPointMake(rightX + bounceX, theCenter.y)];
             } completion:^(BOOL finished){
                 [statsTable setScrollEnabled:NO];
+                [slideBack setEnabled:YES];
                 [UIView animateWithDuration:0.08 animations:^{
                     [[self view] setCenter:CGPointMake(rightX, theCenter.y)];
                 }];
@@ -313,11 +322,24 @@
                 [[self view] setCenter:theCenter];
             } completion:^(BOOL finished){
                 [statsTable setScrollEnabled:YES];
+                [slideBack setEnabled:NO];
             }];
         }
     }
 }
 
+- (void)slideLeft:(id)sender
+{
+    const CGFloat viewWidth = [[self view] bounds].size.width;
+    const CGFloat viewHeight = [[self view] bounds].size.height;
+    const CGPoint theCenter = CGPointMake(viewWidth / 2.0, viewHeight / 2.0);
+    [UIView animateWithDuration:0.25 animations:^{
+        [[self view] setCenter:theCenter];
+    } completion:^(BOOL finished){
+        [statsTable setScrollEnabled:YES];
+        [slideBack setEnabled:NO];
+    }];
+}
 
 - (void)showMenu:(id)sender
 {
