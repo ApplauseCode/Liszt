@@ -50,13 +50,12 @@
 @property (nonatomic, strong)   Metronome *metro;
 @property (nonatomic, strong)   TimerCell *tCell;
 @property (nonatomic, assign)   BOOL shouldDisplayTime;
-@property (nonatomic) BOOL isTiming;
-@property (nonatomic, strong) UILabel *totalTime;
-@property (nonatomic, strong) CustomSectionMove *sectionMover;
-@property (nonatomic, strong) SectionHeaderView *swipedHeader;
-@property (nonatomic, strong) UITextView *notesView;
-@property (nonatomic, strong) UITapGestureRecognizer *notesTapGesture;
-//@property (nonatomic, strong) UISwipeGestureRecognizer *tableSwipe;
+@property (nonatomic)           BOOL isTiming;
+@property (nonatomic, strong)   UILabel *totalTime;
+@property (nonatomic, strong)   CustomSectionMove *sectionMover;
+@property (nonatomic, strong)   SectionHeaderView *swipedHeader;
+@property (nonatomic, strong)   UITextView *notesView;
+@property (nonatomic, strong)   UITapGestureRecognizer *notesTapGesture;
 
 
 

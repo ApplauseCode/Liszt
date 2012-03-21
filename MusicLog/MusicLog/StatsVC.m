@@ -33,7 +33,10 @@
 @property (nonatomic, strong) UIView *datePickerView;
 @property (nonatomic, strong) StopWatch *stopWatch;
 @property (nonatomic, strong) id theObserver;
+@property (nonatomic, strong) UIPanGestureRecognizer *panGestureRecognizer;
 - (void)backToToday:(id)sender;
+- (void)handlePan:(UIPanGestureRecognizer *)gesture;
+- (void)returnVC:(UITapGestureRecognizer *)gesture;
 
 @end
 
@@ -66,7 +69,7 @@
 @synthesize swipedHeader;
 @synthesize notesView;
 @synthesize notesTapGesture;
-//@synthesize tableSwipe;
+@synthesize panGestureRecognizer;
 
 #pragma mark - View lifecycle
 
@@ -92,6 +95,7 @@
     if (self) {
         selectedSession = [[SessionStore defaultStore] mySession];
         currentPractice = YES;
+        panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePan:)];
     }
     return self;
 }
@@ -116,6 +120,8 @@
     [selSessionDisplay setTextColor:[UIColor whiteColor]];
     
     notesTapGesture = [[UITapGestureRecognizer alloc] init];
+    [[self view] addGestureRecognizer:panGestureRecognizer];
+    [panGestureRecognizer setDelegate:self];
 
     UINib *nib = [UINib nibWithNibName:@"ScalesPracticedCell" bundle:nil];
     [statsTable registerNib:nib 
@@ -238,12 +244,75 @@
             return NO;
         return YES;
     }
-    else {
-//        if (touch.view == notesView)
-//            return NO;
+    return YES;
+
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
+{
+    if ((gestureRecognizer == panGestureRecognizer) && ([[self view] center].x > 170)) 
+        return NO;
+    if ((gestureRecognizer == panGestureRecognizer) || (gestureRecognizer != tapAwayGesture)) 
         return YES;
+    else 
+        return NO;
+}
+
+- (void)handlePan:(UIPanGestureRecognizer *)gesture
+{   
+    static BOOL isVerticle;
+    static CGFloat startingX;
+    const CGFloat initiateX = 40.0;
+    const CGFloat bounceX = 7.0;
+    const CGFloat velocityThreshold = 300.0;
+    const CGFloat viewWidth = [[self view] bounds].size.width;
+    const CGFloat viewHeight = [[self view] bounds].size.height;
+    const CGPoint theCenter = CGPointMake(viewWidth / 2.0, viewHeight / 2.0);
+    const CGFloat rightX = theCenter.x + viewWidth - initiateX;
+    CGFloat velocity = [gesture velocityInView:[self view]].x;
+    CGPoint translation = [gesture translationInView:[self view]];
+    CGFloat toX;
+    if ([gesture state] == UIGestureRecognizerStateBegan) {
+        startingX = [[self view] center].x;
+        if ((fabs(translation.y) + 1.0) >= fabs(translation.x) && (startingX == theCenter.x)) {
+            isVerticle = YES;
+            [statsTable setScrollEnabled:YES];
+        }
+        else {
+            isVerticle = NO;
+            [statsTable setScrollEnabled:NO];
+        }
+    }
+    if (isVerticle) 
+        return;
+    toX = startingX + [gesture translationInView:[self view]].x;
+    toX = MAX(toX, theCenter.x);
+    toX = MIN(toX, rightX);
+    [[self view] setCenter:CGPointMake(toX, theCenter.y)];
+    BOOL didStartLeft = (startingX == theCenter.x);
+    BOOL didInitiateMoveRight = (toX > theCenter.x + initiateX) || (velocity > velocityThreshold);
+    BOOL didInitiateMoveLeft = (toX < rightX - initiateX) || (velocity < -velocityThreshold);
+    if ([gesture state] == UIGestureRecognizerStateEnded) {
+        if ((didStartLeft && didInitiateMoveRight) || (!didStartLeft && !didInitiateMoveLeft)) {
+            [UIView animateWithDuration:0.18 animations:^{
+                [[self view] setCenter:CGPointMake(rightX + bounceX, theCenter.y)];
+            } completion:^(BOOL finished){
+                [statsTable setScrollEnabled:NO];
+                [UIView animateWithDuration:0.08 animations:^{
+                    [[self view] setCenter:CGPointMake(rightX, theCenter.y)];
+                }];
+            }];
+        } 
+        else {
+            [UIView animateWithDuration:0.25 animations:^{
+                [[self view] setCenter:theCenter];
+            } completion:^(BOOL finished){
+                [statsTable setScrollEnabled:YES];
+            }];
+        }
     }
 }
+
 
 - (void)showMenu:(id)sender
 {
@@ -524,6 +593,12 @@
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
     [notesView removeFromSuperview];
+//    [panGestureRecognizer setEnabled:NO];
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+{
+//    [panGestureRecognizer setEnabled:YES];
 }
 
 - (void)startMetronome:(id)sender {

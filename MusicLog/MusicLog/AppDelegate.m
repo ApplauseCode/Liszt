@@ -16,15 +16,20 @@
 #import "Timer.h"
 #import "BlockAlertView.h"
 #import "SectionInfo.h"
+#import "HistoryViewController.h"
+#import "ContainerViewController.h"
 
 @interface AppDelegate()
 @property (nonatomic, strong) StatsVC *c;
+@property (nonatomic, strong) HistoryViewController *historyViewController;
+@property (nonatomic, strong) ContainerViewController *containerViewController;
 @property (nonatomic) BOOL alertViewVisible;
 - (void)checkDate;
 @end
 @implementation AppDelegate
 
 @synthesize window = _window, c, alertViewVisible;
+@synthesize historyViewController, containerViewController;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -39,7 +44,15 @@
     [self checkDate];
     
     c = [[StatsVC alloc] init];
-    [self.window setRootViewController:c];
+    historyViewController = [[HistoryViewController alloc] initWithNibName:nil bundle:nil];
+    containerViewController = [[ContainerViewController alloc] initWithNibName:nil bundle:nil];
+    [[historyViewController view] setFrame:[_window frame]];
+    [[c view] setFrame:[[historyViewController view] frame]];
+    [containerViewController addChildViewController:c];
+    [containerViewController addChildViewController:historyViewController];
+    [[historyViewController view] addSubview:[c view]];
+    [[containerViewController view] addSubview:[historyViewController view]];
+    [self.window setRootViewController:containerViewController];
     [self checkDate];
     
     self.window.backgroundColor = [UIColor whiteColor];

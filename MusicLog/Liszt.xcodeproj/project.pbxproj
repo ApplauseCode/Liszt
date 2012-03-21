@@ -151,6 +151,10 @@
 		CE48BEC314F31D27002535E5 /* DynamicLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE48BEC014F31D27002535E5 /* DynamicLabel.m */; };
 		CE48BEC414F31D27002535E5 /* StopWatch.m in Sources */ = {isa = PBXBuildFile; fileRef = CE48BEC214F31D27002535E5 /* StopWatch.m */; };
 		CE510092150BE50B00B56D91 /* Rhyth.otf in Resources */ = {isa = PBXBuildFile; fileRef = CE510090150BE05B00B56D91 /* Rhyth.otf */; };
+		CE598BD61518FFAD00B3BDB7 /* HistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE598BD51518FFAD00B3BDB7 /* HistoryViewController.m */; };
+		CE598BD91519012600B3BDB7 /* HistoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE598BD81519012600B3BDB7 /* HistoryViewController.xib */; };
+		CE598BDC1519033200B3BDB7 /* ContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE598BDB1519033200B3BDB7 /* ContainerViewController.m */; };
+		CE598BDF15191B6F00B3BDB7 /* HistoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE598BDE15191B6F00B3BDB7 /* HistoryCell.m */; };
 		CE83174D150E7EEA00611DB5 /* CompoundString.m in Sources */ = {isa = PBXBuildFile; fileRef = CE83174C150E7EEA00611DB5 /* CompoundString.m */; };
 		CE831751150E9F1E00611DB5 /* PieceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE831750150E9F1E00611DB5 /* PieceCell.m */; };
 		CE98858F14EC8B5000E8FA90 /* SessionStore.m in Sources */ = {isa = PBXBuildFile; fileRef = CE98858E14EC8B5000E8FA90 /* SessionStore.m */; };
@@ -340,6 +344,13 @@
 		CE48BEC114F31D27002535E5 /* StopWatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StopWatch.h; sourceTree = "<group>"; };
 		CE48BEC214F31D27002535E5 /* StopWatch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StopWatch.m; sourceTree = "<group>"; };
 		CE510090150BE05B00B56D91 /* Rhyth.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Rhyth.otf; sourceTree = "<group>"; };
+		CE598BD41518FFAD00B3BDB7 /* HistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryViewController.h; sourceTree = "<group>"; };
+		CE598BD51518FFAD00B3BDB7 /* HistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryViewController.m; sourceTree = "<group>"; };
+		CE598BD81519012600B3BDB7 /* HistoryViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HistoryViewController.xib; sourceTree = "<group>"; };
+		CE598BDA1519033200B3BDB7 /* ContainerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContainerViewController.h; sourceTree = "<group>"; };
+		CE598BDB1519033200B3BDB7 /* ContainerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContainerViewController.m; sourceTree = "<group>"; };
+		CE598BDD15191B6F00B3BDB7 /* HistoryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryCell.h; sourceTree = "<group>"; };
+		CE598BDE15191B6F00B3BDB7 /* HistoryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryCell.m; sourceTree = "<group>"; };
 		CE83174B150E7EEA00611DB5 /* CompoundString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompoundString.h; sourceTree = "<group>"; };
 		CE83174C150E7EEA00611DB5 /* CompoundString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompoundString.m; sourceTree = "<group>"; };
 		CE83174F150E9F1E00611DB5 /* PieceCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PieceCell.h; sourceTree = "<group>"; };
@@ -590,6 +601,8 @@
 				CECCE174150D42060084B147 /* ScaleCell.m */,
 				CE83174F150E9F1E00611DB5 /* PieceCell.h */,
 				CE831750150E9F1E00611DB5 /* PieceCell.m */,
+				CE598BDD15191B6F00B3BDB7 /* HistoryCell.h */,
+				CE598BDE15191B6F00B3BDB7 /* HistoryCell.m */,
 				BADA3F9F140BD9B700B57C49 /* ScalesPracticedCell.h */,
 				BADA3FA0140BD9B700B57C49 /* ScalesPracticedCell.m */,
 				BADA3FA1140BD9B700B57C49 /* ScalesPracticedCell.xib */,
@@ -620,6 +633,11 @@
 				BA811C75140D38EF00A5558A /* StatsVC.xib */,
 				BABD7C7615102955006C81BE /* NotesVC.h */,
 				BABD7C7715102955006C81BE /* NotesVC.m */,
+				CE598BD41518FFAD00B3BDB7 /* HistoryViewController.h */,
+				CE598BD51518FFAD00B3BDB7 /* HistoryViewController.m */,
+				CE598BD81519012600B3BDB7 /* HistoryViewController.xib */,
+				CE598BDA1519033200B3BDB7 /* ContainerViewController.h */,
+				CE598BDB1519033200B3BDB7 /* ContainerViewController.m */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -810,6 +828,7 @@
 				BAE1FFE31506F60B004D63E0 /* AddButtonR@2x.png in Resources */,
 				BAE1FFE41506F60B004D63E0 /* DateButtonR.png in Resources */,
 				BAE1FFE51506F60B004D63E0 /* DateButtonR@2x.png in Resources */,
+				CE598BD91519012600B3BDB7 /* HistoryViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -858,6 +877,9 @@
 				BABD7C7815102955006C81BE /* NotesVC.m in Sources */,
 				BABD7C7F151413C3006C81BE /* CustomSectionMove.m in Sources */,
 				BA52EED615156FEB00C2A012 /* StatsView.m in Sources */,
+				CE598BD61518FFAD00B3BDB7 /* HistoryViewController.m in Sources */,
+				CE598BDC1519033200B3BDB7 /* ContainerViewController.m in Sources */,
+				CE598BDF15191B6F00B3BDB7 /* HistoryCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
