@@ -10,6 +10,7 @@
 #import "SectionHeaderView.h"
 
 @implementation SectionInfo
+
 @synthesize open, headerView, title, countofRowsToInsert;
 
 @end

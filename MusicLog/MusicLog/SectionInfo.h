@@ -10,6 +10,7 @@
 @class SectionHeaderView;
 
 @interface SectionInfo : NSObject
+
 @property(nonatomic, assign) BOOL open;
 @property (strong) SectionHeaderView *headerView;
 @property (strong) NSString *title;

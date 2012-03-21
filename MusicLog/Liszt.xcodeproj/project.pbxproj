@@ -146,8 +146,6 @@
 		BAE6999414E5B65100D3ADF8 /* DisclosureArrowDown@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BAE6999214E5B65100D3ADF8 /* DisclosureArrowDown@2x.png */; };
 		BAE6999C14E5D6FB00D3ADF8 /* AddItemButton.png in Resources */ = {isa = PBXBuildFile; fileRef = BAE6999A14E5D6FB00D3ADF8 /* AddItemButton.png */; };
 		BAE6999D14E5D6FB00D3ADF8 /* AddItemButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BAE6999B14E5D6FB00D3ADF8 /* AddItemButton@2x.png */; };
-		BAF21D4814D4EC2000CA7060 /* StatsVC+TableViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BAF21D4714D4EC2000CA7060 /* StatsVC+TableViewDelegate.m */; };
-		BAF21D4C14D5953000CA7060 /* StatsVC+Header.m in Sources */ = {isa = PBXBuildFile; fileRef = BAF21D4B14D5953000CA7060 /* StatsVC+Header.m */; };
 		CE48BEC314F31D27002535E5 /* DynamicLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE48BEC014F31D27002535E5 /* DynamicLabel.m */; };
 		CE48BEC414F31D27002535E5 /* StopWatch.m in Sources */ = {isa = PBXBuildFile; fileRef = CE48BEC214F31D27002535E5 /* StopWatch.m */; };
 		CE510092150BE50B00B56D91 /* Rhyth.otf in Resources */ = {isa = PBXBuildFile; fileRef = CE510090150BE05B00B56D91 /* Rhyth.otf */; };
@@ -335,10 +333,6 @@
 		BAE6999214E5B65100D3ADF8 /* DisclosureArrowDown@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DisclosureArrowDown@2x.png"; sourceTree = "<group>"; };
 		BAE6999A14E5D6FB00D3ADF8 /* AddItemButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AddItemButton.png; sourceTree = "<group>"; };
 		BAE6999B14E5D6FB00D3ADF8 /* AddItemButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AddItemButton@2x.png"; sourceTree = "<group>"; };
-		BAF21D4614D4EC2000CA7060 /* StatsVC+TableViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "StatsVC+TableViewDelegate.h"; sourceTree = "<group>"; };
-		BAF21D4714D4EC2000CA7060 /* StatsVC+TableViewDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "StatsVC+TableViewDelegate.m"; sourceTree = "<group>"; };
-		BAF21D4A14D5953000CA7060 /* StatsVC+Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "StatsVC+Header.h"; sourceTree = "<group>"; };
-		BAF21D4B14D5953000CA7060 /* StatsVC+Header.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "StatsVC+Header.m"; sourceTree = "<group>"; };
 		CE48BEBF14F31D27002535E5 /* DynamicLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DynamicLabel.h; sourceTree = "<group>"; };
 		CE48BEC014F31D27002535E5 /* DynamicLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DynamicLabel.m; sourceTree = "<group>"; };
 		CE48BEC114F31D27002535E5 /* StopWatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StopWatch.h; sourceTree = "<group>"; };
@@ -622,10 +616,6 @@
 				BA811C6D140D38E100A5558A /* PiecesPickerVC.h */,
 				BA811C6E140D38E100A5558A /* PiecesPickerVC.m */,
 				BA811C6F140D38E100A5558A /* PiecesPickerVC.xib */,
-				BAF21D4614D4EC2000CA7060 /* StatsVC+TableViewDelegate.h */,
-				BAF21D4714D4EC2000CA7060 /* StatsVC+TableViewDelegate.m */,
-				BAF21D4A14D5953000CA7060 /* StatsVC+Header.h */,
-				BAF21D4B14D5953000CA7060 /* StatsVC+Header.m */,
 				BA811C73140D38EF00A5558A /* StatsVC.h */,
 				BA811C74140D38EF00A5558A /* StatsVC.m */,
 				BA52EED415156FEB00C2A012 /* StatsView.h */,
@@ -858,8 +848,6 @@
 				BA37B8531482D56E00C41484 /* SectionInfo.m in Sources */,
 				BA5605761492D97500411BA9 /* TimerCell.m in Sources */,
 				BA26622414ABAF4200D9F3F6 /* Metronome.m in Sources */,
-				BAF21D4814D4EC2000CA7060 /* StatsVC+TableViewDelegate.m in Sources */,
-				BAF21D4C14D5953000CA7060 /* StatsVC+Header.m in Sources */,
 				BAE6998414E5555700D3ADF8 /* UIColor+YellowTextColor.m in Sources */,
 				BACA58D014E866200054A634 /* BlockBackground.m in Sources */,
 				BACA58D114E866200054A634 /* BlockActionSheet.m in Sources */,

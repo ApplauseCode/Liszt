@@ -43,7 +43,7 @@
         [self addSubview:arrowIndicator];
 
     }
-    NSLog(@"x: %f y:%f w:%f h:%f",self.bounds.origin.x, self.bounds.origin.y, self.bounds.size.width, self.bounds.size.height);
+//    NSLog(@"x: %f y:%f w:%f h:%f",self.bounds.origin.x, self.bounds.origin.y, self.bounds.size.width, self.bounds.size.height);
     return self;
 }
 

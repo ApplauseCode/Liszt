@@ -75,7 +75,7 @@
         // Be sure to test for equality using the "isEqualToString" message
         [textView resignFirstResponder];
         [self setNotes:[textView text]];
-        NSLog(@"%@", [[[SessionStore defaultStore] mySession] scaleNotes]);
+//        NSLog(@"%@", [[[SessionStore defaultStore] mySession] scaleNotes]);
         return FALSE;
     }
     // For any other character return TRUE so that the text gets added to the view

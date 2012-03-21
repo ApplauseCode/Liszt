@@ -5,7 +5,6 @@
 
 @protocol SectionHeaderViewDelegate;
 
-
 @interface SectionHeaderView : UIView 
 
 @property (nonatomic, weak) UILabel *titleLabel;
@@ -18,7 +17,6 @@
 @property (nonatomic, strong) UIView *deleteView;
 @property (nonatomic, strong) UIButton *notesButton;
 @property (nonatomic, strong) UIButton *deleteButton;
-
 @property (nonatomic, weak) id <SectionHeaderViewDelegate> delegate;
 
 -(id)initWithFrame:(CGRect)frame title:(NSString*)title subTitle:(NSString *)subTitle section:(NSInteger)sectionNumber delegate:(id <SectionHeaderViewDelegate>)delegate;
@@ -35,9 +33,8 @@
 
 
 
-/*
- Protocol to be adopted by the section header's delegate; the section header tells its delegate when the section should be opened and closed.
- */
+// Protocol to be adopted by the section header's delegate; the section header tells its delegate when the section should be opened and closed.
+
 @protocol SectionHeaderViewDelegate <NSObject>
 
 @optional
@@ -46,5 +43,6 @@
 - (void)moveSection:(NSInteger)section headerView:(SectionHeaderView *)sectionHeaderView;
 - (void)sectionSwiped:(NSInteger)section headerView:(SectionHeaderView *)sectionHeaderView;
 - (void)displayNotesViewForSection:(NSInteger)section headerView:(SectionHeaderView *)headerView;
+
 @end
 

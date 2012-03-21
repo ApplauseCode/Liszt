@@ -88,12 +88,12 @@
         for (Piece *p in [newSession pieceSession]) {
             [p setPieceTime:0];
         }
-        NSLog(@"%@", [sessions objectAtIndex:([sessions count] - 1)]);
+//        NSLog(@"%@", [sessions objectAtIndex:([sessions count] - 1)]);
         [newSession setDate:[NSDate date]];
     }
     
     [self setMySession:newSession];
-    NSLog(@"%@", [mySession scaleSession]);
+//    NSLog(@"%@", [mySession scaleSession]);
 }
 
 - (BOOL)saveChanges {

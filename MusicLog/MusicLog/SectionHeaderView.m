@@ -5,15 +5,12 @@
 
 @implementation SectionHeaderView
 
-
 @synthesize titleLabel=_titleLabel, disclosureImage, delegate=_delegate, section=_section, tapGesture, subTitleLabel, swipeGesture, deleteView, notesButton, deleteButton;
-
 
 + (Class)layerClass {
     
     return [CAGradientLayer class];
 }
-
 
 -(id)initWithFrame:(CGRect)frame title:(NSString*)title subTitle:(NSString *)subTitle section:(NSInteger)sectionNumber delegate:(id <SectionHeaderViewDelegate>)delegate {
     

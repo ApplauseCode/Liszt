@@ -154,10 +154,11 @@
     NSMutableArray *all = [[NSMutableArray alloc] initWithCapacity:12];
     int tonicNum = 0;
     
-    if ([[[store mySession] scaleSession] respondsToSelector:@selector(addObject:)])
-        NSLog(@"its mutable!");
-    else
-        NSLog(@"it aint mutable");
+//    if ([[[store mySession] scaleSession] respondsToSelector:@selector(addObject:)])
+//        NSLog(@"its mutable!");
+//    else
+//        NSLog(@"it aint mutable");
+    
     switch (row) {
         case 0: //sharps
             for (int i = 0; i < 6; i++) {

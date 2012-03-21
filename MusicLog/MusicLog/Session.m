@@ -24,8 +24,7 @@
     self = [super init];
     if (self) {
         if ([scaleSet respondsToSelector:@selector(addObject:)])
-            NSLog(@"scale set responds to selector");
-            
+//            NSLog(@"scale set responds to selector");            
         if (!scaleSet)
             [self setScaleSession:[[NSMutableOrderedSet alloc] init]];
         else
