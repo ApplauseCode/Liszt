@@ -8,6 +8,7 @@
 
 #import "StatsView.h"
 
+
 @implementation StatsView
 @synthesize delegate;
 
@@ -29,4 +30,19 @@
     return [[self delegate] hitWithPoint:point];
 }
 
+//- (void) drawRect:(CGRect)rect
+//{
+//    CGContextRef context = UIGraphicsGetCurrentContext();    
+//    UIColor *blackColor = [UIColor whiteColor];
+//    [blackColor set];
+//    CGContextBeginPath(context);
+//    CGContextMoveToPoint(context, 50.0, -50.0);
+//    CGContextAddLineToPoint(context, 50.0, rect.size.height + 100);
+//    CGContextSetLineWidth(context, 20);
+//    CGContextClosePath(context);
+//    CGContextSetShadowWithColor(context, CGSizeMake(-20, 0), 3, [UIColor blackColor].CGColor);
+//    CGContextStrokePath(context);
+//}
+
 @end
+

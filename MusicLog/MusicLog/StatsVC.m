@@ -13,7 +13,6 @@
 #import "SessionStore.h"
 #import "Session.h"
 #import "NSString+Number.h"
-#import "ScalesPracticedCell.h"
 #import "LisztCell.h"
 #import "ScaleCell.h"
 #import "PieceCell.h"
@@ -21,14 +20,12 @@
 #import "Piece.h"
 #import "SectionHeaderView.h"
 #import "SectionInfo.h"
-#import "Timer.h"
 #import "CustomStepper.h"
 #import "TimerCell.h"
 #import "Metronome.h"
 #import "UIColor+YellowTextColor.h"
 #import "BlockAlertView.h"
 #import "StopWatch.h"
-#import "NotesVC.h"
 
 #pragma mark - Private Interface
 
@@ -122,9 +119,6 @@
     [[self view] addGestureRecognizer:panGestureRecognizer];
     [panGestureRecognizer setDelegate:self];
 
-    UINib *nib = [UINib nibWithNibName:@"ScalesPracticedCell" bundle:nil];
-    [statsTable registerNib:nib 
-     forCellReuseIdentifier:@"ScalesPracticedCell"];
     [statsTable setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     
     totalTime = [[UILabel alloc] initWithFrame:CGRectMake(239, 57, 100, 28)];
@@ -154,10 +148,11 @@
     [self makeMetronome];
     [self setUpScalesAndArpeggios];
     
-    [[[self view] layer] setShadowColor:[UIColor blackColor].CGColor];
-    [[[self view] layer] setShadowOpacity: 0.7f];
-    [[[self view] layer] setShadowOffset:CGSizeMake(-5.0f, 0.0)];
-    [[[self view] layer] setShadowRadius:3.0f];
+//    [[[self view] layer] setShadowColor:[UIColor blackColor].CGColor];
+//    [[[self view] layer] setShadowOpacity: 0.7f];
+//    [[[self view] layer] setShadowOffset:CGSizeMake(-5.0f, 0.0)];
+//    [[[self view] layer] setShadowRadius:3.0f];
+//    [[[self view] layer] shouldRasterize];
 
     slideBack = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 460)];
     [slideBack addTarget:self action:@selector(slideLeft:) forControlEvents:UIControlEventTouchUpInside];
@@ -775,14 +770,6 @@
     }   
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    
-    NotesVC *notes = [[NotesVC alloc] initWithIndexPath:indexPath session:selectedSession];
-    [self presentViewController:notes animated:YES completion:^{
-    }];
-}
-
 #pragma mark - Handling Sections
 - (void)closeSections
 {
@@ -1018,6 +1005,40 @@
     return nil;
 }
 
+//- (UIView *)hitWithPoint:(CGPoint)point
+//{
+//    if (swipedHeader)
+//    {
+//        if ([notesView isDescendantOfView:self.view])
+//            return nil;
+//        CGRect frameOfExcludedArea = [self.view.superview convertRect:swipedHeader.deleteView.frame fromView:swipedHeader.deleteView.superview];
+//        if ((point.y > frameOfExcludedArea.origin.y-20) && (point.y < frameOfExcludedArea.origin.y-20 + frameOfExcludedArea.size.height))
+//        {
+//            if(point.x > (self.view.frame.size.width / 2))
+//                return swipedHeader.deleteButton;
+//            else
+//                return swipedHeader.notesButton;
+//        }
+//        else if (CGRectContainsPoint([notesView frame], point))
+//        {
+//            return notesView;
+//        }
+//        else if (CGRectContainsPoint([statsTable frame], point))
+//        {
+//            [swipedHeader cancelDelete:nil];
+//            [self setSwipedHeader:nil];
+//            return statsTable;
+//        }
+//        else 
+//        {
+//            [swipedHeader cancelDelete:nil];
+//            [self setSwipedHeader:nil];
+//            return nil;
+//        }
+//    }
+//    return nil;
+//}
+
 #pragma mark - Reorder Sections
 
 //- (void)moveSection:(NSInteger)section headerView:(SectionHeaderView *)sectionHeaderView
@@ -1054,6 +1075,5 @@
 //        [statsTable endUpdates];
 //    }
 }
-
 
 @end

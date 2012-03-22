@@ -13,7 +13,6 @@
 #import "StatsVC.h"
 #import "Session.h"
 #import "Piece.h"
-#import "Timer.h"
 #import "BlockAlertView.h"
 #import "SectionInfo.h"
 #import "HistoryViewController.h"

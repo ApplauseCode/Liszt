@@ -13,7 +13,6 @@
 #import "StatsView.h"
 #import "CustomSectionMove.h"
 
-@class Timer;
 @class Metronome;
 @class Session;
 @class TimerCell;

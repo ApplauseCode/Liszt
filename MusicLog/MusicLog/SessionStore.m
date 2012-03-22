@@ -10,7 +10,6 @@
 #import "Session.h"
 #import "Scale.h"
 #import "Piece.h"
-#import "Timer.h"
 #import "NSMutableOrderedSet+DeepCopy.h"
 
 #define DEBUG 1

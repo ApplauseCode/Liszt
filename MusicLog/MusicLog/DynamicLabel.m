@@ -1,6 +1,5 @@
 //
 //  DynamicLabel.m
-//  KayVeeO
 //
 //  Created by Jeffrey Rosenbluth on 2/19/12.
 //  Copyright (c) 2012 __Applause Code__. All rights reserved.
@@ -12,6 +11,7 @@
 @implementation DynamicLabel
 
 @synthesize seconds;
+@synthesize timeString;
 
 - (void)observeValueForKeyPath:(NSString *)keyPath
                       ofObject:(id)object
@@ -19,7 +19,8 @@
                        context:(void *)context
 {
     int time = [[change objectForKey:NSKeyValueChangeNewKey] intValue];
-    [self setText:[NSString timeStringFromInt:time]];
+    timeString = [NSString timeStringFromInt:time];
+    [self setText:timeString];
 }
 
 @end

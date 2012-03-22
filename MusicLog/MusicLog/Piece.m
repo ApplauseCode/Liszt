@@ -7,7 +7,6 @@
 //
 
 #import "Piece.h"
-#import "Timer.h"
 #import "CompoundString.h"
 
 
