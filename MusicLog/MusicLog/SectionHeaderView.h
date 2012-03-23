@@ -1,15 +1,11 @@
 
 
 #import <Foundation/Foundation.h>
-#import "DynamicLabel.h"
 
 @protocol SectionHeaderViewDelegate;
 
 @interface SectionHeaderView : UIView 
 
-@property (nonatomic, weak) UILabel *titleLabel;
-@property (nonatomic, weak) DynamicLabel *subTitleLabel;
-@property (nonatomic, strong) UIImageView *disclosureImage;
 @property (nonatomic, assign) NSInteger section;
 @property (nonatomic, strong) UITapGestureRecognizer *tapGesture;
 //@property (nonatomic, strong) UILongPressGestureRecognizer *longTap;
@@ -23,9 +19,9 @@
 //-(void)toggleOpenWithUserAction:(BOOL)userAction;
 - (void)setSubTitle:(NSString *)subName;
 - (void)toggleSwipe:(id)sender;
-- (void)toggleLongTap:(UILongPressGestureRecognizer *)sender;
+//- (void)toggleLongTap:(UILongPressGestureRecognizer *)sender;
 - (void)cancelDelete:(id)sender;
-- (void)deleteCell:(id)sender;
+//- (void)deleteCell:(id)sender;
 - (void)addNotes:(id)sender;
 - (void)turnDownDisclosure:(BOOL)yesOrNo;
 
