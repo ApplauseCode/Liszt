@@ -638,6 +638,24 @@
     return 42;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    CGFloat height = 42;
+    switch (section) {
+        case 0:
+            if (![[selectedSession scaleSession] count])
+                height = 0;
+            break;
+        case 1:
+            if (![[selectedSession arpeggioSession] count])
+                height = 0;
+        default:
+            break;
+    }
+    return height;
+    
+}
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return (2 + [[selectedSession pieceSession] count]);
