@@ -29,10 +29,12 @@
 }
 @property (strong, nonatomic) IBOutlet UILabel *tempoLabel;
 @property (strong, nonatomic) IBOutlet UILabel *tempoTextLabel;
-//@property (strong, nonatomic) IBOutlet UISegmentedControl *modeSeg;
+@property (assign, nonatomic) BOOL editMode;
 
-- (IBAction)addPiece:(id)sender;
+- (IBAction)saveToStore:(id)sender;
 - (void)dismissKeyboard;
+- (void)addPiece;
+- (void)editPiece;
 
 
 @end
@@ -42,16 +44,18 @@
 @synthesize editItemPath;
 @synthesize selectedSession;
 @synthesize tempoTextLabel;
+@synthesize editMode;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (id)initWithEditMode:(BOOL)_edit
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    self = [super initWithNibName:nil bundle:nil];
     if (self) {
-        // Custom initialization
+        editMode = _edit;
         [self setTitle:@"Pieces"];
-    keys = [NSArray arrayWithObjects:@"C",@"C\u266f",@"D\u266d", @"D", @"D\u266f",@"E\u266d",@"E",@"F",@"F\u266f",@"G\u266d",@"G",@"G\u266f",@"A\u266d",@"A",@"A\u266f",@"B\u266d",@"B", nil];     
+        keys = [NSArray arrayWithObjects:@"C",@"C\u266f",@"D\u266d", @"D", @"D\u266f",@"E\u266d",@"E",@"F",@"F\u266f",@"G\u266d",@"G",@"G\u266f",@"A\u266d",@"A",@"A\u266f",@"B\u266d",@"B", nil];     
     }
     return self;
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -60,49 +64,6 @@
     [super didReceiveMemoryWarning];
     
     // Release any cached data, images, etc that aren't in use.
-}
-
-- (void)addPiece:(id)sender
-{
-    if (![titleLabel text])
-        [titleLabel setText:@""];
-    if (![composerLabel text])
-        [composerLabel setText:@""];
-    Piece *createdPiece = [[Piece alloc] init];
-    SessionStore *store = [SessionStore defaultStore];
-    [createdPiece setTitle:[titleLabel text]];
-    [createdPiece setComposer:[composerLabel text]];
-    [createdPiece setTempo:[tempoStepper tempo]];
-    [createdPiece setMajor:[majOrMin selectedIndex]];
-    [createdPiece setPieceKey:[keyChooser selectedCellIndex]];
-    [[[store mySession] pieceSession] addObject:createdPiece];
-    [titleLabel setText:@""];
-    [composerLabel setText:@""];
-    
-    UIImageView *hud = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"LisztHUD.png"]];
-    [hud setCenter:CGPointMake(160, 220)];
-    [hud setAlpha:0];
-    UILabel *text = [[UILabel alloc] init];
-    [text setBounds:CGRectMake(0, 0, 90, 80)];
-    [text setCenter:CGPointMake(hud.frame.size.width/2, hud.frame.size.height/2)];
-    [text setNumberOfLines:0];
-    [text setText:@"Piece Added"];
-    [text setFont:[UIFont systemFontOfSize:17]];
-    [text setTextAlignment:UITextAlignmentCenter];
-    [text setBackgroundColor:[UIColor clearColor]];
-    [text setTextColor:[UIColor whiteColor]];
-    [hud addSubview:text];
-    [self.view addSubview:hud];
-    [UIView animateWithDuration:0.1
-                     animations:^{
-                         [hud setAlpha:1.0];
-                     } completion:^(BOOL finished) {
-                         [UIView animateWithDuration:0.5 delay:0.2 options:0 animations:^{
-                             [hud setAlpha:0.0];
-                         } completion:^(BOOL finished) {
-                             [hud removeFromSuperview];
-                         }];
-                     }];
 }
 
 - (void)backToPieces:(id)sender
@@ -168,10 +129,84 @@
     [self.view addSubview:tempoStepper];
     [self.view addSubview:titleLabel];
     [self.view addSubview:composerLabel];
+    
+    if (editMode && editItemPath && selectedSession)
+    { 
+        Piece *itemToEdit;
+        itemToEdit = [[selectedSession pieceSession] objectAtIndex:[editItemPath row] - 1];
+        [titleLabel setText:[itemToEdit title]];
+        [composerLabel setText:[itemToEdit composer]];
+        [majOrMin setSelectedIndex:[itemToEdit major]];
+        [tempoStepper setTempo:[itemToEdit tempo]];
+        [keyChooser setSelectedCellIndex:[itemToEdit pieceKey]];
+    }
+
 }
 
+- (void)saveToStore:(id)sender
+{
+    if (!editMode)
+        [self addPiece];
+    else 
+        [self editPiece];
+}
 
+- (void)addPiece
+{
+    if (![titleLabel text])
+        [titleLabel setText:@""];
+    if (![composerLabel text])
+        [composerLabel setText:@""];
+    Piece *createdPiece = [[Piece alloc] init];
+    SessionStore *store = [SessionStore defaultStore];
+    [createdPiece setTitle:[titleLabel text]];
+    [createdPiece setComposer:[composerLabel text]];
+    [createdPiece setTempo:[tempoStepper tempo]];
+    [createdPiece setMajor:[majOrMin selectedIndex]];
+    [createdPiece setPieceKey:[keyChooser selectedCellIndex]];
+    [[[store mySession] pieceSession] addObject:createdPiece];
+    [titleLabel setText:@""];
+    [composerLabel setText:@""];
+    
+    UIImageView *hud = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"LisztHUD.png"]];
+    [hud setCenter:CGPointMake(160, 220)];
+    [hud setAlpha:0];
+    UILabel *text = [[UILabel alloc] init];
+    [text setBounds:CGRectMake(0, 0, 90, 80)];
+    [text setCenter:CGPointMake(hud.frame.size.width/2, hud.frame.size.height/2)];
+    [text setNumberOfLines:0];
+    [text setText:@"Piece Added"];
+    [text setFont:[UIFont systemFontOfSize:17]];
+    [text setTextAlignment:UITextAlignmentCenter];
+    [text setBackgroundColor:[UIColor clearColor]];
+    [text setTextColor:[UIColor whiteColor]];
+    [hud addSubview:text];
+    [self.view addSubview:hud];
+    [UIView animateWithDuration:0.1
+                     animations:^{
+                         [hud setAlpha:1.0];
+                     } completion:^(BOOL finished) {
+                         [UIView animateWithDuration:0.5 delay:0.2 options:0 animations:^{
+                             [hud setAlpha:0.0];
+                         } completion:^(BOOL finished) {
+                             [hud removeFromSuperview];
+                         }];
+                     }];
 
+}
+
+- (void)editPiece
+{
+    Piece *editedItem = [[selectedSession pieceSession] objectAtIndex:[editItemPath row] - 1];
+    
+    [editedItem setTitle:[titleLabel text]];
+    [editedItem setComposer:[composerLabel text]];
+    [editedItem setMajor:[majOrMin selectedIndex]];
+    [editedItem setTempo:[tempoStepper tempo]];
+    [editedItem setPieceKey:[keyChooser selectedCellIndex]];
+    [[selectedSession pieceSession] replaceObjectAtIndex:[editItemPath row] - 1 withObject:editedItem];
+    NSLog(@"titel: %@", [[selectedSession pieceSession] objectAtIndex:[editItemPath row] - 1]);
+}
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];

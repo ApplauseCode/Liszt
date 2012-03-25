@@ -11,6 +11,7 @@
 @class Session;
 
 @interface PiecesPickerVC : UIViewController <UITextFieldDelegate>
+- (id)initWithEditMode:(BOOL)_edit;
 @property (nonatomic, strong) NSIndexPath *editItemPath;
 @property (nonatomic, strong) Session *selectedSession;
 - (IBAction)backToPieces:(id)sender;

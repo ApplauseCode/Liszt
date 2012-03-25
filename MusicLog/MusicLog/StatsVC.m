@@ -172,8 +172,9 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
-    for (int i = ([sectionInfoArray count] - 2); i < [[selectedSession pieceSession] count]; i++)
+    NSLog(@"count: %i", [sectionInfoArray count]);
+    [sectionInfoArray removeObjectsInRange:NSMakeRange(2, [sectionInfoArray count] - 2)];
+    for (int i = 0; i < [[selectedSession pieceSession] count]; i++)
     {
         SectionInfo *pieceInfo = [[SectionInfo alloc] init];
         [pieceInfo setTitle:[[[selectedSession pieceSession] objectAtIndex:i] title]];
@@ -182,6 +183,7 @@
     }
     [[sectionInfoArray objectAtIndex:0] setCountofRowsToInsert:[[selectedSession scaleSession] count]];
     [[sectionInfoArray objectAtIndex:1] setCountofRowsToInsert:[[selectedSession arpeggioSession] count]];
+    NSLog(@"title for piece:%@ at index:%i", [[sectionInfoArray objectAtIndex:[sectionInfoArray count] - 1] title], [sectionInfoArray count]);
     [statsTable reloadData];
     [self hideMenu:nil];
 }
@@ -383,7 +385,7 @@
             vc = [[ScalePickerVC alloc] initWithIndex:1 editPage:NO];
             break;
         case 2:
-            vc = [[PiecesPickerVC alloc] init];
+            vc = [[PiecesPickerVC alloc] initWithEditMode:NO];
             break;
     }        
     [self presentModalViewController:vc animated:YES];
@@ -791,6 +793,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [self closeSections];
     NSInteger section = [indexPath section];
     id editVC;
     switch (section) {
@@ -801,9 +804,9 @@
             editVC = [[ScalePickerVC alloc] initWithIndex:1 editPage:YES];
             break;
         default:
+            editVC = [[PiecesPickerVC alloc] initWithEditMode:YES];
             break;
     }
-    NSLog(@"row:%i", [indexPath row]);
     [editVC setEditItemPath:indexPath];
     [editVC setSelectedSession:selectedSession];
     [self presentModalViewController:editVC animated:YES];
