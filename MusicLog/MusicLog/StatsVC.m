@@ -172,8 +172,9 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
-    for (int i = ([sectionInfoArray count] - 2); i < [[selectedSession pieceSession] count]; i++)
+    NSLog(@"count: %i", [sectionInfoArray count]);
+    [sectionInfoArray removeObjectsInRange:NSMakeRange(2, [sectionInfoArray count] - 2)];
+    for (int i = 0; i < [[selectedSession pieceSession] count]; i++)
     {
         SectionInfo *pieceInfo = [[SectionInfo alloc] init];
         [pieceInfo setTitle:[[[selectedSession pieceSession] objectAtIndex:i] title]];
@@ -182,6 +183,7 @@
     }
     [[sectionInfoArray objectAtIndex:0] setCountofRowsToInsert:[[selectedSession scaleSession] count]];
     [[sectionInfoArray objectAtIndex:1] setCountofRowsToInsert:[[selectedSession arpeggioSession] count]];
+    NSLog(@"title for piece:%@ at index:%i", [[sectionInfoArray objectAtIndex:[sectionInfoArray count] - 1] title], [sectionInfoArray count]);
     [statsTable reloadData];
     [self hideMenu:nil];
 }
@@ -396,13 +398,13 @@
     id vc;
     switch ([sender tag]) {
         case 0:
-            vc = [[ScalePickerVC alloc] initWithIndex:0];
+            vc = [[ScalePickerVC alloc] initWithIndex:0 editPage:NO];
             break;
         case 1:
-            vc = [[ScalePickerVC alloc] initWithIndex:1];
+            vc = [[ScalePickerVC alloc] initWithIndex:1 editPage:NO];
             break;
         case 2:
-            vc = [[PiecesPickerVC alloc] init];
+            vc = [[PiecesPickerVC alloc] initWithEditMode:NO];
             break;
     }        
     [self presentModalViewController:vc animated:YES];
@@ -806,6 +808,27 @@
         if ([statsTable numberOfRowsInSection:section] == 1)
             [self closeSections];
     }   
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [self closeSections];
+    NSInteger section = [indexPath section];
+    id editVC;
+    switch (section) {
+        case 0:
+            editVC = [[ScalePickerVC alloc] initWithIndex:0 editPage:YES];
+            break;
+        case 1:
+            editVC = [[ScalePickerVC alloc] initWithIndex:1 editPage:YES];
+            break;
+        default:
+            editVC = [[PiecesPickerVC alloc] initWithEditMode:YES];
+            break;
+    }
+    [editVC setEditItemPath:indexPath];
+    [editVC setSelectedSession:selectedSession];
+    [self presentModalViewController:editVC animated:YES];
 }
 
 #pragma mark - Handling Sections

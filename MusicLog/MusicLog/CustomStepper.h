@@ -16,7 +16,7 @@ int tempoRange(int x);
 
 @interface CustomStepper : UIControl
 
-@property NSUInteger tempo;
+@property(nonatomic, assign) NSUInteger tempo;
 @property (nonatomic, assign) BOOL canBeNone;
 @property (nonatomic, weak) id <CustomStepperDelegate> delegate;
 

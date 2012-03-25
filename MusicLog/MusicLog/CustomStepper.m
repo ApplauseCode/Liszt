@@ -52,6 +52,12 @@ int tempoRange(int x)
     return self;
 }
 
+- (void)setTempo:(NSUInteger)_tempo
+{
+    tempo = _tempo;
+    [tempoLabel setText:[NSString stringWithFormat:@"%u BPM", tempo]];
+}
+
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     myTouch = [touches anyObject];

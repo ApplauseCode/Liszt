@@ -58,6 +58,21 @@
 //    return YES;  
 //}
 
+- (void)setSelectedIndex:(NSInteger)index
+{
+    selectedIndex = index;
+    float widthOfSegment = [self frame].size.width / segments;
+    [UIView animateWithDuration:0.3 animations:^{
+        if (arrowLocations)
+            [arrowIndicator setCenter:CGPointMake([[arrowLocations objectAtIndex:selectedIndex] floatValue], arrowIndicator.center.y)];
+        else
+            [arrowIndicator setCenter:CGPointMake((widthOfSegment * (selectedIndex + 1)) - (widthOfSegment/2), arrowIndicator.center.y)];
+        [bgImageView setImage:[touchDownImages objectAtIndex:selectedIndex]];
+    } completion:^(BOOL finished) {
+    }];
+
+}
+
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     UITouch *touch = [touches anyObject];
@@ -71,5 +86,6 @@
         [bgImageView setImage:[touchDownImages objectAtIndex:selectedIndex]];
     } completion:^(BOOL finished) {
     }];
+    NSLog(@"selected index:%i", selectedIndex);
 }
 @end

@@ -10,12 +10,15 @@
 #import "Common.h"
 @class Scale;
 @class CustomStepper;
+@class Session;
 
 @interface ScalePickerVC : UIViewController
 @property (nonatomic, readonly, strong) NSArray *tonicArray;
+@property (nonatomic, strong) NSIndexPath *editItemPath;
+@property (nonatomic, strong) Session *selectedSession;
 
-- (id)initWithIndex:(NSUInteger)idx;
-- (IBAction)addScale:(id)sender;
+- (id)initWithIndex:(NSUInteger)idx editPage:(BOOL)_editMode;
+- (IBAction)saveToStore:(id)sender;
 - (IBAction)backToScales:(id)sender;
 - (void)repeatedScaleWarning;
 
