@@ -16,6 +16,8 @@
 #import "ACchooser.h"
 #import "UIColor+YellowTextColor.h"
 #import "DCRoundSwitch.h"
+#define NONEDITTONICS 3
+#define EXCLUSIVEARPMODES 4
 
 @interface ScalePickerVC ()
 {
@@ -65,7 +67,10 @@
         editMode = _editMode;
         [self setTitle:@"ScalePickerVC"];
         
-        tonicArray = [NSArray arrayWithObjects:@"Sharps", @"Flats", @"All", @"  C  ",@"C\u266f/D\u266d",@"  D  ",@"D\u266f/E\u266d",@"  E  ",@"  F  ",@"F\u266f/G\u266d",@"  G  ",@"G\u266f/A\u266d",@"  A  ",@"A\u266f/B\u266d",@"  B  ", nil];
+        if (editMode)
+            tonicArray = [NSArray arrayWithObjects:@"  C  ",@"C\u266f/D\u266d",@"  D  ",@"D\u266f/E\u266d",@"  E  ",@"  F  ",@"F\u266f/G\u266d",@"  G  ",@"G\u266f/A\u266d",@"  A  ",@"A\u266f/B\u266d",@"  B  ", nil];
+        else
+            tonicArray = [NSArray arrayWithObjects:@"Sharps", @"Flats", @"All", @"  C  ",@"C\u266f/D\u266d",@"  D  ",@"D\u266f/E\u266d",@"  E  ",@"  F  ",@"F\u266f/G\u266d",@"  G  ",@"G\u266f/A\u266d",@"  A  ",@"A\u266f/B\u266d",@"  B  ", nil];
         rhythmArray = [NSArray arrayWithObjects:@"   w",@" h ",@" q ",@"ry",@"rty",@"dffg", nil];
         
         switch (idx) {
@@ -152,8 +157,11 @@
             default:
                 break;
         }
-        [tonicChooser setSelectedCellIndex:[itemToEdit tonic]];
-        [modeChooser setSelectedCellIndex:[itemToEdit scaleMode] - 4];
+        [tonicChooser setSelectedCellIndex:[itemToEdit tonic] - NONEDITTONICS];
+        if (index == 0)
+            [modeChooser setSelectedCellIndex:[itemToEdit scaleMode]];
+        else
+            [modeChooser setSelectedCellIndex:[itemToEdit scaleMode] - EXCLUSIVEARPMODES];
         [rhythmChooser setSelectedCellIndex:[itemToEdit rhythm]];
         [octavesSegment setSelectedIndex:[itemToEdit octaves] - 1];
         [stepper setTempo:[itemToEdit tempo]];
@@ -179,13 +187,11 @@
     if (index == 0)
         [editedItem setScaleMode:[modeChooser selectedCellIndex]];
     else if (index == 1)
-        [editedItem setScaleMode:([modeChooser selectedCellIndex] + 4)];
-    //mode is wrong
+        [editedItem setScaleMode:([modeChooser selectedCellIndex] + EXCLUSIVEARPMODES)];
     [editedItem setRhythm:[rhythmChooser selectedCellIndex]];
     [editedItem setOctaves:[octavesSegment selectedIndex] + 1];
     [editedItem setTempo:stepper.tempo];
-    [editedItem setTonic:[tonicChooser selectedCellIndex]];
-    NSLog(@"tonic: %i", [tonicChooser selectedCellIndex]);
+    [editedItem setTonic:[tonicChooser selectedCellIndex] + NONEDITTONICS];
     [[selectedSession scaleSession] replaceObjectAtIndex:[editItemPath row] - 1 withObject:editedItem];
 }
 
@@ -197,7 +203,7 @@
     if (index == 0)
         [pickedScale setScaleMode:[modeChooser selectedCellIndex]];
     else if (index == 1)
-        [pickedScale setScaleMode:([modeChooser selectedCellIndex] + 4)];
+        [pickedScale setScaleMode:([modeChooser selectedCellIndex] + EXCLUSIVEARPMODES)];
     [pickedScale setRhythm:[rhythmChooser selectedCellIndex]];
     [pickedScale setOctaves:[octavesSegment selectedIndex] + 1];
     [pickedScale setTempo:stepper.tempo];

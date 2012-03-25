@@ -8,7 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+@class Session;
+
 @interface PiecesPickerVC : UIViewController <UITextFieldDelegate>
+@property (nonatomic, strong) NSIndexPath *editItemPath;
+@property (nonatomic, strong) Session *selectedSession;
 - (IBAction)backToPieces:(id)sender;
 
 @end

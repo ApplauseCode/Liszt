@@ -39,7 +39,8 @@
 
 @implementation PiecesPickerVC
 @synthesize tempoLabel;
-//@synthesize modeSeg;
+@synthesize editItemPath;
+@synthesize selectedSession;
 @synthesize tempoTextLabel;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
