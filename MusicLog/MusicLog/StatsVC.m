@@ -306,8 +306,8 @@
 {  
     static BOOL isVerticle;
     static CGFloat startingX;
-    const CGFloat initiateX = 40.0;
-    const CGFloat bounceX = 7.0;
+    const CGFloat initiateX = 45.0;
+    const CGFloat bounceX = 10.0;
     const CGFloat velocityThreshold = 300.0;
     const CGFloat viewWidth = [[self view] bounds].size.width;
     const CGFloat viewHeight = [[self view] bounds].size.height;
@@ -359,6 +359,25 @@
     }
 }
 
+- (IBAction)slideRight:(id)sender 
+{
+    const CGFloat initiateX = 45.0;
+    const CGFloat viewWidth = [[self view] bounds].size.width;
+    const CGFloat viewHeight = [[self view] bounds].size.height;
+    const CGPoint theCenter = CGPointMake(viewWidth / 2.0, viewHeight / 2.0);
+    const CGFloat rightX = theCenter.x + viewWidth - initiateX;
+    const CGFloat bounceX = 10.0;
+    [UIView animateWithDuration:0.18 animations:^{
+        [[self view] setCenter:CGPointMake(rightX + bounceX, theCenter.y)];
+    } completion:^(BOOL finished){
+        [statsTable setScrollEnabled:NO];
+        [self.view addSubview:slideBack];
+        [UIView animateWithDuration:0.08 animations:^{
+            [[self view] setCenter:CGPointMake(rightX, theCenter.y)];
+        }];
+    }];
+}
+
 - (void)slideLeft:(id)sender
 {
     const CGFloat viewWidth = [[self view] bounds].size.width;
@@ -389,14 +408,15 @@
     [self presentModalViewController:vc animated:YES];
     [self closeSections];
 }
+
 - (void)slideDown:(id)sender
 {
-    CGPoint center = [chooseDateButton center];
+//    CGPoint center = [chooseDateButton center];
     if ([datePicker frame].origin.y < -215.0)
     {
         [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationCurveEaseIn animations:^{
             [datePicker setFrame:CGRectMake(0.0, 0.0, 320, 253)];
-            [chooseDateButton setCenter:CGPointMake(center.x, center.y + 210)];
+//            [chooseDateButton setCenter:CGPointMake(center.x, center.y + 210)];
         } completion:^(BOOL finished) {
         }];
         
@@ -405,7 +425,7 @@
     {
         [UIView animateWithDuration:0.35 animations:^{
             [datePicker setFrame:CGRectMake(0.0, -216.0, 320, 253)];
-            [chooseDateButton setCenter:CGPointMake(center.x, center.y - 210)];
+//            [chooseDateButton setCenter:CGPointMake(center.x, center.y - 210)];
         }completion:^(BOOL finished) {
             [self dateChanged];
         }];
@@ -649,11 +669,11 @@
         case 1:
             if (![[selectedSession arpeggioSession] count])
                 height = 0;
+            break;
         default:
             break;
     }
     return height;
-    
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
