@@ -42,24 +42,32 @@
     
 }
 @property (strong, nonatomic) IBOutlet UIImageView *viewBG;
+@property (assign, nonatomic) BOOL editMode;
 
+- (void)addItem;
+- (void)editItem;
 @end
 @implementation ScalePickerVC
 @synthesize viewBG;
 @synthesize tonicArray;
+@synthesize editMode;
+@synthesize editItemPath;
+@synthesize selectedSession;
 
-- (id)initWithIndex:(NSUInteger)idx
+- (id)initWithIndex:(NSUInteger)idx editPage:(BOOL)_editMode
 {
     // sharp: \u266f
     // flat: \u266d
     
     self = [super initWithNibName:nil bundle:nil];
     if (self)
-        [self setTitle:@"ScalePickerVC"];
-    tonicArray = [NSArray arrayWithObjects:@"Sharps", @"Flats", @"All", @"  C  ",@"C\u266f/D\u266d",@"  D  ",@"D\u266f/E\u266d",@"  E  ",@"  F  ",@"F\u266f/G\u266d",@"  G  ",@"G\u266f/A\u266d",@"  A  ",@"A\u266f/B\u266d",@"  B  ", nil];
-    rhythmArray = [NSArray arrayWithObjects:@"   w",@" h ",@" q ",@"ry",@"rty",@"dffg", nil];
-
     {
+        editMode = _editMode;
+        [self setTitle:@"ScalePickerVC"];
+        
+        tonicArray = [NSArray arrayWithObjects:@"Sharps", @"Flats", @"All", @"  C  ",@"C\u266f/D\u266d",@"  D  ",@"D\u266f/E\u266d",@"  E  ",@"  F  ",@"F\u266f/G\u266d",@"  G  ",@"G\u266f/A\u266d",@"  A  ",@"A\u266f/B\u266d",@"  B  ", nil];
+        rhythmArray = [NSArray arrayWithObjects:@"   w",@" h ",@" q ",@"ry",@"rty",@"dffg", nil];
+        
         switch (idx) {
             case 0:
                 modeArray = [NSArray arrayWithObjects:@"Major", @"Natural Minor", @"Melodic Minor", @"Harmonic Minor", nil];
@@ -130,13 +138,58 @@
     [tonicChooser setSelectedTextColor:[UIColor blueColor]];
     [modeChooser setSelectedTextColor:[UIColor blueColor]];
     [rhythmChooser setSelectedTextColor:[UIColor blueColor]];
+    
+    if (editMode && editItemPath && selectedSession)
+    { 
+        Scale *itemToEdit;
+        switch ([editItemPath section]) {
+            case 0:
+                itemToEdit = [[selectedSession scaleSession] objectAtIndex:[editItemPath row] - 1];
+                break;
+            case 1:
+                itemToEdit = [[selectedSession arpeggioSession] objectAtIndex:[editItemPath row] - 1];
+                break;
+            default:
+                break;
+        }
+        [tonicChooser setSelectedCellIndex:[itemToEdit tonic]];
+        [modeChooser setSelectedCellIndex:[itemToEdit scaleMode] - 4];
+        [rhythmChooser setSelectedCellIndex:[itemToEdit rhythm]];
+        [octavesSegment setSelectedIndex:[itemToEdit octaves] - 1];
+        [stepper setTempo:[itemToEdit tempo]];
+    }
 }
 
 #pragma mark -
 #pragma mark === Actions ===
 #pragma mark -
 
-- (IBAction)addScale:(id)sender
+- (IBAction)saveToStore:(id)sender
+{
+    if (!editMode)
+        [self addItem];
+    else
+        [self editItem];
+
+}
+
+- (void)editItem
+{
+    Scale *editedItem = [[Scale alloc] init];
+    if (index == 0)
+        [editedItem setScaleMode:[modeChooser selectedCellIndex]];
+    else if (index == 1)
+        [editedItem setScaleMode:([modeChooser selectedCellIndex] + 4)];
+    //mode is wrong
+    [editedItem setRhythm:[rhythmChooser selectedCellIndex]];
+    [editedItem setOctaves:[octavesSegment selectedIndex] + 1];
+    [editedItem setTempo:stepper.tempo];
+    [editedItem setTonic:[tonicChooser selectedCellIndex]];
+    NSLog(@"tonic: %i", [tonicChooser selectedCellIndex]);
+    [[selectedSession scaleSession] replaceObjectAtIndex:[editItemPath row] - 1 withObject:editedItem];
+}
+
+- (void)addItem
 {
     int row = [tonicChooser selectedCellIndex];
     Scale *pickedScale = [[Scale alloc] init];
@@ -153,12 +206,6 @@
     NSMutableArray *flats = [[NSMutableArray alloc] initWithCapacity:6];
     NSMutableArray *all = [[NSMutableArray alloc] initWithCapacity:12];
     int tonicNum = 0;
-    
-//    if ([[[store mySession] scaleSession] respondsToSelector:@selector(addObject:)])
-//        NSLog(@"its mutable!");
-//    else
-//        NSLog(@"it aint mutable");
-    
     switch (row) {
         case 0: //sharps
             for (int i = 0; i < 6; i++) {

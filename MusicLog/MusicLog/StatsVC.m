@@ -377,10 +377,10 @@
     id vc;
     switch ([sender tag]) {
         case 0:
-            vc = [[ScalePickerVC alloc] initWithIndex:0];
+            vc = [[ScalePickerVC alloc] initWithIndex:0 editPage:NO];
             break;
         case 1:
-            vc = [[ScalePickerVC alloc] initWithIndex:1];
+            vc = [[ScalePickerVC alloc] initWithIndex:1 editPage:NO];
             break;
         case 2:
             vc = [[PiecesPickerVC alloc] init];
@@ -649,6 +649,7 @@
         case 1:
             if (![[selectedSession arpeggioSession] count])
                 height = 0;
+            break;
         default:
             break;
     }
@@ -786,6 +787,26 @@
         if ([statsTable numberOfRowsInSection:section] == 1)
             [self closeSections];
     }   
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSInteger section = [indexPath section];
+    id editVC;
+    switch (section) {
+        case 0:
+            editVC = [[ScalePickerVC alloc] initWithIndex:0 editPage:YES];
+            break;
+        case 1:
+            editVC = [[ScalePickerVC alloc] initWithIndex:1 editPage:YES];
+            break;
+        default:
+            break;
+    }
+    NSLog(@"row:%i", [indexPath row]);
+    [editVC setEditItemPath:indexPath];
+    [editVC setSelectedSession:selectedSession];
+    [self presentModalViewController:editVC animated:YES];
 }
 
 #pragma mark - Handling Sections

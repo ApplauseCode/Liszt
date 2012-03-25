@@ -12,7 +12,7 @@
 @property (nonatomic, strong) UIImageView *bgImageView;
 @property (nonatomic, assign) NSInteger segments;
 @property (nonatomic, strong) NSArray *touchDownImages;
-@property (nonatomic, readonly, assign) NSInteger selectedIndex;
+@property (nonatomic, assign) NSInteger selectedIndex;
 @property (nonatomic, assign) NSInteger indicatorXOffset;
 
 

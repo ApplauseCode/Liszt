@@ -18,7 +18,7 @@ CGFloat sum_2(CGFloat *a, int n);
 @property (nonatomic, strong) UIColor *selectedBackgroundColor;
 @property (nonatomic, assign) BOOL variableCellWidth;
 
-@property (nonatomic, assign, readonly) int selectedCellIndex;
+@property (nonatomic, assign) int selectedCellIndex;
 @property (nonatomic, weak) id delegate;
 
 - (id)initWithFrame:(CGRect)frame;

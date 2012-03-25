@@ -29,7 +29,8 @@ CGFloat sum_2(CGFloat *a, int n)
 @property (nonatomic, assign)  CGFloat currentOffset;
 @property (nonatomic, assign) CGRect frame;
 @property (nonatomic, assign) int cellNumber;
-@property (nonatomic, assign, readwrite) int selectedCellIndex;
+//@property (nonatomic, assign, readwrite) int selectedCellIndex;
+- (void)moveChooserToIndexPath:(NSIndexPath *)indexPath;
 @end
 
 @implementation ACchooser
@@ -115,7 +116,19 @@ CGFloat sum_2(CGFloat *a, int n)
     [horizontalTable setTransform:CGAffineTransformMakeRotation(- M_PI_2)];
 }
 
+- (void)setSelectedCellIndex:(int)index
+{
+    NSIndexPath *ip = [NSIndexPath indexPathForRow:index + 1 inSection:0];
+    [horizontalTable selectRowAtIndexPath:ip animated:NO scrollPosition:UITableViewScrollPositionMiddle];
+    [self moveChooserToIndexPath:ip];
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [self moveChooserToIndexPath:indexPath];
+}
+
+- (void)moveChooserToIndexPath:(NSIndexPath *)indexPath
 {
     NSIndexPath *path;
     [self setCellNumber:[indexPath row]];
@@ -125,10 +138,10 @@ CGFloat sum_2(CGFloat *a, int n)
     previousOffset = sum_2(cellWidths, [self cellNumber]);
     [horizontalTable scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionMiddle animated:YES]; 
     selectedCellIndex = cellNumber - 1;
-    [tableView reloadData]; // sets text color and cell background back to normal
-   // [[[tableView cellForRowAtIndexPath:path] textLabel] setTextColor :selectedTextColor];
-    [[[tableView cellForRowAtIndexPath:path] contentView] setBackgroundColor:selectedBackgroundColor];
-    [[[tableView cellForRowAtIndexPath:path] textLabel] setBackgroundColor:selectedBackgroundColor];
+    [horizontalTable reloadData]; // sets text color and cell background back to normal
+    // [[[tableView cellForRowAtIndexPath:path] textLabel] setTextColor :selectedTextColor];
+    [[[horizontalTable cellForRowAtIndexPath:path] contentView] setBackgroundColor:selectedBackgroundColor];
+    [[[horizontalTable cellForRowAtIndexPath:path] textLabel] setBackgroundColor:selectedBackgroundColor];
     [delegate chooserDidSelectCell: self];
 }
 
