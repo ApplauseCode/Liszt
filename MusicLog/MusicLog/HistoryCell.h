@@ -10,5 +10,6 @@
 
 @interface HistoryCell : LisztCell
 
-@property (nonatomic, copy) NSString *tempLabel;
+@property (nonatomic, copy) NSString *titleLabel;
+@property (nonatomic, copy) NSString *subTitleLabel;
 @end

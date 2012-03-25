@@ -8,10 +8,11 @@
 
 #import "HistoryCell.h"
 #define kLeftMargin 40
-#define kTopMargin 5
+#define kTopMargin 15
 
 @implementation HistoryCell
-@synthesize tempLabel;
+@synthesize titleLabel;
+@synthesize subTitleLabel;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -25,10 +26,14 @@
 - (void)drawContentView:(CGRect)r
 {
     [super drawContentView:r];
-    [tempLabel drawAtPoint:CGPointMake(kLeftMargin, kTopMargin)
+    [titleLabel drawAtPoint:CGPointMake(kLeftMargin, kTopMargin)
                    forWidth:135
                    withFont:[self defaultLargeFont]
               lineBreakMode:UILineBreakModeTailTruncation];   
+    [subTitleLabel drawAtPoint:CGPointMake(185, kTopMargin)
+                      forWidth:135
+                      withFont:[self defaultLargeFont]
+                 lineBreakMode:UILineBreakModeTailTruncation];
 }
 
 /*
