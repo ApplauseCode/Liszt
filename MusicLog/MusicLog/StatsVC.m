@@ -247,7 +247,7 @@
 }
 
 - (void) makeMetronome {
-    stepper = [[CustomStepper alloc] initWithPoint:CGPointMake(215, 25) label:tempoLabel andCanBeNone:NO];
+    stepper = [[CustomStepper alloc] initWithPoint:CGPointMake(215, 27) label:tempoLabel andCanBeNone:NO];
     [stepper setDelegate:self];
     [metronomeView addSubview:stepper];
     metroPanGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handleMetroPan:)];
