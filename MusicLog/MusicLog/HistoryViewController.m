@@ -44,6 +44,7 @@
     sessionTimes = [[NSMutableArray alloc] init];
     sessions = [[SessionStore defaultStore] sessions];
     [historyTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    [historyTableView setBackgroundColor:[UIColor clearColor]];
     for (Session *s in sessions)
     {
         NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
@@ -80,20 +81,16 @@
     return [[[SessionStore defaultStore] sessions] count];
 }
 
-- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    [tableView setBackgroundColor:[UIColor clearColor]];
-}
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     HistoryCell *cell;
-        cell = (HistoryCell *)[tableView dequeueReusableCellWithIdentifier:@"HistoryCell"];
-        if (cell == nil) 
-            cell = [[HistoryCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"HistoryCell"];
+    cell = (HistoryCell *)[tableView dequeueReusableCellWithIdentifier:@"HistoryCell"];
+    if (cell == nil) 
+        cell = [[HistoryCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"HistoryCell"];
     cell.selectionStyle = UITableViewCellSelectionStyleNone; 
-    [cell setTitleLabel:[sessionDates objectAtIndex:[indexPath row]]]; 
-    [cell setSubTitleLabel:[sessionTimes objectAtIndex:[indexPath row]]];
+    [cell updateTitle:[sessionDates objectAtIndex:[indexPath row]] subTitle:[sessionTimes objectAtIndex:[indexPath row]]];
+//    [cell setTitleLabel:[sessionDates objectAtIndex:[indexPath row]]]; 
+//    [cell setSubTitleLabel:[sessionTimes objectAtIndex:[indexPath row]]];
     return cell;
 }
 

@@ -159,6 +159,16 @@
 		CE98858F14EC8B5000E8FA90 /* SessionStore.m in Sources */ = {isa = PBXBuildFile; fileRef = CE98858E14EC8B5000E8FA90 /* SessionStore.m */; };
 		CECCE171150CF1650084B147 /* LisztCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CECCE170150CF1650084B147 /* LisztCell.m */; };
 		CECCE175150D42060084B147 /* ScaleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CECCE174150D42060084B147 /* ScaleCell.m */; };
+		CEEA53A5151FD7DA0080CBB0 /* DropshadowLeft.png in Resources */ = {isa = PBXBuildFile; fileRef = CEEA53A3151FD7DA0080CBB0 /* DropshadowLeft.png */; };
+		CEEA53A6151FD7DA0080CBB0 /* DropshadowLeft@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CEEA53A4151FD7DA0080CBB0 /* DropshadowLeft@2x.png */; };
+		CEEA53AA151FD9850080CBB0 /* plus.png in Resources */ = {isa = PBXBuildFile; fileRef = CEEA53A8151FD9850080CBB0 /* plus.png */; };
+		CEEA53AB151FD9850080CBB0 /* plus@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CEEA53A9151FD9850080CBB0 /* plus@2x.png */; };
+		CEEA53B0151FE1E20080CBB0 /* compose-add-button-background-pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = CEEA53AC151FE1E20080CBB0 /* compose-add-button-background-pressed.png */; };
+		CEEA53B1151FE1E20080CBB0 /* compose-add-button-background-pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CEEA53AD151FE1E20080CBB0 /* compose-add-button-background-pressed@2x.png */; };
+		CEEA53B2151FE1E20080CBB0 /* compose-add-button-background.png in Resources */ = {isa = PBXBuildFile; fileRef = CEEA53AE151FE1E20080CBB0 /* compose-add-button-background.png */; };
+		CEEA53B3151FE1E20080CBB0 /* compose-add-button-background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CEEA53AF151FE1E20080CBB0 /* compose-add-button-background@2x.png */; };
+		CEEA53B6151FE5680080CBB0 /* grabber.png in Resources */ = {isa = PBXBuildFile; fileRef = CEEA53B4151FE5680080CBB0 /* grabber.png */; };
+		CEEA53B7151FE5680080CBB0 /* grabber@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CEEA53B5151FE5680080CBB0 /* grabber@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -354,6 +364,16 @@
 		CECCE170150CF1650084B147 /* LisztCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LisztCell.m; sourceTree = "<group>"; };
 		CECCE173150D42060084B147 /* ScaleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScaleCell.h; sourceTree = "<group>"; };
 		CECCE174150D42060084B147 /* ScaleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScaleCell.m; sourceTree = "<group>"; };
+		CEEA53A3151FD7DA0080CBB0 /* DropshadowLeft.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DropshadowLeft.png; sourceTree = "<group>"; };
+		CEEA53A4151FD7DA0080CBB0 /* DropshadowLeft@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DropshadowLeft@2x.png"; sourceTree = "<group>"; };
+		CEEA53A8151FD9850080CBB0 /* plus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plus.png; sourceTree = "<group>"; };
+		CEEA53A9151FD9850080CBB0 /* plus@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plus@2x.png"; sourceTree = "<group>"; };
+		CEEA53AC151FE1E20080CBB0 /* compose-add-button-background-pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "compose-add-button-background-pressed.png"; sourceTree = "<group>"; };
+		CEEA53AD151FE1E20080CBB0 /* compose-add-button-background-pressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "compose-add-button-background-pressed@2x.png"; sourceTree = "<group>"; };
+		CEEA53AE151FE1E20080CBB0 /* compose-add-button-background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "compose-add-button-background.png"; sourceTree = "<group>"; };
+		CEEA53AF151FE1E20080CBB0 /* compose-add-button-background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "compose-add-button-background@2x.png"; sourceTree = "<group>"; };
+		CEEA53B4151FE5680080CBB0 /* grabber.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grabber.png; sourceTree = "<group>"; };
+		CEEA53B5151FE5680080CBB0 /* grabber@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "grabber@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -376,6 +396,16 @@
 		BA08C5E5140D3D35009C5E8D /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				CEEA53B4151FE5680080CBB0 /* grabber.png */,
+				CEEA53B5151FE5680080CBB0 /* grabber@2x.png */,
+				CEEA53AC151FE1E20080CBB0 /* compose-add-button-background-pressed.png */,
+				CEEA53AD151FE1E20080CBB0 /* compose-add-button-background-pressed@2x.png */,
+				CEEA53AE151FE1E20080CBB0 /* compose-add-button-background.png */,
+				CEEA53AF151FE1E20080CBB0 /* compose-add-button-background@2x.png */,
+				CEEA53A8151FD9850080CBB0 /* plus.png */,
+				CEEA53A9151FD9850080CBB0 /* plus@2x.png */,
+				CEEA53A3151FD7DA0080CBB0 /* DropshadowLeft.png */,
+				CEEA53A4151FD7DA0080CBB0 /* DropshadowLeft@2x.png */,
 				CE33BA0E151E238300A47766 /* menu-section-button.png */,
 				CE33BA0F151E238300A47766 /* menu-section-button@2x.png */,
 				CE33BA05151E1C9000A47766 /* slide_button.png */,
@@ -828,6 +858,16 @@
 				CE33BA08151E1C9000A47766 /* slide_button@2x.png in Resources */,
 				CE33BA10151E238300A47766 /* menu-section-button.png in Resources */,
 				CE33BA11151E238300A47766 /* menu-section-button@2x.png in Resources */,
+				CEEA53A5151FD7DA0080CBB0 /* DropshadowLeft.png in Resources */,
+				CEEA53A6151FD7DA0080CBB0 /* DropshadowLeft@2x.png in Resources */,
+				CEEA53AA151FD9850080CBB0 /* plus.png in Resources */,
+				CEEA53AB151FD9850080CBB0 /* plus@2x.png in Resources */,
+				CEEA53B0151FE1E20080CBB0 /* compose-add-button-background-pressed.png in Resources */,
+				CEEA53B1151FE1E20080CBB0 /* compose-add-button-background-pressed@2x.png in Resources */,
+				CEEA53B2151FE1E20080CBB0 /* compose-add-button-background.png in Resources */,
+				CEEA53B3151FE1E20080CBB0 /* compose-add-button-background@2x.png in Resources */,
+				CEEA53B6151FE5680080CBB0 /* grabber.png in Resources */,
+				CEEA53B7151FE5680080CBB0 /* grabber@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

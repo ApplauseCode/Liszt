@@ -56,6 +56,7 @@
 @property (strong, nonatomic)   IBOutlet UIButton *chooseArpsButton;
 @property (strong, nonatomic)   IBOutlet UIButton *choosePiecesButton;
 @property (strong, nonatomic)   IBOutlet UILabel *tempoNameLabel;
+@property (weak, nonatomic)     IBOutlet UIImageView *metronomeGrabber;
 
 - (void)blockAlertView:(BOOL)isYes;
 - (void)makeMenu;

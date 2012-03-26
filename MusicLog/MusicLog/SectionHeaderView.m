@@ -35,29 +35,6 @@ static UIImage *_disclosureImage = nil;
         _disclosureImage = [UIImage imageNamed:@"DisclosureArrow.png"];
         tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(toggleOpen:)];
         [self addGestureRecognizer:tapGesture];
-        swipeGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(toggleSwipe:)];
-        [swipeGesture setDirection:UISwipeGestureRecognizerDirectionLeft];
-        [self addGestureRecognizer:swipeGesture];
-        
-        deleteView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
-        [deleteView setBackgroundColor:[UIColor whiteColor]];
-        [deleteView setOpaque:NO];
-        notesButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 160, 45)];
-        [notesButton setTitle:@"Notations" forState:UIControlStateNormal];
-        [notesButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        [notesButton setBackgroundColor:[UIColor clearColor]];
-        [notesButton setOpaque:NO];
-        [notesButton addTarget:self action:@selector(addNotes:) forControlEvents:UIControlEventTouchUpInside];
-        deleteButton = [[UIButton alloc] initWithFrame:CGRectMake(160, 0, 160, 45)];
-        [deleteButton setTitle:@"Delete" forState:UIControlStateNormal];
-        [deleteButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        [deleteButton setOpaque:NO];
-        [deleteButton setBackgroundColor:[UIColor clearColor]];
-        [deleteButton addTarget:self action:@selector(deleteCell:) forControlEvents:UIControlEventTouchUpInside];
-        [deleteView addSubview:deleteButton];
-        [deleteView addSubview:notesButton];
-        [self insertSubview:deleteView belowSubview:self];
-        [deleteView setHidden:YES];
     }
     return self;
 }

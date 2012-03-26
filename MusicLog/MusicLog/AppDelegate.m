@@ -38,6 +38,8 @@
     /*remove later*/[TestFlight takeOff:@"0bb5b0fae5868594a374b52c1cd204c3_NTQ5NTIyMDEyLTAxLTI1IDE1OjU3OjIxLjYxMTI3NA"];
      application.applicationSupportsShakeToEdit = YES; /**/
     [NSTimer scheduledTimerWithTimeInterval:30 target:self selector:@selector(timerFireMethod:) userInfo:nil repeats:YES];
+    //UIScreen *mainScreen = [UIScreen mainScreen];
+    //mainScreen.brightness = .1; //should set the brightness at 50%
     [self setAlertViewVisible:NO];
     [SessionStore defaultStore];
     [self checkDate];

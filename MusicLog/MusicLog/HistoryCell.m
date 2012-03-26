@@ -23,6 +23,13 @@
     return self;
 }
 
+- (void) updateTitle:(NSString *)_title subTitle:(NSString *)_subTitle;
+{
+    titleLabel = _title;
+    subTitleLabel = _subTitle;
+    [self setNeedsDisplay];
+}
+
 - (void)drawContentView:(CGRect)r
 {
     [super drawContentView:r];

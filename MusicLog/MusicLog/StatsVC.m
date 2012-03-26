@@ -35,13 +35,17 @@
 @property (nonatomic, strong) StopWatch *stopWatch;
 @property (nonatomic, strong) id theObserver;
 @property (nonatomic, strong) UIPanGestureRecognizer *panGestureRecognizer;
+@property (nonatomic, strong) UIPanGestureRecognizer *metroPanGestureRecognizer;
 @property (nonatomic, strong) UIButton *slideBack;
 
 - (void)backToToday:(id)sender;
 - (void)handlePan:(UIPanGestureRecognizer *)gesture;
+- (void)handleMetroPan:(UIPanGestureRecognizer *)recognizer;
+
 @end
 
 @implementation StatsVC
+@synthesize metronomeGrabber;
 
 @synthesize totalTime;
 @synthesize addButton;
@@ -72,12 +76,14 @@
 @synthesize notesView;
 @synthesize notesTapGesture;
 @synthesize panGestureRecognizer;
+@synthesize metroPanGestureRecognizer;
 @synthesize slideBack;
 
 #pragma mark - View lifecycle
 
 - (void)viewDidUnload
 {
+    [self setMetronomeGrabber:nil];
     [self setAddButton:nil];
     [self setChoosePiecesButton:nil];
     [self setChooseArpsButton:nil];
@@ -241,11 +247,45 @@
 }
 
 - (void) makeMetronome {
-    stepper = [[CustomStepper alloc] initWithPoint:CGPointMake(215, -6) label:tempoLabel andCanBeNone:NO];
+    stepper = [[CustomStepper alloc] initWithPoint:CGPointMake(215, 25) label:tempoLabel andCanBeNone:NO];
     [stepper setDelegate:self];
     [metronomeView addSubview:stepper];
+    metroPanGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handleMetroPan:)];
+    [metronomeGrabber setUserInteractionEnabled:YES];
+    [metronomeGrabber addGestureRecognizer:metroPanGestureRecognizer];
     openSectionIndex = NSNotFound;
     metro = [[Metronome alloc] init];
+}
+
+- (void)handleMetroPan:(UIPanGestureRecognizer *)recognizer
+{
+    #define UP_CENTER_Y 423.5   
+    static CGFloat startingY;
+    const CGFloat metroWidth = [[self metronomeView] bounds].size.width;
+    const CGFloat metroHeight = [[self view] bounds].size.height - [metronomeView bounds].size.height + [metronomeGrabber bounds].size.height;
+    const CGPoint theCenter = CGPointMake(metroWidth / 2.0, metroHeight + [metronomeView bounds].size.height / 2.0);
+    CGPoint translation = [recognizer translationInView:[self view]];
+    if ([recognizer state] == UIGestureRecognizerStateBegan) {
+        startingY = [metronomeView center].y;
+    }
+    CGFloat toY = startingY + translation.y;
+    // this calculation is a kludge but it works, will figure out why later;
+    toY = MAX(toY, theCenter.y - [metronomeGrabber bounds].size.height + 1);
+    toY = MIN(toY, theCenter.y + [metronomeView bounds].size.height / 2.0);
+    [metronomeView setCenter:CGPointMake(theCenter.x, toY)];
+    BOOL didStartUp = startingY == UP_CENTER_Y;
+    if ([recognizer state] == UIGestureRecognizerStateEnded) {
+        if (didStartUp && translation.y > 0) {
+            [UIView animateWithDuration:0.125 animations:^{
+                [metronomeView setCenter:CGPointMake(theCenter.x, -18 + theCenter.y + [metronomeView bounds].size.height / 2.0)];
+            }];
+        } else if (!didStartUp && translation.y < 0) {
+            [UIView animateWithDuration:0.125 animations:^{
+                [metronomeView setCenter:CGPointMake(theCenter.x, UP_CENTER_Y)];
+            }];
+        }
+        
+    }
 }
 
 - (void)valueChanged
@@ -413,25 +453,25 @@
 
 - (void)slideDown:(id)sender
 {
-//    CGPoint center = [chooseDateButton center];
-    if ([datePicker frame].origin.y < -215.0)
-    {
-        [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationCurveEaseIn animations:^{
-            [datePicker setFrame:CGRectMake(0.0, 0.0, 320, 253)];
-//            [chooseDateButton setCenter:CGPointMake(center.x, center.y + 210)];
-        } completion:^(BOOL finished) {
-        }];
-        
-    }
-    else if ([datePicker frame].origin.y > -1.0)
-    {
-        [UIView animateWithDuration:0.35 animations:^{
-            [datePicker setFrame:CGRectMake(0.0, -216.0, 320, 253)];
-//            [chooseDateButton setCenter:CGPointMake(center.x, center.y - 210)];
-        }completion:^(BOOL finished) {
-            [self dateChanged];
-        }];
-    }
+////    CGPoint center = [chooseDateButton center];
+//    if ([datePicker frame].origin.y < -215.0)
+//    {
+//        [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationCurveEaseIn animations:^{
+//            [datePicker setFrame:CGRectMake(0.0, 0.0, 320, 253)];
+////            [chooseDateButton setCenter:CGPointMake(center.x, center.y + 210)];
+//        } completion:^(BOOL finished) {
+//        }];
+//        
+//    }
+//    else if ([datePicker frame].origin.y > -1.0)
+//    {
+//        [UIView animateWithDuration:0.35 animations:^{
+//            [datePicker setFrame:CGRectMake(0.0, -216.0, 320, 253)];
+////            [chooseDateButton setCenter:CGPointMake(center.x, center.y - 210)];
+//        }completion:^(BOOL finished) {
+//            [self dateChanged];
+//        }];
+//    }
 }
 
 #pragma mark - Timers

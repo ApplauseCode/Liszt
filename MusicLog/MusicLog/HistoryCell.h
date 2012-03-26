@@ -12,4 +12,7 @@
 
 @property (nonatomic, copy) NSString *titleLabel;
 @property (nonatomic, copy) NSString *subTitleLabel;
+
+- (void) updateTitle:(NSString *)_title subTitle:(NSString *)_subTitle;
+
 @end
