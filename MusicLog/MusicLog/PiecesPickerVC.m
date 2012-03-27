@@ -42,6 +42,7 @@
 @implementation PiecesPickerVC
 @synthesize tempoLabel;
 @synthesize editItemPath;
+@synthesize saveButton;
 @synthesize selectedSession;
 @synthesize tempoTextLabel;
 @synthesize editMode;
@@ -77,6 +78,9 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    if (editMode)
+        [saveButton setImage:[UIImage imageNamed:@"saveButton.png"] forState:UIControlStateNormal];
     
     titleLabel = [[UITextField alloc] initWithFrame:CGRectMake(33, 95, 280, 31)];
     titleLabel.autocapitalizationType = UITextAutocapitalizationTypeWords;
@@ -133,7 +137,7 @@
     if (editMode && editItemPath && selectedSession)
     { 
         Piece *itemToEdit;
-        itemToEdit = [[selectedSession pieceSession] objectAtIndex:[editItemPath row] - 1];
+        itemToEdit = [[selectedSession pieceSession] objectAtIndex:[editItemPath section] - 2];
         [titleLabel setText:[itemToEdit title]];
         [composerLabel setText:[itemToEdit composer]];
         [majOrMin setSelectedIndex:[itemToEdit major]];
@@ -197,31 +201,26 @@
 
 - (void)editPiece
 {
-    Piece *editedItem = [[selectedSession pieceSession] objectAtIndex:[editItemPath row] - 1];
+    Piece *editedItem = [[selectedSession pieceSession] objectAtIndex:[editItemPath section] - 2];
     
     [editedItem setTitle:[titleLabel text]];
     [editedItem setComposer:[composerLabel text]];
     [editedItem setMajor:[majOrMin selectedIndex]];
     [editedItem setTempo:[tempoStepper tempo]];
     [editedItem setPieceKey:[keyChooser selectedCellIndex]];
-    [[selectedSession pieceSession] replaceObjectAtIndex:[editItemPath row] - 1 withObject:editedItem];
-    NSLog(@"titel: %@", [[selectedSession pieceSession] objectAtIndex:[editItemPath row] - 1]);
+    [[selectedSession pieceSession] replaceObjectAtIndex:[editItemPath section] - 2 withObject:editedItem];
 }
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-   /* if ([[self parentViewController] isKindOfClass:[StatsVC class]])
-    [[self parentViewController] modalViewDismissed];*/
 }
 
 - (void)viewDidUnload
 {
     titleLabel = nil;
     composerLabel = nil;
-   // [self setModeSeg:nil];
+    [self setSaveButton:nil];
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

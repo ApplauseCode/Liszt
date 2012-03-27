@@ -89,8 +89,6 @@
         cell = [[HistoryCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"HistoryCell"];
     cell.selectionStyle = UITableViewCellSelectionStyleNone; 
     [cell updateTitle:[sessionDates objectAtIndex:[indexPath row]] subTitle:[sessionTimes objectAtIndex:[indexPath row]]];
-//    [cell setTitleLabel:[sessionDates objectAtIndex:[indexPath row]]]; 
-//    [cell setSubTitleLabel:[sessionTimes objectAtIndex:[indexPath row]]];
     return cell;
 }
 

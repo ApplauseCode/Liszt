@@ -55,6 +55,7 @@
 @synthesize editMode;
 @synthesize editItemPath;
 @synthesize selectedSession;
+@synthesize saveButton;
 
 - (id)initWithIndex:(NSUInteger)idx editPage:(BOOL)_editMode
 {
@@ -113,6 +114,9 @@
     [addScaleButton setTitle:@"Add" forState:normal];
     [octavesLabel setFont:[UIFont fontWithName:@"ACaslonPro-Regular" size:20]];
     [octavesLabel setText:@"OCTAVES"];
+    
+    if (editMode)
+        [saveButton setImage:[UIImage imageNamed:@"saveButton.png"] forState:UIControlStateNormal];
     
     stepper = [[CustomStepper alloc] initWithPoint:CGPointMake(175, 340) label:tempoLabel andCanBeNone:YES];
     [stepper setCanBeNone:YES];
@@ -307,6 +311,7 @@
 
 - (void)viewDidUnload {
     [self setViewBG:nil];
+    [self setSaveButton:nil];
     [super viewDidUnload];
 }
 @end

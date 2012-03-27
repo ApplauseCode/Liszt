@@ -13,6 +13,7 @@
 @interface PiecesPickerVC : UIViewController <UITextFieldDelegate>
 - (id)initWithEditMode:(BOOL)_edit;
 @property (nonatomic, strong) NSIndexPath *editItemPath;
+@property (weak, nonatomic) IBOutlet UIButton *saveButton;
 @property (nonatomic, strong) Session *selectedSession;
 - (IBAction)backToPieces:(id)sender;
 

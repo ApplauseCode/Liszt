@@ -16,6 +16,7 @@
 @property (nonatomic, readonly, strong) NSArray *tonicArray;
 @property (nonatomic, strong) NSIndexPath *editItemPath;
 @property (nonatomic, strong) Session *selectedSession;
+@property (weak, nonatomic) IBOutlet UIButton *saveButton;
 
 - (id)initWithIndex:(NSUInteger)idx editPage:(BOOL)_editMode;
 - (IBAction)saveToStore:(id)sender;

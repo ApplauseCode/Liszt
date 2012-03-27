@@ -143,6 +143,8 @@
 		BAE6999414E5B65100D3ADF8 /* DisclosureArrowDown@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BAE6999214E5B65100D3ADF8 /* DisclosureArrowDown@2x.png */; };
 		BAE6999C14E5D6FB00D3ADF8 /* AddItemButton.png in Resources */ = {isa = PBXBuildFile; fileRef = BAE6999A14E5D6FB00D3ADF8 /* AddItemButton.png */; };
 		BAE6999D14E5D6FB00D3ADF8 /* AddItemButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BAE6999B14E5D6FB00D3ADF8 /* AddItemButton@2x.png */; };
+		BAE7DE9A1521F99300804A95 /* saveButton.png in Resources */ = {isa = PBXBuildFile; fileRef = BAE7DE981521F99300804A95 /* saveButton.png */; };
+		BAE7DE9B1521F99300804A95 /* saveButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BAE7DE991521F99300804A95 /* saveButton@2x.png */; };
 		CE33BA07151E1C9000A47766 /* slide_button.png in Resources */ = {isa = PBXBuildFile; fileRef = CE33BA05151E1C9000A47766 /* slide_button.png */; };
 		CE33BA08151E1C9000A47766 /* slide_button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CE33BA06151E1C9000A47766 /* slide_button@2x.png */; };
 		CE33BA10151E238300A47766 /* menu-section-button.png in Resources */ = {isa = PBXBuildFile; fileRef = CE33BA0E151E238300A47766 /* menu-section-button.png */; };
@@ -338,6 +340,8 @@
 		BAE6999214E5B65100D3ADF8 /* DisclosureArrowDown@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DisclosureArrowDown@2x.png"; sourceTree = "<group>"; };
 		BAE6999A14E5D6FB00D3ADF8 /* AddItemButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AddItemButton.png; sourceTree = "<group>"; };
 		BAE6999B14E5D6FB00D3ADF8 /* AddItemButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AddItemButton@2x.png"; sourceTree = "<group>"; };
+		BAE7DE981521F99300804A95 /* saveButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = saveButton.png; path = ../../../../Desktop/saveButton.png; sourceTree = "<group>"; };
+		BAE7DE991521F99300804A95 /* saveButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "saveButton@2x.png"; path = "../../../../Desktop/saveButton@2x.png"; sourceTree = "<group>"; };
 		CE33BA05151E1C9000A47766 /* slide_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = slide_button.png; sourceTree = "<group>"; };
 		CE33BA06151E1C9000A47766 /* slide_button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slide_button@2x.png"; sourceTree = "<group>"; };
 		CE33BA0E151E238300A47766 /* menu-section-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu-section-button.png"; sourceTree = "<group>"; };
@@ -396,6 +400,8 @@
 		BA08C5E5140D3D35009C5E8D /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				BAE7DE981521F99300804A95 /* saveButton.png */,
+				BAE7DE991521F99300804A95 /* saveButton@2x.png */,
 				CEEA53B4151FE5680080CBB0 /* grabber.png */,
 				CEEA53B5151FE5680080CBB0 /* grabber@2x.png */,
 				CEEA53AC151FE1E20080CBB0 /* compose-add-button-background-pressed.png */,
@@ -868,6 +874,8 @@
 				CEEA53B3151FE1E20080CBB0 /* compose-add-button-background@2x.png in Resources */,
 				CEEA53B6151FE5680080CBB0 /* grabber.png in Resources */,
 				CEEA53B7151FE5680080CBB0 /* grabber@2x.png in Resources */,
+				BAE7DE9A1521F99300804A95 /* saveButton.png in Resources */,
+				BAE7DE9B1521F99300804A95 /* saveButton@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

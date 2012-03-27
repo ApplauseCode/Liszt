@@ -13,7 +13,7 @@
 #import "NSMutableOrderedSet+DeepCopy.h"
 
 #define DEBUG 1
-#undef DEBUG
+//#undef DEBUG
 
 @interface SessionStore ()
 
@@ -174,16 +174,21 @@
     [tempSession setArpeggioTime:450];
     [tempSession setArpeggioSession:[NSMutableOrderedSet orderedSetWithObject:tempScale]];
     
-    tempPiece = [[Piece alloc] init];
-    [tempPiece setTitle:@"Take Five"];
-    [tempPiece setComposer:@"Barnes"];
-    [tempPiece setMajor:YES];
-    [tempPiece setTempo:95];
-    [tempPiece setPieceKey:kpFSharp];
-    [tempPiece setPieceTime:1500];
+    NSMutableOrderedSet *pieceSet = [[NSMutableOrderedSet alloc] init];
+    for (int i = 1; i < 10; i++)
+    {
+        tempPiece = [[Piece alloc] init];
+        [tempPiece setTitle:[NSString stringWithFormat:@"Take %i", i]];
+        [tempPiece setComposer:@"Barnes"];
+        [tempPiece setMajor:YES];
+        [tempPiece setTempo:100 * i];
+        [tempPiece setPieceKey:i];
+        [tempPiece setPieceTime:376 * i];
+        [pieceSet addObject:tempPiece];
+    }
 //    [tempPiece setTimer:[[Timer alloc] initWithElapsedTime:[tempPiece pieceTime]]];
-    [tempSession setPieceSession:[NSMutableOrderedSet orderedSetWithObject:tempPiece]];
-    [tempSession setDate:[SessionStore getForDays:-2 fromDate:[NSDate date]]];
+    [tempSession setPieceSession:pieceSet];
+   // [tempSession setDate:[SessionStore getForDays:-2 fromDate:[NSDate date]]];
     mySession = tempSession;
 }
 
