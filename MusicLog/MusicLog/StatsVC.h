@@ -77,6 +77,7 @@
 - (IBAction)slideDown:(id)sender;
 - (IBAction)showMenu:(id)sender;
 - (IBAction)presentPickerView:(id)sender;
-- (IBAction)slideRight:(id)sender;
+- (IBAction)slideLeft:(id)sender;
+- (IBAction)yesterday;
 
 @end
