@@ -154,8 +154,8 @@
     [self makeMetronome];
     [self setUpScalesAndArpeggios];
     
-    slideBack = [[UIButton alloc] initWithFrame:CGRectMake(280, 0, 40, 460)];
-    [slideBack addTarget:self action:@selector(slideRight:) forControlEvents:UIControlEventTouchUpInside];
+    slideBack = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 460)];
+    [slideBack addTarget:self action:@selector(slideLeft:) forControlEvents:UIControlEventTouchUpInside];
     [slideBack setBackgroundColor:[UIColor clearColor]];
 }
 
@@ -172,7 +172,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    NSLog(@"count: %i", [sectionInfoArray count]);
+//    NSLog(@"count: %i", [sectionInfoArray count]);
     [sectionInfoArray removeObjectsInRange:NSMakeRange(2, [sectionInfoArray count] - 2)];
     for (int i = 0; i < [[selectedSession pieceSession] count]; i++)
     {
@@ -183,7 +183,7 @@
     }
     [[sectionInfoArray objectAtIndex:0] setCountofRowsToInsert:[[selectedSession scaleSession] count]];
     [[sectionInfoArray objectAtIndex:1] setCountofRowsToInsert:[[selectedSession arpeggioSession] count]];
-    NSLog(@"title for piece:%@ at index:%i", [[sectionInfoArray objectAtIndex:[sectionInfoArray count] - 1] title], [sectionInfoArray count]);
+//    NSLog(@"title for piece:%@ at index:%i", [[sectionInfoArray objectAtIndex:[sectionInfoArray count] - 1] title], [sectionInfoArray count]);
     [statsTable reloadData];
     [self hideMenu:nil];
 }
@@ -338,9 +338,9 @@
         return NO;
 }
 
-- (void)handlePan:(UIPanGestureRecognizer *)gesture
+- (void)handlePan:(UIPanGestureRecognizer *)gR
 {  
-    static BOOL isVerticle;
+    static BOOL isVertical;
     static CGFloat startingX;
     const CGFloat initiateX = 45.0;
     const CGFloat bounceX = 10.0;
@@ -348,39 +348,44 @@
     const CGFloat viewWidth = [[self view] bounds].size.width;
     const CGFloat viewHeight = [[self view] bounds].size.height;
     const CGPoint theCenter = CGPointMake(viewWidth / 2.0, viewHeight / 2.0);
-    const CGFloat leftX = theCenter.x - viewWidth + initiateX;
-    CGFloat velocity = [gesture velocityInView:[self view]].x;
-    CGPoint translation = [gesture translationInView:[self view]];
-    CGFloat toX;
-    if ([gesture state] == UIGestureRecognizerStateBegan) {
+    const CGFloat rightX = theCenter.x + viewWidth - initiateX;
+    
+    CGFloat velocity = [gR velocityInView:[self view]].x;
+    CGPoint translation = [gR translationInView:[self view]];
+    
+    if ([gR state] == UIGestureRecognizerStateBegan) {
         startingX = [[self view] center].x;
         if ((fabs(translation.y) + 1.0) >= fabs(translation.x) && (startingX == theCenter.x)) {
-            isVerticle = YES;
             [statsTable setScrollEnabled:YES];
+            isVertical = YES; 
         }
         else {
-            isVerticle = NO;
             [statsTable setScrollEnabled:NO];
+            isVertical = NO;
         }
     }
-    if (isVerticle) 
-        return;
-    toX = startingX + [gesture translationInView:[self view]].x;
-    toX = MAX(toX, leftX);
-    toX = MIN(toX, theCenter.x);
+    if (isVertical) return;
+    
+    CGFloat toX;
+    toX = startingX + translation.x;
+    toX = MAX(toX, theCenter.x);
+    toX = MIN(toX, rightX);
     [[self view] setCenter:CGPointMake(toX, theCenter.y)];
-    BOOL didStartRight = (startingX == theCenter.x);
-    BOOL didInitiateMoveRight = (toX > leftX + initiateX) || (velocity > velocityThreshold);
-    BOOL didInitiateMoveLeft = (toX < theCenter.x - initiateX) || (velocity < -velocityThreshold);
-    if ([gesture state] == UIGestureRecognizerStateEnded) {
-        if ((didStartRight && didInitiateMoveLeft) || (!didStartRight && !didInitiateMoveRight)) {
+    
+    BOOL didStartCenter = (startingX == theCenter.x);
+    BOOL didInitiateMoveRight = (toX > theCenter.x + initiateX) || (velocity > velocityThreshold);
+    BOOL didInitiateMoveLeft = (toX < rightX - initiateX) || (velocity < -velocityThreshold);
+    BOOL shouldMoveRight = (didStartCenter && didInitiateMoveRight) || (!didStartCenter && !didInitiateMoveLeft);
+    
+    if ([gR state] == UIGestureRecognizerStateEnded) {
+        if (shouldMoveRight) {
             [UIView animateWithDuration:0.18 animations:^{
-                [[self view] setCenter:CGPointMake(leftX - bounceX, theCenter.y)];
+                [[self view] setCenter:CGPointMake(rightX + bounceX, theCenter.y)];
             } completion:^(BOOL finished){
                 [statsTable setScrollEnabled:NO];
                 [self.view addSubview:slideBack];
                 [UIView animateWithDuration:0.08 animations:^{
-                    [[self view] setCenter:CGPointMake(leftX, theCenter.y)];
+                    [[self view] setCenter:CGPointMake(rightX, theCenter.y)];
                 }];
             }];
         } 
@@ -395,26 +400,26 @@
     }
 }
 
-- (IBAction)slideLeft:(id)sender 
+- (IBAction)slideRight:(id)sender 
 {
     const CGFloat initiateX = 45.0;
     const CGFloat viewWidth = [[self view] bounds].size.width;
     const CGFloat viewHeight = [[self view] bounds].size.height;
     const CGPoint theCenter = CGPointMake(viewWidth / 2.0, viewHeight / 2.0);
-    const CGFloat leftX = theCenter.x - viewWidth + initiateX;
+    const CGFloat rightX = theCenter.x + viewWidth - initiateX;
     const CGFloat bounceX = 10.0;
     [UIView animateWithDuration:0.18 animations:^{
-        [[self view] setCenter:CGPointMake(leftX - bounceX, theCenter.y)];
+        [[self view] setCenter:CGPointMake(rightX + bounceX, theCenter.y)];
     } completion:^(BOOL finished){
         [statsTable setScrollEnabled:NO];
         [self.view addSubview:slideBack];
         [UIView animateWithDuration:0.08 animations:^{
-            [[self view] setCenter:CGPointMake(leftX, theCenter.y)];
+            [[self view] setCenter:CGPointMake(rightX, theCenter.y)];
         }];
     }];
 }
 
-- (void)slideRight:(id)sender
+- (void)slideLeft:(id)sender
 {
     const CGFloat viewWidth = [[self view] bounds].size.width;
     const CGFloat viewHeight = [[self view] bounds].size.height;

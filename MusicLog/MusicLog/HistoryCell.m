@@ -7,7 +7,7 @@
 //
 
 #import "HistoryCell.h"
-#define kLeftMargin 80
+#define kLeftMargin 40
 #define kTopMargin 15
 
 @implementation HistoryCell
@@ -37,7 +37,7 @@
                    forWidth:135
                    withFont:[self defaultLargeFont]
               lineBreakMode:UILineBreakModeTailTruncation];   
-    [subTitleLabel drawAtPoint:CGPointMake(235, kTopMargin)
+    [subTitleLabel drawAtPoint:CGPointMake(195, kTopMargin)
                       forWidth:135
                       withFont:[self defaultLargeFont]
                  lineBreakMode:UILineBreakModeTailTruncation];
