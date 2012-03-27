@@ -560,8 +560,17 @@
 
 - (void)yesterday
 {
-    [datePicker setDate:[[datePicker date] dateByAddingTimeInterval:-24*60*60]];  
-    [self dateChanged];
+    [datePicker setDate:[[datePicker date] dateByAddingTimeInterval:-24*60*60]];
+    [UIView animateWithDuration:0.25 animations:^ {
+        [[self statsTable] setAlpha:0.0];
+    } completion:^(BOOL finished) {
+        [self dateChanged];
+        statsTable.center = CGPointMake(statsTable.center.x - 320, statsTable.center.y);
+        [UIView animateWithDuration:0.25 animations:^{
+            [[self statsTable] setAlpha:1.0];
+            [[self statsTable] setCenter:CGPointMake(statsTable.center.x + 320, statsTable.center.y)];
+        }];
+    }];
 }
 
 - (void)dateChanged
@@ -1105,40 +1114,6 @@
     }
     return nil;
 }
-
-//- (UIView *)hitWithPoint:(CGPoint)point
-//{
-//    if (swipedHeader)
-//    {
-//        if ([notesView isDescendantOfView:self.view])
-//            return nil;
-//        CGRect frameOfExcludedArea = [self.view.superview convertRect:swipedHeader.deleteView.frame fromView:swipedHeader.deleteView.superview];
-//        if ((point.y > frameOfExcludedArea.origin.y-20) && (point.y < frameOfExcludedArea.origin.y-20 + frameOfExcludedArea.size.height))
-//        {
-//            if(point.x > (self.view.frame.size.width / 2))
-//                return swipedHeader.deleteButton;
-//            else
-//                return swipedHeader.notesButton;
-//        }
-//        else if (CGRectContainsPoint([notesView frame], point))
-//        {
-//            return notesView;
-//        }
-//        else if (CGRectContainsPoint([statsTable frame], point))
-//        {
-//            [swipedHeader cancelDelete:nil];
-//            [self setSwipedHeader:nil];
-//            return statsTable;
-//        }
-//        else 
-//        {
-//            [swipedHeader cancelDelete:nil];
-//            [self setSwipedHeader:nil];
-//            return nil;
-//        }
-//    }
-//    return nil;
-//}
 
 #pragma mark - Reorder Sections
 
