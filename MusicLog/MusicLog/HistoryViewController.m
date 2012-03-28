@@ -73,6 +73,17 @@
     return [[[SessionStore defaultStore] sessions] count];
 }
 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UIView *dateView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 50)];
+//    [dateView setBackgroundColor:[UIColor whiteColor]];
+    return dateView;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     HistoryCell *cell;
@@ -81,8 +92,6 @@
         cell = [[HistoryCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"HistoryCell"];
     cell.selectionStyle = UITableViewCellSelectionStyleNone; 
     [cell updateTitle:[sessionDates objectAtIndex:[indexPath row]] subTitle:[sessionTimes objectAtIndex:[indexPath row]]];
-//    [cell setTitleLabel:[sessionDates objectAtIndex:[indexPath row]]]; 
-//    [cell setSubTitleLabel:[sessionTimes objectAtIndex:[indexPath row]]];
     return cell;
 }
 

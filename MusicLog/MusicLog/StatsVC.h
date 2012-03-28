@@ -62,7 +62,7 @@
 - (void)makeMenu;
 - (void)makeMetronome;
 - (void)setUpScalesAndArpeggios;
-- (void)dateChanged;
+- (void)dateChangedWithDate:(NSDate *)date;
 - (void)hideMenu:(id)sender;
 - (void)closeSections;
 - (void)sectionHeaderView:(SectionHeaderView *)sectionHeaderView sectionOpened:(NSInteger)section;

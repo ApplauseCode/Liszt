@@ -529,6 +529,7 @@
 
 - (void)blockAlertView:(BOOL)isYes
 {
+    // DATE PICKER USED
     [[self datePicker] setMaximumDate:[NSDate date]];
     [[self datePicker] setDate:[NSDate date]];
     SessionStore *store = [SessionStore defaultStore];
@@ -549,7 +550,7 @@
 - (void)backToToday:(id)sender
 {
     [datePicker setDate:[NSDate date]];
-    [self dateChanged];
+    [self dateChangedWithDate:[datePicker date]];
 }
 
 - (void)showStatsAtIndex:(NSInteger)index
@@ -559,33 +560,33 @@
                          [self.view setCenter:CGPointMake(self.view.center.x + 65, self.view.center.y)];
                      } completion:^(BOOL finished) {
                          NSArray *s = [[SessionStore defaultStore] sessions];
-                         [[self datePicker] setDate:[[s objectAtIndex:index] date]];
-                         [self dateChanged];
+                         //[[self datePicker] setDate:[[s objectAtIndex:index] date]];
+                         [self dateChangedWithDate:[[s objectAtIndex:index] date]];
                          [self slideLeft:nil];
                      }];
 }
 
 - (void)yesterday
 {
-    [datePicker setDate:[[datePicker date] dateByAddingTimeInterval:-24*60*60]];
-    [UIView animateWithDuration:0.25 animations:^ {
-        [[self statsTable] setAlpha:0.0];
-    } completion:^(BOOL finished) {
-        [self dateChanged];
-        statsTable.center = CGPointMake(statsTable.center.x - 320, statsTable.center.y);
-        [UIView animateWithDuration:0.25 animations:^{
-            [[self statsTable] setAlpha:1.0];
-            [[self statsTable] setCenter:CGPointMake(statsTable.center.x + 320, statsTable.center.y)];
-        }];
-    }];
+//    [datePicker setDate:[[datePicker date] dateByAddingTimeInterval:-24*60*60]];
+//    [UIView animateWithDuration:0.25 animations:^ {
+//        [[self statsTable] setAlpha:0.0];
+//    } completion:^(BOOL finished) {
+//        [self dateChangedWithDate:nil];
+//        statsTable.center = CGPointMake(statsTable.center.x - 320, statsTable.center.y);
+//        [UIView animateWithDuration:0.25 animations:^{
+//            [[self statsTable] setAlpha:1.0];
+//            [[self statsTable] setCenter:CGPointMake(statsTable.center.x + 320, statsTable.center.y)];
+//        }];
+//    }];
 }
 
-- (void)dateChanged
+- (void)dateChangedWithDate:(NSDate *)date
 {
     NSMutableArray *sessions = [[SessionStore defaultStore] sessions];    
     [self closeSections]; 
     NSCalendar *cal = [NSCalendar currentCalendar];
-    NSDateComponents *components = [cal components:(NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit) fromDate:[datePicker date]];
+    NSDateComponents *components = [cal components:(NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit) fromDate:date];
     NSDate *today = [cal dateFromComponents:components];
     filteredSessions = [[NSMutableArray alloc] initWithCapacity:1];
     [sessions enumerateObjectsUsingBlock:^(Session *obj, NSUInteger idx, BOOL *stop) {
