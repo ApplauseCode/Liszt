@@ -205,7 +205,7 @@
     [editedItem setTempo:[tempoStepper tempo]];
     [editedItem setPieceKey:[keyChooser selectedCellIndex]];
     [[selectedSession pieceSession] replaceObjectAtIndex:[editItemPath row] - 1 withObject:editedItem];
-//    NSLog(@"titel: %@", [[selectedSession pieceSession] objectAtIndex:[editItemPath row] - 1]);
+    NSLog(@"titel: %@", [[selectedSession pieceSession] objectAtIndex:[editItemPath row] - 1]);
 }
 - (void)viewWillDisappear:(BOOL)animated
 {
