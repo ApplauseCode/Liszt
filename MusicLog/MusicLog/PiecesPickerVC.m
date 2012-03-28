@@ -208,7 +208,12 @@
     [editedItem setMajor:[majOrMin selectedIndex]];
     [editedItem setTempo:[tempoStepper tempo]];
     [editedItem setPieceKey:[keyChooser selectedCellIndex]];
+<<<<<<< HEAD
     [[selectedSession pieceSession] replaceObjectAtIndex:[editItemPath section] - 2 withObject:editedItem];
+=======
+    [[selectedSession pieceSession] replaceObjectAtIndex:[editItemPath row] - 1 withObject:editedItem];
+    NSLog(@"titel: %@", [[selectedSession pieceSession] objectAtIndex:[editItemPath row] - 1]);
+>>>>>>> jmr002
 }
 - (void)viewWillDisappear:(BOOL)animated
 {
