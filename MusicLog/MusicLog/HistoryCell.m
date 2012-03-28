@@ -37,7 +37,7 @@
                    forWidth:135
                    withFont:[self defaultLargeFont]
               lineBreakMode:UILineBreakModeTailTruncation];   
-    [subTitleLabel drawAtPoint:CGPointMake(185, kTopMargin)
+    [subTitleLabel drawAtPoint:CGPointMake(195, kTopMargin)
                       forWidth:135
                       withFont:[self defaultLargeFont]
                  lineBreakMode:UILineBreakModeTailTruncation];

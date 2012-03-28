@@ -154,12 +154,6 @@
     [self makeMetronome];
     [self setUpScalesAndArpeggios];
     
-//    [[[self view] layer] setShadowColor:[UIColor blackColor].CGColor];
-//    [[[self view] layer] setShadowOpacity: 0.7f];
-//    [[[self view] layer] setShadowOffset:CGSizeMake(-5.0f, 0.0)];
-//    [[[self view] layer] setShadowRadius:3.0f];
-//    [[[self view] layer] shouldRasterize];
-
     slideBack = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 460)];
     [slideBack addTarget:self action:@selector(slideLeft:) forControlEvents:UIControlEventTouchUpInside];
     [slideBack setBackgroundColor:[UIColor clearColor]];
@@ -178,7 +172,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    NSLog(@"count: %i", [sectionInfoArray count]);
+//    NSLog(@"count: %i", [sectionInfoArray count]);
     [sectionInfoArray removeObjectsInRange:NSMakeRange(2, [sectionInfoArray count] - 2)];
     for (int i = 0; i < [[selectedSession pieceSession] count]; i++)
     {
@@ -189,7 +183,7 @@
     }
     [[sectionInfoArray objectAtIndex:0] setCountofRowsToInsert:[[selectedSession scaleSession] count]];
     [[sectionInfoArray objectAtIndex:1] setCountofRowsToInsert:[[selectedSession arpeggioSession] count]];
-    NSLog(@"title for piece:%@ at index:%i", [[sectionInfoArray objectAtIndex:[sectionInfoArray count] - 1] title], [sectionInfoArray count]);
+//    NSLog(@"title for piece:%@ at index:%i", [[sectionInfoArray objectAtIndex:[sectionInfoArray count] - 1] title], [sectionInfoArray count]);
     [statsTable reloadData];
     [self hideMenu:nil];
 }
@@ -344,9 +338,9 @@
         return NO;
 }
 
-- (void)handlePan:(UIPanGestureRecognizer *)gesture
+- (void)handlePan:(UIPanGestureRecognizer *)gR
 {  
-    static BOOL isVerticle;
+    static BOOL isVertical;
     static CGFloat startingX;
     const CGFloat initiateX = 45.0;
     const CGFloat bounceX = 10.0;
@@ -355,31 +349,36 @@
     const CGFloat viewHeight = [[self view] bounds].size.height;
     const CGPoint theCenter = CGPointMake(viewWidth / 2.0, viewHeight / 2.0);
     const CGFloat rightX = theCenter.x + viewWidth - initiateX;
-    CGFloat velocity = [gesture velocityInView:[self view]].x;
-    CGPoint translation = [gesture translationInView:[self view]];
-    CGFloat toX;
-    if ([gesture state] == UIGestureRecognizerStateBegan) {
+    
+    CGFloat velocity = [gR velocityInView:[self view]].x;
+    CGPoint translation = [gR translationInView:[self view]];
+    
+    if ([gR state] == UIGestureRecognizerStateBegan) {
         startingX = [[self view] center].x;
         if ((fabs(translation.y) + 1.0) >= fabs(translation.x) && (startingX == theCenter.x)) {
-            isVerticle = YES;
             [statsTable setScrollEnabled:YES];
+            isVertical = YES; 
         }
         else {
-            isVerticle = NO;
             [statsTable setScrollEnabled:NO];
+            isVertical = NO;
         }
     }
-    if (isVerticle) 
-        return;
-    toX = startingX + [gesture translationInView:[self view]].x;
+    if (isVertical) return;
+    
+    CGFloat toX;
+    toX = startingX + translation.x;
     toX = MAX(toX, theCenter.x);
     toX = MIN(toX, rightX);
     [[self view] setCenter:CGPointMake(toX, theCenter.y)];
-    BOOL didStartLeft = (startingX == theCenter.x);
+    
+    BOOL didStartCenter = (startingX == theCenter.x);
     BOOL didInitiateMoveRight = (toX > theCenter.x + initiateX) || (velocity > velocityThreshold);
     BOOL didInitiateMoveLeft = (toX < rightX - initiateX) || (velocity < -velocityThreshold);
-    if ([gesture state] == UIGestureRecognizerStateEnded) {
-        if ((didStartLeft && didInitiateMoveRight) || (!didStartLeft && !didInitiateMoveLeft)) {
+    BOOL shouldMoveRight = (didStartCenter && didInitiateMoveRight) || (!didStartCenter && !didInitiateMoveLeft);
+    
+    if ([gR state] == UIGestureRecognizerStateEnded) {
+        if (shouldMoveRight) {
             [UIView animateWithDuration:0.18 animations:^{
                 [[self view] setCenter:CGPointMake(rightX + bounceX, theCenter.y)];
             } completion:^(BOOL finished){
@@ -564,6 +563,21 @@
     [self dateChanged];
 }
 
+- (void)yesterday
+{
+    [datePicker setDate:[[datePicker date] dateByAddingTimeInterval:-24*60*60]];
+    [UIView animateWithDuration:0.25 animations:^ {
+        [[self statsTable] setAlpha:0.0];
+    } completion:^(BOOL finished) {
+        [self dateChanged];
+        statsTable.center = CGPointMake(statsTable.center.x - 320, statsTable.center.y);
+        [UIView animateWithDuration:0.25 animations:^{
+            [[self statsTable] setAlpha:1.0];
+            [[self statsTable] setCenter:CGPointMake(statsTable.center.x + 320, statsTable.center.y)];
+        }];
+    }];
+}
+
 - (void)dateChanged
 {
     NSMutableArray *sessions = [[SessionStore defaultStore] sessions];    
@@ -643,20 +657,20 @@
     float metronomeCenter = self.view.frame.size.height - [metronomeView bounds].size.height / 2.0;
     float metronomeHeight = [metronomeView bounds].size.height;
     float metronomePosition = metronomeCenter;
-    float buttonHeight = [addButton bounds].size.height;
-    float buttonCenterY = currentPractice ? buttonHeight / 2.0 + 6 : -buttonHeight / 2.0 - 6;
+//    float buttonHeight = [addButton bounds].size.height;
+//    float buttonCenterY = currentPractice ? buttonHeight / 2.0 + 6 : -buttonHeight / 2.0 - 6;
     metronomePosition += currentPractice ? 0 : metronomeHeight;
     float todayCenterY = currentPractice ? metronomeCenter + metronomeHeight : metronomeCenter;
-    float aDelay = currentPractice ? 0.3 : 0.0;
+//    float aDelay = currentPractice ? 0.3 : 0.0;
+//    [UIView animateWithDuration:0.3 
+//                          delay:aDelay 
+//                        options:UIViewAnimationOptionCurveEaseIn 
+//                     animations:^{
+//                         [metronomeView setCenter:CGPointMake([metronomeView center].x,metronomePosition)];
+//                         [addButton setCenter:CGPointMake([addButton center].x, buttonCenterY)];}
+//                     completion:nil];
     [UIView animateWithDuration:0.3 
-                          delay:aDelay 
-                        options:UIViewAnimationOptionCurveEaseIn 
-                     animations:^{
-                         [metronomeView setCenter:CGPointMake([metronomeView center].x,metronomePosition)];
-                         [addButton setCenter:CGPointMake([addButton center].x, buttonCenterY)];}
-                     completion:nil];
-    [UIView animateWithDuration:0.3 
-                          delay:0.3 - aDelay
+                          delay:0.0//0.3  - aDelay
                         options:0 
                      animations:^{[todayButton setCenter:CGPointMake([todayButton center].x, todayCenterY)];} 
                      completion:nil];
@@ -1105,40 +1119,6 @@
     }
     return nil;
 }
-
-//- (UIView *)hitWithPoint:(CGPoint)point
-//{
-//    if (swipedHeader)
-//    {
-//        if ([notesView isDescendantOfView:self.view])
-//            return nil;
-//        CGRect frameOfExcludedArea = [self.view.superview convertRect:swipedHeader.deleteView.frame fromView:swipedHeader.deleteView.superview];
-//        if ((point.y > frameOfExcludedArea.origin.y-20) && (point.y < frameOfExcludedArea.origin.y-20 + frameOfExcludedArea.size.height))
-//        {
-//            if(point.x > (self.view.frame.size.width / 2))
-//                return swipedHeader.deleteButton;
-//            else
-//                return swipedHeader.notesButton;
-//        }
-//        else if (CGRectContainsPoint([notesView frame], point))
-//        {
-//            return notesView;
-//        }
-//        else if (CGRectContainsPoint([statsTable frame], point))
-//        {
-//            [swipedHeader cancelDelete:nil];
-//            [self setSwipedHeader:nil];
-//            return statsTable;
-//        }
-//        else 
-//        {
-//            [swipedHeader cancelDelete:nil];
-//            [self setSwipedHeader:nil];
-//            return nil;
-//        }
-//    }
-//    return nil;
-//}
 
 #pragma mark - Reorder Sections
 

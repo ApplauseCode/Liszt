@@ -86,6 +86,6 @@
         [bgImageView setImage:[touchDownImages objectAtIndex:selectedIndex]];
     } completion:^(BOOL finished) {
     }];
-    NSLog(@"selected index:%i", selectedIndex);
+//    NSLog(@"selected index:%i", selectedIndex);
 }
 @end
