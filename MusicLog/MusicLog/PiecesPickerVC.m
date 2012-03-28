@@ -133,7 +133,7 @@
     if (editMode && editItemPath && selectedSession)
     { 
         Piece *itemToEdit;
-        itemToEdit = [[selectedSession pieceSession] objectAtIndex:[editItemPath row] - 1];
+        itemToEdit = [[selectedSession pieceSession] objectAtIndex:[editItemPath section] - 2];
         [titleLabel setText:[itemToEdit title]];
         [composerLabel setText:[itemToEdit composer]];
         [majOrMin setSelectedIndex:[itemToEdit major]];
@@ -197,15 +197,14 @@
 
 - (void)editPiece
 {
-    Piece *editedItem = [[selectedSession pieceSession] objectAtIndex:[editItemPath row] - 1];
+    Piece *editedItem = [[selectedSession pieceSession] objectAtIndex:[editItemPath section] - 2];
     
     [editedItem setTitle:[titleLabel text]];
     [editedItem setComposer:[composerLabel text]];
     [editedItem setMajor:[majOrMin selectedIndex]];
     [editedItem setTempo:[tempoStepper tempo]];
     [editedItem setPieceKey:[keyChooser selectedCellIndex]];
-    [[selectedSession pieceSession] replaceObjectAtIndex:[editItemPath row] - 1 withObject:editedItem];
-    NSLog(@"titel: %@", [[selectedSession pieceSession] objectAtIndex:[editItemPath row] - 1]);
+    [[selectedSession pieceSession] replaceObjectAtIndex:[editItemPath section] - 2 withObject:editedItem];
 }
 - (void)viewWillDisappear:(BOOL)animated
 {
