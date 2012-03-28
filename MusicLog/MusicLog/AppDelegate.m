@@ -19,7 +19,7 @@
 #import "ContainerViewController.h"
 
 @interface AppDelegate()
-@property (nonatomic, strong) StatsVC *c;
+@property (nonatomic, strong) StatsVC *statsVC;
 @property (nonatomic, strong) HistoryViewController *historyViewController;
 @property (nonatomic, strong) ContainerViewController *containerViewController;
 @property (nonatomic) BOOL alertViewVisible;
@@ -27,7 +27,7 @@
 @end
 @implementation AppDelegate
 
-@synthesize window = _window, c, alertViewVisible;
+@synthesize window = _window, statsVC, alertViewVisible;
 @synthesize historyViewController, containerViewController;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -44,17 +44,19 @@
     [SessionStore defaultStore];
     [self checkDate];
     
-    c = [[StatsVC alloc] init];
+    statsVC = [[StatsVC alloc] init];
     historyViewController = [[HistoryViewController alloc] initWithNibName:nil bundle:nil];
     containerViewController = [[ContainerViewController alloc] initWithNibName:nil bundle:nil];
     [[historyViewController view] setFrame:[_window frame]];
-    [[c view] setFrame:[[historyViewController view] frame]];
-    [containerViewController addChildViewController:c];
+    [[statsVC view] setFrame:[[historyViewController view] frame]];
+    [containerViewController addChildViewController:statsVC];
     [containerViewController addChildViewController:historyViewController];
-    [[historyViewController view] addSubview:[c view]];
+    // StatsVC at index 0, historyVC at index 1
+    [containerViewController setViewControllers:[NSMutableArray arrayWithObjects:statsVC, historyViewController, nil]];
+    
+    [[historyViewController view] addSubview:[statsVC view]];
     [[containerViewController view] addSubview:[historyViewController view]];
     [self.window setRootViewController:containerViewController];
-    [self checkDate];
     
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
@@ -82,15 +84,16 @@
     
     if (![sessionDate isEqualToDate:today] && !alertViewVisible)
     {
-        
+        SessionStore *store = [SessionStore defaultStore];
+        [[store sessions] addObject:[store mySession]];
         BlockAlertView *freshDay = [BlockAlertView alertWithTitle:@"A New Day, A New Practice"
                                                         message:@"Would you like your new practice to start out with all of the same items (scales, pieces, etc.) as your last practice?"];
         [freshDay addButtonWithTitle:@"Yes Please!" block:^{
-            [c blockAlertView:NO];
+            [statsVC blockAlertView:NO];
             [self setAlertViewVisible:NO];
         }];
         [freshDay setCancelButtonWithTitle:@"No Thanks" block:^{
-            [c blockAlertView:YES];
+            [statsVC blockAlertView:YES];
             [self setAlertViewVisible:NO];
         }];
         [freshDay show];

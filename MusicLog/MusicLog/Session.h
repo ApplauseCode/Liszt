@@ -22,4 +22,5 @@
 - (id)initWithScales:(NSMutableOrderedSet *)scaleSet
            arpeggios:(NSMutableOrderedSet *)arpeggioSet
               pieces:(NSMutableOrderedSet *)pieceSet;
+- (NSInteger)calculateTotalTime;
 @end

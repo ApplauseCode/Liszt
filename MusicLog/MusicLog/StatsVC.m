@@ -131,7 +131,7 @@
     [totalTime setFont:[UIFont fontWithName:@"ACaslonPro-Regular" size:20]];
     [totalTime setTextColor:[UIColor blackColor]];
     [totalTime setBackgroundColor:[UIColor clearColor]];
-    NSString *timeString = [NSString timeStringFromInt:[self calculateTotalTime]];
+    NSString *timeString = [NSString timeStringFromInt:[selectedSession calculateTotalTime]];
     [totalTime setText:timeString];
     [self.view addSubview:totalTime];
     
@@ -424,7 +424,7 @@
     const CGFloat viewWidth = [[self view] bounds].size.width;
     const CGFloat viewHeight = [[self view] bounds].size.height;
     const CGPoint theCenter = CGPointMake(viewWidth / 2.0, viewHeight / 2.0);
-    [UIView animateWithDuration:0.25 animations:^{
+    [UIView animateWithDuration:0.375 animations:^{
         [[self view] setCenter:theCenter];
     } completion:^(BOOL finished){
         [statsTable setScrollEnabled:YES];
@@ -475,17 +475,6 @@
 
 #pragma mark - Timers
 
-- (NSInteger)calculateTotalTime
-{
-    NSInteger total = 0;
-    
-    total += [selectedSession scaleTime];
-    total += [selectedSession arpeggioTime];
-    for (Piece *p in [selectedSession pieceSession])
-        total += [p pieceTime];
-    return total;
-}
-
 - (void)timerButtonPressed:(id)sender
 {
     if ([[sender imageForState:UIControlStateNormal] isEqual:[UIImage imageNamed:@"StartTimer.png"]])
@@ -530,7 +519,7 @@
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-    NSString *timeString = [NSString timeStringFromInt:[self calculateTotalTime]];
+    NSString *timeString = [NSString timeStringFromInt:[selectedSession calculateTotalTime]];
     [totalTime setText:timeString];
     [statsTable reloadData];
 
@@ -543,7 +532,7 @@
     [[self datePicker] setMaximumDate:[NSDate date]];
     [[self datePicker] setDate:[NSDate date]];
     SessionStore *store = [SessionStore defaultStore];
-    [store addSessionStartNew:isYes];
+    [store startNewSession:isYes];
     if (isYes)
         [sectionInfoArray removeObjectsInRange:NSMakeRange(2, ([sectionInfoArray count] - 2))];
     [self setSelectedSession:[store mySession]];
@@ -553,7 +542,7 @@
     [[sectionInfoArray objectAtIndex:0] setCountofRowsToInsert:[[selectedSession scaleSession] count]];
     [[sectionInfoArray objectAtIndex:1] setCountofRowsToInsert:[[selectedSession arpeggioSession] count]];
     [statsTable reloadData];
-    NSString *timeString = [NSString timeStringFromInt:[self calculateTotalTime]];
+    NSString *timeString = [NSString timeStringFromInt:[selectedSession calculateTotalTime]];
     [totalTime setText:timeString];
 }
 
@@ -561,6 +550,19 @@
 {
     [datePicker setDate:[NSDate date]];
     [self dateChanged];
+}
+
+- (void)showStatsAtIndex:(NSInteger)index
+{
+    [UIView animateWithDuration:0.25
+                     animations:^{
+                         [self.view setCenter:CGPointMake(self.view.center.x + 65, self.view.center.y)];
+                     } completion:^(BOOL finished) {
+                         NSArray *s = [[SessionStore defaultStore] sessions];
+                         [[self datePicker] setDate:[[s objectAtIndex:index] date]];
+                         [self dateChanged];
+                         [self slideLeft:nil];
+                     }];
 }
 
 - (void)yesterday
@@ -651,7 +653,7 @@
         [sectionInfoArray addObject:pieceInfo];
     }
     [statsTable reloadData];
-    NSString *timeString = [NSString timeStringFromInt:[self calculateTotalTime]];
+    NSString *timeString = [NSString timeStringFromInt:[selectedSession calculateTotalTime]];
     [totalTime setText:timeString];
     
     float metronomeCenter = self.view.frame.size.height - [metronomeView bounds].size.height / 2.0;
@@ -999,7 +1001,7 @@
         [sectionInfoArray removeObjectAtIndex:section];
         [statsTable deleteSections:[NSIndexSet indexSetWithIndex:section] withRowAnimation:UITableViewRowAnimationAutomatic];
         [self setOpenSectionIndex:NSNotFound];
-        NSString *timeString = [NSString timeStringFromInt:[self calculateTotalTime]];
+        NSString *timeString = [NSString timeStringFromInt:[selectedSession calculateTotalTime]];
         [totalTime setText:timeString];
         for (int i = section; i < [sectionInfoArray count]; i++)
         {

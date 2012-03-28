@@ -19,7 +19,7 @@
 
 + (SessionStore *)defaultStore;
 
-- (void)addSessionStartNew:(BOOL)fresh;
+- (void)startNewSession:(BOOL)fresh;
 - (BOOL)saveChanges;
 
 @end

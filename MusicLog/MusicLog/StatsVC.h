@@ -69,7 +69,6 @@
 - (void)sectionHeaderView:(SectionHeaderView *)sectionHeaderView sectionClosed:(NSInteger)section;
 - (void)toggleTimer:(int)section;
 - (void)timerButtonPressed:(id)sender;
-- (NSInteger)calculateTotalTime;
 - (void)getRidOfNotes:(id)sender;
 
 // Actions
@@ -78,6 +77,8 @@
 - (IBAction)showMenu:(id)sender;
 - (IBAction)presentPickerView:(id)sender;
 - (IBAction)slideRight:(id)sender;
+- (void)slideLeft:(id)sender;
+- (void)showStatsAtIndex:(NSInteger)index;
 - (IBAction)yesterday;
 
 @end

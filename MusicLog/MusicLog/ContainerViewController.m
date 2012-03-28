@@ -13,6 +13,7 @@
 @end
 
 @implementation ContainerViewController
+@synthesize viewControllers;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {

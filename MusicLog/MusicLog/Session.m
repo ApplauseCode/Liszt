@@ -45,6 +45,17 @@
     return [self initWithScales:nil arpeggios:nil pieces:nil];
 }
 
+- (NSInteger)calculateTotalTime
+{
+    NSInteger total = 0;
+    
+    total += [self scaleTime];
+    total += [self arpeggioTime];
+    for (Piece *p in [self pieceSession])
+        total += [p pieceTime];
+    return total;
+}
+
 - (id)mutableCopyWithZone:(NSZone *)zone
 {
     Session *copy = [[Session alloc] init];

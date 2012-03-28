@@ -12,6 +12,8 @@
 #import "Session.h"
 #import "Piece.h"
 #import "NSString+Number.h"
+#import "ContainerViewController.h"
+#import "StatsVC.h"
 
 @interface HistoryViewController ()
 
@@ -19,7 +21,6 @@
 @property (nonatomic, strong) NSMutableArray *sessionTimes;
 @property (nonatomic, strong) NSArray *sessions;
 @property (nonatomic, strong) IBOutlet UITableView *historyTableView;
-- (NSInteger)calculateTotalTime:(Session *)s;
 @end
 
 @implementation HistoryViewController
@@ -45,24 +46,15 @@
     sessions = [[SessionStore defaultStore] sessions];
     [historyTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [historyTableView setBackgroundColor:[UIColor clearColor]];
-    for (Session *s in sessions)
+    for (Session *s in [sessions reverseObjectEnumerator])
     {
         NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
         [dateFormat setDateFormat:@"MMM dd, yyyy"];
         [sessionDates addObject:[dateFormat stringFromDate:[s date]]];
-        [sessionTimes addObject: [NSString timeStringFromInt:[self calculateTotalTime:s]]];
+        [sessionTimes addObject: [NSString timeStringFromInt:[s calculateTotalTime]]];
     }
 }
-- (NSInteger)calculateTotalTime:(Session *)s
-{
-    NSInteger total = 0;
-    
-    total += [s scaleTime];
-    total += [s arpeggioTime];
-    for (Piece *p in [s pieceSession])
-        total += [p pieceTime];
-    return total;
-}
+
 
 - (void)viewDidUnload
 {
@@ -92,6 +84,15 @@
 //    [cell setTitleLabel:[sessionDates objectAtIndex:[indexPath row]]]; 
 //    [cell setSubTitleLabel:[sessionTimes objectAtIndex:[indexPath row]]];
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    ContainerViewController *cvc = (ContainerViewController *)[self parentViewController];
+    StatsVC *svc = [[cvc viewControllers] objectAtIndex:0];
+    NSArray *s = [[SessionStore defaultStore] sessions];
+    NSInteger chronoIndex = [s count] - [indexPath row] - 1;
+    [svc showStatsAtIndex:chronoIndex];
 }
 
 @end

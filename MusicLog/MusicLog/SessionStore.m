@@ -13,7 +13,7 @@
 #import "NSMutableOrderedSet+DeepCopy.h"
 
 #define DEBUG 1
-#undef DEBUG
+//#undef DEBUG
 
 @interface SessionStore ()
 
@@ -74,8 +74,8 @@
     return self; 
 }
 
-- (void)addSessionStartNew:(BOOL)fresh {
-    [sessions addObject:mySession];    
+- (void)startNewSession:(BOOL)fresh {
+    //[sessions addObject:mySession];    
     Session *newSession;
     if (fresh)
         newSession = [[Session alloc] init];
@@ -183,7 +183,7 @@
     [tempPiece setPieceTime:1500];
 //    [tempPiece setTimer:[[Timer alloc] initWithElapsedTime:[tempPiece pieceTime]]];
     [tempSession setPieceSession:[NSMutableOrderedSet orderedSetWithObject:tempPiece]];
-    [tempSession setDate:[SessionStore getForDays:-2 fromDate:[NSDate date]]];
+    [tempSession setDate:[SessionStore getForDays:-1 fromDate:[NSDate date]]];
     mySession = tempSession;
 }
 
