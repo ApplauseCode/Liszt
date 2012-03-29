@@ -121,40 +121,39 @@
     Scale *tempScale = [[Scale alloc] init];
     Piece *tempPiece = [[Piece alloc] init];
     
-    [tempScale setTonic:kA];
-    [tempScale setScaleMode:kMelodicMinor];
-    [tempScale setTempo:120];
-    [tempScale setRhythm:kSixteenth];
-    [tempScale setOctaves:4];
-    [tempSession setScaleSession:[NSMutableOrderedSet orderedSetWithObject:tempScale]];
-    [tempSession setScaleTime:900];
-    [tempSession setDate:[SessionStore getForDays:-4 fromDate:[NSDate date]]];
-    [sessions addObject:tempSession];
-    
-    tempSession = [[Session alloc] init];
-    tempScale = [[Scale alloc] init];
-    [tempScale setTonic:kB];
-    [tempScale setScaleMode:kArpDom7];
-    [tempScale setTempo:112];
-    [tempScale setRhythm:kTwelfth];
-    [tempScale setOctaves:3];
-    [tempSession setArpeggioSession:[NSMutableOrderedSet orderedSetWithObject:tempScale]];
-    [tempSession setArpeggioTime:500];
-    [tempSession setDate:[SessionStore getForDays:-3 fromDate:[NSDate date]]];
-    [sessions addObject:tempSession];
-    
-    tempSession = [[Session alloc] init];
-    [tempPiece setTitle:@"Polonaise N.1 Op.26"];
-    [tempPiece setComposer:@"Chopin"];
-    [tempPiece setMajor:YES];
-    [tempPiece setTempo:80];
-    [tempPiece setPieceKey:kpCSharp];
-    [tempPiece setPieceTime:1000];
-//    [tempPiece setTimer:[[Timer alloc] initWithElapsedTime:[tempPiece pieceTime]]];
-    
-    [tempSession setPieceSession:[NSMutableOrderedSet orderedSetWithObject:tempPiece]];
-    [tempSession setDate:[SessionStore getForDays:-2 fromDate:[NSDate date]]];
-    [sessions addObject:tempSession];
+//    [tempScale setTonic:kA];
+//    [tempScale setScaleMode:kMelodicMinor];
+//    [tempScale setTempo:120];
+//    [tempScale setRhythm:kSixteenth];
+//    [tempScale setOctaves:4];
+//    [tempSession setScaleSession:[NSMutableOrderedSet orderedSetWithObject:tempScale]];
+//    [tempSession setScaleTime:900];
+//    [tempSession setDate:[SessionStore getForDays:-4 fromDate:[NSDate date]]];
+//    [sessions addObject:tempSession];
+//    
+//    tempSession = [[Session alloc] init];
+//    tempScale = [[Scale alloc] init];
+//    [tempScale setTonic:kB];
+//    [tempScale setScaleMode:kArpDom7];
+//    [tempScale setTempo:112];
+//    [tempScale setRhythm:kTwelfth];
+//    [tempScale setOctaves:3];
+//    [tempSession setArpeggioSession:[NSMutableOrderedSet orderedSetWithObject:tempScale]];
+//    [tempSession setArpeggioTime:500];
+//    [tempSession setDate:[SessionStore getForDays:-3 fromDate:[NSDate date]]];
+//    [sessions addObject:tempSession];
+//    
+//    tempSession = [[Session alloc] init];
+//    [tempPiece setTitle:@"Polonaise N.1 Op.26"];
+//    [tempPiece setComposer:@"Chopin"];
+//    [tempPiece setMajor:YES];
+//    [tempPiece setTempo:80];
+//    [tempPiece setPieceKey:kpCSharp];
+//    [tempPiece setPieceTime:1000];
+//    
+//    [tempSession setPieceSession:[NSMutableOrderedSet orderedSetWithObject:tempPiece]];
+//    [tempSession setDate:[SessionStore getForDays:-2 fromDate:[NSDate date]]];
+//    [sessions addObject:tempSession];
     
     tempSession = [[Session alloc] init];
     tempScale = [[Scale alloc] init];
@@ -174,6 +173,15 @@
     [tempSession setArpeggioTime:450];
     [tempSession setArpeggioSession:[NSMutableOrderedSet orderedSetWithObject:tempScale]];
     
+    for (int i = 30; i > 0; i--)
+    {
+        Session *theSesh = [[Session alloc] initWithScales:nil arpeggios:nil pieces:nil];
+        [theSesh setScaleTime:i * 10];
+        [theSesh setArpeggioTime:i * 7];
+        [theSesh setDate:[SessionStore getForDays:-i fromDate:[NSDate date]]];
+        [sessions addObject:theSesh];
+    }
+    
     tempPiece = [[Piece alloc] init];
     [tempPiece setTitle:@"Take Five"];
     [tempPiece setComposer:@"Barnes"];
@@ -183,7 +191,7 @@
     [tempPiece setPieceTime:1500];
 //    [tempPiece setTimer:[[Timer alloc] initWithElapsedTime:[tempPiece pieceTime]]];
     [tempSession setPieceSession:[NSMutableOrderedSet orderedSetWithObject:tempPiece]];
-    [tempSession setDate:[SessionStore getForDays:-1 fromDate:[NSDate date]]];
+    [tempSession setDate:[NSDate date]];
     mySession = tempSession;
 }
 

@@ -140,10 +140,10 @@
     [todayButton addTarget:self action:@selector(backToToday:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:todayButton];
 
-    datePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake(0.0, -216.0, 320, 253)];
-    [datePicker setDatePickerMode:UIDatePickerModeDate];
-    [datePicker setMaximumDate:[NSDate date]];
-    [self.view addSubview:datePicker];
+//    datePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake(0.0, -216.0, 320, 253)];
+//    [datePicker setDatePickerMode:UIDatePickerModeDate];
+//    [datePicker setMaximumDate:[NSDate date]];
+//    [self.view addSubview:datePicker];
     
     UIFont *caslon = [UIFont fontWithName:@"ACaslonPro-Regular" size:12];
 
@@ -530,8 +530,8 @@
 - (void)blockAlertView:(BOOL)isYes
 {
     // DATE PICKER USED
-    [[self datePicker] setMaximumDate:[NSDate date]];
-    [[self datePicker] setDate:[NSDate date]];
+   // [[self datePicker] setMaximumDate:[NSDate date]];
+    //[[self datePicker] setDate:[NSDate date]];
     SessionStore *store = [SessionStore defaultStore];
     [store startNewSession:isYes];
     if (isYes)
@@ -549,8 +549,8 @@
 
 - (void)backToToday:(id)sender
 {
-    [datePicker setDate:[NSDate date]];
-    [self dateChangedWithDate:[datePicker date]];
+    //[datePicker setDate:[NSDate date]];
+    //[self dateChangedWithDate:[datePicker date]];
 }
 
 - (void)showStatsAtIndex:(NSInteger)index
@@ -607,7 +607,7 @@
         NSDateComponents *compare = [cal components:(NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit) fromDate:[NSDate date]];
         if (![today isEqualToDate:[cal dateFromComponents:compare]])
         {
-            [datePicker setDate:[NSDate date]];
+           // [datePicker setDate:[NSDate date]];
             UIImageView *noSession = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"LisztHUD.png"]];
             [noSession setCenter:CGPointMake(160, 220)];
             [noSession setAlpha:0];
