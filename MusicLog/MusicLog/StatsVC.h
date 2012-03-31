@@ -28,7 +28,6 @@
 @property (nonatomic, assign)   NSUInteger selSessionNum;
 @property (nonatomic, strong)   NSMutableArray *filteredSessions;
 @property (nonatomic, assign)   BOOL currentPractice;
-@property (nonatomic, strong)   UIDatePicker *datePicker;
 @property (nonatomic, strong)   UITapGestureRecognizer *tapAwayGesture;
 @property (nonatomic, strong)   UIView *greyMask;
 @property (nonatomic, strong)   NSMutableArray* sectionInfoArray;
@@ -73,12 +72,10 @@
 
 // Actions
 - (IBAction)startMetronome:(id)sender;
-- (IBAction)slideDown:(id)sender;
 - (IBAction)showMenu:(id)sender;
 - (IBAction)presentPickerView:(id)sender;
 - (IBAction)slideRight:(id)sender;
 - (void)slideLeft:(id)sender;
 - (void)showStatsAtIndex:(NSInteger)index;
-- (IBAction)yesterday;
 
 @end

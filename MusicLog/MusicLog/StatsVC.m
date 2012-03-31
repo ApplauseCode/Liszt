@@ -30,15 +30,12 @@
 #pragma mark - Private Interface
 
 @interface StatsVC ()
-@property (nonatomic, strong) UIButton *todayButton;
-@property (nonatomic, strong) UIView *datePickerView;
 @property (nonatomic, strong) StopWatch *stopWatch;
 @property (nonatomic, strong) id theObserver;
 @property (nonatomic, strong) UIPanGestureRecognizer *panGestureRecognizer;
 @property (nonatomic, strong) UIPanGestureRecognizer *metroPanGestureRecognizer;
 @property (nonatomic, strong) UIButton *slideBack;
 
-- (void)backToToday:(id)sender;
 - (void)handlePan:(UIPanGestureRecognizer *)gesture;
 - (void)handleMetroPan:(UIPanGestureRecognizer *)recognizer;
 
@@ -58,16 +55,13 @@
 @synthesize selSessionNum;
 @synthesize filteredSessions;
 @synthesize currentPractice;
-@synthesize datePicker;
 @synthesize tapAwayGesture;
 @synthesize greyMask;
-@synthesize datePickerView;
 @synthesize sectionInfoArray;
 @synthesize openSectionIndex;
 @synthesize metro;
 @synthesize tCell;
 @synthesize shouldDisplayTime;
-@synthesize todayButton;
 @synthesize stopWatch;
 @synthesize theObserver;
 @synthesize isTiming;
@@ -135,18 +129,7 @@
     [totalTime setText:timeString];
     [self.view addSubview:totalTime];
     
-    todayButton = [[UIButton alloc] initWithFrame:CGRectMake(160-(139*1/2), 460, 139, 60)];
-    [todayButton setImage:[UIImage imageNamed:@"backToTodayButton.png"] forState:UIControlStateNormal];
-    [todayButton addTarget:self action:@selector(backToToday:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:todayButton];
-
-//    datePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake(0.0, -216.0, 320, 253)];
-//    [datePicker setDatePickerMode:UIDatePickerModeDate];
-//    [datePicker setMaximumDate:[NSDate date]];
-//    [self.view addSubview:datePicker];
-    
     UIFont *caslon = [UIFont fontWithName:@"ACaslonPro-Regular" size:12];
-
     [tempoNameLabel setFont:caslon];
     [tempoNameLabel setText:@"METRONOME:"];
     [tempoNameLabel setTextColor:[UIColor yellowTextColor]];
@@ -450,29 +433,6 @@
     [self closeSections];
 }
 
-- (void)slideDown:(id)sender
-{
-////    CGPoint center = [chooseDateButton center];
-//    if ([datePicker frame].origin.y < -215.0)
-//    {
-//        [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationCurveEaseIn animations:^{
-//            [datePicker setFrame:CGRectMake(0.0, 0.0, 320, 253)];
-////            [chooseDateButton setCenter:CGPointMake(center.x, center.y + 210)];
-//        } completion:^(BOOL finished) {
-//        }];
-//        
-//    }
-//    else if ([datePicker frame].origin.y > -1.0)
-//    {
-//        [UIView animateWithDuration:0.35 animations:^{
-//            [datePicker setFrame:CGRectMake(0.0, -216.0, 320, 253)];
-////            [chooseDateButton setCenter:CGPointMake(center.x, center.y - 210)];
-//        }completion:^(BOOL finished) {
-//            [self dateChanged];
-//        }];
-//    }
-}
-
 #pragma mark - Timers
 
 - (void)timerButtonPressed:(id)sender
@@ -529,9 +489,6 @@
 
 - (void)blockAlertView:(BOOL)isYes
 {
-    // DATE PICKER USED
-   // [[self datePicker] setMaximumDate:[NSDate date]];
-    //[[self datePicker] setDate:[NSDate date]];
     SessionStore *store = [SessionStore defaultStore];
     [store startNewSession:isYes];
     if (isYes)
@@ -547,12 +504,6 @@
     [totalTime setText:timeString];
 }
 
-- (void)backToToday:(id)sender
-{
-    //[datePicker setDate:[NSDate date]];
-    //[self dateChangedWithDate:[datePicker date]];
-}
-
 - (void)showStatsAtIndex:(NSInteger)index
 {
     [UIView animateWithDuration:0.25
@@ -560,25 +511,9 @@
                          [self.view setCenter:CGPointMake(self.view.center.x + 65, self.view.center.y)];
                      } completion:^(BOOL finished) {
                          NSArray *s = [[SessionStore defaultStore] sessions];
-                         //[[self datePicker] setDate:[[s objectAtIndex:index] date]];
                          [self dateChangedWithDate:[[s objectAtIndex:index] date]];
                          [self slideLeft:nil];
                      }];
-}
-
-- (void)yesterday
-{
-//    [datePicker setDate:[[datePicker date] dateByAddingTimeInterval:-24*60*60]];
-//    [UIView animateWithDuration:0.25 animations:^ {
-//        [[self statsTable] setAlpha:0.0];
-//    } completion:^(BOOL finished) {
-//        [self dateChangedWithDate:nil];
-//        statsTable.center = CGPointMake(statsTable.center.x - 320, statsTable.center.y);
-//        [UIView animateWithDuration:0.25 animations:^{
-//            [[self statsTable] setAlpha:1.0];
-//            [[self statsTable] setCenter:CGPointMake(statsTable.center.x + 320, statsTable.center.y)];
-//        }];
-//    }];
 }
 
 - (void)dateChangedWithDate:(NSDate *)date
@@ -607,7 +542,6 @@
         NSDateComponents *compare = [cal components:(NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit) fromDate:[NSDate date]];
         if (![today isEqualToDate:[cal dateFromComponents:compare]])
         {
-           // [datePicker setDate:[NSDate date]];
             UIImageView *noSession = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"LisztHUD.png"]];
             [noSession setCenter:CGPointMake(160, 220)];
             [noSession setAlpha:0];
@@ -655,28 +589,7 @@
     }
     [statsTable reloadData];
     NSString *timeString = [NSString timeStringFromInt:[selectedSession calculateTotalTime]];
-    [totalTime setText:timeString];
-    
-    float metronomeCenter = self.view.frame.size.height - [metronomeView bounds].size.height / 2.0;
-    float metronomeHeight = [metronomeView bounds].size.height;
-    float metronomePosition = metronomeCenter;
-//    float buttonHeight = [addButton bounds].size.height;
-//    float buttonCenterY = currentPractice ? buttonHeight / 2.0 + 6 : -buttonHeight / 2.0 - 6;
-    metronomePosition += currentPractice ? 0 : metronomeHeight;
-    float todayCenterY = currentPractice ? metronomeCenter + metronomeHeight : metronomeCenter;
-//    float aDelay = currentPractice ? 0.3 : 0.0;
-//    [UIView animateWithDuration:0.3 
-//                          delay:aDelay 
-//                        options:UIViewAnimationOptionCurveEaseIn 
-//                     animations:^{
-//                         [metronomeView setCenter:CGPointMake([metronomeView center].x,metronomePosition)];
-//                         [addButton setCenter:CGPointMake([addButton center].x, buttonCenterY)];}
-//                     completion:nil];
-    [UIView animateWithDuration:0.3 
-                          delay:0.0//0.3  - aDelay
-                        options:0 
-                     animations:^{[todayButton setCenter:CGPointMake([todayButton center].x, todayCenterY)];} 
-                     completion:nil];
+    [totalTime setText:timeString];    
 }
 
 #pragma mark - ScrollView & TableView
