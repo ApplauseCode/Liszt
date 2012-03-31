@@ -511,67 +511,29 @@
                          [self.view setCenter:CGPointMake(self.view.center.x + 65, self.view.center.y)];
                      } completion:^(BOOL finished) {
                          NSArray *s = [[SessionStore defaultStore] sessions];
-                         [self dateChangedWithDate:[[s objectAtIndex:index] date]];
+                         if (index == [s count])
+                             [self dateChangedWithDate:[NSDate date]];
+                         else
+                             [self dateChangedWithDate:[[s objectAtIndex:index] date]];
                          [self slideLeft:nil];
                      }];
 }
 
 - (void)dateChangedWithDate:(NSDate *)date
 {
-    NSMutableArray *sessions = [[SessionStore defaultStore] sessions];    
-    [self closeSections]; 
-    NSCalendar *cal = [NSCalendar currentCalendar];
-    NSDateComponents *components = [cal components:(NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit) fromDate:date];
-    NSDate *today = [cal dateFromComponents:components];
-    filteredSessions = [[NSMutableArray alloc] initWithCapacity:1];
-    [sessions enumerateObjectsUsingBlock:^(Session *obj, NSUInteger idx, BOOL *stop) {
-        NSDateComponents *newComponents = [cal components:(NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit) fromDate:[obj date]];
-        NSDate *chosenDate = [cal dateFromComponents:newComponents];
-        if ([chosenDate isEqualToDate:today])
-        {
-            [filteredSessions addObject:[obj mutableCopy]];
-            selSessionNum = idx;
-        }
-    }];
+    [self closeSections];
     
-    if ((filteredSessions == nil) || ([filteredSessions count] == 0))
+    Session *filteredSession = [[SessionStore defaultStore] sessionForDate:date];
+    
+    if (filteredSession == [[SessionStore defaultStore] mySession])
     {
         [selSessionDisplay setText:@"Current Practice"];
         selectedSession = [[SessionStore defaultStore] mySession];
         currentPractice = YES;
-        NSDateComponents *compare = [cal components:(NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit) fromDate:[NSDate date]];
-        if (![today isEqualToDate:[cal dateFromComponents:compare]])
-        {
-            UIImageView *noSession = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"LisztHUD.png"]];
-            [noSession setCenter:CGPointMake(160, 220)];
-            [noSession setAlpha:0];
-            UILabel *text = [[UILabel alloc] init];
-            [text setBounds:CGRectMake(0, 0, 90, 80)];
-            [text setCenter:CGPointMake(noSession.frame.size.width/2, noSession.frame.size.height/2)];
-            [text setNumberOfLines:0];
-            [text setText:@"No practice found on this date."];
-            [text setFont:[UIFont systemFontOfSize:17]];
-            [text setTextAlignment:UITextAlignmentCenter];
-            [text setBackgroundColor:[UIColor clearColor]];
-            [text setTextColor:[UIColor whiteColor]];
-            [noSession addSubview:text];
-            [self.view addSubview:noSession];
-            [UIView animateWithDuration:0.5
-                             animations:^{
-                                 [noSession setAlpha:1.0];
-                             } completion:^(BOOL finished) {
-                                 [UIView animateWithDuration:0.5 delay:0.8 options:0 animations:^{
-                                     [noSession setAlpha:0.0];
-                                 } completion:^(BOOL finished) {
-                                     [noSession removeFromSuperview];
-                                 }];
-                             }];
-        }
-
     }
     else
     {
-        selectedSession = [filteredSessions objectAtIndex:0];
+        selectedSession = filteredSession;
         NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
         [dateFormat setDateFormat:@"MMM dd, yyyy"];
         [selSessionDisplay setText:[dateFormat stringFromDate:[selectedSession date]]];

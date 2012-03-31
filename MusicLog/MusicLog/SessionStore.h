@@ -16,10 +16,12 @@
 
 @property (nonatomic, strong) Session *mySession;
 @property (nonatomic, strong) NSMutableArray *sessions;
+@property (nonatomic, strong) NSMutableDictionary *indexForDateString;
 
 + (SessionStore *)defaultStore;
 
 - (void)startNewSession:(BOOL)fresh;
 - (BOOL)saveChanges;
+- (Session *)sessionForDate:(NSDate *)d;
 
 @end

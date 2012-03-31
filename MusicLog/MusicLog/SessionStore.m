@@ -18,6 +18,7 @@
 @interface SessionStore ()
 
 @property (nonatomic, strong) NSArray *objectsArchive;
+@property (nonatomic,strong) NSDateFormatter *dateFormatter;
 - (void)testInit;
 + (NSDate *)getForDays:(int)days fromDate:(NSDate *)date;
 @end
@@ -27,6 +28,8 @@
 @synthesize objectsArchive;
 @synthesize mySession;
 @synthesize sessions;
+@synthesize indexForDateString;
+@synthesize dateFormatter;
 
 - (NSString *)scaleArchivePath {
     return pathInDocumentDirectory(@"scale.data");
@@ -71,11 +74,18 @@
         }
 #endif    
     }
+    indexForDateString = [[NSMutableDictionary alloc] initWithCapacity:[sessions count]];
+    dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyyMMdd"];
+    NSString *key;
+    for (int i = 0; i < [sessions count]; i++ ) {
+        key = [dateFormatter stringFromDate:[(Session *)[sessions objectAtIndex:i] date]];
+        [indexForDateString setObject:[NSNumber numberWithInt:i] forKey:key];
+    } 
     return self; 
 }
 
 - (void)startNewSession:(BOOL)fresh {
-    //[sessions addObject:mySession];    
     Session *newSession;
     if (fresh)
         newSession = [[Session alloc] init];
@@ -87,17 +97,24 @@
         for (Piece *p in [newSession pieceSession]) {
             [p setPieceTime:0];
         }
-//        NSLog(@"%@", [sessions objectAtIndex:([sessions count] - 1)]);
         [newSession setDate:[NSDate date]];
     }
-    
     [self setMySession:newSession];
-//    NSLog(@"%@", [mySession scaleSession]);
 }
 
 - (BOOL)saveChanges {
     objectsArchive = [NSArray arrayWithObjects:sessions, mySession, nil];
     return [NSKeyedArchiver archiveRootObject:objectsArchive toFile:[self scaleArchivePath]];
+}
+
+- (Session *)sessionForDate:(NSDate *)d
+{
+    NSString *key = [dateFormatter stringFromDate:d];
+    NSNumber *idx = [indexForDateString objectForKey:key];
+    if (idx)
+        return [sessions objectAtIndex:[idx intValue]];
+    else 
+        return mySession;
 }
 
 //------------------------------------------------------------------------------------------------
@@ -173,7 +190,7 @@
     [tempSession setArpeggioTime:450];
     [tempSession setArpeggioSession:[NSMutableOrderedSet orderedSetWithObject:tempScale]];
     
-    for (int i = 30; i > 0; i--)
+    for (int i = 500; i > 0; i--)
     {
         Session *theSesh = [[Session alloc] initWithScales:nil arpeggios:nil pieces:nil];
         [theSesh setScaleTime:i * 10];

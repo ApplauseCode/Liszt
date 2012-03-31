@@ -9,4 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface HistoryViewController : UIViewController  <UITableViewDelegate, UITableViewDataSource>
+- (IBAction)backOneYear:(id)sender;
+- (IBAction)backOneMonth:(id)sender;
+- (IBAction)toToday:(id)sender;
+
 @end
