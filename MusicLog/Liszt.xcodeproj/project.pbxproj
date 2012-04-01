@@ -48,6 +48,12 @@
 		BA37B8531482D56E00C41484 /* SectionInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = BA37B8521482D56E00C41484 /* SectionInfo.m */; };
 		BA37B8551482DB9800C41484 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA37B8541482DB9700C41484 /* QuartzCore.framework */; };
 		BA44684114F92E0400AE0A0D /* NSMutableOrderedSet+DeepCopy.m in Sources */ = {isa = PBXBuildFile; fileRef = BA44684014F92E0400AE0A0D /* NSMutableOrderedSet+DeepCopy.m */; };
+		BA455FD61528841E0018986E /* ParchBkg.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BA455FD21528841E0018986E /* ParchBkg.jpg */; };
+		BA455FD71528841E0018986E /* ParchBkg@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BA455FD31528841E0018986E /* ParchBkg@2x.jpg */; };
+		BA455FD81528841E0018986E /* ParchTop.png in Resources */ = {isa = PBXBuildFile; fileRef = BA455FD41528841E0018986E /* ParchTop.png */; };
+		BA455FD91528841E0018986E /* ParchTop@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BA455FD51528841E0018986E /* ParchTop@2x.png */; };
+		BA455FDD1528A3310018986E /* ParchSeparator.png in Resources */ = {isa = PBXBuildFile; fileRef = BA455FDB1528A3310018986E /* ParchSeparator.png */; };
+		BA455FDE1528A3310018986E /* ParchSeparator@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BA455FDC1528A3310018986E /* ParchSeparator@2x.png */; };
 		BA513255145A484600043279 /* ACchooser.m in Sources */ = {isa = PBXBuildFile; fileRef = BA513254145A484600043279 /* ACchooser.m */; };
 		BA52EED615156FEB00C2A012 /* StatsView.m in Sources */ = {isa = PBXBuildFile; fileRef = BA52EED515156FEB00C2A012 /* StatsView.m */; };
 		BA560572148E7D6F00411BA9 /* CustomPopover.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA560571148E7D6F00411BA9 /* CustomPopover.xib */; };
@@ -228,6 +234,12 @@
 		BA37B8541482DB9700C41484 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		BA44683F14F92E0400AE0A0D /* NSMutableOrderedSet+DeepCopy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableOrderedSet+DeepCopy.h"; sourceTree = "<group>"; };
 		BA44684014F92E0400AE0A0D /* NSMutableOrderedSet+DeepCopy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableOrderedSet+DeepCopy.m"; sourceTree = "<group>"; };
+		BA455FD21528841E0018986E /* ParchBkg.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = ParchBkg.jpg; sourceTree = "<group>"; };
+		BA455FD31528841E0018986E /* ParchBkg@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "ParchBkg@2x.jpg"; sourceTree = "<group>"; };
+		BA455FD41528841E0018986E /* ParchTop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ParchTop.png; sourceTree = "<group>"; };
+		BA455FD51528841E0018986E /* ParchTop@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ParchTop@2x.png"; sourceTree = "<group>"; };
+		BA455FDB1528A3310018986E /* ParchSeparator.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ParchSeparator.png; sourceTree = "<group>"; };
+		BA455FDC1528A3310018986E /* ParchSeparator@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ParchSeparator@2x.png"; sourceTree = "<group>"; };
 		BA513253145A484600043279 /* ACchooser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACchooser.h; sourceTree = "<group>"; };
 		BA513254145A484600043279 /* ACchooser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACchooser.m; sourceTree = "<group>"; };
 		BA52EED415156FEB00C2A012 /* StatsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatsView.h; sourceTree = "<group>"; };
@@ -412,6 +424,12 @@
 		BA08C5E5140D3D35009C5E8D /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				BA455FDB1528A3310018986E /* ParchSeparator.png */,
+				BA455FDC1528A3310018986E /* ParchSeparator@2x.png */,
+				BA455FD21528841E0018986E /* ParchBkg.jpg */,
+				BA455FD31528841E0018986E /* ParchBkg@2x.jpg */,
+				BA455FD41528841E0018986E /* ParchTop.png */,
+				BA455FD51528841E0018986E /* ParchTop@2x.png */,
 				CEEA5424152250570080CBB0 /* MenuBack.png */,
 				CEEA5425152250570080CBB0 /* MenuBack@2x.png */,
 				CEEA53CE1520ED800080CBB0 /* pludBG@2x.png */,
@@ -900,6 +918,12 @@
 				CEEA53D11520ED800080CBB0 /* plusBG.png in Resources */,
 				CEEA5426152250570080CBB0 /* MenuBack.png in Resources */,
 				CEEA5427152250570080CBB0 /* MenuBack@2x.png in Resources */,
+				BA455FD61528841E0018986E /* ParchBkg.jpg in Resources */,
+				BA455FD71528841E0018986E /* ParchBkg@2x.jpg in Resources */,
+				BA455FD81528841E0018986E /* ParchTop.png in Resources */,
+				BA455FD91528841E0018986E /* ParchTop@2x.png in Resources */,
+				BA455FDD1528A3310018986E /* ParchSeparator.png in Resources */,
+				BA455FDE1528A3310018986E /* ParchSeparator@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

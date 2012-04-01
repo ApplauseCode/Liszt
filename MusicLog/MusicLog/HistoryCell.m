@@ -13,14 +13,22 @@
 @implementation HistoryCell
 @synthesize titleLabel;
 @synthesize subTitleLabel;
+static UIImage *_separator = nil;
 
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
+        //[self setBackgroundColor:[UIColor clearColor]];
     }
     return self;
+}
+
++ (void)initialize
+{
+    [super initialize];
+    _separator = [UIImage imageNamed:@"ParchSeparator.png"];
 }
 
 - (void) updateTitle:(NSString *)_title subTitle:(NSString *)_subTitle;
@@ -33,6 +41,8 @@
 - (void)drawContentView:(CGRect)r
 {
     [super drawContentView:r];
+    CGSize sepSize = [_separator size];
+    [_separator drawInRect:CGRectMake(kLeftMargin + 3, self.frame.size.height - sepSize.height, sepSize.width, sepSize.height)];
     [titleLabel drawAtPoint:CGPointMake(kLeftMargin, kTopMargin)
                    forWidth:135
                    withFont:[self defaultLargeFont]

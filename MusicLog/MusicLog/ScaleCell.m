@@ -33,15 +33,24 @@
 @synthesize _modeLabel;
 @synthesize _speedLabel;
 @synthesize _tonicCompoundString;
+static UIImage *_backgroundImage = nil;
+
 
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
+        
     }
     return self;
 }
 
++ (void)initialize
+{
+    [super initialize];
+    _backgroundImage = [UIImage imageNamed:@"ScalesCellBG.png"];
+    
+}
 - (void)updateLabels:(Scale *)scale
 {
     NSString *octaves = [scale octavesString];
@@ -68,6 +77,7 @@
 - (void)drawContentView:(CGRect)r
 {
     [super drawContentView:r];
+    [_backgroundImage drawInRect:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
     [_tonicCompoundString drawAtPoint:CGPointMake(kLeftMargin, kTopMargin)];
     [_speedLabel drawAtPoint:CGPointMake(kLeftMargin, kBottomMargin) 
                     forWidth:200 

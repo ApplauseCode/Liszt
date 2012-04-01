@@ -17,6 +17,13 @@
 
 @implementation LisztCellView
 
+- (id)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    if (self)
+        [self setBackgroundColor:[UIColor clearColor]];
+    return self;
+}
 - (void)drawRect:(CGRect)r
 {
 	[(LisztCell *)[self superview] drawContentView:r];
@@ -29,9 +36,7 @@
 static UIFont *_defaultVerySmallFont = nil;
 static UIFont *_defaultSmallFont = nil;
 static UIFont *_defaultLargeFont = nil;
-static UIImage *_backgroundImage = nil;
 static NSString *_octaveFinisher = nil;
-
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -64,7 +69,6 @@ static NSString *_octaveFinisher = nil;
 
 +(void) initialize
 {
-    _backgroundImage = [UIImage imageNamed:@"ScalesCellBG.png"];
     _defaultVerySmallFont = [UIFont fontWithName:@"ACaslonPro-Regular" size:kVerySmallFontSize];
     _defaultSmallFont = [UIFont fontWithName:@"ACaslonPro-Regular" size:kSmallFontSize];
     _defaultLargeFont = [UIFont fontWithName:@"ACaslonPro-Regular" size:kLargeFontSize];
@@ -90,12 +94,11 @@ static NSString *_octaveFinisher = nil;
 
 -(void) drawContentView:(CGRect)r
 {    
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    CGContextSetFillColorWithColor(context, [UIColor whiteColor].CGColor);
-    CGContextFillRect(context, CGRectMake(0, 0, self.frame.size.width, self.frame.size.height));
-    UIColor *blackColor = [UIColor blackColor];
-    [blackColor set];
-    [_backgroundImage drawInRect:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
+    //CGContextSetFillColorWithColor(context, [UIColor clearColor].CGColor);
+    //CGContextFillRect(context, CGRectMake(0, 0, self.frame.size.width, self.frame.size.height));
+    //UIColor *blackColor = [UIColor blackColor];
+    //[blackColor set];
+    //[_backgroundImage drawInRect:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
 }
 
 @end

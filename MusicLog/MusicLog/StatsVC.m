@@ -325,7 +325,7 @@
 {  
     static BOOL isVertical;
     static CGFloat startingX;
-    const CGFloat initiateX = 45.0;
+    const CGFloat initiateX = 32.0;
     const CGFloat bounceX = 10.0;
     const CGFloat velocityThreshold = 300.0;
     const CGFloat viewWidth = [[self view] bounds].size.width;
@@ -385,7 +385,7 @@
 
 - (IBAction)slideRight:(id)sender 
 {
-    const CGFloat initiateX = 45.0;
+    const CGFloat initiateX = 32.0;
     const CGFloat viewWidth = [[self view] bounds].size.width;
     const CGFloat viewHeight = [[self view] bounds].size.height;
     const CGPoint theCenter = CGPointMake(viewWidth / 2.0, viewHeight / 2.0);

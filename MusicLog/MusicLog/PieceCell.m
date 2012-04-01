@@ -30,6 +30,8 @@
 @synthesize _modeLabel;
 @synthesize _speedLabel;
 @synthesize _keyCompoundString;
+static UIImage *_backgroundImage = nil;
+
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -37,6 +39,13 @@
     if (self) {
     }
     return self;
+}
+
++ (void)initialize
+{
+    [super initialize];
+    _backgroundImage = [UIImage imageNamed:@"ScalesCellBG.png"];
+    
 }
 
 - (void)updateLabels:(Piece *)piece
@@ -59,6 +68,7 @@
 - (void)drawContentView:(CGRect)r
 {
     [super drawContentView:r];
+    [_backgroundImage drawInRect:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
     [_composerLabel drawAtPoint:CGPointMake(kLeftMargin, kTopMargin)
                        forWidth:260 withFont:[self defaultLargeFont]
                   lineBreakMode:UILineBreakModeTailTruncation];

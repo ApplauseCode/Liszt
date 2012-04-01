@@ -76,6 +76,11 @@
     return [[[SessionStore defaultStore] sessions] count];
 }
 
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [cell setBackgroundColor:[UIColor clearColor]];
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     HistoryCell *cell;
@@ -83,6 +88,10 @@
     if (cell == nil) 
         cell = [[HistoryCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"HistoryCell"];
     cell.selectionStyle = UITableViewCellSelectionStyleNone; 
+    //UILabel *l = [[UILabel 
+//    [cell.textLabel setText:[sessionDates objectAtIndex:[indexPath row]]];
+//    [cell.textLabel setCenter:CGPointMake(cell.textLabel.center.x + 50, cell.textLabel.center.y)];
+//    [cell.detailTextLabel setText:[sessionTimes objectAtIndex:[indexPath row]]];
     [cell updateTitle:[sessionDates objectAtIndex:[indexPath row]] subTitle:[sessionTimes objectAtIndex:[indexPath row]]];
     return cell;
 }
