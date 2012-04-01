@@ -43,7 +43,6 @@
     [self setAlertViewVisible:NO];
     [SessionStore defaultStore];
     [self checkDate];
-    
     statsVC = [[StatsVC alloc] init];
     historyViewController = [[HistoryViewController alloc] initWithNibName:nil bundle:nil];
     containerViewController = [[ContainerViewController alloc] initWithNibName:nil bundle:nil];
