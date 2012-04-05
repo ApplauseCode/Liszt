@@ -10,6 +10,7 @@
 @implementation SectionHeaderView
 @synthesize aTitle;
 @synthesize aTime;
+@synthesize longTap;
 
 static UIImage *_backgroundImage = nil;
 static UIImage *_disclosureImage = nil;
@@ -34,14 +35,16 @@ static UIImage *_disclosureImage = nil;
         aTime = subTitle;
         _disclosureImage = [UIImage imageNamed:@"DisclosureArrow.png"];
         tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(toggleOpen:)];
+        longTap = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(toggleLongTap:)];
         [self addGestureRecognizer:tapGesture];
+        [self addGestureRecognizer:longTap];
     }
     return self;
 }
 
 - (void)drawRect:(CGRect)rect
 {
-    switch ([self section] % 3) {
+    switch ([self section]) {
         case 0:
             _backgroundImage = [UIImage imageNamed:@"SectionHeader1.png"];
             break;
@@ -56,7 +59,7 @@ static UIImage *_disclosureImage = nil;
     UIColor *textColor = [UIColor yellowTextColor];
     [textColor set];
     [aTitle drawAtPoint:CGPointMake(37, 14)
-                   forWidth:135
+                   forWidth:201
                    withFont:[UIFont fontWithName:@"ACaslonPro-Regular" size:20]
               lineBreakMode:UILineBreakModeTailTruncation];
     [aTime drawAtPoint:CGPointMake(240, 13)
@@ -97,12 +100,11 @@ static UIImage *_disclosureImage = nil;
 {
     if (yesOrNo) {
         _disclosureImage = [UIImage imageNamed:@"DisclosureArrowDown.png"];
-        [self setNeedsDisplay];
     }
     else {
         _disclosureImage = [UIImage imageNamed:@"DisclosureArrow.png"];
-        [self setNeedsDisplay];
     }
+    [self setNeedsDisplay];
 }
 
 - (void)setSubTitle:(NSString *)subName
@@ -129,6 +131,32 @@ static UIImage *_disclosureImage = nil;
         [[self tapGesture] setEnabled:NO];
     }];
 }
+
+- (BOOL)canPerformAction:(SEL)action withSender:(id)sender
+{
+    if (action == @selector(deleteCell:))
+        return YES;
+    return NO;
+    
+}
+
+- (BOOL)canBecomeFirstResponder { return YES;}
+
+- (void)toggleLongTap:(UILongPressGestureRecognizer *)sender
+{
+    if ([sender state] == UIGestureRecognizerStateBegan)
+    {
+        [self becomeFirstResponder];
+        UIMenuController *deleteMenu = [UIMenuController sharedMenuController];
+        UIMenuItem *delete = [[UIMenuItem alloc] initWithTitle:@"Delete" action:@selector(deleteCell:)];
+        [deleteMenu setMenuItems:[NSArray arrayWithObject:delete]];
+        [deleteMenu update];
+        CGPoint newPoint = [self.superview convertPoint:self.frame.origin toView:self.superview.superview];
+        NSLog(@"point: %@", NSStringFromCGPoint(newPoint));
+        [deleteMenu setTargetRect:CGRectMake(newPoint.x, newPoint.y, self.frame.size.width, self.frame.size.height) inView:self.superview.superview];
+        [deleteMenu setMenuVisible:YES animated:YES];
+    }
+}
 //
 - (void)addNotes:(id)sender
 {
@@ -147,10 +175,10 @@ static UIImage *_disclosureImage = nil;
     }];
 }
 //
-//- (void)deleteCell:(id)sender
-//{
-//    [[self delegate] deleteSection:self.section headerView:self];
-//}
+- (void)deleteCell:(id)sender
+{
+    [[self delegate] deleteSection:self.section headerView:self];
+}
 //
 //- (void)toggleLongTap:(UILongPressGestureRecognizer *)sender
 //{

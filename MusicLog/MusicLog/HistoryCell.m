@@ -42,12 +42,12 @@ static UIImage *_separator = nil;
 {
     [super drawContentView:r];
     CGSize sepSize = [_separator size];
-    [_separator drawInRect:CGRectMake(kLeftMargin + 3, self.frame.size.height - sepSize.height, sepSize.width, sepSize.height)];
+    [_separator drawInRect:CGRectMake(kLeftMargin, self.frame.size.height - sepSize.height, sepSize.width, sepSize.height)];
     [titleLabel drawAtPoint:CGPointMake(kLeftMargin, kTopMargin)
                    forWidth:135
                    withFont:[self defaultLargeFont]
               lineBreakMode:UILineBreakModeTailTruncation];   
-    [subTitleLabel drawAtPoint:CGPointMake(195, kTopMargin)
+    [subTitleLabel drawAtPoint:CGPointMake(185, kTopMargin)
                       forWidth:135
                       withFont:[self defaultLargeFont]
                  lineBreakMode:UILineBreakModeTailTruncation];

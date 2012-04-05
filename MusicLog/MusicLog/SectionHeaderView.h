@@ -8,7 +8,7 @@
 
 @property (nonatomic, assign) NSInteger section;
 @property (nonatomic, strong) UITapGestureRecognizer *tapGesture;
-//@property (nonatomic, strong) UILongPressGestureRecognizer *longTap;
+@property (nonatomic, strong) UILongPressGestureRecognizer *longTap;
 @property (nonatomic, strong) UISwipeGestureRecognizer *swipeGesture;
 @property (nonatomic, strong) UIView *deleteView;
 @property (nonatomic, strong) UIButton *notesButton;
@@ -19,7 +19,7 @@
 //-(void)toggleOpenWithUserAction:(BOOL)userAction;
 - (void)setSubTitle:(NSString *)subName;
 - (void)toggleSwipe:(id)sender;
-//- (void)toggleLongTap:(UILongPressGestureRecognizer *)sender;
+- (void)toggleLongTap:(UILongPressGestureRecognizer *)sender;
 - (void)cancelDelete:(id)sender;
 //- (void)deleteCell:(id)sender;
 - (void)addNotes:(id)sender;

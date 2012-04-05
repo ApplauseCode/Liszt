@@ -42,4 +42,43 @@ BOOL doubleNumber(int x)
     return [NSString stringWithFormat:@"%@%i:%@%i:%@%i", blankHours, hours, blankMinutes, minutes, blankSeconds, seconds];    
 }
 
++ (NSString *)convertDateToString:(NSDate *)date
+{
+//    NSCalendar *cal = [NSCalendar currentCalendar];
+//    NSDateComponents *components = [cal components:(NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit) fromDate:[NSDate date]];
+//    NSDate *today = [cal dateFromComponents:components];
+//    components = [cal components:(NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit) fromDate:date];
+//    NSDate *passedInDate = [cal dateFromComponents:components];
+    
+    NSDate *fromDate;
+    NSDate *toDate;
+    
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    
+    [calendar rangeOfUnit:NSDayCalendarUnit startDate:&fromDate
+                 interval:NULL forDate:date];
+    [calendar rangeOfUnit:NSDayCalendarUnit startDate:&toDate
+                 interval:NULL forDate:[NSDate date]];
+    
+    NSDateComponents *difference = [calendar components:NSDayCalendarUnit
+                                               fromDate:fromDate toDate:toDate options:0];
+    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+    if ([difference day] == 0)
+        return @"Today";
+    else if ([difference day] == 1)
+        return @"Yesterday";
+    else if ([difference day] < 7)
+    {
+        [dateFormat setDateFormat:@"EEEE"];
+        return [[dateFormat stringFromDate:date] capitalizedString];
+    }
+    else
+    {
+        [dateFormat setDateFormat:@"MMM dd, yyyy"];
+        return [dateFormat stringFromDate:date];
+    }
+
+
+}
+
 @end

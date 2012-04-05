@@ -12,15 +12,19 @@
 #import <AVFoundation/AVFoundation.h>
 #import "StatsView.h"
 #import "CustomSectionMove.h"
+#import "PopupVC.h"
+#import "ACchooser.h"
+#import "Metronome.h"
 
-@class Metronome;
 @class Session;
 @class TimerCell;
 @class SectionHeaderView;
 @class AllGesturesRecognizer;
+@class PopupVC;
 
-@interface StatsVC : UIViewController <UITableViewDelegate, UITableViewDataSource, SectionHeaderViewDelegate, UIGestureRecognizerDelegate, UIScrollViewDelegate, CustomStepperDelegate, UIAlertViewDelegate, StatsViewHitTestDelegate, CustomSectionMoveDelegate, UITextViewDelegate>
+@interface StatsVC : UIViewController <UITableViewDelegate, UITableViewDataSource, SectionHeaderViewDelegate, UIGestureRecognizerDelegate, UIScrollViewDelegate, CustomStepperDelegate, UIAlertViewDelegate, StatsViewDelegate, CustomSectionMoveDelegate, UITextViewDelegate, PopupVCDelegate, ACchooserDelegate, MetronomeDelegate, UIAccelerometerDelegate>
 
+@property (nonatomic, assign) CGFloat screenBrightness;
 @property (nonatomic, assign)   NSUInteger tempo;
 @property (nonatomic, strong)   Session *selectedSession;
 @property (nonatomic, strong)   AVAudioPlayer *tickPlayer;
@@ -42,6 +46,8 @@
 @property (nonatomic, strong)   UITextView *notesView;
 @property (nonatomic, strong)   UITapGestureRecognizer *notesTapGesture;
 @property (strong, nonatomic)   UIButton *timerButton;
+@property (strong, nonatomic)   ACchooser *tempoChooser;
+@property (strong, nonatomic)   NSTimer *dimScreenTimer;
 
 // Outlets
 @property (strong, nonatomic)   IBOutlet UILabel *tempoLabel;
@@ -50,13 +56,12 @@
 @property (strong, nonatomic)   IBOutlet UITableView *statsTable;
 @property (strong, nonatomic)   IBOutlet UILabel *selSessionDisplay;
 @property (strong, nonatomic)   IBOutlet UIButton *chooseDateButton;
-@property (strong, nonatomic)   IBOutlet UIView *myPopover;
+@property (strong, nonatomic)   PopupVC *myPopover;
 @property (strong, nonatomic)   IBOutlet UIButton *chooseScalesButton;
 @property (strong, nonatomic)   IBOutlet UIButton *chooseArpsButton;
 @property (strong, nonatomic)   IBOutlet UIButton *choosePiecesButton;
 @property (strong, nonatomic)   IBOutlet UILabel *tempoNameLabel;
-@property (weak, nonatomic)     IBOutlet UIImageView *metronomeGrabber;
-
+@property (weak, nonatomic)     IBOutlet UIView *metronomeGrabber;
 - (void)blockAlertView:(BOOL)isYes;
 - (void)makeMenu;
 - (void)makeMetronome;
@@ -69,11 +74,13 @@
 - (void)toggleTimer:(int)section;
 - (void)timerButtonPressed:(id)sender;
 - (void)getRidOfNotes:(id)sender;
+- (void)dimTimerFire:(NSTimer*)theTimer;
+- (void)metronomeTimerFire:(NSTimer*)theTimer;
 
 // Actions
 - (IBAction)startMetronome:(id)sender;
 - (IBAction)showMenu:(id)sender;
-- (IBAction)presentPickerView:(id)sender;
+//- (IBAction)presentPickerView:(id)sender;
 - (IBAction)slideRight:(id)sender;
 - (void)slideLeft:(id)sender;
 - (void)showStatsAtIndex:(NSInteger)index;

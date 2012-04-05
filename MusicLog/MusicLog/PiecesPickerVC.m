@@ -45,6 +45,7 @@
 @synthesize selectedSession;
 @synthesize tempoTextLabel;
 @synthesize editMode;
+@synthesize addPieceButton;
 
 - (id)initWithEditMode:(BOOL)_edit
 {
@@ -77,6 +78,8 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    if (editMode)
+        [addPieceButton setBackgroundImage:[UIImage imageNamed:@"saveEditsButton.png"] forState:UIControlStateNormal];
     
     titleLabel = [[UITextField alloc] initWithFrame:CGRectMake(33, 95, 280, 31)];
     titleLabel.autocapitalizationType = UITextAutocapitalizationTypeWords;

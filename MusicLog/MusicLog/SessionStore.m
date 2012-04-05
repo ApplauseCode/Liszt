@@ -85,6 +85,12 @@
 
         }    
     }
+    [self updateDict];
+    return self; 
+}
+
+- (void)updateDict
+{
     indexForDateString = [[NSMutableDictionary alloc] initWithCapacity:[sessions count]];
     dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyyMMdd"];
@@ -93,7 +99,6 @@
         key = [dateFormatter stringFromDate:[(Session *)[sessions objectAtIndex:i] date]];
         [indexForDateString setObject:[NSNumber numberWithInt:i] forKey:key];
     } 
-    return self; 
 }
 
 - (void)startNewSession:(BOOL)fresh {
@@ -145,13 +150,14 @@
 {
     sessions = [[NSMutableArray alloc] init];
     mySession = [[Session alloc] init];
+    [mySession setDate:[SessionStore getForDays:-3 fromDate:[NSDate date]]];
     
     NSArray *pieceNames = [NSArray arrayWithObjects:@"Waltz", @"Etude", @"Danse", @"Song", @"Prelude", @"Polonaise", @"Sonata", @"Concerto", @"Symphony", nil];
     NSArray *pieceNumbers = [NSArray arrayWithObjects:@" No.1", @" No.2", @" No.3", @" No. 4", @" No. 5", @" No. 6", @" No. 7", @" No. 8", @" No. 9", @" No. 10", nil];
     NSArray *composers = [NSArray arrayWithObjects:@"Chopin", @"Handel", @"Bach", @"Monk", @"Brubeck", @"Malmstein", @"Beethoven", @"Tchaikovsky", @"Debussy", @"Faure", @"Satie", @"Mussourgsky", @"Liszt", @"Marselis", @"Coltrane", nil];
                         
     
-    for (int i = 500; i > 0; i--)
+    for (int i = 500; i > 3; i--)
     {
         NSMutableOrderedSet *scaleSet = [[NSMutableOrderedSet alloc] initWithCapacity:20];
         NSMutableOrderedSet *arpeggioSet = [[NSMutableOrderedSet alloc] initWithCapacity:20];

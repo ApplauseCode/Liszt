@@ -8,15 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
-@protocol StatsViewHitTestDelegate;
+@protocol StatsViewDelegate;
 
 @interface StatsView : UIView
-@property (nonatomic, weak) id <StatsViewHitTestDelegate> delegate;
+@property (nonatomic, weak) id <StatsViewDelegate> delegate;
 @end
 
-@protocol StatsViewHitTestDelegate <NSObject>
+@protocol StatsViewDelegate <NSObject>
 
 @optional
 - (UIView *)hitWithPoint:(CGPoint)point;
-
 @end

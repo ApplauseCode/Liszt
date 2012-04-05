@@ -12,5 +12,7 @@
 - (IBAction)backOneYear:(id)sender;
 - (IBAction)backOneMonth:(id)sender;
 - (IBAction)toToday:(id)sender;
+- (void)loadData;
+- (void)reloadFirstCell;
 
 @end

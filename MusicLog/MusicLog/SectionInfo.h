@@ -15,5 +15,6 @@
 @property (strong) SectionHeaderView *headerView;
 @property (strong) NSString *title;
 @property (assign) NSInteger countofRowsToInsert;
+@property (nonatomic, assign) BOOL isNotes;
 
 @end

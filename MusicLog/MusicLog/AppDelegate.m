@@ -38,15 +38,15 @@
     /*remove later*/[TestFlight takeOff:@"0bb5b0fae5868594a374b52c1cd204c3_NTQ5NTIyMDEyLTAxLTI1IDE1OjU3OjIxLjYxMTI3NA"];
      application.applicationSupportsShakeToEdit = YES; /**/
     [NSTimer scheduledTimerWithTimeInterval:30 target:self selector:@selector(timerFireMethod:) userInfo:nil repeats:YES];
-    //UIScreen *mainScreen = [UIScreen mainScreen];
-    //mainScreen.brightness = .1; //should set the brightness at 50%
+//    UIScreen *mainScreen = [UIScreen mainScreen];
+//    mainScreen.brightness = .1; //should set the brightness at 50%
     [self setAlertViewVisible:NO];
-    [SessionStore defaultStore];
+//    [SessionStore defaultStore];
     [self checkDate];
     statsVC = [[StatsVC alloc] init];
     historyViewController = [[HistoryViewController alloc] initWithNibName:nil bundle:nil];
     containerViewController = [[ContainerViewController alloc] initWithNibName:nil bundle:nil];
-    [[historyViewController view] setFrame:[_window frame]];
+//    [[historyViewController view] setFrame:[self.window frame]];
     [[statsVC view] setFrame:[[historyViewController view] frame]];
     [containerViewController addChildViewController:statsVC];
     [containerViewController addChildViewController:historyViewController];
@@ -70,6 +70,7 @@
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
     [self checkDate];
+    [statsVC setScreenBrightness:[[UIScreen mainScreen] brightness]];
 }
 
 - (void)checkDate
@@ -80,24 +81,65 @@
     
     components = [cal components:(NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit) fromDate:[[[SessionStore defaultStore] mySession] date]];
     NSDate *sessionDate = [cal dateFromComponents:components];
+        
+    NSDate *fromDate;
+    NSDate *toDate;
+    [cal rangeOfUnit:NSDayCalendarUnit startDate:&fromDate
+                 interval:NULL forDate:sessionDate];
+    [cal rangeOfUnit:NSDayCalendarUnit startDate:&toDate
+                 interval:NULL forDate:today];
     
-    if (![sessionDate isEqualToDate:today] && !alertViewVisible)
+    NSDateComponents *difference = [cal components:NSDayCalendarUnit
+                                               fromDate:fromDate toDate:toDate options:0];
+    if ([difference day] > 0 && !alertViewVisible)
     {
         SessionStore *store = [SessionStore defaultStore];
         [[store sessions] addObject:[store mySession]];
-        BlockAlertView *freshDay = [BlockAlertView alertWithTitle:@"A New Day, A New Practice"
-                                                        message:@"Would you like your new practice to start out with all of the same items (scales, pieces, etc.) as your last practice?"];
+        
+        for (int i = [difference day] - 1; i > 0; i--)
+        {
+            NSDateComponents *days = [[NSDateComponents alloc] init];
+            [days setDay:-i];
+            Session *blankSession = [[Session alloc] initWithScales:nil arpeggios:nil pieces:nil];
+            [blankSession setDate:[cal dateByAddingComponents:days toDate:[NSDate date] options:0]];
+            [[store sessions] addObject:blankSession];
+        }
+        [[SessionStore defaultStore] updateDict];
+        BlockAlertView *freshDay = [BlockAlertView alertWithTitle:@"A New Day,\nA New Practice"
+                                                          message:@"Would you like your new practice to start out with all of the same items (scales, pieces, etc.) as your last practice?"];
         [freshDay addButtonWithTitle:@"Yes Please!" block:^{
             [statsVC blockAlertView:NO];
             [self setAlertViewVisible:NO];
+            [historyViewController loadData];
         }];
         [freshDay setCancelButtonWithTitle:@"No Thanks" block:^{
             [statsVC blockAlertView:YES];
             [self setAlertViewVisible:NO];
+            [historyViewController loadData];
         }];
         [freshDay show];
         [self setAlertViewVisible:YES];
     }
+    
+//    if (![sessionDate isEqualToDate:today] && !alertViewVisible)
+//    {
+//        SessionStore *store = [SessionStore defaultStore];
+//        [[store sessions] addObject:[store mySession]];
+//        BlockAlertView *freshDay = [BlockAlertView alertWithTitle:@"A New Day, A New Practice"
+//                                                        message:@"Would you like your new practice to start out with all of the same items (scales, pieces, etc.) as your last practice?"];
+//        [freshDay addButtonWithTitle:@"Yes Please!" block:^{
+//            [statsVC blockAlertView:NO];
+//            [self setAlertViewVisible:NO];
+//            [historyViewController loadData];
+//        }];
+//        [freshDay setCancelButtonWithTitle:@"No Thanks" block:^{
+//            [statsVC blockAlertView:YES];
+//            [self setAlertViewVisible:NO];
+//            [historyViewController loadData];
+//        }];
+//        [freshDay show];
+//        [self setAlertViewVisible:YES];
+//    }
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application

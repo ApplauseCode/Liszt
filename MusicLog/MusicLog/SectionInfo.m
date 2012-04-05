@@ -11,6 +11,6 @@
 
 @implementation SectionInfo
 
-@synthesize open, headerView, title, countofRowsToInsert;
+@synthesize open, headerView, title, countofRowsToInsert, isNotes;
 
 @end

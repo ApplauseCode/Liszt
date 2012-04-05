@@ -40,25 +40,73 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [historyTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    [historyTableView setBackgroundColor:[UIColor clearColor]];
+    [self loadData];
+}
+
+- (void)reloadFirstCell
+{
+    Session *myS = [[SessionStore defaultStore] mySession];
+    [sessionTimes replaceObjectAtIndex:0 withObject:[NSString timeStringFromInt:[myS calculateTotalTime]]];
+    [historyTableView reloadData];
+    
+}
+
+- (void)loadData
+{
     sessionDates = [[NSMutableArray alloc] init];
     sessionTimes = [[NSMutableArray alloc] init];
     sessions = [[SessionStore defaultStore] sessions];
-    [historyTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-    [historyTableView setBackgroundColor:[UIColor clearColor]];
-    
+
     Session *myS = [[SessionStore defaultStore] mySession];
-    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-    [dateFormat setDateFormat:@"MMM dd, yyyy"];
+//    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+//    [dateFormat setDateFormat:@"MMM dd, yyyy"];
     
-    [sessionDates addObject:[dateFormat stringFromDate:[myS date]]];
+    //[sessionDates addObject:[dateFormat stringFromDate:[myS date]]];
+    [sessionDates addObject:[NSString convertDateToString:[myS date]]];
     [sessionTimes addObject:[NSString timeStringFromInt:[myS calculateTotalTime]]];
     for (Session *s in [sessions reverseObjectEnumerator])
     {
-        [sessionDates addObject:[dateFormat stringFromDate:[s date]]];
+        [sessionDates addObject:[NSString convertDateToString:[s date]]];
         [sessionTimes addObject: [NSString timeStringFromInt:[s calculateTotalTime]]];
     }
+    [historyTableView reloadData];
+
 }
 
+//- (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView {
+//	//This of course can be whatever array you need to pass back
+//	//even for different table views, etc.
+//	NSArray *arrIndexes = [NSArray arrayWithArray:
+//                           [@"Jan,Feb,March,April,May,June,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z,#"
+//                            componentsSeparatedByString:@","]];
+//	return arrIndexes;
+//}
+
+
+
+//- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+//{
+ //   NSDate *firstSessionDate = [[[[SessionStore defaultStore] sessions] objectAtIndex:0] date];
+//    NSCalendar *cal = [NSCalendar currentCalendar];
+//    NSDate *fromDate;
+//    NSDate *toDate;
+//    [cal rangeOfUnit:NSDayCalendarUnit startDate:&fromDate
+//            interval:NULL forDate:firstSessionDate];
+//    [cal rangeOfUnit:NSDayCalendarUnit startDate:&toDate
+//            interval:NULL forDate:[NSDate date]];
+//    
+//    NSDateComponents *difference = [cal components:NSMonthCalendarUnit
+//                                          fromDate:fromDate toDate:toDate options:0];
+//    return [difference month];
+//}
+
+//- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+//{
+//    NSArray *months = [NSArray arrayWithObjects:@"J", @"F", @"M", @"A", @"M", @"J", @"J", @"A", @"S", @"O", @"N", @"D", nil];
+//    return months;
+//}
 - (void)viewDidUnload
 {
     [super viewDidUnload];

@@ -39,11 +39,11 @@ int tempoRange(int x)
     canBeNone = _canBeNone;
     tempoLabel = label;
     stepperBG = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"StepperRolls.png"]];
-    [stepperBG setFrame:CGRectMake(0,0,109, 50)];
+    [stepperBG setFrame:CGRectMake(0,0,109, 62)];
     [self addSubview:stepperBG];
     UIFont *caslon = [UIFont fontWithName:@"ACaslonPro-Regular" size:20];
     [tempoLabel setFont:caslon];
-    [tempoLabel setTextColor:[UIColor yellowTextColor]];
+    [tempoLabel setTextColor:[UIColor blackColor]];
     if (canBeNone)
         tempo = 0;
     else

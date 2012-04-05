@@ -15,5 +15,5 @@
 @property (nonatomic, strong) NSIndexPath *editItemPath;
 @property (nonatomic, strong) Session *selectedSession;
 - (IBAction)backToPieces:(id)sender;
-
+@property (nonatomic, strong) IBOutlet UIButton *addPieceButton;
 @end

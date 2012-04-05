@@ -109,8 +109,8 @@
     
     if (index == 1)
         [viewBG setImage:[UIImage imageNamed:@"arpeggiosBG.png"]];
-    
-    [addScaleButton setTitle:@"Add" forState:normal];
+    if (editMode)
+        [addScaleButton setBackgroundImage:[UIImage imageNamed:@"saveEditsButton.png"] forState:UIControlStateNormal];
     [octavesLabel setFont:[UIFont fontWithName:@"ACaslonPro-Regular" size:20]];
     [octavesLabel setText:@"OCTAVES"];
     

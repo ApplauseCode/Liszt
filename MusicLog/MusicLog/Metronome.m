@@ -20,20 +20,26 @@ double chooseBPM(double bpm)
 
 @property (nonatomic, strong) AVAudioPlayer *tickPlayer;
 @property (nonatomic) int tempo;
-@property (nonatomic) BOOL isPlaying;
+//@property (nonatomic, assign) float *mySound;
 @end
 
 @implementation Metronome
 @synthesize tickPlayer;
 @synthesize tempo;
 @synthesize isPlaying;
+@synthesize delegate;
+//@synthesize mySound;
 
 - (id)init
 {
     self = [super init];
     if (self)
     {
-        NSBundle *mainBundle = [NSBundle mainBundle];        
+        NSBundle *mainBundle = [NSBundle mainBundle];   
+//        NSError *error;
+//        NSMutableData *data = [NSMutableData dataWithContentsOfFile:[mainBundle pathForResource:@"tick5" ofType:@"aif"] options:0 error:&error];
+//        mySound = [data mutableBytes];
+        
         NSURL *tickURL = [NSURL fileURLWithPath:[mainBundle pathForResource:@"tick5" ofType:@"aif"]];
         tickPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:tickURL error:nil];
         [tickPlayer prepareToPlay];
@@ -57,6 +63,7 @@ double chooseBPM(double bpm)
     bpm =  chooseBPM(tempo);
     
     tempoTimer = [[NSTimer alloc] initWithFireDate:[NSDate dateWithTimeIntervalSinceNow:bpm] interval:bpm target:self selector:@selector(tempoTimerFireMethod:) userInfo:nil repeats:YES];
+    [[self delegate] metronomeWillStartWithInterval:bpm];
     [[NSRunLoop mainRunLoop] addTimer:tempoTimer forMode:NSRunLoopCommonModes];
     [self setIsPlaying:YES];
 }
@@ -80,6 +87,12 @@ double chooseBPM(double bpm)
 - (void)tempoTimerFireMethod:(NSTimer *)aTimer
 {
     [tickPlayer play];
+//    Novocaine *audioManager = [Novocaine audioManager];
+//    [audioManager setOutputBlock:^(float *audioToPlay, UInt32 numSamples, UInt32 numChannels) {
+//        // All you have to do is put your audio into "audioToPlay". 
+//        audioToPlay = mySound;
+//    }];
+    [[self delegate] metronomeDidStartWithInterval:chooseBPM(tempo)];
 }
 
 @end

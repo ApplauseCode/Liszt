@@ -22,10 +22,11 @@
 #import "SectionInfo.h"
 #import "CustomStepper.h"
 #import "TimerCell.h"
-#import "Metronome.h"
 #import "UIColor+YellowTextColor.h"
 #import "BlockAlertView.h"
 #import "StopWatch.h"
+#import "ContainerViewController.h"
+#import "HistoryViewController.h"
 
 #pragma mark - Private Interface
 
@@ -35,6 +36,9 @@
 @property (nonatomic, strong) UIPanGestureRecognizer *panGestureRecognizer;
 @property (nonatomic, strong) UIPanGestureRecognizer *metroPanGestureRecognizer;
 @property (nonatomic, strong) UIButton *slideBack;
+@property (nonatomic, strong) IBOutlet UIImageView *metronomeTicker;
+@property (strong, nonatomic) IBOutlet UIView *woodenMetronome;
+@property (strong, nonatomic) NSTimer *metronomeScreenTimer;
 
 - (void)handlePan:(UIPanGestureRecognizer *)gesture;
 - (void)handleMetroPan:(UIPanGestureRecognizer *)recognizer;
@@ -42,8 +46,12 @@
 @end
 
 @implementation StatsVC
+@synthesize metronomeScreenTimer;
+@synthesize screenBrightness;
+@synthesize dimScreenTimer;
 @synthesize metronomeGrabber;
-
+@synthesize metronomeTicker;
+@synthesize woodenMetronome;
 @synthesize totalTime;
 @synthesize addButton;
 @synthesize tempoLabel, metronomeView, timerButton, statsTable;
@@ -72,11 +80,13 @@
 @synthesize panGestureRecognizer;
 @synthesize metroPanGestureRecognizer;
 @synthesize slideBack;
+@synthesize tempoChooser;
 
 #pragma mark - View lifecycle
 
 - (void)viewDidUnload
 {
+    [self setWoodenMetronome:nil];
     [self setMetronomeGrabber:nil];
     [self setAddButton:nil];
     [self setChoosePiecesButton:nil];
@@ -102,13 +112,15 @@
     }
     return self;
 }
-////////////////////////// REMOVE LATER //////////////////
 - (BOOL)canBecomeFirstResponder { return YES;}
-/////////////////////////////////////////////////////////
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+    UIScreen *screen = [UIScreen mainScreen];
+    [self setScreenBrightness:[screen brightness]];
+    [[UIAccelerometer sharedAccelerometer] setDelegate:self];
+    [self setDimScreenTimer:[NSTimer scheduledTimerWithTimeInterval:30 target:self selector:@selector(dimTimerFire:) userInfo:nil repeats:NO]];
     [(StatsView *) self.view setDelegate:self];
     stopWatch = [[StopWatch alloc] init];
     isTiming = NO;
@@ -156,7 +168,10 @@
 {
     [super viewWillAppear:animated];
 //    NSLog(@"count: %i", [sectionInfoArray count]);
-    [sectionInfoArray removeObjectsInRange:NSMakeRange(2, [sectionInfoArray count] - 2)];
+    if ([[sectionInfoArray objectAtIndex:[sectionInfoArray count] - 1] isNotes])
+        [sectionInfoArray removeObjectsInRange:NSMakeRange(2, [sectionInfoArray count] - 3)];
+    else
+        [sectionInfoArray removeObjectsInRange:NSMakeRange(2, [sectionInfoArray count] - 2)];
     for (int i = 0; i < [[selectedSession pieceSession] count]; i++)
     {
         SectionInfo *pieceInfo = [[SectionInfo alloc] init];
@@ -174,9 +189,19 @@
 # pragma mark - Popover Menu
 
 - (void) makeMenu {
-    myPopover = [[[NSBundle mainBundle] loadNibNamed:@"CustomPopover" owner:self options:nil] objectAtIndex:0];
-    [myPopover setFrame:CGRectMake(200, 47, 128, 150)];
-    [myPopover setAlpha:0];
+    myPopover = [[PopupVC alloc] initWithFrame:CGRectMake(200, 47, 128, 130)];
+    [myPopover setDelegate:self];
+    [myPopover.view setAlpha:0];
+    UITableViewCell *cell1 = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
+    cell1.textLabel.text = @"Scales";
+    UITableViewCell *cell2 = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
+    cell2.textLabel.text = @"Arpeggios";
+    UITableViewCell *cell3 = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
+    cell3.textLabel.text = @"Pieces";
+    UITableViewCell *cell4 = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
+    cell4.textLabel.text = @"Notes";
+    NSArray *cells = [NSArray arrayWithObjects:cell1, cell2, cell3, /*cell4,*/ nil];
+    [myPopover setStaticCells:cells];
     tapAwayGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideMenu:)];
     [tapAwayGesture setDelegate:self];
     [self.view addGestureRecognizer:tapAwayGesture];
@@ -188,11 +213,12 @@
 
 - (void)showMenu:(id)sender
 {
+        
     [self.view addSubview:greyMask];
-    [self.view addSubview:myPopover];
+    [self.view addSubview:myPopover.view];
     [UIView animateWithDuration:0.2 animations:^{
         [greyMask setAlpha:0.2];
-        [myPopover setAlpha:1.0];
+        [myPopover.view setAlpha:1.0];
     }];
     [tapAwayGesture setEnabled:YES];
     for (SectionInfo *info in sectionInfoArray)
@@ -202,10 +228,10 @@
 - (void)hideMenu:(id)sender
 {
     [UIView animateWithDuration:0.2 animations:^{
-        [myPopover setAlpha:0];
+        [myPopover.view setAlpha:0];
         [greyMask setAlpha:0];
     } completion:^(BOOL finished) {
-        [myPopover removeFromSuperview];
+        [myPopover.view removeFromSuperview];
         [greyMask removeFromSuperview];
     }];
     [tapAwayGesture setEnabled:NO];
@@ -215,31 +241,84 @@
 
 #pragma mark - Metronome
 
-- (void)startMetronome:(id)sender {
-    [metro startMetronomeWithTempo:[stepper tempo]];
-    if ([[sender imageForState:UIControlStateNormal] isEqual:[UIImage imageNamed:@"StartMetronomeButton.png"]])
-        [sender setImage:[UIImage imageNamed:@"StopButton.png"] forState:UIControlStateNormal];
-    else if ([[sender imageForState:UIControlStateNormal] isEqual:[UIImage imageNamed:@"StopButton.png"]])
-        [sender setImage:[UIImage imageNamed:@"StartMetronomeButton.png"] forState:UIControlStateNormal];
-}
-
 - (void) makeMetronome {
-    stepper = [[CustomStepper alloc] initWithPoint:CGPointMake(215, 27) label:tempoLabel andCanBeNone:NO];
+    // stepper = [[CustomStepper alloc] initWithPoint:CGPointMake(215, 27) label:tempoLabel andCanBeNone:NO];
+    tempoChooser = [[ACchooser alloc]initWithFrame:CGRectMake(108, 35, 98, 40)];
+    NSMutableArray *tempos = [[NSMutableArray alloc] initWithCapacity:290];
+    for (int i = 30; i <= 320; i++)
+        [tempos addObject:[NSString stringWithInt:i]];
+    //[tempoChooser setSelectedCellIndex:50];
+    [tempoChooser setDataArray:tempos];
+    [tempoChooser setDelegate:self];
+    [tempoChooser setCellColor:[UIColor clearColor]];
+    [tempoChooser setSelectedBackgroundColor:[UIColor clearColor]];
+    [tempoChooser setCellFont:[UIFont fontWithName:@"ACaslonPro-Regular" size:22]];
+    [metronomeView addSubview:tempoChooser.view];
     [stepper setDelegate:self];
-    [metronomeView addSubview:stepper];
+    //[metronomeView addSubview:stepper];
     metroPanGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handleMetroPan:)];
     [metronomeGrabber setUserInteractionEnabled:YES];
     [metronomeGrabber addGestureRecognizer:metroPanGestureRecognizer];
     openSectionIndex = NSNotFound;
     metro = [[Metronome alloc] init];
+    [metro setDelegate:self];
 }
 
+- (void)startMetronome:(id)sender {
+    [metro startMetronomeWithTempo:[tempoChooser selectedCellIndex] + 30];
+    if ([[sender imageForState:UIControlStateNormal] isEqual:[UIImage imageNamed:@"metronomePlay.png"]])
+        [sender setImage:[UIImage imageNamed:@"metronomePause.png"] forState:UIControlStateNormal];
+    else if ([[sender imageForState:UIControlStateNormal] isEqual:[UIImage imageNamed:@"metronomePause.png"]])
+        [sender setImage:[UIImage imageNamed:@"metronomePlay.png"] forState:UIControlStateNormal];
+}
+- (void)metronomeWillStartWithInterval:(CGFloat)interval
+{
+    [UIView animateWithDuration:interval animations:^{
+        [metronomeTicker setTransform:CGAffineTransformMakeRotation(M_PI/6)];
+    }];
+}
+
+- (void)stopAnimationWithInterval:(CGFloat)interval
+{
+    [UIView animateWithDuration:interval delay:0 options:UIViewAnimationCurveEaseIn animations:^{
+        [metronomeTicker setTransform:CGAffineTransformMakeRotation(0)]; 
+    } completion:^(BOOL finished) {
+    }];
+}
+
+- (void)metronomeDidStartWithInterval:(CGFloat)interval
+{
+    if (CGAffineTransformEqualToTransform(metronomeTicker.transform, CGAffineTransformMakeRotation(M_PI/6)))
+    {
+        [UIView animateWithDuration:interval delay:0 options:UIViewAnimationCurveEaseIn animations:^{
+            [metronomeTicker setTransform:CGAffineTransformMakeRotation(-M_PI/6)]; 
+        } completion:^(BOOL finished) {
+            if (![metro isPlaying])
+                [self stopAnimationWithInterval:interval];
+        }];
+    }
+    else
+    {
+        [UIView animateWithDuration:interval delay:0 options:UIViewAnimationCurveEaseIn animations:^{
+            [metronomeTicker setTransform:CGAffineTransformMakeRotation(M_PI/6)]; 
+        } completion:^(BOOL finished) {
+            if (![metro isPlaying])
+                [self stopAnimationWithInterval:interval];
+        }];
+    }
+}
+
+- (void)chooserDidSelectCell:(ACchooser *)chooser
+{
+    [metro changeTempoWithTempo:[chooser selectedCellIndex] + 30];
+}
 - (void)handleMetroPan:(UIPanGestureRecognizer *)recognizer
 {
-    #define UP_CENTER_Y 423.5   
+#define UP_CENTER_Y 417  
+#define HEIGHT_OF_EXTRA_GRAB_SPACE 11
     static CGFloat startingY;
     const CGFloat metroWidth = [[self metronomeView] bounds].size.width;
-    const CGFloat metroHeight = [[self view] bounds].size.height - [metronomeView bounds].size.height + [metronomeGrabber bounds].size.height;
+    const CGFloat metroHeight = [[self view] bounds].size.height - [metronomeView bounds].size.height + [metronomeGrabber bounds].size.height - HEIGHT_OF_EXTRA_GRAB_SPACE;
     const CGPoint theCenter = CGPointMake(metroWidth / 2.0, metroHeight + [metronomeView bounds].size.height / 2.0);
     CGPoint translation = [recognizer translationInView:[self view]];
     if ([recognizer state] == UIGestureRecognizerStateBegan) {
@@ -247,22 +326,50 @@
     }
     CGFloat toY = startingY + translation.y;
     // this calculation is a kludge but it works, will figure out why later;
-    toY = MAX(toY, theCenter.y - [metronomeGrabber bounds].size.height + 1);
-    toY = MIN(toY, theCenter.y + [metronomeView bounds].size.height / 2.0);
+    toY = MAX(toY, theCenter.y - [metronomeGrabber bounds].size.height + HEIGHT_OF_EXTRA_GRAB_SPACE);
+    toY = MIN(toY, self.view.frame.size.height + 22);
+    //toY = MIN(toY, theCenter.y + [metronomeView bounds].size.height / 2.0 - 3);
     [metronomeView setCenter:CGPointMake(theCenter.x, toY)];
     BOOL didStartUp = startingY == UP_CENTER_Y;
     if ([recognizer state] == UIGestureRecognizerStateEnded) {
         if (didStartUp && translation.y > 0) {
+#define TOPWOODCENTER 416
+#define BOTTOMWOODCENTER 506
             [UIView animateWithDuration:0.125 animations:^{
-                [metronomeView setCenter:CGPointMake(theCenter.x, -18 + theCenter.y + [metronomeView bounds].size.height / 2.0)];
+                [metronomeView setCenter:CGPointMake(theCenter.x, -2 + theCenter.y + [metronomeView bounds].size.height / 2.0)];
+            } completion:^(BOOL finished) {
+                [UIView animateWithDuration:0.5 animations:^{
+                    if (![metro isPlaying] && woodenMetronome.center.y < BOTTOMWOODCENTER)
+                        [woodenMetronome setCenter:CGPointMake(woodenMetronome.center.x, woodenMetronome.center.y + 90)];
+                }];
             }];
         } else if (!didStartUp && translation.y < 0) {
             [UIView animateWithDuration:0.125 animations:^{
                 [metronomeView setCenter:CGPointMake(theCenter.x, UP_CENTER_Y)];
+            } completion:^(BOOL finished) {
+                [self setMetronomeScreenTimer:[NSTimer scheduledTimerWithTimeInterval:4 target:self selector:@selector(metronomeTimerFire:) userInfo:nil repeats:NO]];
+                if (woodenMetronome.center.y > TOPWOODCENTER)
+                    [UIView animateWithDuration:0.5 animations:^{
+                        [woodenMetronome setCenter:CGPointMake(woodenMetronome.center.x, woodenMetronome.center.y - 90)];
+                    }];
+                NSLog(@"center y: %f", woodenMetronome.center.y);
             }];
+
         }
         
     }
+}
+
+- (void)metronomeTimerFire:(NSTimer *)theTimer
+{
+    CGFloat metroHeight = [[self view] bounds].size.height - [metronomeView bounds].size.height + [metronomeGrabber bounds].size.height - HEIGHT_OF_EXTRA_GRAB_SPACE;
+    CGFloat metroWidth = [[self metronomeView] bounds].size.width;
+    CGPoint theCenter = CGPointMake(metroWidth / 2.0, metroHeight + [metronomeView bounds].size.height / 2.0);
+    [UIView animateWithDuration:0.25 animations:^{
+        [metronomeView setCenter:CGPointMake(theCenter.x, -2 + theCenter.y + [metronomeView bounds].size.height / 2.0)];
+        if (![metro isPlaying])
+            [woodenMetronome setCenter:CGPointMake(woodenMetronome.center.x, woodenMetronome.center.y + 90)];
+    }];
 }
 
 - (void)valueChanged
@@ -303,10 +410,12 @@
 {
     if ([gestureRecognizer isEqual:tapAwayGesture])
     {
-        if ((touch.view == myPopover) || (touch.view == chooseScalesButton) || (touch.view == chooseArpsButton) || (touch.view == choosePiecesButton))
+        if (CGRectContainsPoint([myPopover.view frame], [touch locationInView:self.view]))
             return NO;
-        return YES;
     }
+    if ([gestureRecognizer isEqual:panGestureRecognizer])
+        if (CGRectContainsPoint(tempoChooser.view.frame, [touch locationInView:self.metronomeView]))
+            return NO;
     return YES;
 
 }
@@ -325,7 +434,7 @@
 {  
     static BOOL isVertical;
     static CGFloat startingX;
-    const CGFloat initiateX = 32.0;
+    const CGFloat initiateX = 45.0;
     const CGFloat bounceX = 10.0;
     const CGFloat velocityThreshold = 300.0;
     const CGFloat viewWidth = [[self view] bounds].size.width;
@@ -337,6 +446,9 @@
     CGPoint translation = [gR translationInView:[self view]];
     
     if ([gR state] == UIGestureRecognizerStateBegan) {
+        ContainerViewController *cvc = (ContainerViewController *)[self parentViewController];
+        HistoryViewController *hvc = [[cvc viewControllers] objectAtIndex:1];
+        [hvc reloadFirstCell];
         startingX = [[self view] center].x;
         if ((fabs(translation.y) + 1.0) >= fabs(translation.x) && (startingX == theCenter.x)) {
             [statsTable setScrollEnabled:YES];
@@ -385,7 +497,7 @@
 
 - (IBAction)slideRight:(id)sender 
 {
-    const CGFloat initiateX = 32.0;
+    const CGFloat initiateX = 45;
     const CGFloat viewWidth = [[self view] bounds].size.width;
     const CGFloat viewHeight = [[self view] bounds].size.height;
     const CGPoint theCenter = CGPointMake(viewWidth / 2.0, viewHeight / 2.0);
@@ -415,10 +527,11 @@
     }];
 }
 
-- (void)presentPickerView:(id)sender
+- (void)cellSelectedAtIndex:(NSInteger)index
 {
     id vc;
-    switch ([sender tag]) {
+    SectionInfo *notesInfo;
+    switch (index) {
         case 0:
             vc = [[ScalePickerVC alloc] initWithIndex:0 editPage:NO];
             break;
@@ -428,20 +541,87 @@
         case 2:
             vc = [[PiecesPickerVC alloc] initWithEditMode:NO];
             break;
-    }        
-    [self presentModalViewController:vc animated:YES];
+        case 3:
+            notesInfo = [[SectionInfo alloc] init];
+            [notesInfo setTitle:@"Notes"];
+            [notesInfo setCountofRowsToInsert:1];
+            [notesInfo setIsNotes:YES];
+            [notesInfo setHeaderView:[[SectionHeaderView alloc] initWithFrame:CGRectMake(0.0, 0.0, statsTable.bounds.size.width, 42)
+                                                                        title:notesInfo.title subTitle:nil section:[statsTable numberOfSections] delegate:self]];
+            [sectionInfoArray addObject:notesInfo];
+            [statsTable reloadData];
+            break;
+    }       
+    if (vc)
+        [self presentModalViewController:vc animated:YES];
     [self closeSections];
 }
 
 #pragma mark - Timers
 
+- (void)setMetronomeScreenTimer:(NSTimer *)aTimer
+{
+    if (aTimer != metronomeScreenTimer) {
+        [metronomeScreenTimer invalidate];
+        metronomeScreenTimer = aTimer;
+    }
+}
+
+- (void)setDimScreenTimer:(NSTimer *)aTimer
+{
+    if (aTimer != dimScreenTimer) {
+        [dimScreenTimer invalidate];
+        dimScreenTimer = aTimer;
+    }
+}
+
 - (void)timerButtonPressed:(id)sender
 {
     if ([[sender imageForState:UIControlStateNormal] isEqual:[UIImage imageNamed:@"StartTimer.png"]])
+    {
         [sender setImage:[UIImage imageNamed:@"StopTimer.png"] forState:UIControlStateNormal];
+    }
     else if ([[sender imageForState:UIControlStateNormal] isEqual:[UIImage imageNamed:@"StopTimer.png"]])
         [sender setImage:[UIImage imageNamed:@"StartTimer.png"] forState:UIControlStateNormal];
     [self toggleTimer:openSectionIndex];
+}
+
+- (void)accelerometer:(UIAccelerometer *)accelerometer didAccelerate:(UIAcceleration *)acceleration
+{
+    if(acceleration.y > 0.1f || acceleration.x > 0.1f || acceleration.z > 0.1f)
+    {
+        UIScreen *mainScreen = [UIScreen mainScreen];
+        if ([mainScreen brightness] != [self screenBrightness])
+            mainScreen.brightness = [self screenBrightness]; 
+        
+        [self setDimScreenTimer:[NSTimer scheduledTimerWithTimeInterval:30 target:self selector:@selector(dimTimerFire:) userInfo:nil repeats:NO]];
+            
+    } 
+}
+
+- (void)dimTimerFire:(NSTimer*)theTimer;
+{
+    UIScreen *mainScreen = [UIScreen mainScreen];
+    mainScreen.brightness = .25;
+
+}
+
+- (UIView *)hitWithPoint:(CGPoint)point
+{
+    // check metronome screen
+    if (CGRectContainsPoint(metronomeView.frame, point))
+    {
+        [self setMetronomeScreenTimer:[NSTimer scheduledTimerWithTimeInterval:4 target:self selector:@selector(metronomeTimerFire:) userInfo:nil repeats:NO]];
+    }
+
+    
+    // check screens brightness
+    UIScreen *mainScreen = [UIScreen mainScreen];
+    if ([mainScreen brightness] != [self screenBrightness])
+        mainScreen.brightness = [self screenBrightness]; 
+
+    [self setDimScreenTimer:[NSTimer scheduledTimerWithTimeInterval:30 target:self selector:@selector(dimTimerFire:) userInfo:nil repeats:NO]];
+    return nil;
 }
 
 - (void)toggleTimer:(int)section
@@ -612,7 +792,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return (2 + [[selectedSession pieceSession] count]);
+    return [sectionInfoArray count];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -620,7 +800,8 @@
     SectionInfo *sectionInfo = [self.sectionInfoArray objectAtIndex:section];
     NSInteger numRowsInSection;
     
-    if (currentPractice)
+
+    if (currentPractice && ![sectionInfo isNotes])
         numRowsInSection = [sectionInfo countofRowsToInsert] + 1;
     else
         numRowsInSection = [sectionInfo countofRowsToInsert];
@@ -631,31 +812,34 @@
 {
     Session *s = [[SessionStore defaultStore] mySession];
 	SectionInfo *sectionInfo = [self.sectionInfoArray objectAtIndex:section];
-    NSString *sectionName = sectionInfo.title;
-    sectionInfo.headerView = [[SectionHeaderView alloc] initWithFrame:CGRectMake(0.0, 0.0, statsTable.bounds.size.width, 42) title:[sectionName capitalizedString] subTitle:@"" section:section delegate:self];
-    NSString *time;
-    if (currentPractice)
+    if (![sectionInfo isNotes])
     {
-        if (section ==  0)
-            time = [NSString timeStringFromInt:[s scaleTime]];
-        else if (section == 1)
-            time = [NSString timeStringFromInt:[s arpeggioTime]];
+        NSString *sectionName = sectionInfo.title;
+        sectionInfo.headerView = [[SectionHeaderView alloc] initWithFrame:CGRectMake(0.0, 0.0, statsTable.bounds.size.width, 42) title:[sectionName capitalizedString] subTitle:@"" section:section delegate:self];
+        NSString *time;
+        if (currentPractice)
+        {
+            if (section ==  0)
+                time = [NSString timeStringFromInt:[s scaleTime]];
+            else if (section == 1)
+                time = [NSString timeStringFromInt:[s arpeggioTime]];
+            else
+            {
+                Piece *currentPiece = [[s pieceSession] objectAtIndex:(section - 2)];
+                time = [NSString timeStringFromInt:[currentPiece pieceTime]];             
+            }
+        }
         else
         {
-            Piece *currentPiece = [[s pieceSession] objectAtIndex:(section - 2)];
-            time = [NSString timeStringFromInt:[currentPiece pieceTime]];             
+            if (section == 0)
+                time = [NSString timeStringFromInt:[selectedSession scaleTime]];
+            else if (section == 1)
+                time = [NSString timeStringFromInt:[selectedSession arpeggioTime]];
+            else
+                time = [NSString timeStringFromInt:[[[selectedSession pieceSession] objectAtIndex:(section - 2)] pieceTime]];
         }
+        [sectionInfo.headerView setSubTitle:time];
     }
-    else
-    {
-        if (section == 0)
-            time = [NSString timeStringFromInt:[selectedSession scaleTime]];
-        else if (section == 1)
-            time = [NSString timeStringFromInt:[selectedSession arpeggioTime]];
-        else
-            time = [NSString timeStringFromInt:[[[selectedSession pieceSession] objectAtIndex:(section - 2)] pieceTime]];
-    }
-    [sectionInfo.headerView setSubTitle:time];
     if (sectionInfo.open)
         [sectionInfo.headerView turnDownDisclosure:YES];
     else
@@ -669,6 +853,12 @@
     NSInteger row = [indexPath row];
     LisztCell *cell;
     id entry;
+    if (section == [statsTable numberOfSections] - 1 && [[sectionInfoArray objectAtIndex:[indexPath section]] isNotes])
+    {
+        UITableViewCell *noteCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"NotesCell"];
+        noteCell.textLabel.text = @"Practiced Slowly Bababooybooybooy";
+        return noteCell;
+    }
     if (section < 2) {
         cell = (ScaleCell *)[tableView dequeueReusableCellWithIdentifier:@"ScaleCell"];
         if (cell == nil) 
@@ -708,11 +898,9 @@
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
     int section = [indexPath section];
-    if (![indexPath row]) return NO;
-    if (section < 2)
+    if (section < 2 && currentPractice && [indexPath row])
         return YES;
-    else
-        return NO;
+    return NO;
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
@@ -744,6 +932,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (!currentPractice)
+        return;
     [self closeSections];
     NSInteger section = [indexPath section];
     id editVC;
@@ -795,14 +985,16 @@
 -(void)sectionHeaderView:(SectionHeaderView *)sectionHeaderView sectionOpened:(NSInteger)section
 {
     
-    [sectionHeaderView turnDownDisclosure:YES];
+    [[[sectionInfoArray objectAtIndex:section] headerView] turnDownDisclosure:YES];
     NSInteger previousOpenSectionIndex = [self openSectionIndex];
     [self setOpenSectionIndex:section];
     SectionInfo *sectionInfo = [self.sectionInfoArray objectAtIndex:section];
     [sectionInfo setOpen:YES];
     NSMutableArray *indexPathsToInsert = [[NSMutableArray alloc] init];
     NSMutableArray *indexPathsToDelete = [[NSMutableArray alloc] init];
-    if ([sectionInfo countofRowsToInsert] > 0 && currentPractice) {
+    if ([sectionInfo isNotes])
+        [indexPathsToInsert addObject:[NSIndexPath indexPathForRow:0 inSection:section]];
+    else if ([sectionInfo countofRowsToInsert] > 0 && currentPractice) {
         for (NSInteger i = 0; i <= [sectionInfo countofRowsToInsert]; i++)
             [indexPathsToInsert addObject:[NSIndexPath indexPathForRow:i inSection:section]];
         [self setupTimerCellForSection:section];
@@ -811,9 +1003,9 @@
         for (NSInteger i = 0; i < [sectionInfo countofRowsToInsert]; i++)
             [indexPathsToInsert addObject:[NSIndexPath indexPathForRow:i inSection:section]];
     } else {
-        [sectionHeaderView turnDownDisclosure:NO];
-        [sectionInfo setOpen:NO];
-        [self setOpenSectionIndex:NSNotFound];
+        //[sectionHeaderView turnDownDisclosure:NO];
+        //[sectionInfo setOpen:NO];
+        //[self setOpenSectionIndex:NSNotFound];
     }
     
     if (previousOpenSectionIndex != NSNotFound) {
@@ -824,14 +1016,16 @@
 		
         [previousOpenSection setOpen:NO];
         NSInteger countOfRowsToDelete = [previousOpenSection countofRowsToInsert];
-        if (countOfRowsToDelete > 0 && currentPractice) {
+        if ([previousOpenSection isNotes])
+            [indexPathsToDelete addObject:[NSIndexPath indexPathForRow:0 inSection:previousOpenSectionIndex]];
+        else if (countOfRowsToDelete > 0 && currentPractice) {
             for (NSInteger i = 0; i <= countOfRowsToDelete; i++)
                 [indexPathsToDelete addObject:[NSIndexPath indexPathForRow:i inSection:previousOpenSectionIndex]];
         } else if (countOfRowsToDelete > 0 && !currentPractice) {
             for (NSInteger i = 0; i < countOfRowsToDelete; i++)
                 [indexPathsToDelete addObject:[NSIndexPath indexPathForRow:i inSection:previousOpenSectionIndex]];
         } else {
-            [previousOpenSection.headerView turnDownDisclosure:NO];
+            //[previousOpenSection.headerView turnDownDisclosure:NO];
             [previousOpenSection setOpen:NO];
         }
     }
@@ -870,12 +1064,15 @@
 
 - (void)deleteSection:(NSInteger)section headerView:(SectionHeaderView *)sectionHeaderView
 {
+    [self becomeFirstResponder];
     if (section > 1)
     {
         Piece *p = [[[[SessionStore defaultStore] mySession] pieceSession] objectAtIndex:section - 2];
         [[[[SessionStore defaultStore] mySession] pieceSession] removeObject:p];
         [sectionInfoArray removeObjectAtIndex:section];
+        [statsTable beginUpdates];
         [statsTable deleteSections:[NSIndexSet indexSetWithIndex:section] withRowAnimation:UITableViewRowAnimationAutomatic];
+        [statsTable endUpdates];
         [self setOpenSectionIndex:NSNotFound];
         NSString *timeString = [NSString timeStringFromInt:[selectedSession calculateTotalTime]];
         [totalTime setText:timeString];
@@ -886,7 +1083,7 @@
             [currentHeader setSection:(currentSection - 1)];
         }
     }
-    [self setSwipedHeader:nil];
+//    [self setSwipedHeader:nil];
 }
 
 
@@ -962,40 +1159,6 @@
             [[[mySession pieceSession] objectAtIndex:swipedHeader.section - 2] setPieceNotes:[notesView text]];
             break;
     }
-}
-
-- (UIView *)hitWithPoint:(CGPoint)point
-{
-    if (swipedHeader)
-    {
-        if ([notesView isDescendantOfView:self.view])
-            return nil;
-        CGRect frameOfExcludedArea = [self.view.superview convertRect:swipedHeader.deleteView.frame fromView:swipedHeader.deleteView.superview];
-        if ((point.y > frameOfExcludedArea.origin.y-20) && (point.y < frameOfExcludedArea.origin.y-20 + frameOfExcludedArea.size.height))
-        {
-            if(point.x > (self.view.frame.size.width / 2))
-                return swipedHeader.deleteButton;
-            else
-                return swipedHeader.notesButton;
-        }
-        else if (CGRectContainsPoint([notesView frame], point))
-        {
-            return notesView;
-        }
-        else if (CGRectContainsPoint([statsTable frame], point))
-        {
-            [swipedHeader cancelDelete:nil];
-            [self setSwipedHeader:nil];
-            return statsTable;
-        }
-        else 
-        {
-            [swipedHeader cancelDelete:nil];
-            [self setSwipedHeader:nil];
-            return nil;
-        }
-    }
-    return nil;
 }
 
 #pragma mark - Reorder Sections

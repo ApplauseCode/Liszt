@@ -23,5 +23,6 @@
 - (void)startNewSession:(BOOL)fresh;
 - (BOOL)saveChanges;
 - (Session *)sessionForDate:(NSDate *)d;
+- (void)updateDict;
 
 @end

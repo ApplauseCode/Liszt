@@ -40,7 +40,7 @@ static UIImage *_backgroundImage = nil;
 {
     self = [super initWithFrame:frame];
     if (self) {
-        
+
     }
     return self;
 }
