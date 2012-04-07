@@ -20,7 +20,7 @@ double chooseBPM(double bpm)
 
 @property (nonatomic, strong) AVAudioPlayer *tickPlayer;
 @property (nonatomic) int tempo;
-//@property (nonatomic, assign) float *mySound;
+@property (nonatomic, assign) int firstTimeTimer;
 @end
 
 @implementation Metronome
@@ -28,6 +28,7 @@ double chooseBPM(double bpm)
 @synthesize tempo;
 @synthesize isPlaying;
 @synthesize delegate;
+@synthesize firstTimeTimer;
 //@synthesize mySound;
 
 - (id)init
@@ -50,7 +51,7 @@ double chooseBPM(double bpm)
 
 - (void)startMetronomeWithTempo:(int)t
 {
-
+    firstTimeTimer = 0;
     tempo = t;
     if (tempoTimer)
     {
@@ -63,7 +64,7 @@ double chooseBPM(double bpm)
     bpm =  chooseBPM(tempo);
     
     tempoTimer = [[NSTimer alloc] initWithFireDate:[NSDate dateWithTimeIntervalSinceNow:bpm] interval:bpm target:self selector:@selector(tempoTimerFireMethod:) userInfo:nil repeats:YES];
-    [[self delegate] metronomeWillStartWithInterval:bpm];
+    //[[self delegate] metronomeWillStartWithInterval:bpm];
     [[NSRunLoop mainRunLoop] addTimer:tempoTimer forMode:NSRunLoopCommonModes];
     [self setIsPlaying:YES];
 }
@@ -86,13 +87,17 @@ double chooseBPM(double bpm)
 
 - (void)tempoTimerFireMethod:(NSTimer *)aTimer
 {
-    [tickPlayer play];
-//    Novocaine *audioManager = [Novocaine audioManager];
-//    [audioManager setOutputBlock:^(float *audioToPlay, UInt32 numSamples, UInt32 numChannels) {
-//        // All you have to do is put your audio into "audioToPlay". 
-//        audioToPlay = mySound;
-//    }];
-    [[self delegate] metronomeDidStartWithInterval:chooseBPM(tempo)];
+    if (firstTimeTimer++ < 1)
+    {
+        [tickPlayer setVolume:0];
+        [[self delegate] metronomeWillStartWithInterval:chooseBPM(tempo)];
+    }
+    else {
+        [tickPlayer setVolume:1];
+        [tickPlayer play];
+        [[self delegate] metronomeDidStartWithInterval:chooseBPM(tempo)];
+    }
+
 }
 
 @end

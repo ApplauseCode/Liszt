@@ -34,11 +34,11 @@
 @protocol SectionHeaderViewDelegate <NSObject>
 
 @optional
-- (void)sectionHeaderView:(SectionHeaderView*)sectionHeaderView tapped:(NSInteger)section;
-- (void)deleteSection:(NSInteger)section headerView:(SectionHeaderView *)sectionHeaderView;
-- (void)moveSection:(NSInteger)section headerView:(SectionHeaderView *)sectionHeaderView;
-- (void)sectionSwiped:(NSInteger)section headerView:(SectionHeaderView *)sectionHeaderView;
-- (void)displayNotesViewForSection:(NSInteger)section headerView:(SectionHeaderView *)headerView;
+- (void)sectionTapped:(NSInteger)section;
+- (void)deleteSection:(NSInteger)section;
+- (void)moveSection:(NSInteger)section;
+- (void)sectionSwiped:(NSInteger)section;
+- (void)displayNotesViewForSection:(NSInteger)section;
 
 @end
 

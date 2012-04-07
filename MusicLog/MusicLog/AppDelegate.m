@@ -69,12 +69,14 @@
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
+    NSLog(@"will enter fore");
     [self checkDate];
-    [statsVC setScreenBrightness:[[UIScreen mainScreen] brightness]];
+    [statsVC setScreenBrightness:[statsVC screenBrightness]];
 }
 
 - (void)checkDate
 {
+    NSLog(@"checking date");
     NSCalendar *cal = [NSCalendar currentCalendar];
     NSDateComponents *components = [cal components:(NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit) fromDate:[NSDate date]];
     NSDate *today = [cal dateFromComponents:components];
@@ -144,17 +146,20 @@
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
+    NSLog(@"did enter background");
     [[SessionStore defaultStore] saveChanges];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
-    [[SessionStore defaultStore] saveChanges];
+   //[[SessionStore defaultStore] saveChanges];
+    NSLog(@"will terminate");
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {
-    [[SessionStore defaultStore] saveChanges];
+    NSLog(@"will resign active");
+    //[[SessionStore defaultStore] saveChanges];
 }
 
 @end

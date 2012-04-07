@@ -588,7 +588,8 @@
 
 - (void)accelerometer:(UIAccelerometer *)accelerometer didAccelerate:(UIAcceleration *)acceleration
 {
-    if(acceleration.y > 0.1f || acceleration.x > 0.1f || acceleration.z > 0.1f)
+    //NSLog(@"X:%f Y:%f Z:%f", acceleration.x, acceleration.y, acceleration.z);
+    if(acceleration.y > 0.09 || acceleration.x > 0.09 || acceleration.z > 0.09)
     {
         UIScreen *mainScreen = [UIScreen mainScreen];
         if ([mainScreen brightness] != [self screenBrightness])
@@ -792,6 +793,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
+    NSLog(@"section info Array class: %@",[sectionInfoArray class]);
     return [sectionInfoArray count];
 }
 
@@ -960,17 +962,17 @@
     {
         SectionInfo *si = [sectionInfoArray objectAtIndex:i];
         if ([si open])
-            [self sectionHeaderView:[si headerView] sectionClosed:i];
+            [self sectionClosed:i];
     }
 }
 
-- (void)sectionHeaderView:(SectionHeaderView *)sectionHeaderView tapped:(NSInteger)section
+- (void)sectionTapped:(NSInteger)section
 {
     SectionInfo *sectionInfo = [self.sectionInfoArray objectAtIndex:section];
     if (!sectionInfo.open)
-        [self sectionHeaderView:sectionHeaderView sectionOpened:section];
+        [self sectionOpened:section];
     else
-        [self sectionHeaderView:sectionHeaderView sectionClosed:section];
+        [self sectionClosed:section];
 }
 
 - (void)setupTimerCellForSection:(NSInteger)section
@@ -982,13 +984,15 @@
     [timerButton addTarget:self action:@selector(timerButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
 }
 
--(void)sectionHeaderView:(SectionHeaderView *)sectionHeaderView sectionOpened:(NSInteger)section
+-(void)sectionOpened:(NSInteger)section
 {
+   // NSLog(@"sectionHeaderView");
+   // NSLog(@"sectionInfoArray count %i", [sectionInfoArray count]);
+    SectionInfo *sectionInfo = [self.sectionInfoArray objectAtIndex:section];
     
-    [[[sectionInfoArray objectAtIndex:section] headerView] turnDownDisclosure:YES];
+    [[sectionInfo headerView] turnDownDisclosure:YES];
     NSInteger previousOpenSectionIndex = [self openSectionIndex];
     [self setOpenSectionIndex:section];
-    SectionInfo *sectionInfo = [self.sectionInfoArray objectAtIndex:section];
     [sectionInfo setOpen:YES];
     NSMutableArray *indexPathsToInsert = [[NSMutableArray alloc] init];
     NSMutableArray *indexPathsToDelete = [[NSMutableArray alloc] init];
@@ -1042,10 +1046,10 @@
         [statsTable scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
 }
 
-- (void)sectionHeaderView:(SectionHeaderView *)sectionHeaderView sectionClosed:(NSInteger)section
+- (void)sectionClosed:(NSInteger)section
 {
-    [sectionHeaderView turnDownDisclosure:NO];
     SectionInfo *sectionInfo = [self.sectionInfoArray objectAtIndex:section];
+    [sectionInfo.headerView turnDownDisclosure:NO];
     [sectionInfo setOpen:NO];
     if (currentPractice && isTiming)
         [self toggleTimer:section];
@@ -1062,7 +1066,7 @@
     self.openSectionIndex = NSNotFound;
 }
 
-- (void)deleteSection:(NSInteger)section headerView:(SectionHeaderView *)sectionHeaderView
+- (void)deleteSection:(NSInteger)section
 {
     [self becomeFirstResponder];
     if (section > 1)
@@ -1117,9 +1121,11 @@
 }
 
 #pragma mark - Notations
-- (void)displayNotesViewForSection:(NSInteger)section headerView:(SectionHeaderView *)headerView
+- (void)displayNotesViewForSection:(NSInteger)section
 {
-    CGRect frameOfExcludedArea = [self.view.superview convertRect:headerView.deleteView.frame fromView:headerView.deleteView.superview];
+    SectionInfo *sectionInfo = [self.sectionInfoArray objectAtIndex:section];
+    SectionHeaderView *header = [sectionInfo headerView];
+    CGRect frameOfExcludedArea = [self.view.superview convertRect:header.deleteView.frame fromView:header.deleteView.superview];
     CGPoint center = CGPointMake(frameOfExcludedArea.origin.x + (frameOfExcludedArea.size.width / 2),
                                  frameOfExcludedArea.origin.y + (frameOfExcludedArea.size.height / 2));
     [notesTapGesture addTarget:self action:@selector(getRidOfNotes:)];

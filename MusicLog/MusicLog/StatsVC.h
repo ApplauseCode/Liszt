@@ -69,8 +69,8 @@
 - (void)dateChangedWithDate:(NSDate *)date;
 - (void)hideMenu:(id)sender;
 - (void)closeSections;
-- (void)sectionHeaderView:(SectionHeaderView *)sectionHeaderView sectionOpened:(NSInteger)section;
-- (void)sectionHeaderView:(SectionHeaderView *)sectionHeaderView sectionClosed:(NSInteger)section;
+- (void)sectionOpened:(NSInteger)section;
+- (void)sectionClosed:(NSInteger)section;
 - (void)toggleTimer:(int)section;
 - (void)timerButtonPressed:(id)sender;
 - (void)getRidOfNotes:(id)sender;

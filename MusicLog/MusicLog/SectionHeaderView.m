@@ -114,12 +114,12 @@ static UIImage *_disclosureImage = nil;
 
 
 -(void)toggleOpen:(id)sender {
-    [self.delegate sectionHeaderView:self tapped:self.section];
+    [self.delegate sectionTapped:self.section];
 }
 
 - (void)toggleSwipe:(id)sender
 {
-    [[self delegate] sectionSwiped:self.section headerView:self];
+    [[self delegate] sectionSwiped:self.section];
     [deleteView setHidden:NO];
     [UIView animateWithDuration:0.2 animations:^{        
         // Move the side swipe view to offset 0
@@ -177,7 +177,7 @@ static UIImage *_disclosureImage = nil;
 //
 - (void)deleteCell:(id)sender
 {
-    [[self delegate] deleteSection:self.section headerView:self];
+    [[self delegate] deleteSection:self.section];
 }
 //
 //- (void)toggleLongTap:(UILongPressGestureRecognizer *)sender
