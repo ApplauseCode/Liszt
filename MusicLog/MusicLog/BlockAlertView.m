@@ -55,7 +55,6 @@ static UIFont *buttonFont = nil;
         frame.origin.x = (frame.size.width - background.size.width) * 0.5;
         frame.size.width = background.size.width;
         frame.size.height = background.size.height; 
-        NSLog(@"hieght: %f", frame.size.height);
         
         _view = [[UIView alloc] initWithFrame:frame];
         _blocks = [[NSMutableArray alloc] init];

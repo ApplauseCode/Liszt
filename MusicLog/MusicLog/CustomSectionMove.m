@@ -28,7 +28,6 @@
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     UITouch *touch = [touches anyObject];
-//    NSLog(@"touch location:%f", [touch locationInView:self].y);
     selectedSection = ceil([touch locationInView:self].y / heightOfSection);
     [[self delegate] sectionMoveLocationSelected:selectedSection];
 }

@@ -69,14 +69,12 @@
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
-    NSLog(@"will enter fore");
     [self checkDate];
     [statsVC setScreenBrightness:[statsVC screenBrightness]];
 }
 
 - (void)checkDate
 {
-    NSLog(@"checking date");
     NSCalendar *cal = [NSCalendar currentCalendar];
     NSDateComponents *components = [cal components:(NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit) fromDate:[NSDate date]];
     NSDate *today = [cal dateFromComponents:components];
@@ -122,44 +120,11 @@
         [freshDay show];
         [self setAlertViewVisible:YES];
     }
-    
-//    if (![sessionDate isEqualToDate:today] && !alertViewVisible)
-//    {
-//        SessionStore *store = [SessionStore defaultStore];
-//        [[store sessions] addObject:[store mySession]];
-//        BlockAlertView *freshDay = [BlockAlertView alertWithTitle:@"A New Day, A New Practice"
-//                                                        message:@"Would you like your new practice to start out with all of the same items (scales, pieces, etc.) as your last practice?"];
-//        [freshDay addButtonWithTitle:@"Yes Please!" block:^{
-//            [statsVC blockAlertView:NO];
-//            [self setAlertViewVisible:NO];
-//            [historyViewController loadData];
-//        }];
-//        [freshDay setCancelButtonWithTitle:@"No Thanks" block:^{
-//            [statsVC blockAlertView:YES];
-//            [self setAlertViewVisible:NO];
-//            [historyViewController loadData];
-//        }];
-//        [freshDay show];
-//        [self setAlertViewVisible:YES];
-//    }
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
-    NSLog(@"did enter background");
     [[SessionStore defaultStore] saveChanges];
-}
-
-- (void)applicationWillTerminate:(UIApplication *)application
-{
-   //[[SessionStore defaultStore] saveChanges];
-    NSLog(@"will terminate");
-}
-
-- (void)applicationWillResignActive:(UIApplication *)application
-{
-    NSLog(@"will resign active");
-    //[[SessionStore defaultStore] saveChanges];
 }
 
 @end

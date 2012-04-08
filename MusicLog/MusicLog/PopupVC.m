@@ -37,14 +37,12 @@
     staticTable = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height) style:UITableViewStylePlain];
     [staticTable setDelegate:self];
     [staticTable setDataSource:self];
-    //NSLog(@"self height: %f", [self.view frame].size.height);
     [self.view addSubview:staticTable];
 }
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSLog(@"%i", [staticCells count]);
     return [staticCells count];
 }
 

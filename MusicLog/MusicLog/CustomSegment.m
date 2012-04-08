@@ -43,7 +43,6 @@
         [self addSubview:arrowIndicator];
 
     }
-//    NSLog(@"x: %f y:%f w:%f h:%f",self.bounds.origin.x, self.bounds.origin.y, self.bounds.size.width, self.bounds.size.height);
     return self;
 }
 
@@ -86,6 +85,5 @@
         [bgImageView setImage:[touchDownImages objectAtIndex:selectedIndex]];
     } completion:^(BOOL finished) {
     }];
-//    NSLog(@"selected index:%i", selectedIndex);
 }
 @end

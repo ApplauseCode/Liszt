@@ -167,7 +167,6 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-//    NSLog(@"count: %i", [sectionInfoArray count]);
     if ([[sectionInfoArray objectAtIndex:[sectionInfoArray count] - 1] isNotes])
         [sectionInfoArray removeObjectsInRange:NSMakeRange(2, [sectionInfoArray count] - 3)];
     else
@@ -181,7 +180,6 @@
     }
     [[sectionInfoArray objectAtIndex:0] setCountofRowsToInsert:[[selectedSession scaleSession] count]];
     [[sectionInfoArray objectAtIndex:1] setCountofRowsToInsert:[[selectedSession arpeggioSession] count]];
-//    NSLog(@"title for piece:%@ at index:%i", [[sectionInfoArray objectAtIndex:[sectionInfoArray count] - 1] title], [sectionInfoArray count]);
     [statsTable reloadData];
     [self hideMenu:nil];
 }
@@ -189,7 +187,7 @@
 # pragma mark - Popover Menu
 
 - (void) makeMenu {
-    myPopover = [[PopupVC alloc] initWithFrame:CGRectMake(200, 47, 128, 130)];
+    myPopover = [[PopupVC alloc] initWithFrame:CGRectMake(200, 47, 128, 170)];
     [myPopover setDelegate:self];
     [myPopover.view setAlpha:0];
     UITableViewCell *cell1 = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
@@ -200,7 +198,7 @@
     cell3.textLabel.text = @"Pieces";
     UITableViewCell *cell4 = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
     cell4.textLabel.text = @"Notes";
-    NSArray *cells = [NSArray arrayWithObjects:cell1, cell2, cell3, /*cell4,*/ nil];
+    NSArray *cells = [NSArray arrayWithObjects:cell1, cell2, cell3, cell4, nil];
     [myPopover setStaticCells:cells];
     tapAwayGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideMenu:)];
     [tapAwayGesture setDelegate:self];
@@ -254,6 +252,7 @@
     [tempoChooser setSelectedBackgroundColor:[UIColor clearColor]];
     [tempoChooser setCellFont:[UIFont fontWithName:@"ACaslonPro-Regular" size:22]];
     [metronomeView addSubview:tempoChooser.view];
+    [tempoChooser setSelectedCellIndex:90];
     [stepper setDelegate:self];
     //[metronomeView addSubview:stepper];
     metroPanGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handleMetroPan:)];
@@ -352,7 +351,6 @@
                     [UIView animateWithDuration:0.5 animations:^{
                         [woodenMetronome setCenter:CGPointMake(woodenMetronome.center.x, woodenMetronome.center.y - 90)];
                     }];
-                NSLog(@"center y: %f", woodenMetronome.center.y);
             }];
 
         }
@@ -588,7 +586,6 @@
 
 - (void)accelerometer:(UIAccelerometer *)accelerometer didAccelerate:(UIAcceleration *)acceleration
 {
-    //NSLog(@"X:%f Y:%f Z:%f", acceleration.x, acceleration.y, acceleration.z);
     if(acceleration.y > 0.09 || acceleration.x > 0.09 || acceleration.z > 0.09)
     {
         UIScreen *mainScreen = [UIScreen mainScreen];
@@ -793,7 +790,6 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    NSLog(@"section info Array class: %@",[sectionInfoArray class]);
     return [sectionInfoArray count];
 }
 
@@ -814,6 +810,7 @@
 {
     Session *s = [[SessionStore defaultStore] mySession];
 	SectionInfo *sectionInfo = [self.sectionInfoArray objectAtIndex:section];
+    NSLog(@"section %i isNotes %i", section, [sectionInfo isNotes]);
     if (![sectionInfo isNotes])
     {
         NSString *sectionName = sectionInfo.title;
@@ -986,10 +983,7 @@
 
 -(void)sectionOpened:(NSInteger)section
 {
-   // NSLog(@"sectionHeaderView");
-   // NSLog(@"sectionInfoArray count %i", [sectionInfoArray count]);
     SectionInfo *sectionInfo = [self.sectionInfoArray objectAtIndex:section];
-    
     [[sectionInfo headerView] turnDownDisclosure:YES];
     NSInteger previousOpenSectionIndex = [self openSectionIndex];
     [self setOpenSectionIndex:section];
@@ -1006,11 +1000,7 @@
     } else if ([sectionInfo countofRowsToInsert] > 0 && !currentPractice) {
         for (NSInteger i = 0; i < [sectionInfo countofRowsToInsert]; i++)
             [indexPathsToInsert addObject:[NSIndexPath indexPathForRow:i inSection:section]];
-    } else {
-        //[sectionHeaderView turnDownDisclosure:NO];
-        //[sectionInfo setOpen:NO];
-        //[self setOpenSectionIndex:NSNotFound];
-    }
+    } 
     
     if (previousOpenSectionIndex != NSNotFound) {
         SectionInfo *previousOpenSection = [self.sectionInfoArray objectAtIndex:previousOpenSectionIndex];

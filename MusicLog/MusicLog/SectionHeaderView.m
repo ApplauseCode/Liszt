@@ -5,12 +5,14 @@
 @interface SectionHeaderView ()
 @property (nonatomic, copy) NSString *aTitle;
 @property (nonatomic, copy) NSString *aTime;
+@property (nonatomic, assign) BOOL disclosure;
 @end
 
 @implementation SectionHeaderView
 @synthesize aTitle;
 @synthesize aTime;
 @synthesize longTap;
+@synthesize disclosure;
 
 static UIImage *_backgroundImage = nil;
 static UIImage *_disclosureImage = nil;
@@ -66,43 +68,21 @@ static UIImage *_disclosureImage = nil;
                forWidth:100
                withFont:[UIFont fontWithName:@"ACaslonPro-Regular" size:20]
           lineBreakMode:UILineBreakModeTailTruncation];
+    if (disclosure)
+        _disclosureImage = [UIImage imageNamed:@"DisclosureArrowDown.png"];
+    else {
+        _disclosureImage = [UIImage imageNamed:@"DisclosureArrow.png"];
+    }
     [_disclosureImage drawInRect:CGRectMake(25, 17, 6, 7)];
 }
-
-//-(id)initWithFrame:(CGRect)frame title:(NSString*)title subTitle:(NSString *)subTitle section:(NSInteger)sectionNumber delegate:(id <SectionHeaderViewDelegate>)delegate {
-//        
-//        [deleteView setBackgroundColor:[UIColor clearColor]];
-//        [deleteView setOpaque:NO];
-//        notesButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 160, 45)];
-//        [notesButton setTitle:@"Notations" forState:UIControlStateNormal];
-//        [notesButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-//        [notesButton setBackgroundColor:[UIColor clearColor]];
-//        [notesButton setOpaque:NO];
-//        [notesButton addTarget:self action:@selector(addNotes:) forControlEvents:UIControlEventTouchUpInside];
-//        deleteButton = [[UIButton alloc] initWithFrame:CGRectMake(160, 0, 160, 45)];
-//        [deleteButton setTitle:@"Delete" forState:UIControlStateNormal];
-//        [deleteButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-//        [deleteButton setOpaque:NO];
-//        [deleteButton setBackgroundColor:[UIColor clearColor]];
-//        [deleteButton addTarget:self action:@selector(deleteCell:) forControlEvents:UIControlEventTouchUpInside];
-//        [deleteView addSubview:deleteButton];
-//        [deleteView addSubview:notesButton];
-//        [self insertSubview:deleteView belowSubview:self];
-//        [deleteView setBackgroundColor:[UIColor whiteColor]];
-//        //ongTap = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(toggleLongTap:)];
-//        [self addGestureRecognizer:tapGesture];
-//        [self addGestureRecognizer:swipeGesture];
-//        //[self addGestureRecognizer:longTap];
-//        self.userInteractionEnabled = YES;
-//        
 
 - (void)turnDownDisclosure:(BOOL)yesOrNo
 {
     if (yesOrNo) {
-        _disclosureImage = [UIImage imageNamed:@"DisclosureArrowDown.png"];
+        [self setDisclosure:YES];
     }
     else {
-        _disclosureImage = [UIImage imageNamed:@"DisclosureArrow.png"];
+        [self setDisclosure:NO];
     }
     [self setNeedsDisplay];
 }
@@ -152,7 +132,6 @@ static UIImage *_disclosureImage = nil;
         [deleteMenu setMenuItems:[NSArray arrayWithObject:delete]];
         [deleteMenu update];
         CGPoint newPoint = [self.superview convertPoint:self.frame.origin toView:self.superview.superview];
-        NSLog(@"point: %@", NSStringFromCGPoint(newPoint));
         [deleteMenu setTargetRect:CGRectMake(newPoint.x, newPoint.y, self.frame.size.width, self.frame.size.height) inView:self.superview.superview];
         [deleteMenu setMenuVisible:YES animated:YES];
     }
