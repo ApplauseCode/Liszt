@@ -579,7 +579,8 @@
             vc = [[PiecesPickerVC alloc] initWithEditMode:NO];
             break;
         case 3:
-            vc = [[NotesPickerVC alloc] init];
+            if (![selectedSession sessionNotes])
+                vc = [[NotesPickerVC alloc] init];
 //            notesInfo = [[SectionInfo alloc] init];
 //            [notesInfo setTitle:@"Notes"];
 //            [notesInfo setCountofRowsToInsert:1];
