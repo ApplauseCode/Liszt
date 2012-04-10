@@ -76,6 +76,8 @@
 - (void)getRidOfNotes:(id)sender;
 - (void)dimTimerFire:(NSTimer*)theTimer;
 - (void)metronomeTimerFire:(NSTimer*)theTimer;
+- (void)stopAllTimers;
+
 
 // Actions
 - (IBAction)startMetronome:(id)sender;

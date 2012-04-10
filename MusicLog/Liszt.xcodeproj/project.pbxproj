@@ -71,6 +71,8 @@
 		BA37B84D1482C9C800C41484 /* SectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = BA37B84C1482C9C800C41484 /* SectionHeaderView.m */; };
 		BA37B8531482D56E00C41484 /* SectionInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = BA37B8521482D56E00C41484 /* SectionInfo.m */; };
 		BA37B8551482DB9800C41484 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA37B8541482DB9700C41484 /* QuartzCore.framework */; };
+		BA390D541533C048006F65BC /* NotesPickerVC.m in Sources */ = {isa = PBXBuildFile; fileRef = BA390D521533C048006F65BC /* NotesPickerVC.m */; };
+		BA390D551533C048006F65BC /* NotesPickerVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA390D531533C048006F65BC /* NotesPickerVC.xib */; };
 		BA44684114F92E0400AE0A0D /* NSMutableOrderedSet+DeepCopy.m in Sources */ = {isa = PBXBuildFile; fileRef = BA44684014F92E0400AE0A0D /* NSMutableOrderedSet+DeepCopy.m */; };
 		BA455FDD1528A3310018986E /* ParchSeparator.png in Resources */ = {isa = PBXBuildFile; fileRef = BA455FDB1528A3310018986E /* ParchSeparator.png */; };
 		BA455FDE1528A3310018986E /* ParchSeparator@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BA455FDC1528A3310018986E /* ParchSeparator@2x.png */; };
@@ -281,6 +283,9 @@
 		BA37B8511482D56E00C41484 /* SectionInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SectionInfo.h; sourceTree = "<group>"; };
 		BA37B8521482D56E00C41484 /* SectionInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SectionInfo.m; sourceTree = "<group>"; };
 		BA37B8541482DB9700C41484 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		BA390D511533C047006F65BC /* NotesPickerVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotesPickerVC.h; sourceTree = "<group>"; };
+		BA390D521533C048006F65BC /* NotesPickerVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotesPickerVC.m; sourceTree = "<group>"; };
+		BA390D531533C048006F65BC /* NotesPickerVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NotesPickerVC.xib; sourceTree = "<group>"; };
 		BA44683F14F92E0400AE0A0D /* NSMutableOrderedSet+DeepCopy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableOrderedSet+DeepCopy.h"; sourceTree = "<group>"; };
 		BA44684014F92E0400AE0A0D /* NSMutableOrderedSet+DeepCopy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableOrderedSet+DeepCopy.m"; sourceTree = "<group>"; };
 		BA455FDB1528A3310018986E /* ParchSeparator.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ParchSeparator.png; sourceTree = "<group>"; };
@@ -773,6 +778,9 @@
 				BA811C6D140D38E100A5558A /* PiecesPickerVC.h */,
 				BA811C6E140D38E100A5558A /* PiecesPickerVC.m */,
 				BA811C6F140D38E100A5558A /* PiecesPickerVC.xib */,
+				BA390D511533C047006F65BC /* NotesPickerVC.h */,
+				BA390D521533C048006F65BC /* NotesPickerVC.m */,
+				BA390D531533C048006F65BC /* NotesPickerVC.xib */,
 				BA811C73140D38EF00A5558A /* StatsVC.h */,
 				BA811C74140D38EF00A5558A /* StatsVC.m */,
 				BA811C75140D38EF00A5558A /* StatsVC.xib */,
@@ -1025,6 +1033,7 @@
 				BA9D1ED8152DEB5500C8F9FD /* alertViewBG@2x.png in Resources */,
 				BA9D1EDC152DF02600C8F9FD /* alertViewButton.png in Resources */,
 				BA9D1EDD152DF02600C8F9FD /* alertViewButton@2x.png in Resources */,
+				BA390D551533C048006F65BC /* NotesPickerVC.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1072,6 +1081,7 @@
 				CE598BDC1519033200B3BDB7 /* ContainerViewController.m in Sources */,
 				CE598BDF15191B6F00B3BDB7 /* HistoryCell.m in Sources */,
 				BA8640781529FBDA002CE663 /* PopupVC.m in Sources */,
+				BA390D541533C048006F65BC /* NotesPickerVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

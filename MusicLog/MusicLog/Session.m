@@ -12,8 +12,8 @@
 
 @implementation Session
 
-@synthesize scaleSession,       scaleTime,      scaleNotes;
-@synthesize arpeggioSession,    arpeggioTime,   arpeggioNotes;
+@synthesize scaleSession,       scaleTime,      sessionNotes;
+@synthesize arpeggioSession,    arpeggioTime;
 @synthesize pieceSession;
 @synthesize date;
 
@@ -80,8 +80,7 @@
     [copy setScaleTime:[self scaleTime]];
     [copy setArpeggioTime:[self arpeggioTime]];
     [copy setDate:[NSDate dateWithTimeInterval:0 sinceDate:[self date]]];
-    [copy setScaleNotes:[self scaleNotes]];
-    [copy setArpeggioNotes:[self arpeggioNotes]];
+    [copy setSessionNotes:[self sessionNotes]];
     return copy;
 }
 
@@ -93,8 +92,7 @@
     [self setArpeggioTime:[aDecoder decodeIntForKey:@"arpeggioTime"]];
     [self setArpeggioSession:[aDecoder decodeObjectForKey:@"arpeggioSession"]];
     [self setPieceSession:[aDecoder decodeObjectForKey:@"pieceSession"]];
-    [self setScaleNotes:[aDecoder decodeObjectForKey:@"scaleNotes"]];
-    [self setArpeggioNotes:[aDecoder decodeObjectForKey:@"arpeggioNotes"]];
+    [self setSessionNotes:[aDecoder decodeObjectForKey:@"sessionNotes"]];
     [self setDate:[aDecoder decodeObjectForKey:@"date"]];
     
     return self;
@@ -107,8 +105,7 @@
     [aCoder encodeInt:arpeggioTime forKey:@"arpeggioTime"];
     [aCoder encodeObject:arpeggioSession forKey:@"arpeggioSession"];
     [aCoder encodeObject:pieceSession forKey:@"pieceSession"];
-    [aCoder encodeObject:scaleNotes forKey:@"scaleNotes"];
-    [aCoder encodeObject:arpeggioNotes forKey:@"arpeggioNotes"];
+    [aCoder encodeObject:sessionNotes forKey:@"sessionNotes"];
     [aCoder encodeObject:date forKey:@"date"];
 }
 

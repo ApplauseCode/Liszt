@@ -27,6 +27,7 @@
 #import "StopWatch.h"
 #import "ContainerViewController.h"
 #import "HistoryViewController.h"
+#import "NotesPickerVC.h"
 
 #pragma mark - Private Interface
 
@@ -42,6 +43,7 @@
 
 - (void)handlePan:(UIPanGestureRecognizer *)gesture;
 - (void)handleMetroPan:(UIPanGestureRecognizer *)recognizer;
+- (void)setupSectionInfoArray;
 
 @end
 
@@ -147,7 +149,7 @@
     [tempoNameLabel setTextColor:[UIColor yellowTextColor]];
     [self makeMenu];
     [self makeMetronome];
-    [self setUpScalesAndArpeggios];
+    //[self setUpScalesAndArpeggios];
     
     slideBack = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 460)];
     [slideBack addTarget:self action:@selector(slideLeft:) forControlEvents:UIControlEventTouchUpInside];
@@ -164,13 +166,18 @@
     [super viewWillDisappear:animated];
 }
 
-- (void)viewWillAppear:(BOOL)animated
+- (void)setupSectionInfoArray
 {
-    [super viewWillAppear:animated];
-    if ([[sectionInfoArray objectAtIndex:[sectionInfoArray count] - 1] isNotes])
-        [sectionInfoArray removeObjectsInRange:NSMakeRange(2, [sectionInfoArray count] - 3)];
-    else
-        [sectionInfoArray removeObjectsInRange:NSMakeRange(2, [sectionInfoArray count] - 2)];
+    [sectionInfoArray removeAllObjects];
+    SectionInfo *sectionZero = [[SectionInfo alloc] init];
+    [sectionZero setOpen:NO];
+    [sectionZero setTitle:@"scales"];
+    [sectionZero setCountofRowsToInsert:[[selectedSession scaleSession] count]];
+    SectionInfo *sectionOne = [[SectionInfo alloc] init];
+    [sectionOne setOpen:NO];
+    [sectionOne setTitle:@"arpeggios"];
+    [sectionOne setCountofRowsToInsert:[[selectedSession arpeggioSession] count]];
+    sectionInfoArray = [NSMutableArray arrayWithObjects:sectionZero, sectionOne, nil];
     for (int i = 0; i < [[selectedSession pieceSession] count]; i++)
     {
         SectionInfo *pieceInfo = [[SectionInfo alloc] init];
@@ -178,8 +185,36 @@
         [pieceInfo setCountofRowsToInsert:1];
         [sectionInfoArray addObject:pieceInfo];
     }
-    [[sectionInfoArray objectAtIndex:0] setCountofRowsToInsert:[[selectedSession scaleSession] count]];
-    [[sectionInfoArray objectAtIndex:1] setCountofRowsToInsert:[[selectedSession arpeggioSession] count]];
+    if ([selectedSession sessionNotes])
+    {
+        SectionInfo *notes = [[SectionInfo alloc] init];
+        [notes setTitle:@"Notes"];
+        [notes setCountofRowsToInsert:1];
+        [notes setIsNotes:YES];
+        [notes setHeaderView:[[SectionHeaderView alloc] initWithFrame:CGRectMake(0.0, 0.0, statsTable.bounds.size.width, 42)
+                                                                title:notes.title subTitle:nil section:[sectionInfoArray count] delegate:self]];
+        [sectionInfoArray addObject:notes];
+    }
+
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self setupSectionInfoArray];
+//    if ([[sectionInfoArray objectAtIndex:[sectionInfoArray count] - 1] isNotes])
+//        [sectionInfoArray removeObjectsInRange:NSMakeRange(2, [sectionInfoArray count] - 3)];
+//    else
+//        [sectionInfoArray removeObjectsInRange:NSMakeRange(2, [sectionInfoArray count] - 2)];
+//    for (int i = 0; i < [[selectedSession pieceSession] count]; i++)
+//    {
+//        SectionInfo *pieceInfo = [[SectionInfo alloc] init];
+//        [pieceInfo setTitle:[[[selectedSession pieceSession] objectAtIndex:i] title]];
+//        [pieceInfo setCountofRowsToInsert:1];
+//        [sectionInfoArray addObject:pieceInfo];
+//    }
+//    [[sectionInfoArray objectAtIndex:0] setCountofRowsToInsert:[[selectedSession scaleSession] count]];
+//    [[sectionInfoArray objectAtIndex:1] setCountofRowsToInsert:[[selectedSession arpeggioSession] count]];
     [statsTable reloadData];
     [self hideMenu:nil];
 }
@@ -241,7 +276,9 @@
 
 - (void) makeMetronome {
     // stepper = [[CustomStepper alloc] initWithPoint:CGPointMake(215, 27) label:tempoLabel andCanBeNone:NO];
-    tempoChooser = [[ACchooser alloc]initWithFrame:CGRectMake(108, 35, 98, 40)];
+    tempoChooser = [[ACchooser alloc]initWithFrame:CGRectMake(88, 35, 140, 40)];
+    //UIImageView *chooserOverlay = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ACChooserOverlay"]];
+    //[chooserOverlay setFrame:tempoChooser.view.frame];
     NSMutableArray *tempos = [[NSMutableArray alloc] initWithCapacity:290];
     for (int i = 30; i <= 320; i++)
         [tempos addObject:[NSString stringWithInt:i]];
@@ -252,6 +289,7 @@
     [tempoChooser setSelectedBackgroundColor:[UIColor clearColor]];
     [tempoChooser setCellFont:[UIFont fontWithName:@"ACaslonPro-Regular" size:22]];
     [metronomeView addSubview:tempoChooser.view];
+    //metronomeView addSubview:chooserOverlay];
     [tempoChooser setSelectedCellIndex:90];
     [stepper setDelegate:self];
     //[metronomeView addSubview:stepper];
@@ -378,23 +416,23 @@
 #pragma mark - Custom controls, actions & gestures
 
 - (void) setUpScalesAndArpeggios {
-    if (self.sectionInfoArray == nil)
-    {
-        SectionInfo *sectionZero = [[SectionInfo alloc] init];
-        [sectionZero setOpen:NO];
-        [sectionZero setTitle:@"scales"];
-        SectionInfo *sectionOne = [[SectionInfo alloc] init];
-        [sectionOne setOpen:NO];
-        [sectionOne setTitle:@"arpeggios"];
-        sectionInfoArray = [NSMutableArray arrayWithObjects:sectionZero, sectionOne, nil];
-        for (int i = 0; i < [[selectedSession pieceSession] count]; i++)
-        {
-            SectionInfo *pieceInfo = [[SectionInfo alloc] init];
-            [pieceInfo setTitle:[[[selectedSession pieceSession] objectAtIndex:i] title]];
-            [pieceInfo setCountofRowsToInsert:1];
-            [sectionInfoArray addObject:pieceInfo];
-        }
-    }
+//    if (self.sectionInfoArray == nil)
+//    {
+//        SectionInfo *sectionZero = [[SectionInfo alloc] init];
+//        [sectionZero setOpen:NO];
+//        [sectionZero setTitle:@"scales"];
+//        SectionInfo *sectionOne = [[SectionInfo alloc] init];
+//        [sectionOne setOpen:NO];
+//        [sectionOne setTitle:@"arpeggios"];
+//        sectionInfoArray = [NSMutableArray arrayWithObjects:sectionZero, sectionOne, nil];
+//        for (int i = 0; i < [[selectedSession pieceSession] count]; i++)
+//        {
+//            SectionInfo *pieceInfo = [[SectionInfo alloc] init];
+//            [pieceInfo setTitle:[[[selectedSession pieceSession] objectAtIndex:i] title]];
+//            [pieceInfo setCountofRowsToInsert:1];
+//            [sectionInfoArray addObject:pieceInfo];
+//        }
+//    }
 }
 ////////////////////// REMOVE LATER ////////////////////////
 
@@ -540,14 +578,15 @@
             vc = [[PiecesPickerVC alloc] initWithEditMode:NO];
             break;
         case 3:
-            notesInfo = [[SectionInfo alloc] init];
-            [notesInfo setTitle:@"Notes"];
-            [notesInfo setCountofRowsToInsert:1];
-            [notesInfo setIsNotes:YES];
-            [notesInfo setHeaderView:[[SectionHeaderView alloc] initWithFrame:CGRectMake(0.0, 0.0, statsTable.bounds.size.width, 42)
-                                                                        title:notesInfo.title subTitle:nil section:[statsTable numberOfSections] delegate:self]];
-            [sectionInfoArray addObject:notesInfo];
-            [statsTable reloadData];
+            vc = [[NotesPickerVC alloc] init];
+//            notesInfo = [[SectionInfo alloc] init];
+//            [notesInfo setTitle:@"Notes"];
+//            [notesInfo setCountofRowsToInsert:1];
+//            [notesInfo setIsNotes:YES];
+//            [notesInfo setHeaderView:[[SectionHeaderView alloc] initWithFrame:CGRectMake(0.0, 0.0, statsTable.bounds.size.width, 42)
+//                                                                        title:notesInfo.title subTitle:nil section:[statsTable numberOfSections] delegate:self]];
+//            [sectionInfoArray addObject:notesInfo];
+//            [statsTable reloadData];
             break;
     }       
     if (vc)
@@ -600,7 +639,7 @@
 - (void)dimTimerFire:(NSTimer*)theTimer;
 {
     UIScreen *mainScreen = [UIScreen mainScreen];
-    mainScreen.brightness = .25;
+    mainScreen.brightness = 1.0/3.0;
 
 }
 
@@ -611,14 +650,16 @@
     {
         [self setMetronomeScreenTimer:[NSTimer scheduledTimerWithTimeInterval:4 target:self selector:@selector(metronomeTimerFire:) userInfo:nil repeats:NO]];
     }
-
     
     // check screens brightness
     UIScreen *mainScreen = [UIScreen mainScreen];
     if ([mainScreen brightness] != [self screenBrightness])
         mainScreen.brightness = [self screenBrightness]; 
-
     [self setDimScreenTimer:[NSTimer scheduledTimerWithTimeInterval:30 target:self selector:@selector(dimTimerFire:) userInfo:nil repeats:NO]];
+    
+    // allow user to tap near the bottom without triggering the empty part of the grabber view
+//    if (CGRectContainsPoint(metronomeView.frame, point) && !CGRectContainsPoint(metronomeGrabber.frame, point))
+//        return [self statsTable];
     return nil;
 }
 
@@ -660,6 +701,15 @@
     NSString *timeString = [NSString timeStringFromInt:[selectedSession calculateTotalTime]];
     [totalTime setText:timeString];
     [statsTable reloadData];
+
+}
+
+- (void)stopAllTimers
+{
+    if ([[timerButton imageForState:UIControlStateNormal] isEqual:[UIImage imageNamed:@"StopTimer.png"]])
+        [self timerButtonPressed:timerButton];
+    [dimScreenTimer invalidate];
+    [metronomeScreenTimer invalidate];
 
 }
 
@@ -717,16 +767,17 @@
         [selSessionDisplay setText:[dateFormat stringFromDate:[selectedSession date]]];
         currentPractice = NO;
     }
-    [[sectionInfoArray objectAtIndex:0] setCountofRowsToInsert:[[selectedSession scaleSession] count]];
-    [[sectionInfoArray objectAtIndex:1] setCountofRowsToInsert:[[selectedSession arpeggioSession] count]];
-    [sectionInfoArray removeObjectsInRange:NSMakeRange(2, ([sectionInfoArray count] -2))];
-    for (int i = 0; i < [[selectedSession pieceSession] count]; i++)
-    {
-        SectionInfo *pieceInfo = [[SectionInfo alloc] init];
-        [pieceInfo setTitle:[[[selectedSession pieceSession] objectAtIndex:i] title]];
-        [pieceInfo setCountofRowsToInsert:1];
-        [sectionInfoArray addObject:pieceInfo];
-    }
+    [self setupSectionInfoArray];
+//    [[sectionInfoArray objectAtIndex:0] setCountofRowsToInsert:[[selectedSession scaleSession] count]];
+//    [[sectionInfoArray objectAtIndex:1] setCountofRowsToInsert:[[selectedSession arpeggioSession] count]];
+//    [sectionInfoArray removeObjectsInRange:NSMakeRange(2, ([sectionInfoArray count] -2))];
+//    for (int i = 0; i < [[selectedSession pieceSession] count]; i++)
+//    {
+//        SectionInfo *pieceInfo = [[SectionInfo alloc] init];
+//        [pieceInfo setTitle:[[[selectedSession pieceSession] objectAtIndex:i] title]];
+//        [pieceInfo setCountofRowsToInsert:1];
+//        [sectionInfoArray addObject:pieceInfo];
+//    }
     [statsTable reloadData];
     NSString *timeString = [NSString timeStringFromInt:[selectedSession calculateTotalTime]];
     [totalTime setText:timeString];    
@@ -855,7 +906,8 @@
     if (section == [statsTable numberOfSections] - 1 && [[sectionInfoArray objectAtIndex:[indexPath section]] isNotes])
     {
         UITableViewCell *noteCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"NotesCell"];
-        noteCell.textLabel.text = @"Practiced Slowly Bababooybooybooy";
+        noteCell.textLabel.text = [selectedSession sessionNotes];
+        //[selectedSession setSessionNotes:noteCell.textLabel.text];
         return noteCell;
     }
     if (section < 2) {
@@ -1082,28 +1134,28 @@
 
 
 
-- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range 
- replacementText:(NSString *)text
-{
-    if ([text isEqualToString:@"\n"]) {
-        Session *mySession = [[SessionStore defaultStore] mySession];
-        [textView resignFirstResponder];
-        [textView removeFromSuperview];
-        [notesTapGesture setEnabled:NO];
-        switch (swipedHeader.section) {
-            case 0:
-                [mySession setScaleNotes:[textView text]];
-                break;
-            case 1:
-                [mySession setArpeggioNotes:[textView text]];
-            default:
-                [[[mySession pieceSession] objectAtIndex:swipedHeader.section - 2] setPieceNotes:[textView text]];
-                break;
-        }
-        return FALSE;
-    }
-    return TRUE;
-}
+//- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range 
+// replacementText:(NSString *)text
+//{
+//    if ([text isEqualToString:@"\n"]) {
+//        Session *mySession = [[SessionStore defaultStore] mySession];
+//        [textView resignFirstResponder];
+//        [textView removeFromSuperview];
+//        [notesTapGesture setEnabled:NO];
+//        switch (swipedHeader.section) {
+//            case 0:
+//                [mySession setScaleNotes:[textView text]];
+//                break;
+//            case 1:
+//                [mySession setArpeggioNotes:[textView text]];
+//            default:
+//                [[[mySession pieceSession] objectAtIndex:swipedHeader.section - 2] setPieceNotes:[textView text]];
+//                break;
+//        }
+//        return FALSE;
+//    }
+//    return TRUE;
+//}
 
 - (void)sectionSwiped:(NSInteger)section headerView:(SectionHeaderView *)sectionHeaderView
 {
@@ -1111,51 +1163,51 @@
 }
 
 #pragma mark - Notations
-- (void)displayNotesViewForSection:(NSInteger)section
-{
-    SectionInfo *sectionInfo = [self.sectionInfoArray objectAtIndex:section];
-    SectionHeaderView *header = [sectionInfo headerView];
-    CGRect frameOfExcludedArea = [self.view.superview convertRect:header.deleteView.frame fromView:header.deleteView.superview];
-    CGPoint center = CGPointMake(frameOfExcludedArea.origin.x + (frameOfExcludedArea.size.width / 2),
-                                 frameOfExcludedArea.origin.y + (frameOfExcludedArea.size.height / 2));
-    [notesTapGesture addTarget:self action:@selector(getRidOfNotes:)];
-    [notesTapGesture setEnabled:YES];
-    [self.view addGestureRecognizer:notesTapGesture];
-    notesView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, 280, 50)];
-    [notesView setDelegate:self];
-    [notesView setCenter:CGPointMake(center.x, center.y - 75)];
-    Session *mySession = [[SessionStore defaultStore] mySession];
-    NSString *notesViewText;
-    switch (swipedHeader.section) {
-        case 0:
-            notesViewText = [mySession scaleNotes];
-            break;
-        case 1:
-            notesViewText = [mySession arpeggioNotes];
-        default:
-            notesViewText = [[[mySession pieceSession] objectAtIndex:swipedHeader.section - 2] pieceNotes];
-            break;
-    }
-    [notesView setText:notesViewText];
-    [self.view addSubview:notesView];
-}
+//- (void)displayNotesViewForSection:(NSInteger)section
+//{
+//    SectionInfo *sectionInfo = [self.sectionInfoArray objectAtIndex:section];
+//    SectionHeaderView *header = [sectionInfo headerView];
+//    CGRect frameOfExcludedArea = [self.view.superview convertRect:header.deleteView.frame fromView:header.deleteView.superview];
+//    CGPoint center = CGPointMake(frameOfExcludedArea.origin.x + (frameOfExcludedArea.size.width / 2),
+//                                 frameOfExcludedArea.origin.y + (frameOfExcludedArea.size.height / 2));
+//    [notesTapGesture addTarget:self action:@selector(getRidOfNotes:)];
+//    [notesTapGesture setEnabled:YES];
+//    [self.view addGestureRecognizer:notesTapGesture];
+//    notesView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, 280, 50)];
+//    [notesView setDelegate:self];
+//    [notesView setCenter:CGPointMake(center.x, center.y - 75)];
+//    Session *mySession = [[SessionStore defaultStore] mySession];
+//    NSString *notesViewText;
+//    switch (swipedHeader.section) {
+//        case 0:
+//            notesViewText = [mySession scaleNotes];
+//            break;
+//        case 1:
+//            notesViewText = [mySession arpeggioNotes];
+//        default:
+//            notesViewText = [[[mySession pieceSession] objectAtIndex:swipedHeader.section - 2] pieceNotes];
+//            break;
+//    }
+//    [notesView setText:notesViewText];
+//    [self.view addSubview:notesView];
+//}
 
-- (void)getRidOfNotes:(id)sender
-{
-    [notesView removeFromSuperview];
-    [notesTapGesture setEnabled:NO];
-    Session *mySession = [[SessionStore defaultStore] mySession];
-    switch (swipedHeader.section) {
-        case 0:
-            [mySession setScaleNotes:[notesView text]];
-            break;
-        case 1:
-            [mySession setArpeggioNotes:[notesView text]];
-        default:
-            [[[mySession pieceSession] objectAtIndex:swipedHeader.section - 2] setPieceNotes:[notesView text]];
-            break;
-    }
-}
+//- (void)getRidOfNotes:(id)sender
+//{
+//    [notesView removeFromSuperview];
+//    [notesTapGesture setEnabled:NO];
+//    Session *mySession = [[SessionStore defaultStore] mySession];
+//    switch (swipedHeader.section) {
+//        case 0:
+//            [mySession setScaleNotes:[notesView text]];
+//            break;
+//        case 1:
+//            [mySession setArpeggioNotes:[notesView text]];
+//        default:
+//            [[[mySession pieceSession] objectAtIndex:swipedHeader.section - 2] setPieceNotes:[notesView text]];
+//            break;
+//    }
+//}
 
 #pragma mark - Reorder Sections
 

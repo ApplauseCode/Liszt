@@ -23,30 +23,27 @@
 @property (nonatomic, strong) HistoryViewController *historyViewController;
 @property (nonatomic, strong) ContainerViewController *containerViewController;
 @property (nonatomic) BOOL alertViewVisible;
+@property (nonatomic, strong) NSTimer *idleScreenTimer;
 - (void)checkDate;
 @end
 @implementation AppDelegate
 
 @synthesize window = _window, statsVC, alertViewVisible;
-@synthesize historyViewController, containerViewController;
+@synthesize historyViewController, containerViewController, idleScreenTimer;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque];
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-//    [UIApplication sharedApplication].idleTimerDisabled = YES;
     /*remove later*/[TestFlight takeOff:@"0bb5b0fae5868594a374b52c1cd204c3_NTQ5NTIyMDEyLTAxLTI1IDE1OjU3OjIxLjYxMTI3NA"];
      application.applicationSupportsShakeToEdit = YES; /**/
-    [NSTimer scheduledTimerWithTimeInterval:30 target:self selector:@selector(timerFireMethod:) userInfo:nil repeats:YES];
-//    UIScreen *mainScreen = [UIScreen mainScreen];
-//    mainScreen.brightness = .1; //should set the brightness at 50%
+    idleScreenTimer = [NSTimer scheduledTimerWithTimeInterval:30 target:self selector:@selector(timerFireMethod:) userInfo:nil repeats:YES];
     [self setAlertViewVisible:NO];
-//    [SessionStore defaultStore];
     [self checkDate];
     statsVC = [[StatsVC alloc] init];
     historyViewController = [[HistoryViewController alloc] initWithNibName:nil bundle:nil];
     containerViewController = [[ContainerViewController alloc] initWithNibName:nil bundle:nil];
-//    [[historyViewController view] setFrame:[self.window frame]];
+    [[historyViewController view] setFrame:[self.window frame]];
     [[statsVC view] setFrame:[[historyViewController view] frame]];
     [containerViewController addChildViewController:statsVC];
     [containerViewController addChildViewController:historyViewController];
@@ -71,6 +68,9 @@
 {
     [self checkDate];
     [statsVC setScreenBrightness:[statsVC screenBrightness]];
+    [statsVC setDimScreenTimer:[NSTimer scheduledTimerWithTimeInterval:30 target:self selector:@selector(dimTimerFire:) userInfo:nil repeats:NO]];
+    idleScreenTimer = [NSTimer scheduledTimerWithTimeInterval:30 target:self selector:@selector(timerFireMethod:) userInfo:nil repeats:YES];
+
 }
 
 - (void)checkDate
@@ -124,6 +124,8 @@
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
+    [statsVC stopAllTimers];
+    [idleScreenTimer invalidate];
     [[SessionStore defaultStore] saveChanges];
 }
 

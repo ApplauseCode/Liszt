@@ -106,9 +106,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    if (index == 1)
-        [viewBG setImage:[UIImage imageNamed:@"arpeggiosBG.png"]];
     if (editMode)
         [addScaleButton setBackgroundImage:[UIImage imageNamed:@"saveEditsButton.png"] forState:UIControlStateNormal];
     [octavesLabel setFont:[UIFont fontWithName:@"ACaslonPro-Regular" size:20]];
@@ -143,6 +140,22 @@
     [tonicChooser setSelectedTextColor:[UIColor blueColor]];
     [modeChooser setSelectedTextColor:[UIColor blueColor]];
     [rhythmChooser setSelectedTextColor:[UIColor blueColor]];
+    
+    // setting defaults
+    if (index == 0)
+    {
+        [tonicChooser setSelectedCellIndex:3];
+        [rhythmChooser setSelectedCellIndex:3];
+        [octavesSegment setSelectedIndex:3];
+    }
+    else if (index == 1)
+    {
+        [viewBG setImage:[UIImage imageNamed:@"arpeggiosBG.png"]];
+        [tonicChooser setSelectedCellIndex:3];
+        [modeChooser setSelectedCellIndex:3];
+        [octavesSegment setSelectedIndex:3];
+        [rhythmChooser setSelectedCellIndex:3];
+    }
     
     if (editMode && editItemPath && selectedSession)
     { 

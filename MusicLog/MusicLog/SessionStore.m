@@ -199,6 +199,7 @@
         [theSesh setScaleTime:i * 10];
         [theSesh setArpeggioTime:i * 7];
         [theSesh setDate:[SessionStore getForDays:-i fromDate:[NSDate date]]];
+        [theSesh setSessionNotes:@"Hi Testing"];
         [sessions addObject:theSesh];
     }
 }

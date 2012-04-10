@@ -96,7 +96,7 @@
     NSNumber *loc1 = [NSNumber numberWithFloat:115];
     NSArray *segArrowLocs = [NSArray arrayWithObjects:loc0, loc1, nil];
                               
-    majOrMin = [[CustomSegment alloc] initWithPoint:CGPointMake(95, 286)
+    majOrMin = [[CustomSegment alloc] initWithPoint:CGPointMake(82, 286)
                                    numberOfSegments:2
                                     touchDownImages:majOrMinImages
                                   andArrowLocations:segArrowLocs];
@@ -132,6 +132,9 @@
     [self.view addSubview:tempoStepper];
     [self.view addSubview:titleLabel];
     [self.view addSubview:composerLabel];
+    
+    // set defaults
+    [majOrMin setSelectedIndex:1];
     
     if (editMode && editItemPath && selectedSession)
     { 
