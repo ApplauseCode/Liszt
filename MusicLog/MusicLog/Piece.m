@@ -16,7 +16,6 @@
 @synthesize major;
 @synthesize tempo;
 @synthesize pieceKey;
-@synthesize pieceNotes;
 @synthesize pieceTime;
 
 - (id)initWithCoder:(NSCoder *)aDecoder
@@ -28,7 +27,6 @@
     [self setMajor:[aDecoder decodeBoolForKey:@"major"]];
     [self setPieceKey:[aDecoder decodeIntForKey:@"key"]];
     [self setPieceTime:[aDecoder decodeIntForKey:@"time"]];
-    [self setPieceNotes:[aDecoder decodeObjectForKey:@"pieceNotes"]];
     
     return self;
 }
@@ -42,7 +40,6 @@
     [copy setTempo:tempo];
     [copy setPieceKey:pieceKey];
     [copy setPieceTime:pieceTime];
-    [copy setPieceNotes:pieceNotes];
     return copy;
 }
 
@@ -56,7 +53,6 @@
     result = prime * result + tempo;
     result = prime * result + pieceKey;
     result = prime * result + pieceTime;
-    result = prime * result + [pieceNotes intValue];
     return result;
 }
 
@@ -81,7 +77,6 @@
     [aCoder encodeBool:major forKey:@"major"];
     [aCoder encodeInt:pieceKey forKey:@"key"];
     [aCoder encodeInt:pieceTime forKey:@"time"];
-    [aCoder encodeObject:pieceNotes forKey:@"pieceNotes"];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context

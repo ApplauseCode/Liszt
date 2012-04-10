@@ -67,7 +67,7 @@
 - (void)blockAlertView:(BOOL)isYes;
 - (void)makeMenu;
 - (void)makeMetronome;
-- (void)setUpScalesAndArpeggios;
+//- (void)setUpScalesAndArpeggios;
 - (void)dateChangedWithDate:(NSDate *)date;
 - (void)hideMenu:(id)sender;
 - (void)closeSections;
@@ -75,7 +75,7 @@
 - (void)sectionClosed:(NSInteger)section;
 - (void)toggleTimer:(int)section;
 - (void)timerButtonPressed:(id)sender;
-- (void)getRidOfNotes:(id)sender;
+//- (void)getRidOfNotes:(id)sender;
 - (void)dimTimerFire:(NSTimer*)theTimer;
 - (void)metronomeTimerFire:(NSTimer*)theTimer;
 - (void)stopAllTimers;

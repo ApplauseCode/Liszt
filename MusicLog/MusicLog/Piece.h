@@ -18,7 +18,6 @@
 @property int tempo;
 @property pieceTonicType pieceKey;
 @property int pieceTime;
-@property (nonatomic, strong )NSString *pieceNotes;
 
 - (CompoundString *)keyCompoundString;
 
