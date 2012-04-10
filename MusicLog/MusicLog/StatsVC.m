@@ -818,10 +818,10 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if ([indexPath row] == 0 && currentPractice)
-        return 27;
-    else if ([[sectionInfoArray objectAtIndex:[indexPath section]] isNotes])
+    if ([[sectionInfoArray objectAtIndex:[indexPath section]] isNotes])
         return 128;
+    else if ([indexPath row] == 0 && currentPractice)
+        return 27;
     return 42;
 }
 
