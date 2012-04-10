@@ -48,6 +48,7 @@
 @end
 
 @implementation StatsVC
+@synthesize notesCell;
 @synthesize metronomeScreenTimer;
 @synthesize screenBrightness;
 @synthesize dimScreenTimer;
@@ -566,7 +567,7 @@
 - (void)cellSelectedAtIndex:(NSInteger)index
 {
     id vc;
-    SectionInfo *notesInfo;
+    //SectionInfo *notesInfo;
     switch (index) {
         case 0:
             vc = [[ScalePickerVC alloc] initWithIndex:0 editPage:NO];
@@ -818,6 +819,8 @@
 {
     if ([indexPath row] == 0 && currentPractice)
         return 27;
+    else if ([[sectionInfoArray objectAtIndex:[indexPath section]] isNotes])
+        return 128;
     return 42;
 }
 
@@ -905,10 +908,13 @@
     id entry;
     if (section == [statsTable numberOfSections] - 1 && [[sectionInfoArray objectAtIndex:[indexPath section]] isNotes])
     {
-        UITableViewCell *noteCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"NotesCell"];
-        noteCell.textLabel.text = [selectedSession sessionNotes];
-        //[selectedSession setSessionNotes:noteCell.textLabel.text];
-        return noteCell;
+        notesCell = [[NotesCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"NotesCell"];
+        notesCell.textView.text = [selectedSession sessionNotes];
+        if (currentPractice)
+            [notesCell setTextViewCanEdit:YES];
+        else
+            [notesCell setTextViewCanEdit:NO];
+        return notesCell;
     }
     if (section < 2) {
         cell = (ScaleCell *)[tableView dequeueReusableCellWithIdentifier:@"ScaleCell"];

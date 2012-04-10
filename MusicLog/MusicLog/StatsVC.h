@@ -15,6 +15,7 @@
 #import "PopupVC.h"
 #import "ACchooser.h"
 #import "Metronome.h"
+#import "NotesCell.h"
 
 @class Session;
 @class TimerCell;
@@ -38,6 +39,7 @@
 @property (nonatomic, assign)   NSInteger openSectionIndex;
 @property (nonatomic, strong)   Metronome *metro;
 @property (nonatomic, strong)   TimerCell *tCell;
+@property (nonatomic, strong)   NotesCell *notesCell;
 @property (nonatomic, assign)   BOOL shouldDisplayTime;
 @property (nonatomic, assign)   BOOL isTiming;
 @property (nonatomic, strong)   UILabel *totalTime;
