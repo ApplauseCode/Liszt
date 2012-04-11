@@ -14,6 +14,7 @@
 @synthesize titleLabel;
 @synthesize subTitleLabel;
 static UIImage *_separator = nil;
+static UIImage *_arrow = nil;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -29,6 +30,7 @@ static UIImage *_separator = nil;
 {
     [super initialize];
     _separator = [UIImage imageNamed:@"ParchSeparator.png"];
+    _arrow = [UIImage imageNamed:@"HistoryExpandIcon.png"];
 }
 
 - (void) updateTitle:(NSString *)_title subTitle:(NSString *)_subTitle;
@@ -42,15 +44,18 @@ static UIImage *_separator = nil;
 {
     [super drawContentView:r];
     CGSize sepSize = [_separator size];
+    CGSize arrowSize = [_arrow size];
     [_separator drawInRect:CGRectMake(kLeftMargin, self.frame.size.height - sepSize.height, sepSize.width, sepSize.height)];
     [titleLabel drawAtPoint:CGPointMake(kLeftMargin, kTopMargin)
                    forWidth:135
                    withFont:[self defaultLargeFont]
               lineBreakMode:UILineBreakModeTailTruncation];   
-    [subTitleLabel drawAtPoint:CGPointMake(185, kTopMargin)
+    [subTitleLabel drawAtPoint:CGPointMake(165, kTopMargin)
                       forWidth:135
                       withFont:[self defaultLargeFont]
                  lineBreakMode:UILineBreakModeTailTruncation];
+    [_arrow drawInRect:CGRectMake(self.frame.size.width - 50, (self.frame.size.height/2.0) - 2, arrowSize.width, arrowSize.height)];
+    
 }
 
 /*

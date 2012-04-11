@@ -48,13 +48,13 @@ static UIImage *_disclosureImage = nil;
 {
     switch ([self section]) {
         case 0:
-            _backgroundImage = [UIImage imageNamed:@"SectionHeader1.png"];
+            _backgroundImage = [UIImage imageNamed:@"FinalScalesSectionBG.png"];
             break;
         case 1:
-            _backgroundImage = [UIImage imageNamed:@"SectionHeader2.png"];
+            _backgroundImage = [UIImage imageNamed:@"FinalArpeggioSectionBG.png"];
             break;    
         default:
-            _backgroundImage = [UIImage imageNamed:@"SectionHeader3.png"];
+            _backgroundImage = [UIImage imageNamed:@"FinalPieceSectionBG.png"];
             break;
     }    
     [_backgroundImage drawInRect:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];

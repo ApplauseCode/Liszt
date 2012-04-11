@@ -48,7 +48,7 @@ static UIImage *_backgroundImage = nil;
 + (void)initialize
 {
     [super initialize];
-    _backgroundImage = [UIImage imageNamed:@"ScalesCellBG.png"];
+    _backgroundImage = [UIImage imageNamed:@"FinalLisztCell.png"];
     
 }
 - (void)updateLabels:(Scale *)scale
