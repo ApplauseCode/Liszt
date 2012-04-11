@@ -196,16 +196,17 @@
             [tempPiece setTempo:k * (arc4random() % 25)];
             [pieceSet addObject:tempPiece];
         }
+        Other *testOther = [[Other alloc] init];
+        [testOther setTitle:@"testTitle"];
+        [testOther setSubTitle:@"test subTitile"];
+        [testOther setDescription:@"Lorem Ipsum TESTING"];
+        [pieceSet addObject:testOther];
         Session *theSesh = [[Session alloc] initWithScales:scaleSet arpeggios:arpeggioSet pieces:pieceSet];
         [theSesh setScaleTime:i * 10];
         [theSesh setArpeggioTime:i * 7];
         [theSesh setDate:[SessionStore getForDays:-i fromDate:[NSDate date]]];
         [theSesh setSessionNotes:@"Hi Testing"];
-        Other *testOther = [[Other alloc] init];
-        [testOther setTitle:@"testTitle"];
-        [testOther setSubTitle:@"test subTitile"];
-        [testOther setDescription:@"Lorem Ipsum TESTING"];
-        [[theSesh pieceSession] addObject:testOther];
+
         [sessions addObject:theSesh];
     }
 }
