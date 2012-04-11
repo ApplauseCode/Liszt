@@ -31,13 +31,16 @@
 
 - (void)loadView
 {
-    [super loadView];
-	// Do any additional setup after loading the view.
-    [self.view setFrame:frame];
+    self.view = [[UIView alloc] initWithFrame:frame];
     staticTable = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height) style:UITableViewStylePlain];
+    [self.view addSubview:staticTable];
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
     [staticTable setDelegate:self];
     [staticTable setDataSource:self];
-    [self.view addSubview:staticTable];
 }
 
 

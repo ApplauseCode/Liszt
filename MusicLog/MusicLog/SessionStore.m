@@ -11,6 +11,7 @@
 #import "Session.h"
 #import "Scale.h"
 #import "Piece.h"
+#import "Other.h"
 #import "NSMutableOrderedSet+DeepCopy.h"
 
 #define DEBUG 1
@@ -200,6 +201,11 @@
         [theSesh setArpeggioTime:i * 7];
         [theSesh setDate:[SessionStore getForDays:-i fromDate:[NSDate date]]];
         [theSesh setSessionNotes:@"Hi Testing"];
+        Other *testOther = [[Other alloc] init];
+        [testOther setTitle:@"testTitle"];
+        [testOther setSubTitle:@"test subTitile"];
+        [testOther setDescription:@"Lorem Ipsum TESTING"];
+        [[theSesh pieceSession] addObject:testOther];
         [sessions addObject:theSesh];
     }
 }

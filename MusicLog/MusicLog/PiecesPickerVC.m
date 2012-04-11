@@ -171,6 +171,7 @@
     [createdPiece setMajor:[majOrMin selectedIndex]];
     [createdPiece setPieceKey:[keyChooser selectedCellIndex]];
     [[[store mySession] pieceSession] addObject:createdPiece];
+    /* remove later and add X buttons to fields */
     [titleLabel setText:@""];
     [composerLabel setText:@""];
     

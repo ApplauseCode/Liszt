@@ -8,6 +8,7 @@
 
 #import "PieceCell.h"
 #import "Piece.h"
+#import "Other.h"
 #import "CompoundString.h"
 
 #define kLeftMargin 40
@@ -48,20 +49,28 @@ static UIImage *_backgroundImage = nil;
     
 }
 
-- (void)updateLabels:(Piece *)piece
+- (void)updateLabels:(id)item
 {
-    NSString *mode = ([piece major]) ? @"Major" : @"Minor";
-    NSString *composer = [piece composer];
+    NSString *composer;
+    NSString *mode;
+    if ([item isKindOfClass:[Piece class]])
+    {
+        mode = ([item major]) ? @"Major" : @"Minor";
+        composer = [item composer];
+        if (_speedLabel != [NSString stringWithFormat:@"%i bpm", [item tempo]]) {
+            _speedLabel = [NSString stringWithFormat:@"%i bpm", [item tempo]];
+        } 
+        _keyCompoundString = [item keyCompoundString];
+    }
+    else
+        composer = [item subTitle];
     if (_composerLabel != composer) {
         _composerLabel = composer;
     }
     if (_modeLabel != mode) {
         _modeLabel = mode;
     }
-    if (_speedLabel != [NSString stringWithFormat:@"%i bpm", [piece tempo]]) {
-        _speedLabel = [NSString stringWithFormat:@"%i bpm", [piece tempo]];
-    } 
-    _keyCompoundString = [piece keyCompoundString];
+
     [self setNeedsDisplay];
 }
 

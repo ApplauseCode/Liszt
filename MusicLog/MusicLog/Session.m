@@ -9,6 +9,7 @@
 #import "Session.h"
 #import "NSMutableOrderedSet+DeepCopy.h"
 #import "Piece.h"
+#import "Other.h"
 
 @implementation Session
 
@@ -35,6 +36,7 @@
             [self setPieceSession:[[NSMutableOrderedSet alloc] init]];
         else
             [self setPieceSession:pieceSet];
+
         [self setDate:[NSDate date]];
     }
     return self;
@@ -51,8 +53,13 @@
     
     total += [self scaleTime];
     total += [self arpeggioTime];
-    for (Piece *p in [self pieceSession])
-        total += [p pieceTime];
+    for (id item in [self pieceSession])
+    {
+        if ([item isKindOfClass:[Piece class]])
+            total += [item pieceTime];
+        else 
+            total += [item otherTime];
+    }
     return total;
 }
 

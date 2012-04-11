@@ -67,7 +67,6 @@
 - (void)blockAlertView:(BOOL)isYes;
 - (void)makeMenu;
 - (void)makeMetronome;
-//- (void)setUpScalesAndArpeggios;
 - (void)dateChangedWithDate:(NSDate *)date;
 - (void)hideMenu:(id)sender;
 - (void)closeSections;

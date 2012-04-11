@@ -7,10 +7,9 @@
 //
 
 #import "LisztCell.h"
-@class Piece;
 
 @interface PieceCell : LisztCell
 
-- (void) updateLabels:(Piece *)piece;
+- (void) updateLabels:(id)item;
 
 @end
