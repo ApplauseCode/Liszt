@@ -21,6 +21,8 @@
         // Initialization code
         textView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, 320, 128)];
         [textView setDelegate:self];
+        [textView setBackgroundColor:[UIColor clearColor]];
+        [textView setFont:[UIFont fontWithName:@"ACaslonPro-Regular" size:18]];
         [self addSubview:textView];
     }
     return self;

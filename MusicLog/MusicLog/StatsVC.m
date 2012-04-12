@@ -129,7 +129,7 @@
     [(StatsView *) self.view setDelegate:self];
     stopWatch = [[StopWatch alloc] init];
     isTiming = NO;
-    [selSessionDisplay setFont:[UIFont fontWithName:@"ACaslonPro-Regular" size:18]];
+    [selSessionDisplay setFont:[UIFont fontWithName:@"ACaslonPro-Regular" size:20]];
     [selSessionDisplay setTextColor:[UIColor yellowTextColor]];
     
     notesTapGesture = [[UITapGestureRecognizer alloc] init];
@@ -138,8 +138,8 @@
 
     [statsTable setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     
-    totalTime = [[UILabel alloc] initWithFrame:CGRectMake(239, 26, 100, 36)];
-    [totalTime setFont:[UIFont fontWithName:@"ACaslonPro-Regular" size:18]];
+    totalTime = [[UILabel alloc] initWithFrame:CGRectMake(239, 50, 100, 36)];
+    [totalTime setFont:[UIFont fontWithName:@"ACaslonPro-Regular" size:20]];
     [totalTime setTextColor:[UIColor yellowTextColor]];
     [totalTime setBackgroundColor:[UIColor clearColor]];
     NSString *timeString = [NSString timeStringFromInt:[selectedSession calculateTotalTime]];
