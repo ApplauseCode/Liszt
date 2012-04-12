@@ -10,6 +10,7 @@
 #import "SessionStore.h"
 #import "Session.h"
 #import "Other.h"
+#import "UITextField+Placeholder.h"
 
 @interface OtherVC ()
 @property (nonatomic, strong) IBOutlet UITextField *titleField;
@@ -17,6 +18,8 @@
 @property (nonatomic, strong) IBOutlet UITextView *descriptionView;
 @property (nonatomic, assign) BOOL editMode;
 @property (nonatomic, strong) UITapGestureRecognizer *viewTap;
+@property (weak, nonatomic) IBOutlet UIButton *addButton;
+@property (weak, nonatomic) IBOutlet UIImageView *viewBG;
 - (IBAction)saveToStore:(id)sender;
 - (IBAction)goBack:(id)sender;
 - (void)addOther;
@@ -31,6 +34,8 @@
 @synthesize editItemPath;
 @synthesize selectedSession;
 @synthesize viewTap;
+@synthesize addButton;
+@synthesize viewBG;
 
 - (id)initWithEditMode:(BOOL)_edit
 {
@@ -55,13 +60,16 @@
     [titleField setDelegate:self];
     titleField.autocapitalizationType = UITextAutocapitalizationTypeWords;
     [titleField setBorderStyle:UITextBorderStyleNone];
+    [titleField setFont:[UIFont fontWithName:@"ACaslonPro-Regular" size:20]];
     [titleField setPlaceholder:@"Title"];
     [subTitleField setDelegate:self];
     subTitleField.autocapitalizationType = UITextAutocapitalizationTypeSentences;
+    [subTitleField setFont:[UIFont fontWithName:@"ACaslonPro-Regular" size:20]];
     [subTitleField setBorderStyle:UITextBorderStyleNone];
     [subTitleField setPlaceholder:@"SubTitle"];
     
     [descriptionView setDelegate:self];
+    [descriptionView setFont:[UIFont fontWithName:@"ACaslonPro-Regular" size:20]];
     
     viewTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
     [self.view addGestureRecognizer:viewTap];
@@ -69,6 +77,8 @@
     
     if (editMode && editItemPath && selectedSession)
     {
+        [addButton setImage:[UIImage imageNamed:@"saveEditsButton.png"] forState:UIControlStateNormal];
+        [viewBG setImage:[UIImage imageNamed:@"EditBGR8.png"]];
         Other *otherToEdit;
         otherToEdit = [[selectedSession pieceSession] objectAtIndex:[editItemPath section] - 2];
         [titleField setText:[otherToEdit title]];
@@ -134,6 +144,8 @@
 
 - (void)viewDidUnload
 {
+    [self setViewBG:nil];
+    [self setAddButton:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;

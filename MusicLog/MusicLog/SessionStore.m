@@ -111,8 +111,11 @@
         newSession = [[sessions objectAtIndex:([sessions count] - 1)] mutableCopy];
         [newSession setScaleTime:0];
         [newSession setArpeggioTime:0];
-        for (Piece *p in [newSession pieceSession]) {
-            [p setPieceTime:0];
+        for (id item in [newSession pieceSession]) {
+            if ([item isKindOfClass:[Piece class]])
+                [item setPieceTime:0];
+            else
+                [item setOtherTime:0];
         }
         [newSession setDate:[NSDate date]];
     }

@@ -37,14 +37,15 @@ double chooseBPM(double bpm)
     if (self)
     {
         NSBundle *mainBundle = [NSBundle mainBundle];   
-//        NSError *error;
-//        NSMutableData *data = [NSMutableData dataWithContentsOfFile:[mainBundle pathForResource:@"tick5" ofType:@"aif"] options:0 error:&error];
-//        mySound = [data mutableBytes];
-        
-        NSURL *tickURL = [NSURL fileURLWithPath:[mainBundle pathForResource:@"tick5" ofType:@"aif"]];
-        tickPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:tickURL error:nil];
-        [tickPlayer prepareToPlay];
-        [self setIsPlaying:NO];
+        // added GCD
+        dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0);
+        dispatch_async(queue, ^{
+            NSURL *tickURL = [NSURL fileURLWithPath:[mainBundle pathForResource:@"tick5" ofType:@"aif"]];
+            tickPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:tickURL error:nil];
+            [tickPlayer prepareToPlay];
+            [self setIsPlaying:NO];
+        });
+
     }
     return self;
 }

@@ -30,6 +30,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *tempoLabel;
 @property (strong, nonatomic) IBOutlet UILabel *tempoTextLabel;
 @property (assign, nonatomic) BOOL editMode;
+@property (weak, nonatomic) IBOutlet UIImageView *viewBG;
 
 - (IBAction)saveToStore:(id)sender;
 - (void)dismissKeyboard;
@@ -45,6 +46,7 @@
 @synthesize selectedSession;
 @synthesize tempoTextLabel;
 @synthesize editMode;
+@synthesize viewBG;
 @synthesize addPieceButton;
 
 - (id)initWithEditMode:(BOOL)_edit
@@ -78,8 +80,6 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    if (editMode)
-        [addPieceButton setBackgroundImage:[UIImage imageNamed:@"saveEditsButton.png"] forState:UIControlStateNormal];
     
     titleLabel = [[UITextField alloc] initWithFrame:CGRectMake(33, 95, 280, 31)];
     titleLabel.autocapitalizationType = UITextAutocapitalizationTypeWords;
@@ -138,6 +138,8 @@
     
     if (editMode && editItemPath && selectedSession)
     { 
+        [addPieceButton setImage:[UIImage imageNamed:@"saveEditsButton.png"] forState:UIControlStateNormal];
+        [viewBG setImage:[UIImage imageNamed:@"EditBGR8.png"]];
         Piece *itemToEdit;
         itemToEdit = [[selectedSession pieceSession] objectAtIndex:[editItemPath section] - 2];
         [titleLabel setText:[itemToEdit title]];
@@ -225,6 +227,7 @@
     titleLabel = nil;
     composerLabel = nil;
    // [self setModeSeg:nil];
+    [self setViewBG:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;

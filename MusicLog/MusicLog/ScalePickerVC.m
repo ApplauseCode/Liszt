@@ -106,8 +106,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    if (editMode)
-        [addScaleButton setBackgroundImage:[UIImage imageNamed:@"saveEditsButton.png"] forState:UIControlStateNormal];
+
     [octavesLabel setFont:[UIFont fontWithName:@"ACaslonPro-Regular" size:20]];
     [octavesLabel setText:@"OCTAVES"];
     
@@ -159,6 +158,8 @@
     
     if (editMode && editItemPath && selectedSession)
     { 
+        [addScaleButton setImage:[UIImage imageNamed:@"saveEditsButton.png"] forState:UIControlStateNormal];
+        [viewBG setImage:[UIImage imageNamed:@"EditBGR8.png"]];
         Scale *itemToEdit;
         switch ([editItemPath section]) {
             case 0:

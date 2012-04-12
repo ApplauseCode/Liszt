@@ -93,6 +93,14 @@
 		BA37B8551482DB9800C41484 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA37B8541482DB9700C41484 /* QuartzCore.framework */; };
 		BA390D541533C048006F65BC /* NotesPickerVC.m in Sources */ = {isa = PBXBuildFile; fileRef = BA390D521533C048006F65BC /* NotesPickerVC.m */; };
 		BA390D551533C048006F65BC /* NotesPickerVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA390D531533C048006F65BC /* NotesPickerVC.xib */; };
+		BA3F8E5F1536F52C005DAB03 /* EditBGR8.png in Resources */ = {isa = PBXBuildFile; fileRef = BA3F8E591536F52C005DAB03 /* EditBGR8.png */; };
+		BA3F8E601536F52C005DAB03 /* EditBGR8@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BA3F8E5A1536F52C005DAB03 /* EditBGR8@2x.png */; };
+		BA3F8E611536F52C005DAB03 /* OtherVCBGR8.png in Resources */ = {isa = PBXBuildFile; fileRef = BA3F8E5B1536F52C005DAB03 /* OtherVCBGR8.png */; };
+		BA3F8E621536F52C005DAB03 /* OtherVCBGR8@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BA3F8E5C1536F52C005DAB03 /* OtherVCBGR8@2x.png */; };
+		BA3F8E631536F52C005DAB03 /* SessionNotesBGR8.png in Resources */ = {isa = PBXBuildFile; fileRef = BA3F8E5D1536F52C005DAB03 /* SessionNotesBGR8.png */; };
+		BA3F8E641536F52C005DAB03 /* SessionNotesBGR8@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BA3F8E5E1536F52C005DAB03 /* SessionNotesBGR8@2x.png */; };
+		BA3F8E671536F613005DAB03 /* DoneButtonPicker.png in Resources */ = {isa = PBXBuildFile; fileRef = BA3F8E651536F613005DAB03 /* DoneButtonPicker.png */; };
+		BA3F8E681536F613005DAB03 /* DoneButtonPicker@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BA3F8E661536F613005DAB03 /* DoneButtonPicker@2x.png */; };
 		BA44684114F92E0400AE0A0D /* NSMutableOrderedSet+DeepCopy.m in Sources */ = {isa = PBXBuildFile; fileRef = BA44684014F92E0400AE0A0D /* NSMutableOrderedSet+DeepCopy.m */; };
 		BA455FDD1528A3310018986E /* ParchSeparator.png in Resources */ = {isa = PBXBuildFile; fileRef = BA455FDB1528A3310018986E /* ParchSeparator.png */; };
 		BA455FDE1528A3310018986E /* ParchSeparator@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BA455FDC1528A3310018986E /* ParchSeparator@2x.png */; };
@@ -310,6 +318,14 @@
 		BA390D511533C047006F65BC /* NotesPickerVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotesPickerVC.h; sourceTree = "<group>"; };
 		BA390D521533C048006F65BC /* NotesPickerVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotesPickerVC.m; sourceTree = "<group>"; };
 		BA390D531533C048006F65BC /* NotesPickerVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NotesPickerVC.xib; sourceTree = "<group>"; };
+		BA3F8E591536F52C005DAB03 /* EditBGR8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = EditBGR8.png; sourceTree = "<group>"; };
+		BA3F8E5A1536F52C005DAB03 /* EditBGR8@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "EditBGR8@2x.png"; sourceTree = "<group>"; };
+		BA3F8E5B1536F52C005DAB03 /* OtherVCBGR8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = OtherVCBGR8.png; sourceTree = "<group>"; };
+		BA3F8E5C1536F52C005DAB03 /* OtherVCBGR8@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "OtherVCBGR8@2x.png"; sourceTree = "<group>"; };
+		BA3F8E5D1536F52C005DAB03 /* SessionNotesBGR8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SessionNotesBGR8.png; sourceTree = "<group>"; };
+		BA3F8E5E1536F52C005DAB03 /* SessionNotesBGR8@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SessionNotesBGR8@2x.png"; sourceTree = "<group>"; };
+		BA3F8E651536F613005DAB03 /* DoneButtonPicker.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DoneButtonPicker.png; sourceTree = "<group>"; };
+		BA3F8E661536F613005DAB03 /* DoneButtonPicker@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DoneButtonPicker@2x.png"; sourceTree = "<group>"; };
 		BA44683F14F92E0400AE0A0D /* NSMutableOrderedSet+DeepCopy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableOrderedSet+DeepCopy.h"; sourceTree = "<group>"; };
 		BA44684014F92E0400AE0A0D /* NSMutableOrderedSet+DeepCopy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableOrderedSet+DeepCopy.m"; sourceTree = "<group>"; };
 		BA455FDB1528A3310018986E /* ParchSeparator.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ParchSeparator.png; sourceTree = "<group>"; };
@@ -527,6 +543,7 @@
 		BA08C5E5140D3D35009C5E8D /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				BA3F8E571536F514005DAB03 /* Pickers */,
 				BA0118681535DF9E00C0BC46 /* HistoryVC */,
 				BA01184B1535C0B000C0BC46 /* StatsVC */,
 				BA9D1EDA152DF02600C8F9FD /* alertViewButton.png */,
@@ -653,6 +670,21 @@
 				BAE6998B14E57AF100D3ADF8 /* DisclosureArrow@2x.png */,
 			);
 			name = Images;
+			sourceTree = "<group>";
+		};
+		BA3F8E571536F514005DAB03 /* Pickers */ = {
+			isa = PBXGroup;
+			children = (
+				BA3F8E651536F613005DAB03 /* DoneButtonPicker.png */,
+				BA3F8E661536F613005DAB03 /* DoneButtonPicker@2x.png */,
+				BA3F8E591536F52C005DAB03 /* EditBGR8.png */,
+				BA3F8E5A1536F52C005DAB03 /* EditBGR8@2x.png */,
+				BA3F8E5B1536F52C005DAB03 /* OtherVCBGR8.png */,
+				BA3F8E5C1536F52C005DAB03 /* OtherVCBGR8@2x.png */,
+				BA3F8E5D1536F52C005DAB03 /* SessionNotesBGR8.png */,
+				BA3F8E5E1536F52C005DAB03 /* SessionNotesBGR8@2x.png */,
+			);
+			name = Pickers;
 			sourceTree = "<group>";
 		};
 		BA84EE3F1411772B00E01BDB /* Sounds */ = {
@@ -1069,6 +1101,14 @@
 				BA24A15D1536662C005E5A52 /* LeftExpanderR8@2x.png in Resources */,
 				BA24A16015366A55005E5A52 /* SecondBarR8.png in Resources */,
 				BA24A16115366A55005E5A52 /* SecondBarR8@2x.png in Resources */,
+				BA3F8E5F1536F52C005DAB03 /* EditBGR8.png in Resources */,
+				BA3F8E601536F52C005DAB03 /* EditBGR8@2x.png in Resources */,
+				BA3F8E611536F52C005DAB03 /* OtherVCBGR8.png in Resources */,
+				BA3F8E621536F52C005DAB03 /* OtherVCBGR8@2x.png in Resources */,
+				BA3F8E631536F52C005DAB03 /* SessionNotesBGR8.png in Resources */,
+				BA3F8E641536F52C005DAB03 /* SessionNotesBGR8@2x.png in Resources */,
+				BA3F8E671536F613005DAB03 /* DoneButtonPicker.png in Resources */,
+				BA3F8E681536F613005DAB03 /* DoneButtonPicker@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

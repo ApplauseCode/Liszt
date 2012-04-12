@@ -222,7 +222,7 @@
 # pragma mark - Popover Menu
 
 - (void) makeMenu {
-    myPopover = [[PopupVC alloc] initWithFrame:CGRectMake(200, 47, 128, 170)];
+    myPopover = [[PopupVC alloc] initWithFrame:CGRectMake(200, 47, 128, 214)];
     [myPopover setDelegate:self];
     [myPopover.view setAlpha:0];
     UITableViewCell *cell1 = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
