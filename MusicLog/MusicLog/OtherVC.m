@@ -57,6 +57,13 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    UILabel *descriptionLabel = [[UILabel alloc] initWithFrame:CGRectMake(109, 211, 95, 25)];
+    [descriptionLabel setFont:[UIFont fontWithName:@"ACaslonPro-Regular" size:20]];
+    [descriptionLabel setText:@"Description"];
+    [descriptionLabel setBackgroundColor:[UIColor clearColor]];
+    
+    [self.view addSubview:descriptionLabel];
+    
     [titleField setDelegate:self];
     titleField.autocapitalizationType = UITextAutocapitalizationTypeWords;
     [titleField setBorderStyle:UITextBorderStyleNone];
