@@ -10,11 +10,11 @@
 #import "SessionStore.h"
 #import "Session.h"
 #import "Other.h"
-#import "UITextField+Placeholder.h"
+#import "ModifiedTextField.h"
 
 @interface OtherVC ()
-@property (nonatomic, strong) IBOutlet UITextField *titleField;
-@property (nonatomic, strong) IBOutlet UITextField *subTitleField;
+@property (nonatomic, strong) ModifiedTextField *titleField;
+@property (nonatomic, strong) ModifiedTextField *subTitleField;
 @property (nonatomic, strong) IBOutlet UITextView *descriptionView;
 @property (nonatomic, assign) BOOL editMode;
 @property (nonatomic, strong) UITapGestureRecognizer *viewTap;
@@ -64,22 +64,30 @@
     
     [self.view addSubview:descriptionLabel];
     
+    titleField = [[ModifiedTextField alloc] initWithFrame:CGRectMake(33, 95, 268, 31)];
     [titleField setDelegate:self];
     titleField.autocapitalizationType = UITextAutocapitalizationTypeWords;
+    [titleField setClearButtonMode:UITextFieldViewModeWhileEditing];
     [titleField setBorderStyle:UITextBorderStyleNone];
     [titleField setFont:[UIFont fontWithName:@"ACaslonPro-Regular" size:20]];
     [titleField setPlaceholder:@"Title"];
+    [self.view addSubview:titleField];
+    
+    subTitleField = [[ModifiedTextField alloc] initWithFrame:CGRectMake(33, 164, 268, 31)];
     [subTitleField setDelegate:self];
     subTitleField.autocapitalizationType = UITextAutocapitalizationTypeSentences;
     [subTitleField setFont:[UIFont fontWithName:@"ACaslonPro-Regular" size:20]];
+    [subTitleField setClearButtonMode:UITextFieldViewModeWhileEditing];
     [subTitleField setBorderStyle:UITextBorderStyleNone];
     [subTitleField setPlaceholder:@"SubTitle"];
+    [self.view addSubview:subTitleField];
     
     [descriptionView setDelegate:self];
     [descriptionView setFont:[UIFont fontWithName:@"ACaslonPro-Regular" size:20]];
     
     viewTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
     [self.view addGestureRecognizer:viewTap];
+    [viewTap setDelegate:self];
     [viewTap setEnabled:NO];
     
     if (editMode && editItemPath && selectedSession)
@@ -204,6 +212,12 @@
     return YES;
 }
 
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
+{
+    if (CGRectContainsPoint(titleField.frame, [touch locationInView:self.view]) || CGRectContainsPoint(subTitleField.frame, [touch locationInView:self.view]))
+        return NO;
+    return YES;
+}
 
 
 @end

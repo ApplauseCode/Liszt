@@ -905,11 +905,15 @@
         if (cell == nil) 
             cell = [[PieceCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"PieceCell"];
     }
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     NSInteger dataIndex;
     if (row == 0 && currentPractice)
         return tCell;
     if (!currentPractice)
+    {
         dataIndex = row;
+        cell.accessoryType = UITableViewCellAccessoryNone;
+    }
     else
         dataIndex = row - 1;
     if (section == 0)
@@ -921,7 +925,6 @@
     }
     [cell updateLabels:entry];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;    
-    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     return cell;
 }
 

@@ -10,7 +10,7 @@
 
 @class Session;
 
-@interface OtherVC : UIViewController <UITextFieldDelegate, UITextViewDelegate>
+@interface OtherVC : UIViewController <UITextFieldDelegate, UITextViewDelegate, UIGestureRecognizerDelegate>
 @property (nonatomic, strong) NSIndexPath *editItemPath;
 @property (nonatomic, strong) Session *selectedSession;
 - (id)initWithEditMode:(BOOL)_edit;

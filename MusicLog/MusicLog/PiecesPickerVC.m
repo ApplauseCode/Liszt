@@ -15,8 +15,7 @@
 #import "StatsVC.h"
 #import "UIColor+YellowTextColor.h"
 #import "CustomSegment.h"
-#import "UITextField+Placeholder.h"
-
+#import "ModifiedTextField.h"
 @interface PiecesPickerVC ()
 {
     ACchooser *keyChooser;
@@ -24,8 +23,8 @@
     CustomStepper *tempoStepper;
     CustomSegment *majOrMin;
     UITapGestureRecognizer *viewTap;
-    UITextField *titleLabel;
-    UITextField *composerLabel;
+    ModifiedTextField *titleField;
+    ModifiedTextField *composerField;
 }
 @property (strong, nonatomic) IBOutlet UILabel *tempoLabel;
 @property (strong, nonatomic) IBOutlet UILabel *tempoTextLabel;
@@ -81,12 +80,14 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    titleLabel = [[UITextField alloc] initWithFrame:CGRectMake(33, 95, 280, 31)];
-    titleLabel.autocapitalizationType = UITextAutocapitalizationTypeWords;
-    [titleLabel setBorderStyle:UITextBorderStyleNone];
-    composerLabel = [[UITextField alloc] initWithFrame:CGRectMake(33, 164, 280, 31)];
-    composerLabel.autocapitalizationType = UITextAutocapitalizationTypeWords;
-    [composerLabel setBorderStyle:UITextBorderStyleNone];
+    titleField = [[ModifiedTextField alloc] initWithFrame:CGRectMake(33, 95, 268, 31)];
+    titleField.autocapitalizationType = UITextAutocapitalizationTypeWords;
+    [titleField setClearButtonMode:UITextFieldViewModeWhileEditing];
+    [titleField setBorderStyle:UITextBorderStyleNone];
+    composerField = [[ModifiedTextField alloc] initWithFrame:CGRectMake(33, 164, 268, 31)];
+    composerField.autocapitalizationType = UITextAutocapitalizationTypeWords;
+    [composerField setClearButtonMode:UITextFieldViewModeWhileEditing];
+    [composerField setBorderStyle:UITextBorderStyleNone];
     
     UIImage *seg0 = [UIImage imageNamed:@"MajOrMin0.png"];
     UIImage *seg1 = [UIImage imageNamed:@"MajOrMin1.png"];
@@ -109,6 +110,7 @@
     [keyChooser setCellFont:[UIFont fontWithName:@"ACaslonPro-Regular" size:20]];
 
     viewTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
+    [viewTap setDelegate:self];
     [self.view addGestureRecognizer:viewTap];
     [viewTap setEnabled:NO];
     
@@ -118,20 +120,20 @@
     [tempoTextLabel setFont:[UIFont fontWithName:@"ACaslonPro-Regular" size:11]];
     [tempoTextLabel setTextColor:[UIColor yellowTextColor]];
     
-    NSArray *textFields = [NSArray arrayWithObjects:titleLabel, composerLabel, nil];
+    NSArray *textFields = [NSArray arrayWithObjects:titleField, composerField, nil];
     for (UITextField *field in textFields)
     {
         [field setFont:[UIFont fontWithName:@"ACaslonPro-Regular" size:19]];
         [field setDelegate:self];
         [field setReturnKeyType:UIReturnKeyDone];
     }   
-    [titleLabel setPlaceholder:@"Piece Name"];
-    [composerLabel setPlaceholder:@"Composer"];
+    [titleField setPlaceholder:@"Piece Name"];
+    [composerField setPlaceholder:@"Composer"];
     [keyChooser setDataArray:keys];
     [self.view addSubview:keyChooser.view];
     [self.view addSubview:tempoStepper];
-    [self.view addSubview:titleLabel];
-    [self.view addSubview:composerLabel];
+    [self.view addSubview:titleField];
+    [self.view addSubview:composerField];
     
     // set defaults
     [majOrMin setSelectedIndex:1];
@@ -142,8 +144,8 @@
         [viewBG setImage:[UIImage imageNamed:@"EditBGR8.png"]];
         Piece *itemToEdit;
         itemToEdit = [[selectedSession pieceSession] objectAtIndex:[editItemPath section] - 2];
-        [titleLabel setText:[itemToEdit title]];
-        [composerLabel setText:[itemToEdit composer]];
+        [titleField setText:[itemToEdit title]];
+        [composerField setText:[itemToEdit composer]];
         [majOrMin setSelectedIndex:[itemToEdit major]];
         [tempoStepper setTempo:[itemToEdit tempo]];
         [keyChooser setSelectedCellIndex:[itemToEdit pieceKey]];
@@ -161,22 +163,18 @@
 
 - (void)addPiece
 {
-    if (![titleLabel text])
-        [titleLabel setText:@""];
-    if (![composerLabel text])
-        [composerLabel setText:@""];
+    if (![titleField text])
+        [titleField setText:@""];
+    if (![composerField text])
+        [composerField setText:@""];
     Piece *createdPiece = [[Piece alloc] init];
     SessionStore *store = [SessionStore defaultStore];
-    [createdPiece setTitle:[titleLabel text]];
-    [createdPiece setComposer:[composerLabel text]];
+    [createdPiece setTitle:[titleField text]];
+    [createdPiece setComposer:[composerField text]];
     [createdPiece setTempo:[tempoStepper tempo]];
     [createdPiece setMajor:[majOrMin selectedIndex]];
     [createdPiece setPieceKey:[keyChooser selectedCellIndex]];
     [[[store mySession] pieceSession] addObject:createdPiece];
-    /* remove later and add X buttons to fields */
-    [titleLabel setText:@""];
-    [composerLabel setText:@""];
-    
     UIImageView *hud = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"LisztHUD.png"]];
     [hud setCenter:CGPointMake(160, 220)];
     [hud setAlpha:0];
@@ -208,8 +206,8 @@
 {
     Piece *editedItem = [[selectedSession pieceSession] objectAtIndex:[editItemPath section] - 2];
     
-    [editedItem setTitle:[titleLabel text]];
-    [editedItem setComposer:[composerLabel text]];
+    [editedItem setTitle:[titleField text]];
+    [editedItem setComposer:[composerField text]];
     [editedItem setMajor:[majOrMin selectedIndex]];
     [editedItem setTempo:[tempoStepper tempo]];
     [editedItem setPieceKey:[keyChooser selectedCellIndex]];
@@ -218,19 +216,15 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-   /* if ([[self parentViewController] isKindOfClass:[StatsVC class]])
-    [[self parentViewController] modalViewDismissed];*/
 }
 
 - (void)viewDidUnload
 {
-    titleLabel = nil;
-    composerLabel = nil;
-   // [self setModeSeg:nil];
+    titleField = nil;
+    composerField = nil;
     [self setViewBG:nil];
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
+
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -256,18 +250,24 @@
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
     [viewTap setEnabled:NO];
-    if (!titleLabel.placeholder)
-        titleLabel.placeholder = @"Title";
-    else if (!composerLabel.placeholder)
-        composerLabel.placeholder = @"Composer";
+    if (!titleField.placeholder)
+        titleField.placeholder = @"Title";
+    else if (!composerField.placeholder)
+        composerField.placeholder = @"Composer";
     textField.center = CGPointMake(textField.center.x, textField.center.y+2);
 
 }
 
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
+{
+    if (CGRectContainsPoint(titleField.frame, [touch locationInView:self.view]) || CGRectContainsPoint(composerField.frame, [touch locationInView:self.view]))
+        return NO;
+    return YES;
+}
 - (void)dismissKeyboard
 {
-    [titleLabel resignFirstResponder];
-    [composerLabel resignFirstResponder];
+    [titleField resignFirstResponder];
+    [composerField resignFirstResponder];
 }
 
 @end

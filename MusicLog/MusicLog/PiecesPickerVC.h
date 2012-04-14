@@ -10,7 +10,7 @@
 
 @class Session;
 
-@interface PiecesPickerVC : UIViewController <UITextFieldDelegate>
+@interface PiecesPickerVC : UIViewController <UITextFieldDelegate, UIGestureRecognizerDelegate>
 - (id)initWithEditMode:(BOOL)_edit;
 @property (nonatomic, strong) NSIndexPath *editItemPath;
 @property (nonatomic, strong) Session *selectedSession;
