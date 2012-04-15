@@ -7,12 +7,6 @@
 //
 
 #import "StopWatch.h"
-@interface StopWatch ()
-
-@property (nonatomic, strong) NSTimer *timer;
-
-@end
-
 @implementation StopWatch
 @synthesize timer;
 @synthesize totalSeconds;
@@ -34,4 +28,9 @@
     [self setTotalSeconds:++totalSeconds];
 }
 
+- (void)restartTimer
+{
+    [timer invalidate];
+    timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(fireAction:) userInfo:nil repeats:YES];
+}
 @end

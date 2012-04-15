@@ -17,6 +17,7 @@
 #import "SectionInfo.h"
 #import "HistoryViewController.h"
 #import "ContainerViewController.h"
+#import "StopWatch.h"
 
 @interface AppDelegate()
 @property (nonatomic, strong) StatsVC *statsVC;
@@ -37,6 +38,7 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     /*remove later*/[TestFlight takeOff:@"0bb5b0fae5868594a374b52c1cd204c3_NTQ5NTIyMDEyLTAxLTI1IDE1OjU3OjIxLjYxMTI3NA"];
      application.applicationSupportsShakeToEdit = YES; /**/
+    [idleScreenTimer invalidate];
     idleScreenTimer = [NSTimer scheduledTimerWithTimeInterval:30 target:self selector:@selector(timerFireMethod:) userInfo:nil repeats:YES];
     [self setAlertViewVisible:NO];
     [self checkDate];
@@ -64,11 +66,13 @@
     [UIApplication sharedApplication].idleTimerDisabled = YES;
 }
 
-- (void)applicationWillEnterForeground:(UIApplication *)application
+- (void)applicationDidBecomeActive:(UIApplication *)application
 {
     [self checkDate];
     [statsVC setScreenBrightness:[statsVC screenBrightness]];
-    [statsVC setDimScreenTimer:[NSTimer scheduledTimerWithTimeInterval:30 target:self selector:@selector(dimTimerFire:) userInfo:nil repeats:NO]];
+    [[statsVC stopWatch] restartTimer];
+    [statsVC setDimScreenTimer:[NSTimer scheduledTimerWithTimeInterval:30 target:statsVC selector:@selector(dimTimerFire:) userInfo:nil repeats:NO]];
+    [idleScreenTimer invalidate];
     idleScreenTimer = [NSTimer scheduledTimerWithTimeInterval:30 target:self selector:@selector(timerFireMethod:) userInfo:nil repeats:YES];
 
 }
@@ -122,12 +126,25 @@
     }
 }
 
-- (void)applicationDidEnterBackground:(UIApplication *)application
+- (void)applicationWillResignActive:(UIApplication *)application
 {
-    [[SessionStore defaultStore] saveChanges];
     [statsVC stopAllTimers];
     [idleScreenTimer invalidate];
+    [[[statsVC stopWatch] timer] invalidate];
+    NSLog(@"this is a log");
+}
 
+- (void)applicationDidEnterBackground:(UIApplication *)application
+{
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH,0);
+    dispatch_async(queue, ^{
+        [[SessionStore defaultStore] saveChanges];
+    });
+}
+
+- (void)applicationWillTerminate:(UIApplication *)application
+{
+    
 }
 
 @end

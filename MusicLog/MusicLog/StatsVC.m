@@ -34,7 +34,6 @@
 #pragma mark - Private Interface
 
 @interface StatsVC ()
-@property (nonatomic, strong) StopWatch *stopWatch;
 @property (nonatomic, strong) id theObserver;
 @property (nonatomic, strong) UIPanGestureRecognizer *panGestureRecognizer;
 @property (nonatomic, strong) UIPanGestureRecognizer *metroPanGestureRecognizer;
@@ -688,7 +687,7 @@
 
 - (void)stopAllTimers
 {
-    if ([[timerButton imageForState:UIControlStateNormal] isEqual:[UIImage imageNamed:@"StopTimer.png"]])
+    if (isTiming)
         [self timerButtonPressed:timerButton];
     [dimScreenTimer invalidate];
     [metronomeScreenTimer invalidate];

@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface StopWatch : NSObject
-
+@property (nonatomic, strong) NSTimer *timer;
 @property (nonatomic) int totalSeconds;
-
+- (void)restartTimer;
 @end

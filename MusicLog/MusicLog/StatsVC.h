@@ -22,9 +22,11 @@
 @class SectionHeaderView;
 @class AllGesturesRecognizer;
 @class PopupVC;
+@class StopWatch;
 
 @interface StatsVC : UIViewController <UITableViewDelegate, UITableViewDataSource, SectionHeaderViewDelegate, UIGestureRecognizerDelegate, UIScrollViewDelegate, CustomStepperDelegate, UIAlertViewDelegate, StatsViewDelegate, CustomSectionMoveDelegate, UITextViewDelegate, PopupVCDelegate, ACchooserDelegate, MetronomeDelegate, UIAccelerometerDelegate>
 
+@property (nonatomic, strong) StopWatch *stopWatch;
 @property (nonatomic, assign) CGFloat screenBrightness;
 @property (nonatomic, assign)   NSUInteger tempo;
 @property (nonatomic, strong)   Session *selectedSession;
