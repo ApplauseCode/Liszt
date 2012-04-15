@@ -76,6 +76,7 @@
                                                          pieces:[NSMutableOrderedSet fromOrderedSet:[archivedSession pieceSession]]];
                     [mySession setScaleTime:[[objectsArchive objectAtIndex:1] scaleTime]];
                     [mySession setArpeggioTime:[[objectsArchive objectAtIndex:1] arpeggioTime]];
+                    [mySession setSessionNotes:[[objectsArchive objectAtIndex:1] sessionNotes]];
                     [mySession setDate:[[objectsArchive objectAtIndex:1] date]];                
                 }
             } 

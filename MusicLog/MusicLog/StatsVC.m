@@ -129,7 +129,7 @@
     [(StatsView *) self.view setDelegate:self];
     stopWatch = [[StopWatch alloc] init];
     isTiming = NO;
-    [selSessionDisplay setFont:[UIFont fontWithName:@"ACaslonPro-Regular" size:20]];
+    [selSessionDisplay setFont:[UIFont fontWithName:@"ACaslonPro-Regular" size:22]];
     [selSessionDisplay setTextColor:[UIColor yellowTextColor]];
     
     notesTapGesture = [[UITapGestureRecognizer alloc] init];
@@ -137,6 +137,8 @@
     [panGestureRecognizer setDelegate:self];
 
     [statsTable setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    UIView *footer = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 20)];
+    [statsTable setTableFooterView:footer];
     
     totalTime = [[UILabel alloc] initWithFrame:CGRectMake(239, 50, 100, 36)];
     [totalTime setFont:[UIFont fontWithName:@"ACaslonPro-Regular" size:20]];
@@ -375,8 +377,8 @@
                 [metronomeView setCenter:CGPointMake(theCenter.x, -2 + theCenter.y + [metronomeView bounds].size.height / 2.0)];
             } completion:^(BOOL finished) {
                 [UIView animateWithDuration:0.5 animations:^{
-                    if (![metro isPlaying] && woodenMetronome.center.y < BOTTOMWOODCENTER)
-                        [woodenMetronome setCenter:CGPointMake(woodenMetronome.center.x, woodenMetronome.center.y + 90)];
+                    if (![metro isPlaying])
+                        [woodenMetronome setCenter:CGPointMake(woodenMetronome.center.x, BOTTOMWOODCENTER)];
                 }];
             }];
         } else if (!didStartUp && translation.y < 0) {
@@ -384,9 +386,9 @@
                 [metronomeView setCenter:CGPointMake(theCenter.x, UP_CENTER_Y)];
             } completion:^(BOOL finished) {
                 [self setMetronomeScreenTimer:[NSTimer scheduledTimerWithTimeInterval:4 target:self selector:@selector(metronomeTimerFire:) userInfo:nil repeats:NO]];
-                if (woodenMetronome.center.y > TOPWOODCENTER)
+                //if (woodenMetronome.center.y > TOPWOODCENTER)
                     [UIView animateWithDuration:0.5 animations:^{
-                        [woodenMetronome setCenter:CGPointMake(woodenMetronome.center.x, woodenMetronome.center.y - 90)];
+                        [woodenMetronome setCenter:CGPointMake(woodenMetronome.center.x,TOPWOODCENTER)];
                     }];
             }];
 
@@ -403,7 +405,7 @@
     [UIView animateWithDuration:0.25 animations:^{
         [metronomeView setCenter:CGPointMake(theCenter.x, -2 + theCenter.y + [metronomeView bounds].size.height / 2.0)];
         if (![metro isPlaying])
-            [woodenMetronome setCenter:CGPointMake(woodenMetronome.center.x, woodenMetronome.center.y + 90)];
+            [woodenMetronome setCenter:CGPointMake(woodenMetronome.center.x, BOTTOMWOODCENTER)];
     }];
 }
 
@@ -1099,10 +1101,14 @@
 - (void)deleteSection:(NSInteger)section
 {
     [self becomeFirstResponder];
-    if (section > 1)
+    if (section > 1 && currentPractice)
     {
-        Piece *p = [[[[SessionStore defaultStore] mySession] pieceSession] objectAtIndex:section - 2];
-        [[[[SessionStore defaultStore] mySession] pieceSession] removeObject:p];
+        if ([[sectionInfoArray objectAtIndex:section] isNotes])
+            [[[SessionStore defaultStore] mySession] setSessionNotes:nil];
+        else {
+            id item = [[[[SessionStore defaultStore] mySession] pieceSession] objectAtIndex:section - 2];
+            [[[[SessionStore defaultStore] mySession] pieceSession] removeObject:item];
+        }
         [sectionInfoArray removeObjectAtIndex:section];
         [statsTable beginUpdates];
         [statsTable deleteSections:[NSIndexSet indexSetWithIndex:section] withRowAnimation:UITableViewRowAnimationAutomatic];

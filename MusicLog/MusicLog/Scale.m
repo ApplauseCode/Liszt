@@ -137,8 +137,8 @@
 }
 
 - (NSString *)tempoString
-{
-    return [NSString stringWithInt:tempo]; 
+{ 
+    return tempo == 0 ? @"none" : [NSString stringWithInt:tempo]; 
 } 
 
 - (id)mutableCopyWithZone:(NSZone *)zone

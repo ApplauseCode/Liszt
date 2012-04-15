@@ -124,9 +124,10 @@
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
+    [[SessionStore defaultStore] saveChanges];
     [statsVC stopAllTimers];
     [idleScreenTimer invalidate];
-    [[SessionStore defaultStore] saveChanges];
+
 }
 
 @end

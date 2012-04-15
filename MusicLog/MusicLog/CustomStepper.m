@@ -43,12 +43,13 @@ int tempoRange(int x)
     [self addSubview:stepperBG];
     UIFont *caslon = [UIFont fontWithName:@"ACaslonPro-Regular" size:20];
     [tempoLabel setFont:caslon];
-    [tempoLabel setTextColor:[UIColor blackColor]];
+    [tempoLabel setTextColor:[UIColor yellowTextColor]];
     if (canBeNone)
         tempo = 0;
     else
         tempo = 80;
-    [tempoLabel setText:[NSString stringWithFormat:@"%u BPM", tempo]];
+    tempoLabel.text = tempo == 0 ? @"NONE" : [NSString stringWithFormat:@"%u BPM", tempo];
+    //[tempoLabel setText:[NSString stringWithFormat:@"%u BPM", tempo]];
     
     return self;
 }
@@ -56,7 +57,7 @@ int tempoRange(int x)
 - (void)setTempo:(NSUInteger)_tempo
 {
     tempo = _tempo;
-    [tempoLabel setText:[NSString stringWithFormat:@"%u BPM", tempo]];
+    tempoLabel.text = tempo == 0 ? @"NONE" : [NSString stringWithFormat:@"%u BPM", tempo];
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
@@ -100,7 +101,7 @@ int tempoRange(int x)
         }
         
         
-        [tempoLabel setText:[NSString stringWithFormat:@"%u BPM", tempo]];
+        tempoLabel.text = tempo == 0 ? @"NONE" : [NSString stringWithFormat:@"%u BPM", tempo];
     }
 }
 
@@ -114,7 +115,7 @@ int tempoRange(int x)
             tempo = 30;
         else
             tempo = tempoRange(tempo + 1);
-        [tempoLabel setText:[NSString stringWithFormat:@"%u BPM", tempo]];
+        tempoLabel.text = tempo == 0 ? @"NONE" : [NSString stringWithFormat:@"%u BPM", tempo];
     }
     else if (timeElapsed < 0.5 && [myTouch locationInView:self].x < ([self frame].size.width / 2))
     {
@@ -122,7 +123,7 @@ int tempoRange(int x)
             tempo = 0;
         else if (tempo != 0)
             tempo = tempoRange(tempo - 1);
-        [tempoLabel setText:[NSString stringWithFormat:@"%u BPM", tempo]];
+        tempoLabel.text = tempo == 0 ? @"NONE" : [NSString stringWithFormat:@"%u BPM", tempo];
     }
     [timer invalidate];
     timeElapsed = 0;
