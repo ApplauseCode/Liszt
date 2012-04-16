@@ -606,8 +606,6 @@
 
 - (void)timerButtonPressed:(id)sender
 {
-    
-
     if ([[sender imageForState:UIControlStateNormal] isEqual:[UIImage imageNamed:@"StartTimer.png"]])
     {
         self.tickingItem = [[SessionStore defaultStore] mySession];
@@ -617,9 +615,10 @@
                 break;
             case 1:
                 [self.tickingItem resetStartTime:1];
-                
+                break;
             default:
                 self.tickingItem = [[self.tickingItem pieceSession] objectAtIndex:(openSectionIndex - 2)];
+                [self.tickingItem resetStartTime];
                 break;
         }
         [self setIsUpdatingTime:YES];
@@ -682,7 +681,7 @@
             [self.tickingItem updateElapsedTime:[NSDate date] forIndex:openSectionIndex];
         else
         {
-            
+            [self.tickingItem updateElapsedTime:[NSDate date]];
         }
         NSString *timeString = [NSString timeStringFromInt:[selectedSession calculateTotalTime]];
         [totalTime setText:timeString];

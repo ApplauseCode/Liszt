@@ -17,6 +17,7 @@
 @synthesize tempo;
 @synthesize pieceKey;
 @synthesize pieceTime;
+@synthesize startPieceDate;
 
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
@@ -29,6 +30,21 @@
     [self setPieceTime:[aDecoder decodeIntForKey:@"time"]];
     
     return self;
+}
+
+- (int)updateElapsedTime:(NSDate *)d
+{
+    double time;
+    time = self.pieceTime;
+    self.pieceTime = time + [d timeIntervalSince1970] - [startPieceDate timeIntervalSince1970];
+    self.startPieceDate = d;
+    return pieceTime;
+
+}
+
+- (void)resetStartTime
+{
+    self.startPieceDate = [NSDate date];
 }
 
 - (id)mutableCopyWithZone:(NSZone *)zone

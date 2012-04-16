@@ -24,5 +24,5 @@
               pieces:(NSMutableOrderedSet *)pieceSet;
 - (NSInteger)calculateTotalTime;
 - (int)updateElapsedTime:(NSDate *)d forIndex:(NSInteger)idx;
-- (void) resetStartTime:(NSInteger)idx;
+- (void)resetStartTime:(NSInteger)idx;
 @end

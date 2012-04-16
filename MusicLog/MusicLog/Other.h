@@ -12,6 +12,9 @@
 @property (nonatomic, strong) NSString *title;
 @property (nonatomic, strong) NSString *subTitle;
 @property (nonatomic, strong) NSString *description;
-@property (nonatomic, assign) NSInteger otherTime;
+@property (nonatomic, assign) double otherTime;
+@property (nonatomic, strong) NSDate *startOtherDate;
+- (int)updateElapsedTime:(NSDate *)d;
+- (void)resetStartTime;
 @end
 

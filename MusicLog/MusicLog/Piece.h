@@ -17,7 +17,10 @@
 @property BOOL major;
 @property int tempo;
 @property pieceTonicType pieceKey;
-@property int pieceTime;
+@property double pieceTime;
+@property (nonatomic, strong) NSDate *startPieceDate;
+- (int)updateElapsedTime:(NSDate *)d;
+- (void)resetStartTime;
 
 - (CompoundString *)keyCompoundString;
 

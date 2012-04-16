@@ -14,6 +14,7 @@
 @synthesize subTitle;
 @synthesize description;
 @synthesize otherTime;
+@synthesize startOtherDate;
 
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
@@ -23,6 +24,21 @@
     [self setDescription:[aDecoder decodeObjectForKey:@"description"]];
     [self setOtherTime:[aDecoder decodeIntegerForKey:@"otherTime"]];
     return self;
+}
+
+- (int)updateElapsedTime:(NSDate *)d
+{
+    double time;
+    time = self.otherTime;
+    self.otherTime = time + [d timeIntervalSince1970] - [startOtherDate timeIntervalSince1970];
+    self.startOtherDate = d;
+    return otherTime;
+    
+}
+
+- (void)resetStartTime
+{
+    self.startOtherDate = [NSDate date];
 }
 
 - (id)mutableCopyWithZone:(NSZone *)zone
