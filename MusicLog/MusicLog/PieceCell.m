@@ -63,7 +63,12 @@ static UIImage *_backgroundImage = nil;
         _keyCompoundString = [item keyCompoundString];
     }
     else
+    {
         composer = [item subTitle];
+        mode = @"";
+        _speedLabel = @"";
+        _keyCompoundString = nil;
+    }
     if (_composerLabel != composer) {
         _composerLabel = composer;
     }

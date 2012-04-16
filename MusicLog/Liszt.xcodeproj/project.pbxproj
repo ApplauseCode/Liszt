@@ -193,7 +193,6 @@
 		CE33BA10151E238300A47766 /* menu-section-button.png in Resources */ = {isa = PBXBuildFile; fileRef = CE33BA0E151E238300A47766 /* menu-section-button.png */; };
 		CE33BA11151E238300A47766 /* menu-section-button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CE33BA0F151E238300A47766 /* menu-section-button@2x.png */; };
 		CE48BEC314F31D27002535E5 /* DynamicLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE48BEC014F31D27002535E5 /* DynamicLabel.m */; };
-		CE48BEC414F31D27002535E5 /* StopWatch.m in Sources */ = {isa = PBXBuildFile; fileRef = CE48BEC214F31D27002535E5 /* StopWatch.m */; };
 		CE510092150BE50B00B56D91 /* Rhyth.otf in Resources */ = {isa = PBXBuildFile; fileRef = CE510090150BE05B00B56D91 /* Rhyth.otf */; };
 		CE598BD61518FFAD00B3BDB7 /* HistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE598BD51518FFAD00B3BDB7 /* HistoryViewController.m */; };
 		CE598BD91519012600B3BDB7 /* HistoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE598BD81519012600B3BDB7 /* HistoryViewController.xib */; };
@@ -447,8 +446,6 @@
 		CE33BA0F151E238300A47766 /* menu-section-button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu-section-button@2x.png"; sourceTree = "<group>"; };
 		CE48BEBF14F31D27002535E5 /* DynamicLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DynamicLabel.h; sourceTree = "<group>"; };
 		CE48BEC014F31D27002535E5 /* DynamicLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DynamicLabel.m; sourceTree = "<group>"; };
-		CE48BEC114F31D27002535E5 /* StopWatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StopWatch.h; sourceTree = "<group>"; };
-		CE48BEC214F31D27002535E5 /* StopWatch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StopWatch.m; sourceTree = "<group>"; };
 		CE510090150BE05B00B56D91 /* Rhyth.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Rhyth.otf; path = ../Rhyth.otf; sourceTree = "<group>"; };
 		CE598BD41518FFAD00B3BDB7 /* HistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryViewController.h; sourceTree = "<group>"; };
 		CE598BD51518FFAD00B3BDB7 /* HistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryViewController.m; sourceTree = "<group>"; };
@@ -803,8 +800,6 @@
 				BA37B8521482D56E00C41484 /* SectionInfo.m */,
 				BA26622214ABAF4200D9F3F6 /* Metronome.h */,
 				BA26622314ABAF4200D9F3F6 /* Metronome.m */,
-				CE48BEC114F31D27002535E5 /* StopWatch.h */,
-				CE48BEC214F31D27002535E5 /* StopWatch.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -1142,7 +1137,6 @@
 				BACA58D214E866200054A634 /* BlockAlertView.m in Sources */,
 				CE98858F14EC8B5000E8FA90 /* SessionStore.m in Sources */,
 				CE48BEC314F31D27002535E5 /* DynamicLabel.m in Sources */,
-				CE48BEC414F31D27002535E5 /* StopWatch.m in Sources */,
 				BA44684114F92E0400AE0A0D /* NSMutableOrderedSet+DeepCopy.m in Sources */,
 				BA19768214F95AC000085FAD /* CustomSegment.m in Sources */,
 				CECCE171150CF1650084B147 /* LisztCell.m in Sources */,

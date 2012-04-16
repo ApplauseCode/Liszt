@@ -24,7 +24,6 @@
 #import "TimerCell.h"
 #import "UIColor+YellowTextColor.h"
 #import "BlockAlertView.h"
-#import "StopWatch.h"
 #import "ContainerViewController.h"
 #import "HistoryViewController.h"
 #import "NotesPickerVC.h"
@@ -80,7 +79,6 @@
 @synthesize metro;
 @synthesize tCell;
 @synthesize shouldDisplayTime;
-@synthesize stopWatch;
 @synthesize theObserver;
 @synthesize isTiming;
 @synthesize sectionMover;
@@ -139,7 +137,6 @@
     [[UIAccelerometer sharedAccelerometer] setDelegate:self];
     [self setDimScreenTimer:[NSTimer scheduledTimerWithTimeInterval:30 target:self selector:@selector(dimTimerFire:) userInfo:nil repeats:NO]];
     [(StatsView *) self.view setDelegate:self];
-    //stopWatch = [[StopWatch alloc] init];
     isTiming = NO;
     [selSessionDisplay setFont:[UIFont fontWithName:@"ACaslonPro-Regular" size:22]];
     [selSessionDisplay setTextColor:[UIColor yellowTextColor]];
@@ -203,15 +200,6 @@
             [itemInfo setIsOther:YES];
         [sectionInfoArray addObject:itemInfo];
     }
-    /* FIX THIS */
-//    for (int i = 0; i < [[selectedSession otherSession] count]; i++)
-//    {
-//        SectionInfo *otherInfo = [[SectionInfo alloc] init];
-//        [otherInfo setTitle:[[[selectedSession otherSession] objectAtIndex:i] title]];
-//        [otherInfo setCountofRowsToInsert:1];
-//        [otherInfo setIsOther:YES];
-//        [sectionInfoArray addObject:otherInfo];
-//    }
     if ([selectedSession sessionNotes])
     {
         SectionInfo *notes = [[SectionInfo alloc] init];
@@ -398,10 +386,9 @@
                 [metronomeView setCenter:CGPointMake(theCenter.x, UP_CENTER_Y)];
             } completion:^(BOOL finished) {
                 [self setMetronomeScreenTimer:[NSTimer scheduledTimerWithTimeInterval:4 target:self selector:@selector(metronomeTimerFire:) userInfo:nil repeats:NO]];
-                //if (woodenMetronome.center.y > TOPWOODCENTER)
-                    [UIView animateWithDuration:0.5 animations:^{
-                        [woodenMetronome setCenter:CGPointMake(woodenMetronome.center.x,TOPWOODCENTER)];
-                    }];
+                [UIView animateWithDuration:0.5 animations:^{
+                    [woodenMetronome setCenter:CGPointMake(woodenMetronome.center.x,TOPWOODCENTER)];
+                }];
             }];
 
         }
@@ -560,7 +547,6 @@
 - (void)cellSelectedAtIndex:(NSInteger)index
 {
     id vc;
-    //SectionInfo *notesInfo;
     switch (index) {
         case 0:
             vc = [[ScalePickerVC alloc] initWithIndex:0 editPage:NO];
@@ -628,7 +614,6 @@
         [self setIsUpdatingTime:NO];
         [sender setImage:[UIImage imageNamed:@"StartTimer.png"] forState:UIControlStateNormal];
     }
-    //[self toggleTimer:openSectionIndex];
 }
 
 - (void)accelerometer:(UIAccelerometer *)accelerometer didAccelerate:(UIAcceleration *)acceleration
@@ -683,59 +668,12 @@
         }
         NSString *timeString = [NSString timeStringFromInt:[selectedSession calculateTotalTime]];
         [totalTime setText:timeString];
-        [statsTable reloadData];
+        [statsTable reloadSections:[NSIndexSet indexSetWithIndex:openSectionIndex] withRowAnimation:UITableViewRowAnimationNone];
     }
 }
 
-//- (void)toggleTimer:(int)section
-//{
-//    id observer = [[SessionStore defaultStore] mySession];
-//    NSString *context;
-//    if (section == 0)
-//        context = @"scaleTime";
-//    else if (section == 1)
-//        context = @"arpeggioTime";
-//    else
-//    {
-//        
-//        observer = [[observer pieceSession] objectAtIndex:(section - 2)];
-//        if ([observer isKindOfClass:[Piece class]])
-//            context = @"pieceTime";
-//        else
-//            context = @"otherTime";
-//    }
-//    if (!isTiming)
-//    {
-//        [stopWatch addObserver:observer forKeyPath:@"totalSeconds" options:NSKeyValueObservingOptionNew context:(__bridge void *)context];
-//        [observer addObserver:self
-//                    forKeyPath:context
-//                       options:NSKeyValueObservingOptionNew
-//                       context:nil];
-//        
-//        [self setTheObserver:observer];
-//        [self setIsTiming:YES];
-//    }
-//    else
-//    {
-//        [stopWatch removeObserver:observer forKeyPath:@"totalSeconds" context:(__bridge void *)context];
-//        [observer removeObserver:self forKeyPath:context];
-//        [self setTheObserver:nil];
-//        [self setIsTiming:NO];
-//    }
-//}
-//
-//- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
-//{
-//    NSString *timeString = [NSString timeStringFromInt:[selectedSession calculateTotalTime]];
-//    [totalTime setText:timeString];
-//    [statsTable reloadData];
-//
-//}
-
 - (void)stopAllTimers
 {
-    //if (isTiming)
-        //[self timerButtonPressed:timerButton];
     [stopWatchTimer invalidate];
     [dimScreenTimer invalidate];
     [metronomeScreenTimer invalidate];
@@ -1094,8 +1032,6 @@
     if (previousOpenSectionIndex != NSNotFound) {
         SectionInfo *previousOpenSection = [self.sectionInfoArray objectAtIndex:previousOpenSectionIndex];
         [previousOpenSection.headerView turnDownDisclosure:NO];
-        //if (currentPractice && isTiming)
-            //[self toggleTimer:previousOpenSectionIndex];
         if (currentPractice && tickingItem)
             [self timerButtonPressed:timerButton];
 

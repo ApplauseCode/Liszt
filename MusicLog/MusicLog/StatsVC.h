@@ -26,7 +26,6 @@
 
 @interface StatsVC : UIViewController <UITableViewDelegate, UITableViewDataSource, SectionHeaderViewDelegate, UIGestureRecognizerDelegate, UIScrollViewDelegate, CustomStepperDelegate, UIAlertViewDelegate, StatsViewDelegate, CustomSectionMoveDelegate, UITextViewDelegate, PopupVCDelegate, ACchooserDelegate, MetronomeDelegate, UIAccelerometerDelegate>
 
-@property (nonatomic, strong) StopWatch *stopWatch;
 @property (nonatomic, assign) CGFloat screenBrightness;
 @property (nonatomic, assign)   NSUInteger tempo;
 @property (nonatomic, strong)   Session *selectedSession;
@@ -74,7 +73,6 @@
 - (void)closeSections;
 - (void)sectionOpened:(NSInteger)section;
 - (void)sectionClosed:(NSInteger)section;
-- (void)toggleTimer:(int)section;
 - (void)timerButtonPressed:(id)sender;
 //- (void)getRidOfNotes:(id)sender;
 - (void)dimTimerFire:(NSTimer*)theTimer;
