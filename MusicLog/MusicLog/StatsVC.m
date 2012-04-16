@@ -882,7 +882,6 @@
 {
     Session *s = [[SessionStore defaultStore] mySession];
 	SectionInfo *sectionInfo = [self.sectionInfoArray objectAtIndex:section];
-    NSLog(@"section %i isNotes %i", section, [sectionInfo isNotes]);
     if (![sectionInfo isNotes])
     {
         NSString *sectionName = sectionInfo.title;
@@ -1089,7 +1088,6 @@
         for (NSInteger i = 0; i <= [sectionInfo countofRowsToInsert]; i++)
             [indexPathsToInsert addObject:[NSIndexPath indexPathForRow:i inSection:section]];
         [self setupTimerCellForSection:section];
-        [timerButton setImage:[UIImage imageNamed:@"StartTimer.png"] forState:UIControlStateNormal];
     } else if ([sectionInfo countofRowsToInsert] > 0 && !currentPractice) {
         for (NSInteger i = 0; i < [sectionInfo countofRowsToInsert]; i++)
             [indexPathsToInsert addObject:[NSIndexPath indexPathForRow:i inSection:section]];
@@ -1100,7 +1098,9 @@
         [previousOpenSection.headerView turnDownDisclosure:NO];
         //if (currentPractice && isTiming)
             //[self toggleTimer:previousOpenSectionIndex];
-		
+        if (currentPractice && tickingItem)
+            [self timerButtonPressed:timerButton];
+
         [previousOpenSection setOpen:NO];
         NSInteger countOfRowsToDelete = [previousOpenSection countofRowsToInsert];
         if ([previousOpenSection isNotes])
@@ -1119,6 +1119,7 @@
     [statsTable deleteRowsAtIndexPaths:indexPathsToDelete withRowAnimation:UITableViewRowAnimationAutomatic];
     [statsTable insertRowsAtIndexPaths:indexPathsToInsert withRowAnimation:UITableViewRowAnimationAutomatic];
     [statsTable endUpdates];
+    [timerButton setImage:[UIImage imageNamed:@"StartTimer.png"] forState:UIControlStateNormal];
     if (section > 1 && ![[statsTable visibleCells] containsObject: 
                          [statsTable cellForRowAtIndexPath:
                           [NSIndexPath indexPathForRow:[statsTable numberOfRowsInSection:section] -1 inSection:section]]])
@@ -1132,8 +1133,8 @@
     SectionInfo *sectionInfo = [self.sectionInfoArray objectAtIndex:section];
     [sectionInfo.headerView turnDownDisclosure:NO];
     [sectionInfo setOpen:NO];
-    //if (currentPractice && isTiming)
-        //[self toggleTimer:section];
+    if (currentPractice && tickingItem)
+        [self timerButtonPressed:timerButton];
     
     NSInteger countofRowsToDelete = [statsTable numberOfRowsInSection:section];
     if (countofRowsToDelete > 0) {
