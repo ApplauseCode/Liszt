@@ -13,13 +13,16 @@
 @property (nonatomic, strong) NSMutableOrderedSet *scaleSession;
 @property (nonatomic, strong) NSMutableOrderedSet *arpeggioSession;
 @property (nonatomic, strong) NSMutableOrderedSet *pieceSession;
-@property (nonatomic) int scaleTime;
-@property (nonatomic) int arpeggioTime;
+@property (nonatomic) double scaleTime;
+@property (nonatomic) double arpeggioTime;
 @property (nonatomic, strong) NSString *sessionNotes;
 @property (nonatomic, strong) NSDate *date;
+@property (nonatomic, strong) NSDate *startScaleDate, *startArpeggioDate;
 
 - (id)initWithScales:(NSMutableOrderedSet *)scaleSet
            arpeggios:(NSMutableOrderedSet *)arpeggioSet
               pieces:(NSMutableOrderedSet *)pieceSet;
 - (NSInteger)calculateTotalTime;
+- (int)updateElapsedTime:(NSDate *)d forIndex:(NSInteger)idx;
+- (void) resetStartTime:(NSInteger)idx;
 @end

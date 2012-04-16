@@ -41,14 +41,20 @@
 @property (nonatomic, strong) IBOutlet UIImageView *metronomeTicker;
 @property (strong, nonatomic) IBOutlet UIView *woodenMetronome;
 @property (strong, nonatomic) NSTimer *metronomeScreenTimer;
+@property (strong, nonatomic) NSTimer *stopWatchTimer;
+@property (assign, nonatomic) BOOL isUpdatingTime; 
+@property (nonatomic, strong) id tickingItem;
 
 - (void)handlePan:(UIPanGestureRecognizer *)gesture;
 - (void)handleMetroPan:(UIPanGestureRecognizer *)recognizer;
 - (void)setupSectionInfoArray;
+- (void)stopWatchTick:(NSTimer *)timer;
 
 @end
 
 @implementation StatsVC
+@synthesize tickingItem;
+@synthesize isUpdatingTime;
 @synthesize notesCell;
 @synthesize metronomeScreenTimer;
 @synthesize screenBrightness;
@@ -85,6 +91,7 @@
 @synthesize metroPanGestureRecognizer;
 @synthesize slideBack;
 @synthesize tempoChooser;
+@synthesize stopWatchTimer;
 
 #pragma mark - View lifecycle
 
@@ -113,6 +120,8 @@
         selectedSession = [[SessionStore defaultStore] mySession];
         currentPractice = YES;
         panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePan:)];
+
+
     }
     return self;
 }
@@ -121,12 +130,18 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    NSRunLoop *runLoop = [NSRunLoop currentRunLoop];
+    stopWatchTimer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(stopWatchTick:) userInfo:nil repeats:YES];
+    [runLoop addTimer:stopWatchTimer forMode:NSRunLoopCommonModes];
+    [runLoop addTimer:stopWatchTimer forMode:UITrackingRunLoopMode];
+    
     UIScreen *screen = [UIScreen mainScreen];
     [self setScreenBrightness:[screen brightness]];
     [[UIAccelerometer sharedAccelerometer] setDelegate:self];
     [self setDimScreenTimer:[NSTimer scheduledTimerWithTimeInterval:30 target:self selector:@selector(dimTimerFire:) userInfo:nil repeats:NO]];
     [(StatsView *) self.view setDelegate:self];
-    stopWatch = [[StopWatch alloc] init];
+    //stopWatch = [[StopWatch alloc] init];
     isTiming = NO;
     [selSessionDisplay setFont:[UIFont fontWithName:@"ACaslonPro-Regular" size:22]];
     [selSessionDisplay setTextColor:[UIColor yellowTextColor]];
@@ -591,13 +606,32 @@
 
 - (void)timerButtonPressed:(id)sender
 {
+    
+
     if ([[sender imageForState:UIControlStateNormal] isEqual:[UIImage imageNamed:@"StartTimer.png"]])
     {
+        self.tickingItem = [[SessionStore defaultStore] mySession];
+        switch (openSectionIndex) {
+            case 0:
+                [self.tickingItem resetStartTime:0];
+                break;
+            case 1:
+                [self.tickingItem resetStartTime:1];
+                
+            default:
+                self.tickingItem = [[self.tickingItem pieceSession] objectAtIndex:(openSectionIndex - 2)];
+                break;
+        }
+        [self setIsUpdatingTime:YES];
         [sender setImage:[UIImage imageNamed:@"StopTimer.png"] forState:UIControlStateNormal];
     }
     else if ([[sender imageForState:UIControlStateNormal] isEqual:[UIImage imageNamed:@"StopTimer.png"]])
+    {
+        self.tickingItem = nil;
+        [self setIsUpdatingTime:NO];
         [sender setImage:[UIImage imageNamed:@"StartTimer.png"] forState:UIControlStateNormal];
-    [self toggleTimer:openSectionIndex];
+    }
+    //[self toggleTimer:openSectionIndex];
 }
 
 - (void)accelerometer:(UIAccelerometer *)accelerometer didAccelerate:(UIAcceleration *)acceleration
@@ -635,60 +669,77 @@
     [self setDimScreenTimer:[NSTimer scheduledTimerWithTimeInterval:30 target:self selector:@selector(dimTimerFire:) userInfo:nil repeats:NO]];
     
     // allow user to tap near the bottom without triggering the empty part of the grabber view
-//    if (CGRectContainsPoint(metronomeView.frame, point) && !CGRectContainsPoint(metronomeGrabber.frame, point))
-//        return [self statsTable];
+    //    if (CGRectContainsPoint(metronomeView.frame, point) && !CGRectContainsPoint(metronomeGrabber.frame, point))
+    //        return [self statsTable];
     return nil;
 }
 
-- (void)toggleTimer:(int)section
+- (void)stopWatchTick:(NSTimer *)timer
 {
-    id observer = [[SessionStore defaultStore] mySession];
-    NSString *context;
-    if (section == 0)
-        context = @"scaleTime";
-    else if (section == 1)
-        context = @"arpeggioTime";
-    else
+    if (self.tickingItem)
     {
-        
-        observer = [[observer pieceSession] objectAtIndex:(section - 2)];
-        if ([observer isKindOfClass:[Piece class]])
-            context = @"pieceTime";
+        if (openSectionIndex < 2)
+            [self.tickingItem updateElapsedTime:[NSDate date] forIndex:openSectionIndex];
         else
-            context = @"otherTime";
-    }
-    if (!isTiming)
-    {
-        [stopWatch addObserver:observer forKeyPath:@"totalSeconds" options:NSKeyValueObservingOptionNew context:(__bridge void *)context];
-        [observer addObserver:self
-                    forKeyPath:context
-                       options:NSKeyValueObservingOptionNew
-                       context:nil];
-        
-        [self setTheObserver:observer];
-        [self setIsTiming:YES];
-    }
-    else
-    {
-        [stopWatch removeObserver:observer forKeyPath:@"totalSeconds" context:(__bridge void *)context];
-        [observer removeObserver:self forKeyPath:context];
-        [self setTheObserver:nil];
-        [self setIsTiming:NO];
+        {
+            
+        }
+        NSString *timeString = [NSString timeStringFromInt:[selectedSession calculateTotalTime]];
+        [totalTime setText:timeString];
+        [statsTable reloadData];
     }
 }
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
-{
-    NSString *timeString = [NSString timeStringFromInt:[selectedSession calculateTotalTime]];
-    [totalTime setText:timeString];
-    [statsTable reloadData];
-
-}
+//- (void)toggleTimer:(int)section
+//{
+//    id observer = [[SessionStore defaultStore] mySession];
+//    NSString *context;
+//    if (section == 0)
+//        context = @"scaleTime";
+//    else if (section == 1)
+//        context = @"arpeggioTime";
+//    else
+//    {
+//        
+//        observer = [[observer pieceSession] objectAtIndex:(section - 2)];
+//        if ([observer isKindOfClass:[Piece class]])
+//            context = @"pieceTime";
+//        else
+//            context = @"otherTime";
+//    }
+//    if (!isTiming)
+//    {
+//        [stopWatch addObserver:observer forKeyPath:@"totalSeconds" options:NSKeyValueObservingOptionNew context:(__bridge void *)context];
+//        [observer addObserver:self
+//                    forKeyPath:context
+//                       options:NSKeyValueObservingOptionNew
+//                       context:nil];
+//        
+//        [self setTheObserver:observer];
+//        [self setIsTiming:YES];
+//    }
+//    else
+//    {
+//        [stopWatch removeObserver:observer forKeyPath:@"totalSeconds" context:(__bridge void *)context];
+//        [observer removeObserver:self forKeyPath:context];
+//        [self setTheObserver:nil];
+//        [self setIsTiming:NO];
+//    }
+//}
+//
+//- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+//{
+//    NSString *timeString = [NSString timeStringFromInt:[selectedSession calculateTotalTime]];
+//    [totalTime setText:timeString];
+//    [statsTable reloadData];
+//
+//}
 
 - (void)stopAllTimers
 {
-    if (isTiming)
-        [self timerButtonPressed:timerButton];
+    //if (isTiming)
+        //[self timerButtonPressed:timerButton];
+    [stopWatchTimer invalidate];
     [dimScreenTimer invalidate];
     [metronomeScreenTimer invalidate];
 
@@ -1048,8 +1099,8 @@
     if (previousOpenSectionIndex != NSNotFound) {
         SectionInfo *previousOpenSection = [self.sectionInfoArray objectAtIndex:previousOpenSectionIndex];
         [previousOpenSection.headerView turnDownDisclosure:NO];
-        if (currentPractice && isTiming)
-            [self toggleTimer:previousOpenSectionIndex];
+        //if (currentPractice && isTiming)
+            //[self toggleTimer:previousOpenSectionIndex];
 		
         [previousOpenSection setOpen:NO];
         NSInteger countOfRowsToDelete = [previousOpenSection countofRowsToInsert];
@@ -1082,8 +1133,8 @@
     SectionInfo *sectionInfo = [self.sectionInfoArray objectAtIndex:section];
     [sectionInfo.headerView turnDownDisclosure:NO];
     [sectionInfo setOpen:NO];
-    if (currentPractice && isTiming)
-        [self toggleTimer:section];
+    //if (currentPractice && isTiming)
+        //[self toggleTimer:section];
     
     NSInteger countofRowsToDelete = [statsTable numberOfRowsInSection:section];
     if (countofRowsToDelete > 0) {

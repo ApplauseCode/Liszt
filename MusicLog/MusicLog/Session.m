@@ -14,9 +14,9 @@
 @implementation Session
 
 @synthesize scaleSession,       scaleTime,      sessionNotes;
+@synthesize date,               startScaleDate, startArpeggioDate;
 @synthesize arpeggioSession,    arpeggioTime;
 @synthesize pieceSession;
-@synthesize date;
 
 - (id)initWithScales:(NSMutableOrderedSet *)scaleSet
            arpeggios:(NSMutableOrderedSet *)arpeggioSet
@@ -45,6 +45,39 @@
 - (id)init
 {
     return [self initWithScales:nil arpeggios:nil pieces:nil];
+}
+
+- (void) resetStartTime:(NSInteger)idx
+{
+    if (idx) {
+        startArpeggioDate = [NSDate date];
+    }
+    else {
+        startScaleDate = [NSDate date];
+    }
+}
+
+- (int)updateElapsedTime:(NSDate *)d forIndex:(NSInteger)idx
+{
+    double time;
+    switch (idx) {
+        case 0:
+            time = self.scaleTime;
+            self.scaleTime = time + [d timeIntervalSince1970] - [startScaleDate timeIntervalSince1970];
+            self.startScaleDate = d;
+            return scaleTime;
+            break;
+        case 1:
+            time = self.arpeggioTime;
+            self.arpeggioTime = time + [d timeIntervalSince1970] - [startArpeggioDate timeIntervalSince1970];
+            self.startArpeggioDate = d;
+            return arpeggioTime;
+            break;
+        default:
+            NSLog(@"idx must be 0 (scale) or 1 (arpeggio)");
+            break;
+    }
+    return 0; // To keep compiler from compaining.
 }
 
 - (NSInteger)calculateTotalTime

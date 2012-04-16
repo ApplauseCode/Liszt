@@ -70,7 +70,7 @@
 {
     [self checkDate];
     [statsVC setScreenBrightness:[statsVC screenBrightness]];
-    [[statsVC stopWatch] restartTimer];
+    //[[statsVC stopWatch] restartTimer];
     [statsVC setDimScreenTimer:[NSTimer scheduledTimerWithTimeInterval:30 target:statsVC selector:@selector(dimTimerFire:) userInfo:nil repeats:NO]];
     [idleScreenTimer invalidate];
     idleScreenTimer = [NSTimer scheduledTimerWithTimeInterval:30 target:self selector:@selector(timerFireMethod:) userInfo:nil repeats:YES];
@@ -128,14 +128,15 @@
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {
-    [statsVC stopAllTimers];
-    [idleScreenTimer invalidate];
-    [[[statsVC stopWatch] timer] invalidate];
-    NSLog(@"this is a log");
+   
+      // NSLog(@"this is a log");
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
+    [idleScreenTimer invalidate];
+    //[[[statsVC stopWatch] timer] invalidate];
+    [statsVC stopAllTimers];
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH,0);
     dispatch_async(queue, ^{
         [[SessionStore defaultStore] saveChanges];
