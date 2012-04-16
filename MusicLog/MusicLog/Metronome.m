@@ -37,7 +37,7 @@ double chooseBPM(double bpm)
     if (self)
     {
         NSBundle *mainBundle = [NSBundle mainBundle];   
-        // added GCD
+        // Use GCD so that startup time isn't delayed
         dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0);
         dispatch_async(queue, ^{
             NSURL *tickURL = [NSURL fileURLWithPath:[mainBundle pathForResource:@"tick5" ofType:@"aif"]];
@@ -45,7 +45,8 @@ double chooseBPM(double bpm)
             [tickPlayer prepareToPlay];
             [self setIsPlaying:NO];
         });
-
+        // Keep sound even when phone is muted
+        [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:NULL];
     }
     return self;
 }
@@ -65,7 +66,6 @@ double chooseBPM(double bpm)
     bpm =  chooseBPM(tempo);
     
     tempoTimer = [[NSTimer alloc] initWithFireDate:[NSDate dateWithTimeIntervalSinceNow:bpm] interval:bpm target:self selector:@selector(tempoTimerFireMethod:) userInfo:nil repeats:YES];
-    //[[self delegate] metronomeWillStartWithInterval:bpm];
     [[NSRunLoop mainRunLoop] addTimer:tempoTimer forMode:NSRunLoopCommonModes];
     [self setIsPlaying:YES];
 }

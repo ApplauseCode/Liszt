@@ -120,8 +120,6 @@
         selectedSession = [[SessionStore defaultStore] mySession];
         currentPractice = YES;
         panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePan:)];
-
-
     }
     return self;
 }
@@ -606,7 +604,7 @@
 
 - (void)timerButtonPressed:(id)sender
 {
-    if ([[sender imageForState:UIControlStateNormal] isEqual:[UIImage imageNamed:@"StartTimer.png"]])
+    if (!tickingItem)
     {
         self.tickingItem = [[SessionStore defaultStore] mySession];
         switch (openSectionIndex) {
@@ -624,7 +622,7 @@
         [self setIsUpdatingTime:YES];
         [sender setImage:[UIImage imageNamed:@"StopTimer.png"] forState:UIControlStateNormal];
     }
-    else if ([[sender imageForState:UIControlStateNormal] isEqual:[UIImage imageNamed:@"StopTimer.png"]])
+    else
     {
         self.tickingItem = nil;
         [self setIsUpdatingTime:NO];
