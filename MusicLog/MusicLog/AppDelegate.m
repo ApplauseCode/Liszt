@@ -17,7 +17,6 @@
 #import "SectionInfo.h"
 #import "HistoryViewController.h"
 #import "ContainerViewController.h"
-#import "StopWatch.h"
 
 @interface AppDelegate()
 @property (nonatomic, strong) StatsVC *statsVC;

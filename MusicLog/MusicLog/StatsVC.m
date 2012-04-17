@@ -128,7 +128,7 @@
     [super viewDidLoad];
     
     NSRunLoop *runLoop = [NSRunLoop currentRunLoop];
-    stopWatchTimer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(stopWatchTick:) userInfo:nil repeats:YES];
+    stopWatchTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(stopWatchTick:) userInfo:nil repeats:YES];
     [runLoop addTimer:stopWatchTimer forMode:NSRunLoopCommonModes];
     [runLoop addTimer:stopWatchTimer forMode:UITrackingRunLoopMode];
     
@@ -668,7 +668,7 @@
         }
         NSString *timeString = [NSString timeStringFromInt:[selectedSession calculateTotalTime]];
         [totalTime setText:timeString];
-        [statsTable reloadSections:[NSIndexSet indexSetWithIndex:openSectionIndex] withRowAnimation:UITableViewRowAnimationNone];
+        [statsTable reloadData];
     }
 }
 

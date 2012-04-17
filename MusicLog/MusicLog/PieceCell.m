@@ -83,7 +83,8 @@ static UIImage *_backgroundImage = nil;
 {
     [super drawContentView:r];
     [_backgroundImage drawInRect:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
-    [_composerLabel drawAtPoint:CGPointMake(kLeftMargin, kTopMargin)
+    CGSize composerWidth = [_composerLabel sizeWithFont:[self defaultLargeFont]];
+    [_composerLabel drawAtPoint:CGPointMake((self.frame.size.width / 2.0) - (composerWidth.width / 2.0), kTopMargin)
                        forWidth:260 withFont:[self defaultLargeFont]
                   lineBreakMode:UILineBreakModeTailTruncation];
     [_speedLabel drawAtPoint:CGPointMake(kLeftMargin, kBottomMargin + 2) 
