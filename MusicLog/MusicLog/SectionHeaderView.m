@@ -97,21 +97,6 @@ static UIImage *_disclosureImage = nil;
     [self.delegate sectionTapped:self.section];
 }
 
-- (void)toggleSwipe:(id)sender
-{
-    [[self delegate] sectionSwiped:self.section];
-    [deleteView setHidden:NO];
-    [UIView animateWithDuration:0.2 animations:^{        
-        // Move the side swipe view to offset 0
-        deleteView.frame = CGRectMake(self.frame.size.width, 0, deleteView.frame.size.width, deleteView.frame.size.height);
-        // While simultaneously moving the cell's frame offscreen
-        // The net effect is that the side swipe view is pushing the cell offscreen
-        self.frame = CGRectMake(-self.frame.size.width, self.frame.origin.y, self.frame.size.width, self.frame.size.height);
-    } completion:^(BOOL finished) {
-        [[self tapGesture] setEnabled:NO];
-    }];
-}
-
 - (BOOL)canPerformAction:(SEL)action withSender:(id)sender
 {
     if (action == @selector(deleteCell:))
@@ -136,11 +121,6 @@ static UIImage *_disclosureImage = nil;
         [deleteMenu setMenuVisible:YES animated:YES];
     }
 }
-//
-- (void)addNotes:(id)sender
-{
-//    [[self delegate] displayNotesViewForSection:self.section headerView:self];
-}
 
 - (void)cancelDelete:(id)sender
 {
@@ -153,17 +133,9 @@ static UIImage *_disclosureImage = nil;
         [[self tapGesture] setEnabled:YES];
     }];
 }
-//
 - (void)deleteCell:(id)sender
 {
     [[self delegate] deleteSection:self.section];
 }
-//
-//- (void)toggleLongTap:(UILongPressGestureRecognizer *)sender
-//{
-//    if (sender.state == UIGestureRecognizerStateBegan)
-//        [[self delegate] moveSection:self.section headerView:self];
-//}
-
 
 @end

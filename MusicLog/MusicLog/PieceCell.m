@@ -13,6 +13,7 @@
 
 #define kLeftMargin 40
 #define kTopMargin 5
+#define kMiddleMargin 14
 #define kBottomMargin 23
 #define kRightMargin 190
 
@@ -83,19 +84,28 @@ static UIImage *_backgroundImage = nil;
 {
     [super drawContentView:r];
     [_backgroundImage drawInRect:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
-    CGSize composerWidth = [_composerLabel sizeWithFont:[self defaultLargeFont]];
-    [_composerLabel drawAtPoint:CGPointMake((self.frame.size.width / 2.0) - (composerWidth.width / 2.0), kTopMargin)
-                       forWidth:260 withFont:[self defaultLargeFont]
-                  lineBreakMode:UILineBreakModeTailTruncation];
     [_speedLabel drawAtPoint:CGPointMake(kLeftMargin, kBottomMargin + 2) 
                     forWidth:200 
-                    withFont:[self defaultSmallFont] 
+                    withFont:[self defaultLargeFont] 
                lineBreakMode:UILineBreakModeTailTruncation];
-    [_keyCompoundString drawAtPoint:CGPointMake(kRightMargin, kBottomMargin)];
-    [_modeLabel drawAtPoint:CGPointMake(kRightMargin + 30, kBottomMargin)
-                   forWidth:135
+    CGSize speedSize = [_speedLabel sizeWithFont:[self defaultSmallFont]];
+    
+    CGSize composerWidth = [_composerLabel sizeWithFont:[self defaultLargeFont]];
+    [_composerLabel drawAtPoint:CGPointMake(kLeftMargin, kTopMargin)
+                       forWidth:260 withFont:[self defaultLargeFont]
+                  lineBreakMode:UILineBreakModeTailTruncation];
+    
+    CGSize modeSize = [_modeLabel sizeWithFont:[self defaultLargeFont]];
+    NSInteger rightMargin = self.frame.size.width - kLeftMargin;
+    NSInteger modeXVal = rightMargin - modeSize.width;
+    [_modeLabel drawAtPoint:CGPointMake(modeXVal, kMiddleMargin + 2)
+                   forWidth:modeSize.width
                    withFont:[self defaultLargeFont]
-              lineBreakMode:UILineBreakModeTailTruncation];        
+              lineBreakMode:UILineBreakModeTailTruncation]; 
+    
+    [_keyCompoundString drawAtPoint:CGPointMake(modeXVal - 30, kMiddleMargin + 2)];
+    
+
 }
 
 

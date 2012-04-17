@@ -155,14 +155,23 @@
 {
     sessions = [[NSMutableArray alloc] init];
     mySession = [[Session alloc] init];
-    [mySession setDate:[SessionStore getForDays:-3 fromDate:[NSDate date]]];
+    Other *testOther = [[Other alloc] init];
+    [testOther setTitle:@"other title"];
+    [testOther setSubTitle:@"sub"];
+    [testOther setOtherTime:10];
+    Piece *testPiece = [[Piece alloc] init];
+    [testPiece setTitle:@"test piece"];
+    [testPiece setComposer:@"Beet"];
+    [testPiece setPieceTime:20];
+    [mySession setPieceSession:[NSMutableOrderedSet orderedSetWithObjects:testOther, testPiece, nil]];
+    [mySession setDate:[SessionStore getForDays:-1 fromDate:[NSDate date]]];
     
     NSArray *pieceNames = [NSArray arrayWithObjects:@"Waltz", @"Etude", @"Danse", @"Song", @"Prelude", @"Polonaise", @"Sonata", @"Concerto", @"Symphony", nil];
     NSArray *pieceNumbers = [NSArray arrayWithObjects:@" No.1", @" No.2", @" No.3", @" No. 4", @" No. 5", @" No. 6", @" No. 7", @" No. 8", @" No. 9", @" No. 10", nil];
     NSArray *composers = [NSArray arrayWithObjects:@"Chopin", @"Handel", @"Bach", @"Monk", @"Brubeck", @"Malmstein", @"Beethoven", @"Tchaikovsky", @"Debussy", @"Faure", @"Satie", @"Mussourgsky", @"Liszt", @"Marselis", @"Coltrane", nil];
                         
     
-    for (int i = 500; i > 3; i--)
+    for (int i = 500; i > 1; i--)
     {
         NSMutableOrderedSet *scaleSet = [[NSMutableOrderedSet alloc] initWithCapacity:20];
         NSMutableOrderedSet *arpeggioSet = [[NSMutableOrderedSet alloc] initWithCapacity:20];

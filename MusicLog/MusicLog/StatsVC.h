@@ -11,7 +11,6 @@
 #import "CustomStepper.h"
 #import <AVFoundation/AVFoundation.h>
 #import "StatsView.h"
-#import "CustomSectionMove.h"
 #import "PopupVC.h"
 #import "ACchooser.h"
 #import "Metronome.h"
@@ -24,7 +23,7 @@
 @class PopupVC;
 @class StopWatch;
 
-@interface StatsVC : UIViewController <UITableViewDelegate, UITableViewDataSource, SectionHeaderViewDelegate, UIGestureRecognizerDelegate, UIScrollViewDelegate, CustomStepperDelegate, UIAlertViewDelegate, StatsViewDelegate, CustomSectionMoveDelegate, UITextViewDelegate, PopupVCDelegate, ACchooserDelegate, MetronomeDelegate, UIAccelerometerDelegate>
+@interface StatsVC : UIViewController <UITableViewDelegate, UITableViewDataSource, SectionHeaderViewDelegate, UIGestureRecognizerDelegate, UIScrollViewDelegate, CustomStepperDelegate, UIAlertViewDelegate, StatsViewDelegate, UITextViewDelegate, PopupVCDelegate, ACchooserDelegate, MetronomeDelegate, UIAccelerometerDelegate>
 
 @property (nonatomic, assign) CGFloat screenBrightness;
 @property (nonatomic, assign)   NSUInteger tempo;
@@ -44,8 +43,6 @@
 @property (nonatomic, assign)   BOOL shouldDisplayTime;
 @property (nonatomic, assign)   BOOL isTiming;
 @property (nonatomic, strong)   UILabel *totalTime;
-@property (nonatomic, strong)   CustomSectionMove *sectionMover;
-@property (nonatomic, strong)   SectionHeaderView *swipedHeader;
 @property (nonatomic, strong)   UITextView *notesView;
 @property (nonatomic, strong)   UITapGestureRecognizer *notesTapGesture;
 @property (strong, nonatomic)   UIButton *timerButton;
@@ -74,16 +71,15 @@
 - (void)sectionOpened:(NSInteger)section;
 - (void)sectionClosed:(NSInteger)section;
 - (void)timerButtonPressed:(id)sender;
-//- (void)getRidOfNotes:(id)sender;
 - (void)dimTimerFire:(NSTimer*)theTimer;
 - (void)metronomeTimerFire:(NSTimer*)theTimer;
 - (void)stopAllTimers;
+- (void)startTimers;
 
 
 // Actions
 - (IBAction)startMetronome:(id)sender;
 - (IBAction)showMenu:(id)sender;
-//- (IBAction)presentPickerView:(id)sender;
 - (IBAction)slideRight:(id)sender;
 - (void)slideLeft:(id)sender;
 - (void)showStatsAtIndex:(NSInteger)index;

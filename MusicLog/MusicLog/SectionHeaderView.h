@@ -16,13 +16,9 @@
 @property (nonatomic, weak) id <SectionHeaderViewDelegate> delegate;
 
 -(id)initWithFrame:(CGRect)frame title:(NSString*)title subTitle:(NSString *)subTitle section:(NSInteger)sectionNumber delegate:(id <SectionHeaderViewDelegate>)delegate;
-//-(void)toggleOpenWithUserAction:(BOOL)userAction;
 - (void)setSubTitle:(NSString *)subName;
-- (void)toggleSwipe:(id)sender;
 - (void)toggleLongTap:(UILongPressGestureRecognizer *)sender;
 - (void)cancelDelete:(id)sender;
-//- (void)deleteCell:(id)sender;
-- (void)addNotes:(id)sender;
 - (void)turnDownDisclosure:(BOOL)yesOrNo;
 
 @end
@@ -36,9 +32,5 @@
 @optional
 - (void)sectionTapped:(NSInteger)section;
 - (void)deleteSection:(NSInteger)section;
-- (void)moveSection:(NSInteger)section;
-- (void)sectionSwiped:(NSInteger)section;
-- (void)displayNotesViewForSection:(NSInteger)section;
-
 @end
 

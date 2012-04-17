@@ -81,8 +81,6 @@
 @synthesize shouldDisplayTime;
 @synthesize theObserver;
 @synthesize isTiming;
-@synthesize sectionMover;
-@synthesize swipedHeader;
 @synthesize notesView;
 @synthesize notesTapGesture;
 @synthesize panGestureRecognizer;
@@ -650,9 +648,6 @@
         mainScreen.brightness = [self screenBrightness]; 
     [self setDimScreenTimer:[NSTimer scheduledTimerWithTimeInterval:30 target:self selector:@selector(dimTimerFire:) userInfo:nil repeats:NO]];
     
-    // allow user to tap near the bottom without triggering the empty part of the grabber view
-    //    if (CGRectContainsPoint(metronomeView.frame, point) && !CGRectContainsPoint(metronomeGrabber.frame, point))
-    //        return [self statsTable];
     return nil;
 }
 
@@ -675,8 +670,16 @@
 - (void)stopAllTimers
 {
     [stopWatchTimer invalidate];
+    [timerButton setImage:[UIImage imageNamed:@"StartTimer.png"] forState:UIControlStateNormal];
     [dimScreenTimer invalidate];
     [metronomeScreenTimer invalidate];
+
+}
+
+- (void)startTimers
+{
+    [self.stopWatchTimer invalidate];
+    self.stopWatchTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(stopWatchTick:) userInfo:nil repeats:YES];
 
 }
 
@@ -1085,6 +1088,20 @@
 - (void)deleteSection:(NSInteger)section
 {
     [self becomeFirstResponder];
+    if (section == 0)
+    {
+//        NSMutableArray *cellsToRemove = [[NSMutableArray alloc] init];;
+//        NSOrderedSet *removers;
+//        removers = [[[SessionStore defaultStore] mySession] scaleSession];
+//        for (Scale *s in removers)
+//        {
+//            [
+//        }
+//        cellToRemove = [removers objectAtIndex:[indexPath row] - 1];
+//        [[[[SessionStore defaultStore] mySession] scaleSession] removeObject:cellToRemove];
+//        [[sectionInfoArray objectAtIndex:0] setCountofRowsToInsert:[[selectedSession scaleSession] count]];
+
+    }
     if (section > 1 && currentPractice)
     {
         if ([[sectionInfoArray objectAtIndex:section] isNotes])
@@ -1107,120 +1124,6 @@
             [currentHeader setSection:(currentSection - 1)];
         }
     }
-}
-
-
-
-//- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range 
-// replacementText:(NSString *)text
-//{
-//    if ([text isEqualToString:@"\n"]) {
-//        Session *mySession = [[SessionStore defaultStore] mySession];
-//        [textView resignFirstResponder];
-//        [textView removeFromSuperview];
-//        [notesTapGesture setEnabled:NO];
-//        switch (swipedHeader.section) {
-//            case 0:
-//                [mySession setScaleNotes:[textView text]];
-//                break;
-//            case 1:
-//                [mySession setArpeggioNotes:[textView text]];
-//            default:
-//                [[[mySession pieceSession] objectAtIndex:swipedHeader.section - 2] setPieceNotes:[textView text]];
-//                break;
-//        }
-//        return FALSE;
-//    }
-//    return TRUE;
-//}
-
-- (void)sectionSwiped:(NSInteger)section headerView:(SectionHeaderView *)sectionHeaderView
-{
-    self.swipedHeader = sectionHeaderView;
-}
-
-#pragma mark - Notations
-//- (void)displayNotesViewForSection:(NSInteger)section
-//{
-//    SectionInfo *sectionInfo = [self.sectionInfoArray objectAtIndex:section];
-//    SectionHeaderView *header = [sectionInfo headerView];
-//    CGRect frameOfExcludedArea = [self.view.superview convertRect:header.deleteView.frame fromView:header.deleteView.superview];
-//    CGPoint center = CGPointMake(frameOfExcludedArea.origin.x + (frameOfExcludedArea.size.width / 2),
-//                                 frameOfExcludedArea.origin.y + (frameOfExcludedArea.size.height / 2));
-//    [notesTapGesture addTarget:self action:@selector(getRidOfNotes:)];
-//    [notesTapGesture setEnabled:YES];
-//    [self.view addGestureRecognizer:notesTapGesture];
-//    notesView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, 280, 50)];
-//    [notesView setDelegate:self];
-//    [notesView setCenter:CGPointMake(center.x, center.y - 75)];
-//    Session *mySession = [[SessionStore defaultStore] mySession];
-//    NSString *notesViewText;
-//    switch (swipedHeader.section) {
-//        case 0:
-//            notesViewText = [mySession scaleNotes];
-//            break;
-//        case 1:
-//            notesViewText = [mySession arpeggioNotes];
-//        default:
-//            notesViewText = [[[mySession pieceSession] objectAtIndex:swipedHeader.section - 2] pieceNotes];
-//            break;
-//    }
-//    [notesView setText:notesViewText];
-//    [self.view addSubview:notesView];
-//}
-
-//- (void)getRidOfNotes:(id)sender
-//{
-//    [notesView removeFromSuperview];
-//    [notesTapGesture setEnabled:NO];
-//    Session *mySession = [[SessionStore defaultStore] mySession];
-//    switch (swipedHeader.section) {
-//        case 0:
-//            [mySession setScaleNotes:[notesView text]];
-//            break;
-//        case 1:
-//            [mySession setArpeggioNotes:[notesView text]];
-//        default:
-//            [[[mySession pieceSession] objectAtIndex:swipedHeader.section - 2] setPieceNotes:[notesView text]];
-//            break;
-//    }
-//}
-
-#pragma mark - Reorder Sections
-
-//- (void)moveSection:(NSInteger)section headerView:(SectionHeaderView *)sectionHeaderView
-//{
-//    if (section > 1)
-//    {
-//        sectionMover = [[CustomSectionMove alloc] initWithFrame:[statsTable frame]
-//                                               numberOfSections:[statsTable numberOfSections]
-//                                                heightOfSection:[statsTable sectionHeaderHeight]];
-//        [sectionMover setOldSection:section];
-//        [sectionMover setDelegate:self];
-//        [self.view addSubview:sectionMover];
-//    }
-//}
-
-- (void)sectionMoveLocationSelected:(NSInteger)section
-{
-//    if (section > 1)
-//    {
-//        [[[sectionInfoArray objectAtIndex:[sectionMover oldSection]] headerView] setSection:section];
-//        NSInteger largerSection = MAX([sectionMover oldSection], section);
-//        NSInteger smallerSection = MIN([sectionMover oldSection], section);
-//        for (int i = smallerSection; i < largerSection; i++)
-//        {
-//            [[[sectionInfoArray objectAtIndex:i] headerView] setSection:i + 1];
-//            
-//        }
-//        SectionInfo *objectToMove = [sectionInfoArray objectAtIndex:[sectionMover oldSection]];
-//        [sectionInfoArray removeObject:objectToMove];
-//        [sectionInfoArray insertObject:objectToMove atIndex:section];
-//        [sectionMover removeFromSuperview];
-//        [statsTable beginUpdates];
-//        [statsTable moveSection:[sectionMover oldSection] toSection:section];
-//        [statsTable endUpdates];
-//    }
 }
 
 @end
