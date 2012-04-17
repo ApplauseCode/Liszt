@@ -88,9 +88,7 @@ static UIImage *_backgroundImage = nil;
                     forWidth:200 
                     withFont:[self defaultLargeFont] 
                lineBreakMode:UILineBreakModeTailTruncation];
-    CGSize speedSize = [_speedLabel sizeWithFont:[self defaultSmallFont]];
     
-    CGSize composerWidth = [_composerLabel sizeWithFont:[self defaultLargeFont]];
     [_composerLabel drawAtPoint:CGPointMake(kLeftMargin, kTopMargin)
                        forWidth:260 withFont:[self defaultLargeFont]
                   lineBreakMode:UILineBreakModeTailTruncation];

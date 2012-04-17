@@ -82,16 +82,25 @@ static UIImage *_backgroundImage = nil;
     [_speedLabel drawAtPoint:CGPointMake(kLeftMargin, kBottomMargin) 
                     forWidth:200 
                     withFont:[self defaultSmallFont] 
-               lineBreakMode:UILineBreakModeTailTruncation];    
-    [_rhythmLabel drawAtPoint:CGPointMake(kRightMargin, kBottomMargin) 
+               lineBreakMode:UILineBreakModeTailTruncation]; 
+    
+    CGSize modeSize = [_modeLabel sizeWithFont:[self defaultLargeFont]];
+    NSInteger rightMargin = self.frame.size.width - kLeftMargin;
+    NSInteger modeXVal = rightMargin - modeSize.width;
+    /*[_modeLabel drawAtPoint:CGPointMake(modeXVal, kMiddleMargin + 2)
+                   forWidth:modeSize.width
+                   withFont:[self defaultLargeFont]
+              lineBreakMode:UILineBreakModeTailTruncation]; */
+    
+    [_rhythmLabel drawAtPoint:CGPointMake(modeXVal, kBottomMargin) 
                      forWidth:62 
                      withFont:[self defaultSmallFont] 
                 lineBreakMode:UILineBreakModeTailTruncation];    
-    [_modeLabel drawAtPoint:CGPointMake(kRightMargin, kTopMargin)
+    [_modeLabel drawAtPoint:CGPointMake(modeXVal, kTopMargin)
                    forWidth:135
                    withFont:[self defaultLargeFont]
               lineBreakMode:UILineBreakModeTailTruncation];    
-    NSInteger octavesXCoord = kRightMargin + [_rhythmLabel sizeWithFont:[self defaultSmallFont]].width + 10;
+    NSInteger octavesXCoord = modeXVal + [_rhythmLabel sizeWithFont:[self defaultSmallFont]].width + 10;
     
     NSInteger octavesFinisherXCoord = octavesXCoord + [_octavesLabel sizeWithFont:[self defaultVerySmallFont]].width + 6;
     
