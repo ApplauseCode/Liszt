@@ -137,6 +137,23 @@
 		BAB01A4315040FA400F8747B /* piecesBG.png in Resources */ = {isa = PBXBuildFile; fileRef = BAB01A4115040FA400F8747B /* piecesBG.png */; };
 		BAB01A4415040FA400F8747B /* piecesBG@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BAB01A4215040FA400F8747B /* piecesBG@2x.png */; };
 		BAB8C0E11447368F00887CDA /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BAB8C0E01447368F00887CDA /* CoreGraphics.framework */; };
+		BABAA06B153E4ECE006F3451 /* metronomeTick.m4a in Resources */ = {isa = PBXBuildFile; fileRef = BABAA06A153E4ECE006F3451 /* metronomeTick.m4a */; };
+		BABAA06E153E4F84006F3451 /* shortMetronomeTick.m4a in Resources */ = {isa = PBXBuildFile; fileRef = BABAA06D153E4F84006F3451 /* shortMetronomeTick.m4a */; };
+		BABAA070153E50DB006F3451 /* oldShortTick.m4a in Resources */ = {isa = PBXBuildFile; fileRef = BABAA06F153E50DB006F3451 /* oldShortTick.m4a */; };
+		BABAA074153E61F1006F3451 /* InfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BABAA072153E61F1006F3451 /* InfoViewController.m */; };
+		BABAA075153E61F1006F3451 /* InfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BABAA073153E61F1006F3451 /* InfoViewController.xib */; };
+		BABAA082153E6215006F3451 /* alertme@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BABAA076153E6215006F3451 /* alertme@2x.png */; };
+		BABAA083153E6215006F3451 /* ContactButton.png in Resources */ = {isa = PBXBuildFile; fileRef = BABAA077153E6215006F3451 /* ContactButton.png */; };
+		BABAA084153E6215006F3451 /* ContactButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BABAA078153E6215006F3451 /* ContactButton@2x.png */; };
+		BABAA085153E6215006F3451 /* convexity@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BABAA079153E6215006F3451 /* convexity@2x.png */; };
+		BABAA086153E6215006F3451 /* Drop@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BABAA07A153E6215006F3451 /* Drop@2x.png */; };
+		BABAA087153E6215006F3451 /* faschedule@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BABAA07B153E6215006F3451 /* faschedule@2x.png */; };
+		BABAA088153E6215006F3451 /* geometry@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BABAA07C153E6215006F3451 /* geometry@2x.png */; };
+		BABAA089153E6215006F3451 /* logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BABAA07D153E6215006F3451 /* logo@2x.png */; };
+		BABAA08A153E6215006F3451 /* ReviewButton.png in Resources */ = {isa = PBXBuildFile; fileRef = BABAA07E153E6215006F3451 /* ReviewButton.png */; };
+		BABAA08B153E6215006F3451 /* ReviewButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BABAA07F153E6215006F3451 /* ReviewButton@2x.png */; };
+		BABAA08C153E6215006F3451 /* TwitterButton.png in Resources */ = {isa = PBXBuildFile; fileRef = BABAA080153E6215006F3451 /* TwitterButton.png */; };
+		BABAA08D153E6215006F3451 /* TwitterButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BABAA081153E6215006F3451 /* TwitterButton@2x.png */; };
 		BABD7C7F151413C3006C81BE /* CustomSectionMove.m in Sources */ = {isa = PBXBuildFile; fileRef = BABD7C7E151413C3006C81BE /* CustomSectionMove.m */; };
 		BABEA1FC146368F00052D29D /* Piece.m in Sources */ = {isa = PBXBuildFile; fileRef = BABEA1FB146368F00052D29D /* Piece.m */; };
 		BAC1B72714E5E8CF00649748 /* ACChooserUnderlay.png in Resources */ = {isa = PBXBuildFile; fileRef = BAC1B72514E5E8CF00649748 /* ACChooserUnderlay.png */; };
@@ -371,6 +388,24 @@
 		BAB01A4115040FA400F8747B /* piecesBG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = piecesBG.png; sourceTree = "<group>"; };
 		BAB01A4215040FA400F8747B /* piecesBG@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "piecesBG@2x.png"; sourceTree = "<group>"; };
 		BAB8C0E01447368F00887CDA /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		BABAA06A153E4ECE006F3451 /* metronomeTick.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = metronomeTick.m4a; sourceTree = "<group>"; };
+		BABAA06D153E4F84006F3451 /* shortMetronomeTick.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = shortMetronomeTick.m4a; sourceTree = "<group>"; };
+		BABAA06F153E50DB006F3451 /* oldShortTick.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = oldShortTick.m4a; sourceTree = "<group>"; };
+		BABAA071153E61F1006F3451 /* InfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoViewController.h; sourceTree = "<group>"; };
+		BABAA072153E61F1006F3451 /* InfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoViewController.m; sourceTree = "<group>"; };
+		BABAA073153E61F1006F3451 /* InfoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InfoViewController.xib; sourceTree = "<group>"; };
+		BABAA076153E6215006F3451 /* alertme@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "alertme@2x.png"; sourceTree = "<group>"; };
+		BABAA077153E6215006F3451 /* ContactButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ContactButton.png; sourceTree = "<group>"; };
+		BABAA078153E6215006F3451 /* ContactButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ContactButton@2x.png"; sourceTree = "<group>"; };
+		BABAA079153E6215006F3451 /* convexity@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "convexity@2x.png"; sourceTree = "<group>"; };
+		BABAA07A153E6215006F3451 /* Drop@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Drop@2x.png"; sourceTree = "<group>"; };
+		BABAA07B153E6215006F3451 /* faschedule@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "faschedule@2x.png"; sourceTree = "<group>"; };
+		BABAA07C153E6215006F3451 /* geometry@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "geometry@2x.png"; sourceTree = "<group>"; };
+		BABAA07D153E6215006F3451 /* logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo@2x.png"; sourceTree = "<group>"; };
+		BABAA07E153E6215006F3451 /* ReviewButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ReviewButton.png; sourceTree = "<group>"; };
+		BABAA07F153E6215006F3451 /* ReviewButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ReviewButton@2x.png"; sourceTree = "<group>"; };
+		BABAA080153E6215006F3451 /* TwitterButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TwitterButton.png; sourceTree = "<group>"; };
+		BABAA081153E6215006F3451 /* TwitterButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TwitterButton@2x.png"; sourceTree = "<group>"; };
 		BABD7C7D151413C3006C81BE /* CustomSectionMove.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomSectionMove.h; sourceTree = "<group>"; };
 		BABD7C7E151413C3006C81BE /* CustomSectionMove.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomSectionMove.m; sourceTree = "<group>"; };
 		BABEA1FA146368F00052D29D /* Piece.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Piece.h; sourceTree = "<group>"; };
@@ -540,6 +575,18 @@
 		BA08C5E5140D3D35009C5E8D /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				BABAA076153E6215006F3451 /* alertme@2x.png */,
+				BABAA077153E6215006F3451 /* ContactButton.png */,
+				BABAA078153E6215006F3451 /* ContactButton@2x.png */,
+				BABAA079153E6215006F3451 /* convexity@2x.png */,
+				BABAA07A153E6215006F3451 /* Drop@2x.png */,
+				BABAA07B153E6215006F3451 /* faschedule@2x.png */,
+				BABAA07C153E6215006F3451 /* geometry@2x.png */,
+				BABAA07D153E6215006F3451 /* logo@2x.png */,
+				BABAA07E153E6215006F3451 /* ReviewButton.png */,
+				BABAA07F153E6215006F3451 /* ReviewButton@2x.png */,
+				BABAA080153E6215006F3451 /* TwitterButton.png */,
+				BABAA081153E6215006F3451 /* TwitterButton@2x.png */,
 				BA3F8E571536F514005DAB03 /* Pickers */,
 				BA0118681535DF9E00C0BC46 /* HistoryVC */,
 				BA01184B1535C0B000C0BC46 /* StatsVC */,
@@ -687,6 +734,9 @@
 		BA84EE3F1411772B00E01BDB /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
+				BABAA06F153E50DB006F3451 /* oldShortTick.m4a */,
+				BABAA06D153E4F84006F3451 /* shortMetronomeTick.m4a */,
+				BABAA06A153E4ECE006F3451 /* metronomeTick.m4a */,
 				BA30777C141C4713003124E6 /* tick.caf */,
 				BA73B91314255EFF0087C404 /* tick2.caf */,
 				BA73B916142562960087C404 /* tick5.aif */,
@@ -830,6 +880,9 @@
 		BADA3FA5140BDA4600B57C49 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				BABAA071153E61F1006F3451 /* InfoViewController.h */,
+				BABAA072153E61F1006F3451 /* InfoViewController.m */,
+				BABAA073153E61F1006F3451 /* InfoViewController.xib */,
 				BADA3FA9140BDA5D00B57C49 /* ScalePickerVC.h */,
 				BADA3FAA140BDA5D00B57C49 /* ScalePickerVC.m */,
 				BADA3FAB140BDA5D00B57C49 /* ScalePickerVC.xib */,
@@ -1104,6 +1157,22 @@
 				BA3F8E641536F52C005DAB03 /* SessionNotesBGR8@2x.png in Resources */,
 				BA3F8E671536F613005DAB03 /* DoneButtonPicker.png in Resources */,
 				BA3F8E681536F613005DAB03 /* DoneButtonPicker@2x.png in Resources */,
+				BABAA06B153E4ECE006F3451 /* metronomeTick.m4a in Resources */,
+				BABAA06E153E4F84006F3451 /* shortMetronomeTick.m4a in Resources */,
+				BABAA070153E50DB006F3451 /* oldShortTick.m4a in Resources */,
+				BABAA075153E61F1006F3451 /* InfoViewController.xib in Resources */,
+				BABAA082153E6215006F3451 /* alertme@2x.png in Resources */,
+				BABAA083153E6215006F3451 /* ContactButton.png in Resources */,
+				BABAA084153E6215006F3451 /* ContactButton@2x.png in Resources */,
+				BABAA085153E6215006F3451 /* convexity@2x.png in Resources */,
+				BABAA086153E6215006F3451 /* Drop@2x.png in Resources */,
+				BABAA087153E6215006F3451 /* faschedule@2x.png in Resources */,
+				BABAA088153E6215006F3451 /* geometry@2x.png in Resources */,
+				BABAA089153E6215006F3451 /* logo@2x.png in Resources */,
+				BABAA08A153E6215006F3451 /* ReviewButton.png in Resources */,
+				BABAA08B153E6215006F3451 /* ReviewButton@2x.png in Resources */,
+				BABAA08C153E6215006F3451 /* TwitterButton.png in Resources */,
+				BABAA08D153E6215006F3451 /* TwitterButton@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1154,6 +1223,7 @@
 				BAEC519A1534881A00692DB3 /* Other.m in Sources */,
 				BAEC519F153492E300692DB3 /* OtherVC.m in Sources */,
 				BA41E8381538EEB90046AA15 /* ModifiedTextField.m in Sources */,
+				BABAA074153E61F1006F3451 /* InfoViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -87,32 +87,36 @@ static UIImage *_backgroundImage = nil;
     CGSize modeSize = [_modeLabel sizeWithFont:[self defaultLargeFont]];
     NSInteger rightMargin = self.frame.size.width - kLeftMargin;
     NSInteger modeXVal = rightMargin - modeSize.width;
-    /*[_modeLabel drawAtPoint:CGPointMake(modeXVal, kMiddleMargin + 2)
-                   forWidth:modeSize.width
-                   withFont:[self defaultLargeFont]
-              lineBreakMode:UILineBreakModeTailTruncation]; */
+    NSInteger octavesFinisherXVal = rightMargin - [[self octaveFinisher] sizeWithFont:[self defaultVerySmallFont]].width;
     
-    [_rhythmLabel drawAtPoint:CGPointMake(modeXVal, kBottomMargin) 
-                     forWidth:62 
-                     withFont:[self defaultSmallFont] 
-                lineBreakMode:UILineBreakModeTailTruncation];    
+    [[self octaveFinisher] drawAtPoint:CGPointMake(octavesFinisherXVal, kBottomMargin+2)
+                              forWidth:40
+                              withFont:[self defaultVerySmallFont]
+                         lineBreakMode:UILineBreakModeTailTruncation];
+    
+  
     [_modeLabel drawAtPoint:CGPointMake(modeXVal, kTopMargin)
                    forWidth:135
                    withFont:[self defaultLargeFont]
               lineBreakMode:UILineBreakModeTailTruncation];    
-    NSInteger octavesXCoord = modeXVal + [_rhythmLabel sizeWithFont:[self defaultSmallFont]].width + 10;
+    NSInteger octavesXVal = octavesFinisherXVal - 6 - [_octavesLabel sizeWithFont:[self defaultSmallFont]].width;
+    NSInteger rhythmXVal = octavesXVal - 10 - [_rhythmLabel sizeWithFont:[self defaultSmallFont]].width;
+    //NSInteger octavesXCoord = modeXVal + [_rhythmLabel sizeWithFont:[self defaultSmallFont]].width + 10;
     
-    NSInteger octavesFinisherXCoord = octavesXCoord + [_octavesLabel sizeWithFont:[self defaultVerySmallFont]].width + 6;
     
-    [_octavesLabel drawAtPoint:CGPointMake(octavesXCoord , kBottomMargin)
+    //NSInteger octavesFinisherXCoord = octavesXCoord + [_octavesLabel sizeWithFont:[self defaultVerySmallFont]].width + 6;
+    
+    [_rhythmLabel drawAtPoint:CGPointMake(rhythmXVal, kBottomMargin) 
+                     forWidth:62 
+                     withFont:[self defaultSmallFont] 
+                lineBreakMode:UILineBreakModeTailTruncation];  
+    
+    [_octavesLabel drawAtPoint:CGPointMake(octavesXVal , kBottomMargin)
                       forWidth:60
                       withFont:[self defaultSmallFont]
                  lineBreakMode:UILineBreakModeTailTruncation];
     
-    [[self octaveFinisher] drawAtPoint:CGPointMake(octavesFinisherXCoord, kBottomMargin+2)
-                       forWidth:40
-                       withFont:[self defaultVerySmallFont]
-                  lineBreakMode:UILineBreakModeTailTruncation];
+
 }
 
 @end

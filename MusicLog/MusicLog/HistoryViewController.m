@@ -14,6 +14,7 @@
 #import "NSString+Number.h"
 #import "ContainerViewController.h"
 #import "StatsVC.h"
+#import "InfoViewController.h"
 
 @interface HistoryViewController ()
 
@@ -21,6 +22,7 @@
 @property (nonatomic, strong) NSMutableArray *sessionTimes;
 @property (nonatomic, strong) NSArray *sessions;
 @property (nonatomic, strong) IBOutlet UITableView *historyTableView;
+- (IBAction)presentInfoScreen:(id)sender;
 @end
 
 @implementation HistoryViewController
@@ -179,5 +181,8 @@
 {
     NSIndexPath *newPath = [NSIndexPath indexPathForRow:0 inSection:0];
     [historyTableView scrollToRowAtIndexPath:newPath atScrollPosition:UITableViewScrollPositionTop animated:(BOOL)YES];
+}
+- (IBAction)presentInfoScreen:(id)sender {
+    [self presentModalViewController:[[InfoViewController alloc] init] animated:YES];
 }
 @end
