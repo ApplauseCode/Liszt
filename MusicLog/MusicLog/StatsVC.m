@@ -775,7 +775,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if ([[sectionInfoArray objectAtIndex:[indexPath section]] isNotes])
-        return 128;
+        return 133 ;
     else if ([indexPath row] == 0 && currentPractice)
         return 27;
     return 49;
@@ -878,6 +878,7 @@
     {
         notesCell = [[NotesCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"NotesCell"];
         notesCell.textView.text = [selectedSession sessionNotes];
+        notesCell.root = statsTable;
         if (currentPractice)
             [notesCell setTextViewCanEdit:YES];
         else

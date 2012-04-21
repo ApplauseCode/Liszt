@@ -38,6 +38,7 @@
     // Do any additional setup after loading the view from its nib.
     [addButton addTarget:self action:@selector(addNotes:) forControlEvents:UIControlEventTouchUpInside];
     [backButton addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
+    [notesTextView setFont:[UIFont fontWithName:@"ACaslonPro-Italic" size:18]];
     [notesTextView setDelegate:self];
 }
 
@@ -75,7 +76,23 @@
 {
     [self dismissModalViewControllerAnimated:YES];
 }
+- (void)textViewDidBeginEditing:(UITextView *)textView
+{
+    if ([textView.text isEqualToString:@"Tap to add notes"])
+        [textView setText:@""];
+    [UIView animateWithDuration:0.25 animations:^{
+        [self.view setCenter:CGPointMake(self.view.center.x, self.view.center.y - 60)];   
+    }];
+}
 
+- (void)textViewDidEndEditing:(UITextView *)textView
+{
+    if ([textView.text isEqualToString:@""])
+        [textView setText:@"Tap to add notes"];
+    [UIView animateWithDuration:0.25 animations:^{
+        [self.view setCenter:CGPointMake(self.view.center.x, self.view.center.y + 60)];   
+    }];
+}
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
 {
     if ([text isEqualToString:@"\n"])

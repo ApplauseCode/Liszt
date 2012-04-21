@@ -83,7 +83,7 @@
     [self.view addSubview:subTitleField];
     
     [descriptionView setDelegate:self];
-    [descriptionView setFont:[UIFont fontWithName:@"ACaslonPro-Regular" size:20]];
+    [descriptionView setFont:[UIFont fontWithName:@"ACaslonPro-Italic" size:18]];
     
     viewTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
     [self.view addGestureRecognizer:viewTap];
@@ -200,6 +200,24 @@
 {
     [titleField resignFirstResponder];
     [subTitleField resignFirstResponder];
+}
+
+- (void)textViewDidBeginEditing:(UITextView *)textView
+{
+    if ([textView.text isEqualToString:@"Tap to add notes"])
+        [textView setText:@""];
+    [UIView animateWithDuration:0.25 animations:^{
+        [self.view setCenter:CGPointMake(self.view.center.x, self.view.center.y - 150)];   
+    }];
+}
+
+- (void)textViewDidEndEditing:(UITextView *)textView
+{
+    if ([textView.text isEqualToString:@""])
+        [textView setText:@"Tap to add notes"];
+    [UIView animateWithDuration:0.25 animations:^{
+        [self.view setCenter:CGPointMake(self.view.center.x, self.view.center.y + 150)];   
+    }];
 }
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text

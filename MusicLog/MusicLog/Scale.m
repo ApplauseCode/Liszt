@@ -105,7 +105,7 @@
     [result setFonts:f];
     [result setKerns:k];
     [result setBase:b];
-    if (scaleMode > 0 && scaleMode < 4) {
+    if ((scaleMode > 0 && scaleMode < 4) || (scaleMode == 5 || scaleMode > 7)) {
         [s replaceObjectAtIndex:0 withObject:[[s objectAtIndex:0] lowercaseString]];   
         if ([s count] > 3) {
             [s replaceObjectAtIndex:2 withObject:[[s objectAtIndex:2] lowercaseString]];

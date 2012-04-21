@@ -202,6 +202,11 @@
 		BAE6999414E5B65100D3ADF8 /* DisclosureArrowDown@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BAE6999214E5B65100D3ADF8 /* DisclosureArrowDown@2x.png */; };
 		BAE6999C14E5D6FB00D3ADF8 /* AddItemButton.png in Resources */ = {isa = PBXBuildFile; fileRef = BAE6999A14E5D6FB00D3ADF8 /* AddItemButton.png */; };
 		BAE6999D14E5D6FB00D3ADF8 /* AddItemButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BAE6999B14E5D6FB00D3ADF8 /* AddItemButton@2x.png */; };
+		BAEBE49F154077E100A2E3CC /* notesBackgroundR8.png in Resources */ = {isa = PBXBuildFile; fileRef = BAEBE49D154077E100A2E3CC /* notesBackgroundR8.png */; };
+		BAEBE4A0154077E100A2E3CC /* notesBackgroundR8@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BAEBE49E154077E100A2E3CC /* notesBackgroundR8@2x.png */; };
+		BAEBE4A41540787600A2E3CC /* NotesInputArea.png in Resources */ = {isa = PBXBuildFile; fileRef = BAEBE4A21540787600A2E3CC /* NotesInputArea.png */; };
+		BAEBE4A51540787600A2E3CC /* NotesInputArea@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BAEBE4A31540787600A2E3CC /* NotesInputArea@2x.png */; };
+		BAEBE4A71540B35E00A2E3CC /* ACaslonPro-Italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = BAEBE4A61540B35E00A2E3CC /* ACaslonPro-Italic.otf */; };
 		BAEC519A1534881A00692DB3 /* Other.m in Sources */ = {isa = PBXBuildFile; fileRef = BAEC51991534881A00692DB3 /* Other.m */; };
 		BAEC519F153492E300692DB3 /* OtherVC.m in Sources */ = {isa = PBXBuildFile; fileRef = BAEC519D153492E300692DB3 /* OtherVC.m */; };
 		BAEC51A0153492E300692DB3 /* OtherVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = BAEC519E153492E300692DB3 /* OtherVC.xib */; };
@@ -470,6 +475,11 @@
 		BAE6999214E5B65100D3ADF8 /* DisclosureArrowDown@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DisclosureArrowDown@2x.png"; sourceTree = "<group>"; };
 		BAE6999A14E5D6FB00D3ADF8 /* AddItemButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AddItemButton.png; sourceTree = "<group>"; };
 		BAE6999B14E5D6FB00D3ADF8 /* AddItemButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AddItemButton@2x.png"; sourceTree = "<group>"; };
+		BAEBE49D154077E100A2E3CC /* notesBackgroundR8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = notesBackgroundR8.png; sourceTree = "<group>"; };
+		BAEBE49E154077E100A2E3CC /* notesBackgroundR8@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "notesBackgroundR8@2x.png"; sourceTree = "<group>"; };
+		BAEBE4A21540787600A2E3CC /* NotesInputArea.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NotesInputArea.png; sourceTree = "<group>"; };
+		BAEBE4A31540787600A2E3CC /* NotesInputArea@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NotesInputArea@2x.png"; sourceTree = "<group>"; };
+		BAEBE4A61540B35E00A2E3CC /* ACaslonPro-Italic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ACaslonPro-Italic.otf"; sourceTree = "<group>"; };
 		BAEC51981534881A00692DB3 /* Other.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Other.h; sourceTree = "<group>"; };
 		BAEC51991534881A00692DB3 /* Other.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Other.m; sourceTree = "<group>"; };
 		BAEC519C153492E300692DB3 /* OtherVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OtherVC.h; sourceTree = "<group>"; };
@@ -719,6 +729,10 @@
 		BA3F8E571536F514005DAB03 /* Pickers */ = {
 			isa = PBXGroup;
 			children = (
+				BAEBE4A21540787600A2E3CC /* NotesInputArea.png */,
+				BAEBE4A31540787600A2E3CC /* NotesInputArea@2x.png */,
+				BAEBE49D154077E100A2E3CC /* notesBackgroundR8.png */,
+				BAEBE49E154077E100A2E3CC /* notesBackgroundR8@2x.png */,
 				BA3F8E651536F613005DAB03 /* DoneButtonPicker.png */,
 				BA3F8E661536F613005DAB03 /* DoneButtonPicker@2x.png */,
 				BA3F8E591536F52C005DAB03 /* EditBGR8.png */,
@@ -934,6 +948,7 @@
 			isa = PBXGroup;
 			children = (
 				BA824AEC14E4C14C00EAC74F /* ACaslonPro-Regular.otf */,
+				BAEBE4A61540B35E00A2E3CC /* ACaslonPro-Italic.otf */,
 				CE510090150BE05B00B56D91 /* Rhyth.otf */,
 			);
 			name = Fonts;
@@ -1173,6 +1188,11 @@
 				BABAA08B153E6215006F3451 /* ReviewButton@2x.png in Resources */,
 				BABAA08C153E6215006F3451 /* TwitterButton.png in Resources */,
 				BABAA08D153E6215006F3451 /* TwitterButton@2x.png in Resources */,
+				BAEBE49F154077E100A2E3CC /* notesBackgroundR8.png in Resources */,
+				BAEBE4A0154077E100A2E3CC /* notesBackgroundR8@2x.png in Resources */,
+				BAEBE4A41540787600A2E3CC /* NotesInputArea.png in Resources */,
+				BAEBE4A51540787600A2E3CC /* NotesInputArea@2x.png in Resources */,
+				BAEBE4A71540B35E00A2E3CC /* ACaslonPro-Italic.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
