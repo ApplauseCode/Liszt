@@ -29,6 +29,7 @@
 #import "NotesPickerVC.h"
 #import "Other.h"
 #import "OtherVC.h"
+#import "OtherCell.h"
 
 #pragma mark - Private Interface
 
@@ -41,6 +42,7 @@
 @property (strong, nonatomic) IBOutlet UIView *woodenMetronome;
 @property (strong, nonatomic) NSTimer *metronomeScreenTimer;
 @property (strong, nonatomic) NSTimer *stopWatchTimer;
+@property (nonatomic, strong) NSTimer *idleScreenTimer;
 @property (assign, nonatomic) BOOL isUpdatingTime; 
 @property (nonatomic, strong) id tickingItem;
 
@@ -52,6 +54,7 @@
 @end
 
 @implementation StatsVC
+@synthesize idleScreenTimer;
 @synthesize tickingItem;
 @synthesize isUpdatingTime;
 @synthesize notesCell;
@@ -124,6 +127,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [idleScreenTimer invalidate];
+    idleScreenTimer = [NSTimer scheduledTimerWithTimeInterval:30 target:self selector:@selector(idleScreenTimerFire:) userInfo:nil repeats:YES];
     
     NSRunLoop *runLoop = [NSRunLoop currentRunLoop];
     stopWatchTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(stopWatchTick:) userInfo:nil repeats:YES];
@@ -214,6 +220,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [self startTimers];
     [self setupSectionInfoArray];
     [statsTable reloadData];
     [self hideMenu:nil];
@@ -566,9 +573,14 @@
     if (vc)
         [self presentModalViewController:vc animated:YES];
     [self closeSections];
+    [self stopAllTimers];
 }
 
 #pragma mark - Timers
+- (void)idleScreenTimerFire:(NSTimer *)timer
+{
+    [UIApplication sharedApplication].idleTimerDisabled = YES;
+}
 
 - (void)setMetronomeScreenTimer:(NSTimer *)aTimer
 {
@@ -669,8 +681,14 @@
 
 - (void)stopAllTimers
 {
+    [idleScreenTimer invalidate];
+    idleScreenTimer = [NSTimer scheduledTimerWithTimeInterval:30 target:self selector:@selector(timerFireMethod:) userInfo:nil repeats:YES];
+
+    [self.idleScreenTimer invalidate];
     [stopWatchTimer invalidate];
+    
     [timerButton setImage:[UIImage imageNamed:@"StartTimer.png"] forState:UIControlStateNormal];
+    [self setTickingItem:nil];
     [dimScreenTimer invalidate];
     [metronomeScreenTimer invalidate];
 
@@ -778,6 +796,11 @@
         return 133 ;
     else if ([indexPath row] == 0 && currentPractice)
         return 27;
+    if ([indexPath section] < 2)
+        return 49;
+    else if ([[[selectedSession pieceSession] objectAtIndex:[indexPath section] - 2] isKindOfClass:[Other class]]) {
+        return 186;
+    }
     return 49;
 }
 
@@ -891,9 +914,17 @@
             cell = [[ScaleCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"ScaleCell"];
     }
     else {
-        cell = (PieceCell *)[tableView dequeueReusableCellWithIdentifier:@"PieceCell"];
-        if (cell == nil) 
-            cell = [[PieceCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"PieceCell"];
+        if ([[[selectedSession pieceSession] objectAtIndex:section - 2] isKindOfClass:[Piece class]])
+        {
+            cell = (PieceCell *)[tableView dequeueReusableCellWithIdentifier:@"PieceCell"];
+            if (cell == nil) 
+                cell = [[PieceCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"PieceCell"];
+        }
+        else {
+            cell = (OtherCell *)[tableView dequeueReusableCellWithIdentifier:@"OtherCell"];
+            if (cell == nil)
+                cell = [[OtherCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"OtherCell"];
+        }
     }
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     NSInteger dataIndex;
@@ -1023,7 +1054,9 @@
     NSMutableArray *indexPathsToInsert = [[NSMutableArray alloc] init];
     NSMutableArray *indexPathsToDelete = [[NSMutableArray alloc] init];
     if ([sectionInfo isNotes])
+    {
         [indexPathsToInsert addObject:[NSIndexPath indexPathForRow:0 inSection:section]];
+    }
     else if ([sectionInfo countofRowsToInsert] > 0 && currentPractice) {
         for (NSInteger i = 0; i <= [sectionInfo countofRowsToInsert]; i++)
             [indexPathsToInsert addObject:[NSIndexPath indexPathForRow:i inSection:section]];
@@ -1057,10 +1090,15 @@
     [statsTable deleteRowsAtIndexPaths:indexPathsToDelete withRowAnimation:UITableViewRowAnimationAutomatic];
     [statsTable insertRowsAtIndexPaths:indexPathsToInsert withRowAnimation:UITableViewRowAnimationAutomatic];
     [statsTable endUpdates];
+    UITableViewCell *visCell;
+    if ([[statsTable visibleCells] count])
+       visCell = [[statsTable visibleCells] objectAtIndex:0];
+    else
+        visCell = nil;
     [timerButton setImage:[UIImage imageNamed:@"StartTimer.png"] forState:UIControlStateNormal];
-    if (section > 1 && ![[statsTable visibleCells] containsObject: 
+    if ((section > 1 && ![[statsTable visibleCells] containsObject: 
                          [statsTable cellForRowAtIndexPath:
-                          [NSIndexPath indexPathForRow:[statsTable numberOfRowsInSection:section] -1 inSection:section]]])
+                          [NSIndexPath indexPathForRow:[statsTable numberOfRowsInSection:section] -1 inSection:section]]]) || visCell.frame.origin.y > statsTable.frame.size.height - 62)
         [statsTable scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:[statsTable numberOfRowsInSection:section] - 1 inSection:section] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
     if (section < 2)
         [statsTable scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];

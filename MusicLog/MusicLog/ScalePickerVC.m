@@ -16,6 +16,7 @@
 #import "ACchooser.h"
 #import "UIColor+YellowTextColor.h"
 #import "DCRoundSwitch.h"
+#import "UIView+HUDAnimation.h"
 #define NONEDITTONICS 3
 #define EXCLUSIVEARPMODES 4
 
@@ -198,15 +199,25 @@
 - (void)editItem
 {
     Scale *editedItem = [[Scale alloc] init];
+    NSMutableOrderedSet *editPlace;
     if (index == 0)
+    {
         [editedItem setScaleMode:[modeChooser selectedCellIndex]];
+        editPlace = [selectedSession scaleSession];
+        [UIView animateHUDWithText:@"Scale Edited"];
+    }
     else if (index == 1)
+    {
         [editedItem setScaleMode:([modeChooser selectedCellIndex] + EXCLUSIVEARPMODES)];
+        editPlace = [selectedSession arpeggioSession];
+        [UIView animateHUDWithText:@"Arpeggio Edited"];
+    }
     [editedItem setRhythm:[rhythmChooser selectedCellIndex]];
     [editedItem setOctaves:[octavesSegment selectedIndex] + 1];
     [editedItem setTempo:stepper.tempo];
     [editedItem setTonic:[tonicChooser selectedCellIndex] + NONEDITTONICS];
-    [[selectedSession scaleSession] replaceObjectAtIndex:[editItemPath row] - 1 withObject:editedItem];
+    [editPlace replaceObjectAtIndex:[editItemPath row] - 1 withObject:editedItem];
+    
 }
 
 - (void)addItem
@@ -268,37 +279,14 @@
                 [[[store mySession] arpeggioSession] addObject:[pickedScale mutableCopy]];
             break;
     }
-    UIImageView *hud = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"LisztHUD.png"]];
-    [hud setCenter:CGPointMake(160, 220)];
-    [hud setAlpha:0];
-    UILabel *text = [[UILabel alloc] init];
-    [text setBounds:CGRectMake(0, 0, 90, 80)];
-    [text setCenter:CGPointMake(hud.frame.size.width/2, hud.frame.size.height/2)];
-    [text setNumberOfLines:0];
     switch (index) {
         case 0:
-            [text setText:@"Scales Added"];
+            [UIView animateHUDWithText:@"Scales Added"];
             break;
-        default:
-            [text setText:@"Arpeggios Added"];
+        case 1:
+            [UIView animateHUDWithText:@"Arpeggios Added"];
             break;
     }
-    [text setFont:[UIFont systemFontOfSize:17]];
-    [text setTextAlignment:UITextAlignmentCenter];
-    [text setBackgroundColor:[UIColor clearColor]];
-    [text setTextColor:[UIColor whiteColor]];
-    [hud addSubview:text];
-    [self.view addSubview:hud];
-    [UIView animateWithDuration:0.3
-                     animations:^{
-                         [hud setAlpha:1.0];
-                     } completion:^(BOOL finished) {
-                         [UIView animateWithDuration:0.5 delay:0.2 options:0 animations:^{
-                             [hud setAlpha:0.0];
-                         } completion:^(BOOL finished) {
-                             [hud removeFromSuperview];
-                         }];
-                     }];
 }
 
 - (void)backToScales:(id)sender

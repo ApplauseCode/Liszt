@@ -11,6 +11,7 @@
 #import "Session.h"
 #import "Other.h"
 #import "ModifiedTextField.h"
+#import "UIView+HUDAnimation.h"
 
 @interface OtherVC ()
 @property (nonatomic, strong) ModifiedTextField *titleField;
@@ -121,30 +122,7 @@
     [createdOther setDescription:[descriptionView text]];
     [[[store mySession] pieceSession] addObject:createdOther];
     
-    UIImageView *hud = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"LisztHUD.png"]];
-    [hud setCenter:CGPointMake(160, 220)];
-    [hud setAlpha:0];
-    UILabel *text = [[UILabel alloc] init];
-    [text setBounds:CGRectMake(0, 0, 90, 80)];
-    [text setCenter:CGPointMake(hud.frame.size.width/2, hud.frame.size.height/2)];
-    [text setNumberOfLines:0];
-    [text setText:@"Other Item Added"];
-    [text setFont:[UIFont systemFontOfSize:17]];
-    [text setTextAlignment:UITextAlignmentCenter];
-    [text setBackgroundColor:[UIColor clearColor]];
-    [text setTextColor:[UIColor whiteColor]];
-    [hud addSubview:text];
-    [self.view addSubview:hud];
-    [UIView animateWithDuration:0.1
-                     animations:^{
-                         [hud setAlpha:1.0];
-                     } completion:^(BOOL finished) {
-                         [UIView animateWithDuration:0.5 delay:0.2 options:0 animations:^{
-                             [hud setAlpha:0.0];
-                         } completion:^(BOOL finished) {
-                             [hud removeFromSuperview];
-                         }];
-                     }];
+    [UIView animateHUDWithText:@"Other Item Added"];
 }
 
 - (void)editOther
@@ -155,6 +133,7 @@
     [editedOther setSubTitle:[subTitleField text]];
     [editedOther setDescription:[descriptionView text]];
     [[selectedSession pieceSession] replaceObjectAtIndex:[editItemPath section] - 2 withObject:editedOther];
+    [UIView animateHUDWithText:@"Other Item Edited"];
 }
 
 - (void)viewDidUnload
@@ -162,8 +141,6 @@
     [self setViewBG:nil];
     [self setAddButton:nil];
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

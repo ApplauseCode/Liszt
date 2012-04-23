@@ -74,6 +74,7 @@
 - (void)dimTimerFire:(NSTimer*)theTimer;
 - (void)metronomeTimerFire:(NSTimer*)theTimer;
 - (void)stopAllTimers;
+- (void)idleScreenTimerFire:(NSTimer *)timer;
 - (void)startTimers;
 
 

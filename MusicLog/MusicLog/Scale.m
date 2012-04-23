@@ -138,7 +138,7 @@
 
 - (NSString *)tempoString
 { 
-    return tempo == 0 ? @"none" : [NSString stringWithInt:tempo]; 
+    return tempo == 0 ? @"No Tempo" : [NSString stringWithFormat:@"%i bpm", tempo]; 
 } 
 
 - (id)mutableCopyWithZone:(NSZone *)zone

@@ -23,13 +23,12 @@
 @property (nonatomic, strong) HistoryViewController *historyViewController;
 @property (nonatomic, strong) ContainerViewController *containerViewController;
 @property (nonatomic) BOOL alertViewVisible;
-@property (nonatomic, strong) NSTimer *idleScreenTimer;
 - (void)checkDate;
 @end
 @implementation AppDelegate
 
 @synthesize window = _window, statsVC, alertViewVisible;
-@synthesize historyViewController, containerViewController, idleScreenTimer;
+@synthesize historyViewController, containerViewController;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -37,8 +36,6 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     /*remove later*/[TestFlight takeOff:@"0bb5b0fae5868594a374b52c1cd204c3_NTQ5NTIyMDEyLTAxLTI1IDE1OjU3OjIxLjYxMTI3NA"];
      application.applicationSupportsShakeToEdit = YES; /**/
-    [idleScreenTimer invalidate];
-    idleScreenTimer = [NSTimer scheduledTimerWithTimeInterval:30 target:self selector:@selector(timerFireMethod:) userInfo:nil repeats:YES];
     [self setAlertViewVisible:NO];
     [self checkDate];
     statsVC = [[StatsVC alloc] init];
@@ -60,19 +57,11 @@
     return YES;
 }
 
-- (void)timerFireMethod:(NSTimer *)timer
-{
-    [UIApplication sharedApplication].idleTimerDisabled = YES;
-}
-
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     [self checkDate];
     [statsVC setScreenBrightness:[statsVC screenBrightness]];
-    //[[statsVC stopWatch] restartTimer];
     [statsVC setDimScreenTimer:[NSTimer scheduledTimerWithTimeInterval:30 target:statsVC selector:@selector(dimTimerFire:) userInfo:nil repeats:NO]];
-    [idleScreenTimer invalidate];
-    idleScreenTimer = [NSTimer scheduledTimerWithTimeInterval:30 target:self selector:@selector(timerFireMethod:) userInfo:nil repeats:YES];
     [statsVC startTimers];
 
 }
@@ -128,10 +117,7 @@
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {
-    [idleScreenTimer invalidate];
-    //[[[statsVC stopWatch] timer] invalidate];
     [statsVC stopAllTimers];
-      // NSLog(@"this is a log");
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application

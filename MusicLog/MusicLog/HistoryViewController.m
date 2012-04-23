@@ -26,6 +26,11 @@
 @end
 
 @implementation HistoryViewController
+@synthesize forwardYearButton;
+@synthesize forwardMonthButton;
+@synthesize todayButton;
+@synthesize backYearButton;
+@synthesize backMonthButton;
 @synthesize sessionTimes;
 @synthesize sessionDates;
 @synthesize sessions;
@@ -42,6 +47,13 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    UIFont *italic = [UIFont fontWithName:@"ACaslonPro-Italic" size:20];
+    [forwardYearButton.titleLabel setFont:italic];
+    [forwardMonthButton.titleLabel setFont:italic];
+    [todayButton.titleLabel setFont:italic];
+    [backMonthButton.titleLabel setFont:italic];
+    [backYearButton.titleLabel setFont:italic];
+    
     [historyTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [historyTableView setBackgroundColor:[UIColor clearColor]];
     [self loadData];
@@ -111,6 +123,11 @@
 //}
 - (void)viewDidUnload
 {
+    [self setBackMonthButton:nil];
+    [self setBackYearButton:nil];
+    [self setTodayButton:nil];
+    [self setForwardMonthButton:nil];
+    [self setForwardYearButton:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
@@ -166,6 +183,17 @@
     [historyTableView scrollToRowAtIndexPath:newPath atScrollPosition:UITableViewScrollPositionTop animated:(BOOL)YES];
 }
 
+- (IBAction)forwardOneYear:(id)sender 
+{
+    //NSArray *s = [[SessionStore defaultStore] sessions];
+    //int c = [s count];
+    NSIndexPath *path = [[historyTableView indexPathsForVisibleRows] objectAtIndex:0];
+    NSInteger row = path.row - 365;
+    row = (row < 0) ? 0 : row;
+    NSIndexPath *newPath = [NSIndexPath indexPathForRow:row inSection:0];
+    [historyTableView scrollToRowAtIndexPath:newPath atScrollPosition:UITableViewScrollPositionTop animated:(BOOL)YES];
+}
+
 - (IBAction)backOneMonth:(id)sender 
 {
     NSArray *s = [[SessionStore defaultStore] sessions];
@@ -175,6 +203,17 @@
     row = (row > c - 1) ? c -1 : row;
     NSIndexPath *newPath = [NSIndexPath indexPathForRow:row inSection:0];
     [historyTableView scrollToRowAtIndexPath:newPath atScrollPosition:UITableViewScrollPositionTop animated:(BOOL)YES];
+}
+
+- (IBAction)forwardOneMonth:(id)sender
+{
+    //NSArray *s = [[SessionStore defaultStore] sessions];
+    //int c = [s count];
+    NSIndexPath *path = [[historyTableView indexPathsForVisibleRows] objectAtIndex:0];
+    NSInteger row = path.row - 30;
+    row = (row < 0) ? 0 : row;
+    NSIndexPath *newPath = [NSIndexPath indexPathForRow:row inSection:0];
+    [historyTableView scrollToRowAtIndexPath:newPath atScrollPosition:UITableViewScrollPositionTop animated:(BOOL)YES]; 
 }
 
 - (IBAction)toToday:(id)sender 

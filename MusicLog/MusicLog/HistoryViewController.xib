@@ -89,7 +89,7 @@
 					<object class="IBUIButton" id="837623134">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{33, 406}, {37, 37}}</string>
+						<string key="NSFrame">{{42, 413}, {37, 37}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSNextKeyView" ref="922296438"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
@@ -123,7 +123,7 @@
 					<object class="IBUIButton" id="922296438">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{70, 406}, {37, 37}}</string>
+						<string key="NSFrame">{{74, 413}, {37, 37}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSNextKeyView" ref="1050070064"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
@@ -141,7 +141,7 @@
 					<object class="IBUIButton" id="134978577">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{162, 406}, {37, 37}}</string>
+						<string key="NSFrame">{{158, 413}, {37, 37}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSNextKeyView" ref="268633248"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
@@ -163,8 +163,9 @@
 					<object class="IBUIButton" id="268633248">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{202, 406}, {37, 37}}</string>
+						<string key="NSFrame">{{190, 413}, {37, 37}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -180,7 +181,7 @@
 					<object class="IBUIButton" id="1050070064">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{106, 406}, {55, 37}}</string>
+						<string key="NSFrame">{{106, 413}, {55, 37}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSNextKeyView" ref="134978577"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
@@ -192,7 +193,12 @@
 						<reference key="IBUIHighlightedTitleColor" ref="872644556"/>
 						<reference key="IBUINormalTitleColor" ref="355573597"/>
 						<reference key="IBUINormalTitleShadowColor" ref="1020455154"/>
-						<reference key="IBUIFontDescription" ref="995168707"/>
+						<object class="IBUIFontDescription" key="IBUIFontDescription">
+							<string key="name">Helvetica-Bold</string>
+							<string key="family">Helvetica</string>
+							<int key="traits">2</int>
+							<double key="pointSize">15</double>
+						</object>
 						<reference key="IBUIFont" ref="638584831"/>
 					</object>
 					<object class="IBUIButton" id="617019849">
@@ -200,6 +206,7 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{8, 6}, {18, 19}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
+						<reference key="NSNextKeyView" ref="259617473"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -219,7 +226,7 @@
 				</array>
 				<string key="NSFrame">{{0, 20}, {320, 460}}</string>
 				<reference key="NSSuperview"/>
-				<reference key="NSNextKeyView" ref="259617473"/>
+				<reference key="NSNextKeyView" ref="617019849"/>
 				<object class="NSColor" key="IBUIBackgroundColor">
 					<int key="NSColorSpace">3</int>
 					<bytes key="NSWhite">MQA</bytes>
@@ -248,6 +255,46 @@
 						<reference key="destination" ref="259617473"/>
 					</object>
 					<int key="connectionID">7</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">backMonthButton</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="922296438"/>
+					</object>
+					<int key="connectionID">32</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">backYearButton</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="837623134"/>
+					</object>
+					<int key="connectionID">33</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">todayButton</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="1050070064"/>
+					</object>
+					<int key="connectionID">34</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">forwardMonthButton</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="134978577"/>
+					</object>
+					<int key="connectionID">35</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">forwardYearButton</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="268633248"/>
+					</object>
+					<int key="connectionID">36</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
@@ -285,6 +332,24 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">forwardOneMonth:</string>
+						<reference key="source" ref="134978577"/>
+						<reference key="destination" ref="372490531"/>
+						<int key="IBEventType">7</int>
+					</object>
+					<int key="connectionID">31</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">forwardOneYear:</string>
+						<reference key="source" ref="268633248"/>
+						<reference key="destination" ref="372490531"/>
+						<int key="IBEventType">7</int>
+					</object>
+					<int key="connectionID">30</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">toToday:</string>
 						<reference key="source" ref="1050070064"/>
 						<reference key="destination" ref="372490531"/>
@@ -318,11 +383,11 @@
 							<reference ref="893292534"/>
 							<reference ref="1068259205"/>
 							<reference ref="837623134"/>
-							<reference ref="922296438"/>
 							<reference ref="1050070064"/>
 							<reference ref="134978577"/>
-							<reference ref="268633248"/>
 							<reference ref="617019849"/>
+							<reference ref="268633248"/>
+							<reference ref="922296438"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -404,7 +469,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">29</int>
+			<int key="maxID">36</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes"/>
 		<int key="IBDocument.localizationMode">0</int>

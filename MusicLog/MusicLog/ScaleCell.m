@@ -67,8 +67,8 @@ static UIImage *_backgroundImage = nil;
     if (_modeLabel != mode) {
         _modeLabel = mode;
     }
-    if (_speedLabel != [NSString stringWithFormat:@"%@ bpm", speed]) {
-        _speedLabel = [NSString stringWithFormat:@"%@ bpm", speed];
+    if (_speedLabel != speed) {
+        _speedLabel = speed;
     } 
     _tonicCompoundString = [scale tonicCompoundString];
     [self setNeedsDisplay];
