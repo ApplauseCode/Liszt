@@ -623,6 +623,10 @@
         self.tickingItem = nil;
         [self setIsUpdatingTime:NO];
         [sender setImage:[UIImage imageNamed:@"StartTimer.png"] forState:UIControlStateNormal];
+        dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND,0);
+        dispatch_async(queue, ^{
+            [[SessionStore defaultStore] saveChanges];
+        });
     }
 }
 
@@ -681,9 +685,6 @@
 
 - (void)stopAllTimers
 {
-    [idleScreenTimer invalidate];
-    idleScreenTimer = [NSTimer scheduledTimerWithTimeInterval:30 target:self selector:@selector(timerFireMethod:) userInfo:nil repeats:YES];
-
     [self.idleScreenTimer invalidate];
     [stopWatchTimer invalidate];
     
@@ -698,6 +699,10 @@
 {
     [self.stopWatchTimer invalidate];
     self.stopWatchTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(stopWatchTick:) userInfo:nil repeats:YES];
+    
+    [idleScreenTimer invalidate];
+    [self idleScreenTimerFire:nil];
+    idleScreenTimer = [NSTimer scheduledTimerWithTimeInterval:30 target:self selector:@selector(idleScreenTimerFire:) userInfo:nil repeats:YES];
 
 }
 
@@ -1150,18 +1155,20 @@
             [[[[SessionStore defaultStore] mySession] pieceSession] removeObject:item];
         }
         [sectionInfoArray removeObjectAtIndex:section];
-        [statsTable beginUpdates];
-        [statsTable deleteSections:[NSIndexSet indexSetWithIndex:section] withRowAnimation:UITableViewRowAnimationAutomatic];
-        [statsTable endUpdates];
-        [self setOpenSectionIndex:NSNotFound];
-        NSString *timeString = [NSString timeStringFromInt:[selectedSession calculateTotalTime]];
-        [totalTime setText:timeString];
         for (int i = section; i < [sectionInfoArray count]; i++)
         {
             NSInteger currentSection = [[[sectionInfoArray objectAtIndex:i] headerView] section];
             SectionHeaderView *currentHeader = [[sectionInfoArray objectAtIndex:i] headerView];
             [currentHeader setSection:(currentSection - 1)];
         }
+        [statsTable beginUpdates];
+        [statsTable deleteSections:[NSIndexSet indexSetWithIndex:section] withRowAnimation:UITableViewRowAnimationAutomatic];
+        [statsTable reloadData];
+        [statsTable endUpdates];
+        [self setOpenSectionIndex:NSNotFound];
+        NSString *timeString = [NSString timeStringFromInt:[selectedSession calculateTotalTime]];
+        [totalTime setText:timeString];
+
     }
 }
 

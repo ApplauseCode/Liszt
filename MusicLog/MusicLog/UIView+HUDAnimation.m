@@ -12,7 +12,7 @@
 
 + (void)animateHUDWithText:(NSString *)string
 {
-    UIImageView *hud = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"LisztHudDark.png"]];
+    UIImageView *hud = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"LisztHUDDark.png"]];
     [hud setCenter:CGPointMake(160, 220)];
     [hud setAlpha:0];
     UILabel *text = [[UILabel alloc] init];

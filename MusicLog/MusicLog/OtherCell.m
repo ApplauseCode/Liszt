@@ -76,9 +76,9 @@ static UIImage *_bottomBackgroundImage = nil;
                                                   _topBackgroundImage.size.height,
                                                   _bottomBackgroundImage.size.width,
                                                   _bottomBackgroundImage.size.height)];
-    [_descriptionString drawInRect:CGRectMake(_topBackgroundImage.size.width/2.0 - 231/2.0,
-                                              _topBackgroundImage.size.height,
-                                              231,
+    [_descriptionString drawInRect:CGRectMake(_topBackgroundImage.size.width/2.0 - 215/2.0,
+                                              _topBackgroundImage.size.height + 10,
+                                              215,
                                               127) 
                           withFont:[UIFont fontWithName:@"ACaslonPro-Italic" size:18]
                      lineBreakMode:UILineBreakModeTailTruncation];
