@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PopupCell.h"
 
 @protocol PopupVCDelegate;
-@interface PopupVC : UIViewController <UITableViewDelegate, UITableViewDataSource>
+@interface PopupVC : UIViewController <UITableViewDelegate, UITableViewDataSource, PopupCellDelegate>
 @property (nonatomic, assign) NSInteger numberOfRows;
 @property (nonatomic, strong) NSArray *staticCells;
 @property (nonatomic, weak) id <PopupVCDelegate> delegate;

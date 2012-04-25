@@ -76,6 +76,15 @@
 		BA1E26A315459952005D1D2E /* UIView+HUDAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = BA1E26A215459952005D1D2E /* UIView+HUDAnimation.m */; };
 		BA1E26AF1545A167005D1D2E /* LisztHUDDark.png in Resources */ = {isa = PBXBuildFile; fileRef = BA1E26AD1545A167005D1D2E /* LisztHUDDark.png */; };
 		BA1E26B01545A167005D1D2E /* LisztHUDDark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BA1E26AE1545A167005D1D2E /* LisztHUDDark@2x.png */; };
+		BA1E26B4154718DC005D1D2E /* dropBarBkg.png in Resources */ = {isa = PBXBuildFile; fileRef = BA1E26B2154718DC005D1D2E /* dropBarBkg.png */; };
+		BA1E26B5154718DC005D1D2E /* dropBarBkg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BA1E26B3154718DC005D1D2E /* dropBarBkg@2x.png */; };
+		BA1E26B815471ACA005D1D2E /* PopupCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BA1E26B715471ACA005D1D2E /* PopupCell.m */; };
+		BA1E26BB15471C02005D1D2E /* DropButton.png in Resources */ = {isa = PBXBuildFile; fileRef = BA1E26B915471C02005D1D2E /* DropButton.png */; };
+		BA1E26BC15471C02005D1D2E /* DropButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BA1E26BA15471C02005D1D2E /* DropButton@2x.png */; };
+		BA1E26C115473CAC005D1D2E /* ScrollerOverlay.png in Resources */ = {isa = PBXBuildFile; fileRef = BA1E26BD15473CAC005D1D2E /* ScrollerOverlay.png */; };
+		BA1E26C215473CAC005D1D2E /* ScrollerOverlay@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BA1E26BE15473CAC005D1D2E /* ScrollerOverlay@2x.png */; };
+		BA1E26C315473CAC005D1D2E /* ScrollerUnderlay.png in Resources */ = {isa = PBXBuildFile; fileRef = BA1E26BF15473CAC005D1D2E /* ScrollerUnderlay.png */; };
+		BA1E26C415473CAC005D1D2E /* ScrollerUnderlay@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BA1E26C015473CAC005D1D2E /* ScrollerUnderlay@2x.png */; };
 		BA24A150153648F3005E5A52 /* StatsBGR8.png in Resources */ = {isa = PBXBuildFile; fileRef = BA24A14E153648F3005E5A52 /* StatsBGR8.png */; };
 		BA24A151153648F3005E5A52 /* StatsBGR8@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BA24A14F153648F3005E5A52 /* StatsBGR8@2x.png */; };
 		BA24A154153649C0005E5A52 /* StatsVCTopBarR8.png in Resources */ = {isa = PBXBuildFile; fileRef = BA24A152153649C0005E5A52 /* StatsVCTopBarR8.png */; };
@@ -320,6 +329,16 @@
 		BA1E26A215459952005D1D2E /* UIView+HUDAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+HUDAnimation.m"; sourceTree = "<group>"; };
 		BA1E26AD1545A167005D1D2E /* LisztHUDDark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LisztHUDDark.png; sourceTree = "<group>"; };
 		BA1E26AE1545A167005D1D2E /* LisztHUDDark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LisztHUDDark@2x.png"; sourceTree = "<group>"; };
+		BA1E26B2154718DC005D1D2E /* dropBarBkg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dropBarBkg.png; sourceTree = "<group>"; };
+		BA1E26B3154718DC005D1D2E /* dropBarBkg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dropBarBkg@2x.png"; sourceTree = "<group>"; };
+		BA1E26B615471ACA005D1D2E /* PopupCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopupCell.h; sourceTree = "<group>"; };
+		BA1E26B715471ACA005D1D2E /* PopupCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopupCell.m; sourceTree = "<group>"; };
+		BA1E26B915471C02005D1D2E /* DropButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DropButton.png; sourceTree = "<group>"; };
+		BA1E26BA15471C02005D1D2E /* DropButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DropButton@2x.png"; sourceTree = "<group>"; };
+		BA1E26BD15473CAC005D1D2E /* ScrollerOverlay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ScrollerOverlay.png; sourceTree = "<group>"; };
+		BA1E26BE15473CAC005D1D2E /* ScrollerOverlay@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ScrollerOverlay@2x.png"; sourceTree = "<group>"; };
+		BA1E26BF15473CAC005D1D2E /* ScrollerUnderlay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ScrollerUnderlay.png; sourceTree = "<group>"; };
+		BA1E26C015473CAC005D1D2E /* ScrollerUnderlay@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ScrollerUnderlay@2x.png"; sourceTree = "<group>"; };
 		BA24A14E153648F3005E5A52 /* StatsBGR8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StatsBGR8.png; sourceTree = "<group>"; };
 		BA24A14F153648F3005E5A52 /* StatsBGR8@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "StatsBGR8@2x.png"; sourceTree = "<group>"; };
 		BA24A152153649C0005E5A52 /* StatsVCTopBarR8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StatsVCTopBarR8.png; sourceTree = "<group>"; };
@@ -555,6 +574,10 @@
 		BA01184B1535C0B000C0BC46 /* StatsVC */ = {
 			isa = PBXGroup;
 			children = (
+				BA1E26BD15473CAC005D1D2E /* ScrollerOverlay.png */,
+				BA1E26BE15473CAC005D1D2E /* ScrollerOverlay@2x.png */,
+				BA1E26BF15473CAC005D1D2E /* ScrollerUnderlay.png */,
+				BA1E26C015473CAC005D1D2E /* ScrollerUnderlay@2x.png */,
 				BA24A15E15366A55005E5A52 /* SecondBarR8.png */,
 				BA24A15F15366A55005E5A52 /* SecondBarR8@2x.png */,
 				BA24A1561536662C005E5A52 /* AddButtonR8.png */,
@@ -591,6 +614,7 @@
 		BA08C5E5140D3D35009C5E8D /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				BA1E26B1154718CD005D1D2E /* PopupVC */,
 				BA1E26AD1545A167005D1D2E /* LisztHUDDark.png */,
 				BA1E26AE1545A167005D1D2E /* LisztHUDDark@2x.png */,
 				BABAA076153E6215006F3451 /* alertme@2x.png */,
@@ -730,6 +754,17 @@
 				BAE6998B14E57AF100D3ADF8 /* DisclosureArrow@2x.png */,
 			);
 			name = Images;
+			sourceTree = "<group>";
+		};
+		BA1E26B1154718CD005D1D2E /* PopupVC */ = {
+			isa = PBXGroup;
+			children = (
+				BA1E26B915471C02005D1D2E /* DropButton.png */,
+				BA1E26BA15471C02005D1D2E /* DropButton@2x.png */,
+				BA1E26B2154718DC005D1D2E /* dropBarBkg.png */,
+				BA1E26B3154718DC005D1D2E /* dropBarBkg@2x.png */,
+			);
+			name = PopupVC;
 			sourceTree = "<group>";
 		};
 		BA3F8E571536F514005DAB03 /* Pickers */ = {
@@ -897,6 +932,8 @@
 				BA5605751492D97500411BA9 /* TimerCell.xib */,
 				BAA5A4DC153460120061C516 /* NotesCell.h */,
 				BAA5A4DD153460120061C516 /* NotesCell.m */,
+				BA1E26B615471ACA005D1D2E /* PopupCell.h */,
+				BA1E26B715471ACA005D1D2E /* PopupCell.m */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -1203,6 +1240,14 @@
 				BAEBE4A71540B35E00A2E3CC /* ACaslonPro-Italic.otf in Resources */,
 				BA1E26AF1545A167005D1D2E /* LisztHUDDark.png in Resources */,
 				BA1E26B01545A167005D1D2E /* LisztHUDDark@2x.png in Resources */,
+				BA1E26B4154718DC005D1D2E /* dropBarBkg.png in Resources */,
+				BA1E26B5154718DC005D1D2E /* dropBarBkg@2x.png in Resources */,
+				BA1E26BB15471C02005D1D2E /* DropButton.png in Resources */,
+				BA1E26BC15471C02005D1D2E /* DropButton@2x.png in Resources */,
+				BA1E26C115473CAC005D1D2E /* ScrollerOverlay.png in Resources */,
+				BA1E26C215473CAC005D1D2E /* ScrollerOverlay@2x.png in Resources */,
+				BA1E26C315473CAC005D1D2E /* ScrollerUnderlay.png in Resources */,
+				BA1E26C415473CAC005D1D2E /* ScrollerUnderlay@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1256,6 +1301,7 @@
 				BABAA074153E61F1006F3451 /* InfoViewController.m in Sources */,
 				BA466C52154456AD00AC91A8 /* OtherCell.m in Sources */,
 				BA1E26A315459952005D1D2E /* UIView+HUDAnimation.m in Sources */,
+				BA1E26B815471ACA005D1D2E /* PopupCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

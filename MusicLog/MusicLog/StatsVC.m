@@ -30,6 +30,7 @@
 #import "Other.h"
 #import "OtherVC.h"
 #import "OtherCell.h"
+#import "PopupCell.h"
 
 #pragma mark - Private Interface
 
@@ -229,20 +230,20 @@
 # pragma mark - Popover Menu
 
 - (void) makeMenu {
-    myPopover = [[PopupVC alloc] initWithFrame:CGRectMake(200, 47, 128, 214)];
+    myPopover = [[PopupVC alloc] initWithFrame:CGRectMake(195, 47, 116, 199)];
     [myPopover setDelegate:self];
     [myPopover.view setAlpha:0];
-    UITableViewCell *cell1 = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
-    cell1.textLabel.text = @"Scales";
-    UITableViewCell *cell2 = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
-    cell2.textLabel.text = @"Arpeggios";
-    UITableViewCell *cell3 = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
-    cell3.textLabel.text = @"Pieces";
-    UITableViewCell *cell4 = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
-    cell4.textLabel.text = @"Notes";
-    UITableViewCell *cell5 = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
-    cell5.textLabel.text = @"Other";
-    NSArray *cells = [NSArray arrayWithObjects:cell1, cell2, cell3, cell4, cell5, nil];
+    
+    NSArray *cellTitles = [NSArray arrayWithObjects:@"Scales", @"Arpeggios", @"Pieces", @"Notes", @"Other", nil];
+    NSMutableArray *cells = [[NSMutableArray alloc] initWithCapacity:[cellTitles count]];
+    for (NSString *title in cellTitles)
+    {
+        PopupCell *cell = [[PopupCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
+        [cell setButtonTitle:title];
+        [cell setTag:[cellTitles indexOfObject:title]];
+        [cells addObject:cell];
+        
+    }
     [myPopover setStaticCells:cells];
     tapAwayGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideMenu:)];
     [tapAwayGesture setDelegate:self];
@@ -284,9 +285,9 @@
 #pragma mark - Metronome
 
 - (void) makeMetronome {
-    tempoChooser = [[ACchooser alloc]initWithFrame:CGRectMake(88, 35, 140, 40)];
-    //UIImageView *chooserOverlay = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ACChooserOverlay"]];
-    //[chooserOverlay setFrame:tempoChooser.view.frame];
+    tempoChooser = [[ACchooser alloc]initWithFrame:CGRectMake(87, 26, 150, 58)];
+    UIImageView *chooserOverlay = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ScrollerOverlay.png"]];
+    [chooserOverlay setFrame:CGRectMake(80, 25, 164, 58)];
     NSMutableArray *tempos = [[NSMutableArray alloc] initWithCapacity:290];
     for (int i = 30; i <= 320; i++)
         [tempos addObject:[NSString stringWithInt:i]];
@@ -294,9 +295,9 @@
     [tempoChooser setDelegate:self];
     [tempoChooser setCellColor:[UIColor clearColor]];
     [tempoChooser setSelectedBackgroundColor:[UIColor clearColor]];
-    [tempoChooser setCellFont:[UIFont fontWithName:@"ACaslonPro-Regular" size:22]];
+    [tempoChooser setCellFont:[UIFont fontWithName:@"ACaslonPro-Regular" size:18]];
     [metronomeView addSubview:tempoChooser.view];
-    //metronomeView addSubview:chooserOverlay];
+    [metronomeView addSubview:chooserOverlay];
     [tempoChooser setSelectedCellIndex:90];
     [stepper setDelegate:self];
     metroPanGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handleMetroPan:)];

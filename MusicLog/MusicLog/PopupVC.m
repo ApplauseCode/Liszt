@@ -32,7 +32,10 @@
 - (void)loadView
 {
     self.view = [[UIView alloc] initWithFrame:frame];
-    staticTable = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height) style:UITableViewStylePlain];
+    [self.view addSubview:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"dropBarBkg.png"]]];
+    staticTable = [[UITableView alloc] initWithFrame:CGRectMake(0, 10, self.view.frame.size.width, self.view.frame.size.height) style:UITableViewStylePlain];
+    [staticTable setBackgroundColor:[UIColor clearColor]];
+    [staticTable setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [self.view addSubview:staticTable];
 }
 
@@ -44,6 +47,12 @@
 }
 
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 36;
+}
+
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return [staticCells count];
@@ -51,12 +60,14 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return [staticCells objectAtIndex:[indexPath row]];
+    PopupCell *currentCell = [staticCells objectAtIndex:[indexPath row]];
+    [currentCell setDelegate:self];
+    return currentCell;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)cellButtonPressedAtIndex:(NSInteger)idx
 {
-    [[self delegate] cellSelectedAtIndex:[indexPath row]];
+    [[self delegate] cellSelectedAtIndex:idx];
 }
 
 - (void)viewDidUnload

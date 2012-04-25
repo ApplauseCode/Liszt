@@ -21,6 +21,7 @@ double chooseBPM(double bpm)
 @property (nonatomic, strong) AVAudioPlayer *tickPlayer;
 @property (nonatomic) int tempo;
 @property (nonatomic, assign) int firstTimeTimer;
+@property (nonatomic, strong) NSDate *firstDate;
 @end
 
 @implementation Metronome
@@ -29,6 +30,7 @@ double chooseBPM(double bpm)
 @synthesize isPlaying;
 @synthesize delegate;
 @synthesize firstTimeTimer;
+@synthesize firstDate;
 //@synthesize mySound;
 
 - (id)init
@@ -65,7 +67,9 @@ double chooseBPM(double bpm)
     double bpm;
     bpm =  chooseBPM(tempo);
     
-    tempoTimer = [[NSTimer alloc] initWithFireDate:[NSDate dateWithTimeIntervalSinceNow:bpm] interval:bpm target:self selector:@selector(tempoTimerFireMethod:) userInfo:nil repeats:YES];
+    tempoTimer = [[NSTimer alloc] initWithFireDate:[NSDate dateWithTimeIntervalSinceNow:bpm] interval:1/1000 target:self selector:@selector(tempoTimerFireMethod:) userInfo:nil repeats:YES];
+    [[self delegate] metronomeWillStartWithInterval:chooseBPM(tempo)];
+    firstDate = [NSDate date];
     [[NSRunLoop mainRunLoop] addTimer:tempoTimer forMode:NSRunLoopCommonModes];
     [self setIsPlaying:YES];
 }
@@ -81,23 +85,31 @@ double chooseBPM(double bpm)
         }
         tempo = t;
         double bpm = chooseBPM(tempo);
-        tempoTimer = [[NSTimer alloc] initWithFireDate:[NSDate dateWithTimeIntervalSinceNow:bpm] interval:bpm target:self selector:@selector(tempoTimerFireMethod:) userInfo:nil repeats:YES];
+        tempoTimer = [[NSTimer alloc] initWithFireDate:[NSDate dateWithTimeIntervalSinceNow:bpm] interval:1/1000 target:self selector:@selector(tempoTimerFireMethod:) userInfo:nil repeats:YES];
+        //firstDate = [NSDate date];
         [[NSRunLoop mainRunLoop] addTimer:tempoTimer forMode:NSRunLoopCommonModes];
     }
 }
 
 - (void)tempoTimerFireMethod:(NSTimer *)aTimer
 {
-    if (firstTimeTimer++ < 1)
+    NSTimeInterval interval = -[firstDate timeIntervalSinceNow];
+    if (interval >= chooseBPM(tempo))
     {
-        [tickPlayer setVolume:0];
-        [[self delegate] metronomeWillStartWithInterval:chooseBPM(tempo)];
-    }
-    else {
-        [tickPlayer setVolume:1];
         [tickPlayer play];
+        firstDate = [NSDate date];
         [[self delegate] metronomeDidStartWithInterval:chooseBPM(tempo)];
     }
+//    if (firstTimeTimer++ < 1)
+//    {
+//        [tickPlayer setVolume:0];
+//        [[self delegate] metronomeWillStartWithInterval:chooseBPM(tempo)];
+//    }
+//    else {
+//        [tickPlayer setVolume:1];
+//        [tickPlayer play];
+//        [[self delegate] metronomeDidStartWithInterval:chooseBPM(tempo)];
+//    }
 
 }
 
