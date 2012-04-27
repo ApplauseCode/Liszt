@@ -154,15 +154,16 @@
 
 - (NSUInteger)hash
 {
-    NSUInteger prime = 31;
+    /*NSUInteger prime = 31;
     NSUInteger result = 1;
     result = prime * result + tonic;
     result = prime * result + scaleMode;
     result = prime * result + rhythm;
     result = prime * result + octaves;
-    result = prime * result + tempo;
+    result = prime * result + tempo;*/
     
-    return result;
+    // The amount of objects in set are small enough that we can put them all in the same bucket
+    return 0;
 }
 
 - (BOOL)isEqual:(Scale *)object

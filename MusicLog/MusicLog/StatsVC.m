@@ -578,8 +578,7 @@
             vc = [[OtherVC alloc] initWithEditMode:NO];
             break;
     }       
-    if (vc)
-        [self presentModalViewController:vc animated:YES];
+    [self presentModalViewController:vc animated:YES];
     [self closeSections];
     [self stopAllTimers];
 }
@@ -630,7 +629,7 @@
     {
         self.tickingItem = nil;
         [self setIsUpdatingTime:NO];
-        [sender setImage:[UIImage imageNamed:@"StartTimer.png"] forState:UIControlStateNormal];
+        [sender setImage:[UIImage imageNamed:@"TimerStartButton.png"] forState:UIControlStateNormal];
         dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND,0);
         dispatch_async(queue, ^{
             [[SessionStore defaultStore] saveChanges];
@@ -696,7 +695,7 @@
     [self.idleScreenTimer invalidate];
     [stopWatchTimer invalidate];
     
-    [timerButton setImage:[UIImage imageNamed:@"StartTimer.png"] forState:UIControlStateNormal];
+    [timerButton setImage:[UIImage imageNamed:@"TimerStartButton.png"] forState:UIControlStateNormal];
     [self setTickingItem:nil];
     [dimScreenTimer invalidate];
     [metronomeScreenTimer invalidate];
@@ -812,7 +811,7 @@
     if ([[sectionInfoArray objectAtIndex:[indexPath section]] isNotes])
         return 133 ;
     else if ([indexPath row] == 0 && currentPractice)
-        return 27;
+        return 57;
     if ([indexPath section] < 2)
         return 49;
     else if ([[[selectedSession pieceSession] objectAtIndex:[indexPath section] - 2] isKindOfClass:[Other class]]) {
@@ -1112,7 +1111,7 @@
        visCell = [[statsTable visibleCells] objectAtIndex:0];
     else
         visCell = nil;
-    [timerButton setImage:[UIImage imageNamed:@"StartTimer.png"] forState:UIControlStateNormal];
+    [timerButton setImage:[UIImage imageNamed:@"TimerStartButton.png"] forState:UIControlStateNormal];
     if ((section > 1 && ![[statsTable visibleCells] containsObject: 
                          [statsTable cellForRowAtIndexPath:
                           [NSIndexPath indexPathForRow:[statsTable numberOfRowsInSection:section] -1 inSection:section]]]) || visCell.frame.origin.y > statsTable.frame.size.height - 62)
@@ -1163,7 +1162,7 @@
         if ([[sectionInfoArray objectAtIndex:section] isNotes])
             [[[SessionStore defaultStore] mySession] setSessionNotes:nil];
         else {
-            id item = [[[[SessionStore defaultStore] mySession] pieceSession] objectAtIndex:section - 2];
+            //id item = [[[[SessionStore defaultStore] mySession] pieceSession] objectAtIndex:section - 2];
             [[[[SessionStore defaultStore] mySession] pieceSession] removeObjectAtIndex:section - 2];
             if (![[[SessionStore defaultStore] mySession] pieceSession])
             {

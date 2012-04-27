@@ -60,7 +60,7 @@
     // Do any additional setup after loading the view from its nib.
     UILabel *otherDescriptionLabel = [[UILabel alloc] initWithFrame:CGRectMake(109, 211, 95, 25)];
     [otherDescriptionLabel setFont:[UIFont fontWithName:@"ACaslonPro-Regular" size:20]];
-    [otherDescriptionLabel setText:@"otherDescription"];
+    [otherDescriptionLabel setText:@"Description"];
     [otherDescriptionLabel setBackgroundColor:[UIColor clearColor]];
     
     [self.view addSubview:otherDescriptionLabel];

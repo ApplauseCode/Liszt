@@ -53,12 +53,14 @@
 
 - (NSUInteger)hash
 {
-    NSUInteger prime = 31;
+    /*NSUInteger prime = 31;
     NSUInteger result = 1;
     result = prime * result + [title intValue];
     result = prime * result + [subTitle intValue];
     result = prime * result + [otherDescription intValue];
-    result = prime * result + otherTime;
+    result = prime * result + otherTime;*/
+    
+    // The amount of objects in set are small enough that we can put them all in the same bucket
     return 0;
 }
 
