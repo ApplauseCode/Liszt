@@ -42,7 +42,7 @@ double chooseBPM(double bpm)
         // Use GCD so that startup time isn't delayed
         dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0);
         dispatch_async(queue, ^{
-            NSURL *tickURL = [NSURL fileURLWithPath:[mainBundle pathForResource:@"oldShortTick" ofType:@"m4a"]];
+            NSURL *tickURL = [NSURL fileURLWithPath:[mainBundle pathForResource:@"tick" ofType:@"caf"]];
             tickPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:tickURL error:nil];
             [tickPlayer prepareToPlay];
             [self setIsPlaying:NO];
@@ -67,7 +67,7 @@ double chooseBPM(double bpm)
     double bpm;
     bpm =  chooseBPM(tempo);
     
-    tempoTimer = [[NSTimer alloc] initWithFireDate:[NSDate dateWithTimeIntervalSinceNow:bpm] interval:1/1000 target:self selector:@selector(tempoTimerFireMethod:) userInfo:nil repeats:YES];
+    tempoTimer = [[NSTimer alloc] initWithFireDate:[NSDate dateWithTimeIntervalSinceNow:bpm] interval:1/10 target:self selector:@selector(tempoTimerFireMethod:) userInfo:nil repeats:YES];
     [[self delegate] metronomeWillStartWithInterval:chooseBPM(tempo)];
     firstDate = [NSDate date];
     [[NSRunLoop mainRunLoop] addTimer:tempoTimer forMode:NSRunLoopCommonModes];
@@ -85,8 +85,7 @@ double chooseBPM(double bpm)
         }
         tempo = t;
         double bpm = chooseBPM(tempo);
-        tempoTimer = [[NSTimer alloc] initWithFireDate:[NSDate dateWithTimeIntervalSinceNow:bpm] interval:1/1000 target:self selector:@selector(tempoTimerFireMethod:) userInfo:nil repeats:YES];
-        //firstDate = [NSDate date];
+        tempoTimer = [[NSTimer alloc] initWithFireDate:[NSDate dateWithTimeIntervalSinceNow:bpm] interval:1/10 target:self selector:@selector(tempoTimerFireMethod:) userInfo:nil repeats:YES];
         [[NSRunLoop mainRunLoop] addTimer:tempoTimer forMode:NSRunLoopCommonModes];
     }
 }

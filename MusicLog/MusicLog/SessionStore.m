@@ -53,17 +53,17 @@
 {
     self = [super init];
     if (self) {
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        NSNumber *isFirstLaunch = [NSNumber numberWithBool:YES];
-        NSDictionary *appDefaults = [[NSDictionary alloc] initWithObjectsAndKeys:isFirstLaunch, @"FirstLaunch", nil];
-        [defaults registerDefaults:appDefaults];
-        if ([[defaults objectForKey:@"FirstLaunch"] boolValue]) {
-            [self testInit];
-            [defaults setBool:NO forKey:@"FirstLaunch"];
-            [defaults synchronize];
-        }
-        else
-        {
+//        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+//        NSNumber *isFirstLaunch = [NSNumber numberWithBool:YES];
+//        NSDictionary *appDefaults = [[NSDictionary alloc] initWithObjectsAndKeys:isFirstLaunch, @"FirstLaunch", nil];
+//        [defaults registerDefaults:appDefaults];
+//        if ([[defaults objectForKey:@"FirstLaunch"] boolValue]) {
+//            [self testInit];
+//            [defaults setBool:NO forKey:@"FirstLaunch"];
+//            [defaults synchronize];
+//        }
+//        else
+//        {
             NSString *path = [self scaleArchivePath];
             objectsArchive = [NSKeyedUnarchiver unarchiveObjectWithFile:path];
             if (objectsArchive) {
@@ -85,7 +85,7 @@
                 mySession = [[Session alloc] init];
             }
 
-        }    
+//        }    
     }
     [self updateDict];
     return self; 
@@ -212,7 +212,7 @@
         Other *testOther = [[Other alloc] init];
         [testOther setTitle:@"testTitle"];
         [testOther setSubTitle:@"test subTitile"];
-        [testOther setDescription:@"Lorem Ipsum TESTING"];
+        [testOther setOtherDescription:@"Lorem Ipsum TESTING"];
         [pieceSet addObject:testOther];
         Session *theSesh = [[Session alloc] initWithScales:scaleSet arpeggios:arpeggioSet pieces:pieceSet];
         [theSesh setScaleTime:i * 10];

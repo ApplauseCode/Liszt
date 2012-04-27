@@ -12,7 +12,7 @@
 @implementation Other
 @synthesize title;
 @synthesize subTitle;
-@synthesize description;
+@synthesize otherDescription;
 @synthesize otherTime;
 @synthesize startOtherDate;
 
@@ -21,7 +21,7 @@
     self = [super init];
     [self setTitle:[aDecoder decodeObjectForKey:@"title"]];
     [self setSubTitle:[aDecoder decodeObjectForKey:@"subTitle"]];
-    [self setDescription:[aDecoder decodeObjectForKey:@"description"]];
+    [self setOtherDescription:[aDecoder decodeObjectForKey:@"otherDescription"]];
     [self setOtherTime:[aDecoder decodeIntegerForKey:@"otherTime"]];
     return self;
 }
@@ -46,7 +46,7 @@
     Other *copy = [[Other alloc] init];
     [copy setTitle:title];
     [copy setSubTitle:subTitle];
-    [copy setDescription:description];
+    [copy setOtherDescription:otherDescription];
     [copy setOtherTime:otherTime];
     return copy;
 }
@@ -57,16 +57,16 @@
     NSUInteger result = 1;
     result = prime * result + [title intValue];
     result = prime * result + [subTitle intValue];
-    result = prime * result + [description intValue];
+    result = prime * result + [otherDescription intValue];
     result = prime * result + otherTime;
-    return result;
+    return 0;
 }
 
 - (BOOL)isEqual:(Other *)object
 {
     if (([title isEqualToString:[object title]])
         && ([subTitle isEqualToString:[object subTitle]])
-        && ([description isEqualToString:[object description]])
+        && ([otherDescription isEqualToString:[object otherDescription]])
         && (otherTime == [object otherTime]))
         return YES;
     else 
@@ -77,7 +77,7 @@
 {
     [aCoder encodeObject:title forKey:@"title"];
     [aCoder encodeObject:subTitle forKey:@"subTitle"];
-    [aCoder encodeObject:description forKey:@"description"];
+    [aCoder encodeObject:otherDescription forKey:@"otherDescription"];
     [aCoder encodeInteger:otherTime forKey:@"otherTime"];
 }
 

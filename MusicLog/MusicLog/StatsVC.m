@@ -224,6 +224,13 @@
     [self startTimers];
     [self setupSectionInfoArray];
     [statsTable reloadData];
+//    if ([statsTable numberOfSections] == 2 && ([statsTable numberOfRowsInSection:0] == 0 && [statsTable numberOfRowsInSection:1] == 0))
+//    {
+//        UILabel *nothingInTable = [[UILabel alloc] initWithFrame:CGRectMake(10, 100, 100, 20)];
+//        [nothingInTable setFont:[UIFont fontWithName:@"ACaslonPro-Italic" size:22]];
+//        [nothingInTable setText:@"Your practice is empty. Press the plus button to add items to your practice."];
+//        [self.statsTable addSubview:nothingInTable];
+//    }
     [self hideMenu:nil];
 }
 
@@ -286,7 +293,7 @@
 
 - (void) makeMetronome {
     tempoChooser = [[ACchooser alloc]initWithFrame:CGRectMake(87, 26, 150, 58)];
-    UIImageView *chooserOverlay = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ScrollerOverlay.png"]];
+    UIImageView *chooserOverlay = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ScrollerShadingNoArrow.png"]];
     [chooserOverlay setFrame:CGRectMake(80, 25, 164, 58)];
     NSMutableArray *tempos = [[NSMutableArray alloc] initWithCapacity:290];
     for (int i = 30; i <= 320; i++)
@@ -423,11 +430,11 @@
 
 ////////////////////// REMOVE LATER ////////////////////////
 
-- (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event
-{
-    if (motion == UIEventSubtypeMotionShake)
-        [TestFlight openFeedbackView];
-}
+//- (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event
+//{
+//    if (motion == UIEventSubtypeMotionShake)
+//        [TestFlight openFeedbackView];
+//}
 ///////////////////////////////////////////////////////////
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
 {
@@ -591,13 +598,13 @@
     }
 }
 
-- (void)setDimScreenTimer:(NSTimer *)aTimer
+/*- (void)setDimScreenTimer:(NSTimer *)aTimer
 {
     if (aTimer != dimScreenTimer) {
         [dimScreenTimer invalidate];
         dimScreenTimer = aTimer;
     }
-}
+}*/
 
 - (void)timerButtonPressed:(id)sender
 {
@@ -639,7 +646,7 @@
         if ([mainScreen brightness] != [self screenBrightness])
             mainScreen.brightness = [self screenBrightness]; 
         
-        [self setDimScreenTimer:[NSTimer scheduledTimerWithTimeInterval:30 target:self selector:@selector(dimTimerFire:) userInfo:nil repeats:NO]];
+        //[self setDimScreenTimer:[NSTimer scheduledTimerWithTimeInterval:30 target:self selector:@selector(dimTimerFire:) userInfo:nil repeats:NO]];
             
     } 
 }
@@ -663,7 +670,7 @@
     UIScreen *mainScreen = [UIScreen mainScreen];
     if ([mainScreen brightness] != [self screenBrightness])
         mainScreen.brightness = [self screenBrightness]; 
-    [self setDimScreenTimer:[NSTimer scheduledTimerWithTimeInterval:30 target:self selector:@selector(dimTimerFire:) userInfo:nil repeats:NO]];
+    //[self setDimScreenTimer:[NSTimer scheduledTimerWithTimeInterval:30 target:self selector:@selector(dimTimerFire:) userInfo:nil repeats:NO]];
     
     return nil;
 }
@@ -699,7 +706,11 @@
 - (void)startTimers
 {
     [self.stopWatchTimer invalidate];
+    [self setDimScreenTimer:[NSTimer scheduledTimerWithTimeInterval:30 target:self selector:@selector(dimTimerFire:) userInfo:nil repeats:NO]];
     self.stopWatchTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(stopWatchTick:) userInfo:nil repeats:YES];
+    
+    [dimScreenTimer invalidate];
+    
     
     [idleScreenTimer invalidate];
     [self idleScreenTimerFire:nil];
@@ -1153,7 +1164,11 @@
             [[[SessionStore defaultStore] mySession] setSessionNotes:nil];
         else {
             id item = [[[[SessionStore defaultStore] mySession] pieceSession] objectAtIndex:section - 2];
-            [[[[SessionStore defaultStore] mySession] pieceSession] removeObject:item];
+            [[[[SessionStore defaultStore] mySession] pieceSession] removeObjectAtIndex:section - 2];
+            if (![[[SessionStore defaultStore] mySession] pieceSession])
+            {
+                [[[SessionStore defaultStore] mySession] setPieceSession:[[NSMutableOrderedSet alloc] init]];
+            }
         }
         [sectionInfoArray removeObjectAtIndex:section];
         for (int i = section; i < [sectionInfoArray count]; i++)

@@ -18,12 +18,12 @@
 @interface OtherCell ()
 @property (nonatomic, copy) NSString *_titleString;
 @property (nonatomic, copy) NSString *_subTitleString;
-@property (nonatomic, copy) NSString *_descriptionString;
+@property (nonatomic, copy) NSString *_otherDescriptionString;
 @end
 @implementation OtherCell
 @synthesize _titleString;
 @synthesize _subTitleString;
-@synthesize _descriptionString;
+@synthesize _otherDescriptionString;
 static UIImage *_topBackgroundImage = nil;
 static UIImage *_bottomBackgroundImage = nil;
 
@@ -47,7 +47,7 @@ static UIImage *_bottomBackgroundImage = nil;
 {
     NSString *title = [other title];
     NSString *subTitle = [other subTitle];
-    NSString *description = [other description];
+    NSString *otherDescription = [other otherDescription];
     
     if (_titleString != title) {
         _titleString = title;
@@ -55,8 +55,8 @@ static UIImage *_bottomBackgroundImage = nil;
     if (_subTitleString != subTitle) {
         _subTitleString = subTitle;
     }
-    if (_descriptionString != description) {
-        _descriptionString = description;
+    if (_otherDescriptionString != otherDescription) {
+        _otherDescriptionString = otherDescription;
     }
     [self setNeedsDisplay];
 }
@@ -76,7 +76,7 @@ static UIImage *_bottomBackgroundImage = nil;
                                                   _topBackgroundImage.size.height,
                                                   _bottomBackgroundImage.size.width,
                                                   _bottomBackgroundImage.size.height)];
-    [_descriptionString drawInRect:CGRectMake(_topBackgroundImage.size.width/2.0 - 215/2.0,
+    [_otherDescriptionString drawInRect:CGRectMake(_topBackgroundImage.size.width/2.0 - 215/2.0,
                                               _topBackgroundImage.size.height + 10,
                                               215,
                                               127) 

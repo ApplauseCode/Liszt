@@ -16,7 +16,7 @@
 @interface OtherVC ()
 @property (nonatomic, strong) ModifiedTextField *titleField;
 @property (nonatomic, strong) ModifiedTextField *subTitleField;
-@property (nonatomic, strong) IBOutlet UITextView *descriptionView;
+@property (nonatomic, strong) IBOutlet UITextView *otherDescriptionView;
 @property (nonatomic, assign) BOOL editMode;
 @property (nonatomic, strong) UITapGestureRecognizer *viewTap;
 @property (weak, nonatomic) IBOutlet UIButton *addButton;
@@ -30,7 +30,7 @@
 @implementation OtherVC
 @synthesize titleField;
 @synthesize subTitleField;
-@synthesize descriptionView;
+@synthesize otherDescriptionView;
 @synthesize editMode;
 @synthesize editItemPath;
 @synthesize selectedSession;
@@ -58,12 +58,12 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    UILabel *descriptionLabel = [[UILabel alloc] initWithFrame:CGRectMake(109, 211, 95, 25)];
-    [descriptionLabel setFont:[UIFont fontWithName:@"ACaslonPro-Regular" size:20]];
-    [descriptionLabel setText:@"Description"];
-    [descriptionLabel setBackgroundColor:[UIColor clearColor]];
+    UILabel *otherDescriptionLabel = [[UILabel alloc] initWithFrame:CGRectMake(109, 211, 95, 25)];
+    [otherDescriptionLabel setFont:[UIFont fontWithName:@"ACaslonPro-Regular" size:20]];
+    [otherDescriptionLabel setText:@"otherDescription"];
+    [otherDescriptionLabel setBackgroundColor:[UIColor clearColor]];
     
-    [self.view addSubview:descriptionLabel];
+    [self.view addSubview:otherDescriptionLabel];
     
     titleField = [[ModifiedTextField alloc] initWithFrame:CGRectMake(33, 95, 268, 31)];
     [titleField setDelegate:self];
@@ -83,8 +83,8 @@
     [subTitleField setPlaceholder:@"SubTitle"];
     [self.view addSubview:subTitleField];
     
-    [descriptionView setDelegate:self];
-    [descriptionView setFont:[UIFont fontWithName:@"ACaslonPro-Italic" size:18]];
+    [otherDescriptionView setDelegate:self];
+    [otherDescriptionView setFont:[UIFont fontWithName:@"ACaslonPro-Italic" size:18]];
     
     viewTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
     [self.view addGestureRecognizer:viewTap];
@@ -99,7 +99,7 @@
         otherToEdit = [[selectedSession pieceSession] objectAtIndex:[editItemPath section] - 2];
         [titleField setText:[otherToEdit title]];
         [subTitleField setText:[otherToEdit subTitle]];
-        [descriptionView setText:[otherToEdit description]];
+        [otherDescriptionView setText:[otherToEdit otherDescription]];
     }
     
     
@@ -119,7 +119,7 @@
     SessionStore *store = [SessionStore defaultStore];
     [createdOther setTitle:[titleField text]];
     [createdOther setSubTitle:[subTitleField text]];
-    [createdOther setDescription:[descriptionView text]];
+    [createdOther setOtherDescription:[otherDescriptionView text]];
     [[[store mySession] pieceSession] addObject:createdOther];
     
     [UIView animateHUDWithText:@"Other Item Added"];
@@ -131,7 +131,7 @@
     
     [editedOther setTitle:[titleField text]];
     [editedOther setSubTitle:[subTitleField text]];
-    [editedOther setDescription:[descriptionView text]];
+    [editedOther setOtherDescription:[otherDescriptionView text]];
     [[selectedSession pieceSession] replaceObjectAtIndex:[editItemPath section] - 2 withObject:editedOther];
     [UIView animateHUDWithText:@"Other Item Edited"];
 }

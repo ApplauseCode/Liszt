@@ -69,7 +69,7 @@
     result = prime * result + tempo;
     result = prime * result + pieceKey;
     result = prime * result + pieceTime;
-    return result;
+    return 0;
 }
 
 - (BOOL)isEqual:(Piece *)object

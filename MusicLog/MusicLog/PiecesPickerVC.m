@@ -175,6 +175,8 @@
     [createdPiece setTempo:[tempoStepper tempo]];
     [createdPiece setMajor:[majOrMin selectedIndex]];
     [createdPiece setPieceKey:[keyChooser selectedCellIndex]];
+    //[[[store mySession] pieceSession] addObject:createdPiece];
+    // testing
     [[[store mySession] pieceSession] addObject:createdPiece];
     
     [UIView animateHUDWithText:@"Piece Added"];

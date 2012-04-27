@@ -11,7 +11,7 @@
 @interface Other: NSObject <NSMutableCopying, NSCoding>
 @property (nonatomic, strong) NSString *title;
 @property (nonatomic, strong) NSString *subTitle;
-@property (nonatomic, strong) NSString *description;
+@property (nonatomic, strong) NSString *otherDescription;
 @property (nonatomic, assign) double otherTime;
 @property (nonatomic, strong) NSDate *startOtherDate;
 - (int)updateElapsedTime:(NSDate *)d;

@@ -34,10 +34,25 @@
 {
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque];
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    /*remove later*/[TestFlight takeOff:@"0bb5b0fae5868594a374b52c1cd204c3_NTQ5NTIyMDEyLTAxLTI1IDE1OjU3OjIxLjYxMTI3NA"];
-     application.applicationSupportsShakeToEdit = YES; /**/
+    /*remove later*/
+//    [TestFlight takeOff:@"0bb5b0fae5868594a374b52c1cd204c3_NTQ5NTIyMDEyLTAxLTI1IDE1OjU3OjIxLjYxMTI3NA"];
+//     application.applicationSupportsShakeToEdit = YES; /**/
     [self setAlertViewVisible:NO];
-    [self checkDate];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSNumber *isFirstLaunch = [NSNumber numberWithBool:YES];
+    NSDictionary *appDefaults = [[NSDictionary alloc] initWithObjectsAndKeys:isFirstLaunch, @"FirstLaunch", nil];
+    [defaults registerDefaults:appDefaults];
+    if ([[defaults objectForKey:@"FirstLaunch"] boolValue]) {
+        [defaults setBool:NO forKey:@"FirstLaunch"];
+        [defaults synchronize];
+        Session *firstSession = [[Session alloc] init];
+        [[SessionStore defaultStore] setMySession:firstSession];
+    }
+    else {
+        [self checkDate];
+        
+    }
+
     statsVC = [[StatsVC alloc] init];
     historyViewController = [[HistoryViewController alloc] initWithNibName:nil bundle:nil];
     containerViewController = [[ContainerViewController alloc] initWithNibName:nil bundle:nil];
@@ -61,7 +76,6 @@
 {
     [self checkDate];
     [statsVC setScreenBrightness:[statsVC screenBrightness]];
-    [statsVC setDimScreenTimer:[NSTimer scheduledTimerWithTimeInterval:30 target:statsVC selector:@selector(dimTimerFire:) userInfo:nil repeats:NO]];
     [statsVC startTimers];
 
 }

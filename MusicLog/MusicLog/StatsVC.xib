@@ -176,7 +176,7 @@
 								<string key="NSFrame">{{0, 15}, {75, 70}}</string>
 								<reference key="NSSuperview" ref="308995282"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="588540761"/>
+								<reference key="NSNextKeyView" ref="207378448"/>
 								<string key="NSReuseIdentifierKey">_NS:225</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -237,7 +237,7 @@
 									<int key="NSfFlags">16</int>
 								</object>
 							</object>
-							<object class="IBUIImageView" id="588540761">
+							<object class="IBUIImageView" id="207378448">
 								<reference key="NSNextResponder" ref="308995282"/>
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{80, 25}, {164, 58}}</string>
@@ -288,7 +288,7 @@
 							<object class="IBUIImageView" id="621252967">
 								<reference key="NSNextResponder" ref="398768513"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{24, 5}, {19, 174}}</string>
+								<string key="NSFrame">{{24, 5}, {19, 171}}</string>
 								<reference key="NSSuperview" ref="398768513"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="706459622"/>
@@ -297,7 +297,7 @@
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<object class="NSCustomResource" key="IBUIImage">
 									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">metronomeTickerTake2.png</string>
+									<string key="NSResourceName">LargeMetronomeArm.png</string>
 								</object>
 							</object>
 							<object class="IBUIImageView" id="78216396">
@@ -693,7 +693,7 @@
 						<reference key="object" ref="308995282"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="588540761"/>
+							<reference ref="207378448"/>
 							<reference ref="683179200"/>
 							<reference ref="598048282"/>
 							<reference ref="994863916"/>
@@ -703,7 +703,7 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">173</int>
-						<reference key="object" ref="588540761"/>
+						<reference key="object" ref="207378448"/>
 						<reference key="parent" ref="308995282"/>
 					</object>
 					<object class="IBObjectRecord">
@@ -1002,6 +1002,7 @@
 				<string>AddButtonR8.png</string>
 				<string>DropshadowLeft.png</string>
 				<string>DropshadowRight.png</string>
+				<string>LargeMetronomeArm.png</string>
 				<string>LeftExpanderR8.png</string>
 				<string>ScrollerUnderlay.png</string>
 				<string>SecondBarR8.png</string>
@@ -1012,13 +1013,13 @@
 				<string>metronomeBG.png</string>
 				<string>metronomePlay.png</string>
 				<string>metronomeTab.png</string>
-				<string>metronomeTickerTake2.png</string>
 			</object>
 			<object class="NSArray" key="dict.values">
 				<bool key="EncodedWithXMLCoder">YES</bool>
 				<string>{31, 31}</string>
 				<string>{20, 461}</string>
 				<string>{20, 461}</string>
+				<string>{19, 171}</string>
 				<string>{55, 37}</string>
 				<string>{164, 58}</string>
 				<string>{320, 47}</string>
@@ -1029,7 +1030,6 @@
 				<string>{320, 85}</string>
 				<string>{75, 70}</string>
 				<string>{108, 24}</string>
-				<string>{19, 174}</string>
 			</object>
 		</object>
 		<string key="IBCocoaTouchPluginVersion">1181</string>
