@@ -109,7 +109,7 @@ static UIImage *_disclosureImage = nil;
 
 - (void)toggleLongTap:(UILongPressGestureRecognizer *)sender
 {
-    if ([sender state] == UIGestureRecognizerStateBegan)
+    if ([sender state] == UIGestureRecognizerStateBegan && [self section] > 1)
     {
         [self becomeFirstResponder];
         UIMenuController *deleteMenu = [UIMenuController sharedMenuController];

@@ -83,8 +83,6 @@
 		BA1E26C8154976BE005D1D2E /* ScrollerShadingNoArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BA1E26C6154976BE005D1D2E /* ScrollerShadingNoArrow@2x.png */; };
 		BA1E26CB15497A2C005D1D2E /* LargeMetronomeArm.png in Resources */ = {isa = PBXBuildFile; fileRef = BA1E26C915497A2B005D1D2E /* LargeMetronomeArm.png */; };
 		BA1E26CC15497A2C005D1D2E /* LargeMetronomeArm@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BA1E26CA15497A2C005D1D2E /* LargeMetronomeArm@2x.png */; };
-		BA1E26D3154AC12E005D1D2E /* TimerStartButton.png in Resources */ = {isa = PBXBuildFile; fileRef = BA1E26D1154AC12D005D1D2E /* TimerStartButton.png */; };
-		BA1E26D4154AC12E005D1D2E /* TimerStartButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BA1E26D2154AC12D005D1D2E /* TimerStartButton@2x.png */; };
 		BA24A150153648F3005E5A52 /* StatsBGR8.png in Resources */ = {isa = PBXBuildFile; fileRef = BA24A14E153648F3005E5A52 /* StatsBGR8.png */; };
 		BA24A151153648F3005E5A52 /* StatsBGR8@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BA24A14F153648F3005E5A52 /* StatsBGR8@2x.png */; };
 		BA24A154153649C0005E5A52 /* StatsVCTopBarR8.png in Resources */ = {isa = PBXBuildFile; fileRef = BA24A152153649C0005E5A52 /* StatsVCTopBarR8.png */; };
@@ -114,6 +112,12 @@
 		BA3F8E671536F613005DAB03 /* DoneButtonPicker.png in Resources */ = {isa = PBXBuildFile; fileRef = BA3F8E651536F613005DAB03 /* DoneButtonPicker.png */; };
 		BA3F8E681536F613005DAB03 /* DoneButtonPicker@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BA3F8E661536F613005DAB03 /* DoneButtonPicker@2x.png */; };
 		BA41E8381538EEB90046AA15 /* ModifiedTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = BA41E8371538EEB90046AA15 /* ModifiedTextField.m */; };
+		BA41EA43154B1B8200E5C766 /* overstate.png in Resources */ = {isa = PBXBuildFile; fileRef = BA41EA41154B1B8200E5C766 /* overstate.png */; };
+		BA41EA44154B1B8200E5C766 /* overstate@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BA41EA42154B1B8200E5C766 /* overstate@2x.png */; };
+		BA41EA4A154C20CC00E5C766 /* StartTimerWithClock.png in Resources */ = {isa = PBXBuildFile; fileRef = BA41EA46154C20CC00E5C766 /* StartTimerWithClock.png */; };
+		BA41EA4B154C20CC00E5C766 /* StartTimerWithClock@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BA41EA47154C20CC00E5C766 /* StartTimerWithClock@2x.png */; };
+		BA41EA4C154C20CC00E5C766 /* StopTimerWithClock.png in Resources */ = {isa = PBXBuildFile; fileRef = BA41EA48154C20CC00E5C766 /* StopTimerWithClock.png */; };
+		BA41EA4D154C20CC00E5C766 /* StopTimerWithClock@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BA41EA49154C20CC00E5C766 /* StopTimerWithClock@2x.png */; };
 		BA44684114F92E0400AE0A0D /* NSMutableOrderedSet+DeepCopy.m in Sources */ = {isa = PBXBuildFile; fileRef = BA44684014F92E0400AE0A0D /* NSMutableOrderedSet+DeepCopy.m */; };
 		BA455FDD1528A3310018986E /* ParchSeparator.png in Resources */ = {isa = PBXBuildFile; fileRef = BA455FDB1528A3310018986E /* ParchSeparator.png */; };
 		BA455FDE1528A3310018986E /* ParchSeparator@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BA455FDC1528A3310018986E /* ParchSeparator@2x.png */; };
@@ -337,8 +341,6 @@
 		BA1E26C6154976BE005D1D2E /* ScrollerShadingNoArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ScrollerShadingNoArrow@2x.png"; sourceTree = "<group>"; };
 		BA1E26C915497A2B005D1D2E /* LargeMetronomeArm.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LargeMetronomeArm.png; sourceTree = "<group>"; };
 		BA1E26CA15497A2C005D1D2E /* LargeMetronomeArm@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LargeMetronomeArm@2x.png"; sourceTree = "<group>"; };
-		BA1E26D1154AC12D005D1D2E /* TimerStartButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TimerStartButton.png; sourceTree = "<group>"; };
-		BA1E26D2154AC12D005D1D2E /* TimerStartButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TimerStartButton@2x.png"; sourceTree = "<group>"; };
 		BA24A14E153648F3005E5A52 /* StatsBGR8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StatsBGR8.png; sourceTree = "<group>"; };
 		BA24A14F153648F3005E5A52 /* StatsBGR8@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "StatsBGR8@2x.png"; sourceTree = "<group>"; };
 		BA24A152153649C0005E5A52 /* StatsVCTopBarR8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StatsVCTopBarR8.png; sourceTree = "<group>"; };
@@ -374,6 +376,12 @@
 		BA3F8E661536F613005DAB03 /* DoneButtonPicker@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DoneButtonPicker@2x.png"; sourceTree = "<group>"; };
 		BA41E8361538EEB90046AA15 /* ModifiedTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModifiedTextField.h; sourceTree = "<group>"; };
 		BA41E8371538EEB90046AA15 /* ModifiedTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModifiedTextField.m; sourceTree = "<group>"; };
+		BA41EA41154B1B8200E5C766 /* overstate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = overstate.png; sourceTree = "<group>"; };
+		BA41EA42154B1B8200E5C766 /* overstate@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "overstate@2x.png"; sourceTree = "<group>"; };
+		BA41EA46154C20CC00E5C766 /* StartTimerWithClock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StartTimerWithClock.png; sourceTree = "<group>"; };
+		BA41EA47154C20CC00E5C766 /* StartTimerWithClock@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "StartTimerWithClock@2x.png"; sourceTree = "<group>"; };
+		BA41EA48154C20CC00E5C766 /* StopTimerWithClock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StopTimerWithClock.png; sourceTree = "<group>"; };
+		BA41EA49154C20CC00E5C766 /* StopTimerWithClock@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "StopTimerWithClock@2x.png"; sourceTree = "<group>"; };
 		BA44683F14F92E0400AE0A0D /* NSMutableOrderedSet+DeepCopy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableOrderedSet+DeepCopy.h"; sourceTree = "<group>"; };
 		BA44684014F92E0400AE0A0D /* NSMutableOrderedSet+DeepCopy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableOrderedSet+DeepCopy.m"; sourceTree = "<group>"; };
 		BA455FDB1528A3310018986E /* ParchSeparator.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ParchSeparator.png; sourceTree = "<group>"; };
@@ -574,8 +582,10 @@
 		BA01184B1535C0B000C0BC46 /* StatsVC */ = {
 			isa = PBXGroup;
 			children = (
-				BA1E26D1154AC12D005D1D2E /* TimerStartButton.png */,
-				BA1E26D2154AC12D005D1D2E /* TimerStartButton@2x.png */,
+				BA41EA46154C20CC00E5C766 /* StartTimerWithClock.png */,
+				BA41EA47154C20CC00E5C766 /* StartTimerWithClock@2x.png */,
+				BA41EA48154C20CC00E5C766 /* StopTimerWithClock.png */,
+				BA41EA49154C20CC00E5C766 /* StopTimerWithClock@2x.png */,
 				BA1E26C915497A2B005D1D2E /* LargeMetronomeArm.png */,
 				BA1E26CA15497A2C005D1D2E /* LargeMetronomeArm@2x.png */,
 				BA1E26C5154976BE005D1D2E /* ScrollerShadingNoArrow.png */,
@@ -609,6 +619,8 @@
 		BA0118681535DF9E00C0BC46 /* HistoryVC */ = {
 			isa = PBXGroup;
 			children = (
+				BA41EA41154B1B8200E5C766 /* overstate.png */,
+				BA41EA42154B1B8200E5C766 /* overstate@2x.png */,
 				BA01186D1535E25200C0BC46 /* parchmentTopCentered.png */,
 				BA01186E1535E25200C0BC46 /* parchmentTopCentered@2x.png */,
 				BA0118691535DFB400C0BC46 /* HistoryExpandIcon.png */,
@@ -1246,8 +1258,12 @@
 				BA1E26C8154976BE005D1D2E /* ScrollerShadingNoArrow@2x.png in Resources */,
 				BA1E26CB15497A2C005D1D2E /* LargeMetronomeArm.png in Resources */,
 				BA1E26CC15497A2C005D1D2E /* LargeMetronomeArm@2x.png in Resources */,
-				BA1E26D3154AC12E005D1D2E /* TimerStartButton.png in Resources */,
-				BA1E26D4154AC12E005D1D2E /* TimerStartButton@2x.png in Resources */,
+				BA41EA43154B1B8200E5C766 /* overstate.png in Resources */,
+				BA41EA44154B1B8200E5C766 /* overstate@2x.png in Resources */,
+				BA41EA4A154C20CC00E5C766 /* StartTimerWithClock.png in Resources */,
+				BA41EA4B154C20CC00E5C766 /* StartTimerWithClock@2x.png in Resources */,
+				BA41EA4C154C20CC00E5C766 /* StopTimerWithClock.png in Resources */,
+				BA41EA4D154C20CC00E5C766 /* StopTimerWithClock@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -58,9 +58,9 @@ static UIImage *_backgroundImage = nil;
     {
         mode = ([item major]) ? @"Major" : @"Minor";
         composer = [item composer];
-        if (_speedLabel != ([item tempo] == 0 ? @"No Tempo" : [NSString stringWithFormat:@"%i bpm", [item tempo]])) 
+        if (_speedLabel != ([item tempo] == 0 ? @"--" : [NSString stringWithFormat:@"%i bpm", [item tempo]])) 
         {
-            _speedLabel = ([item tempo] == 0 ? @"No Tempo" : [NSString stringWithFormat:@"%i bpm", [item tempo]]);
+            _speedLabel = ([item tempo] == 0 ? @"--" : [NSString stringWithFormat:@"%i bpm", [item tempo]]);
         } 
         _keyCompoundString = [item keyCompoundString];
     }

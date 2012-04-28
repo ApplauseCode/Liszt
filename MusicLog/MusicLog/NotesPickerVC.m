@@ -15,14 +15,26 @@
 @property (weak, nonatomic) IBOutlet UITextView *notesTextView;
 @property (weak, nonatomic) IBOutlet UIButton *backButton;
 @property (weak, nonatomic) IBOutlet UIButton *addButton;
+@property (nonatomic, assign) BOOL editMode;
 - (void)addNotes:(UIButton *)sender;
 - (void)goBack;
 @end
 
 @implementation NotesPickerVC
+@synthesize editMode;
 @synthesize notesTextView;
 @synthesize backButton;
 @synthesize addButton;
+
+- (id)initWithEditMode:(BOOL)_edit
+{
+    self = [super initWithNibName:nil bundle:nil];
+    if (self)
+    {
+        editMode = _edit;
+    }
+    return self;
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -41,13 +53,22 @@
     [backButton addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
     [notesTextView setFont:[UIFont fontWithName:@"ACaslonPro-Italic" size:18]];
     [notesTextView setDelegate:self];
+    
+    if (editMode)
+    {
+        [addButton setImage:[UIImage imageNamed:@"saveEditsButton.png"] forState:UIControlStateNormal];
+        NSString *stringToEdit = [[[SessionStore defaultStore] mySession] sessionNotes];
+        [notesTextView setText:stringToEdit];
+    }
 }
 
 - (void)addNotes:(UIButton *)sender
 {
     [[[SessionStore defaultStore] mySession] setSessionNotes:[notesTextView text]];
-    
-    [UIView animateHUDWithText:@"Notes Added"];
+    if (editMode)
+        [UIView animateHUDWithText:@"Notes Edited"];
+    else
+        [UIView animateHUDWithText:@"Notes Added"];
 }
 
 - (void)goBack

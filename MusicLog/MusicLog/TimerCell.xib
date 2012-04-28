@@ -42,9 +42,8 @@
 							<object class="IBUIButton" id="713074414">
 								<reference key="NSNextResponder" ref="162007548"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{65, -9}, {194, 71}}</string>
+								<string key="NSFrame">{{65, -13}, {194, 71}}</string>
 								<reference key="NSSuperview" ref="162007548"/>
-								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:225</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -64,7 +63,7 @@
 								</object>
 								<object class="NSCustomResource" key="IBUINormalImage">
 									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">TimerStartButton.png</string>
+									<string key="NSResourceName">StartTimerWithClock.png</string>
 								</object>
 								<object class="IBUIFontDescription" key="IBUIFontDescription">
 									<int key="type">2</int>
@@ -77,7 +76,7 @@
 								</object>
 							</object>
 						</array>
-						<string key="NSFrameSize">{320, 56}</string>
+						<string key="NSFrameSize">{320, 45}</string>
 						<reference key="NSSuperview" ref="441736037"/>
 						<reference key="NSNextKeyView" ref="713074414"/>
 						<string key="NSReuseIdentifierKey">_NS:395</string>
@@ -92,7 +91,7 @@
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 					</object>
 				</array>
-				<string key="NSFrameSize">{320, 57}</string>
+				<string key="NSFrameSize">{320, 46}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSNextKeyView" ref="162007548"/>
 				<string key="NSReuseIdentifierKey">_NS:384</string>
@@ -106,7 +105,7 @@
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 				<int key="IBUISelectionStyle">0</int>
 				<reference key="IBUIContentView" ref="162007548"/>
-				<real value="57" key="IBUIRowHeight"/>
+				<real value="46" key="IBUIRowHeight"/>
 			</object>
 		</array>
 		<object class="IBObjectContainer" key="IBDocument.Objects">
@@ -178,8 +177,8 @@
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<object class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
-			<string key="NS.key.0">TimerStartButton.png</string>
-			<string key="NS.object.0">{194, 71}</string>
+			<string key="NS.key.0">StartTimerWithClock.png</string>
+			<string key="NS.object.0">{194, 58}</string>
 		</object>
 		<string key="IBCocoaTouchPluginVersion">1181</string>
 	</data>

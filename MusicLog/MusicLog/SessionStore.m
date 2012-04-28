@@ -53,17 +53,10 @@
 {
     self = [super init];
     if (self) {
-//        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-//        NSNumber *isFirstLaunch = [NSNumber numberWithBool:YES];
-//        NSDictionary *appDefaults = [[NSDictionary alloc] initWithObjectsAndKeys:isFirstLaunch, @"FirstLaunch", nil];
-//        [defaults registerDefaults:appDefaults];
-//        if ([[defaults objectForKey:@"FirstLaunch"] boolValue]) {
-//            [self testInit];
-//            [defaults setBool:NO forKey:@"FirstLaunch"];
-//            [defaults synchronize];
-//        }
-//        else
-//        {
+        // for debugging
+//        [self testInit];
+//        return self;
+        // debug
             NSString *path = [self scaleArchivePath];
             objectsArchive = [NSKeyedUnarchiver unarchiveObjectWithFile:path];
             if (objectsArchive) {

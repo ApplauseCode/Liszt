@@ -43,8 +43,6 @@
     NSDictionary *appDefaults = [[NSDictionary alloc] initWithObjectsAndKeys:isFirstLaunch, @"FirstLaunch", nil];
     [defaults registerDefaults:appDefaults];
     if ([[defaults objectForKey:@"FirstLaunch"] boolValue]) {
-        [defaults setBool:NO forKey:@"FirstLaunch"];
-        [defaults synchronize];
         Session *firstSession = [[Session alloc] init];
         [[SessionStore defaultStore] setMySession:firstSession];
     }

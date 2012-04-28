@@ -13,8 +13,10 @@
 @implementation HistoryCell
 @synthesize titleLabel;
 @synthesize subTitleLabel;
+@synthesize isSelected;
 static UIImage *_separator = nil;
 static UIImage *_arrow = nil;
+static UIImage *_bgImage = nil;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -26,26 +28,44 @@ static UIImage *_arrow = nil;
     return self;
 }
 
+- (void)selectCell:(BOOL)selected
+{
+    [self setIsSelected:selected];
+    [self setNeedsDisplay];
+}
+
 + (void)initialize
 {
     [super initialize];
     _separator = [UIImage imageNamed:@"ParchSeparator.png"];
     _arrow = [UIImage imageNamed:@"HistoryExpandIcon.png"];
+    _bgImage = [UIImage imageNamed:@"overstate.png"];
+    //_bgImage = [_bgImage resizableImageWithCapInsets:UIEdgeInsetsMake(0, 20, 0, 20)];
 }
 
-- (void) updateTitle:(NSString *)_title subTitle:(NSString *)_subTitle;
+- (void) updateTitle:(NSString *)_title subTitle:(NSString *)_subTitle
 {
     titleLabel = _title;
     subTitleLabel = _subTitle;
     [self setNeedsDisplay];
 }
 
+
 - (void)drawContentView:(CGRect)r
 {
     [super drawContentView:r];
-    CGSize sepSize = [_separator size];
+    if (isSelected)
+    {
+        [_bgImage drawInRect:CGRectMake(6, 0, _bgImage.size.width + 50, _bgImage.size.height + 8)];
+    }
+    else
+    {
+        CGSize sepSize = [_separator size];
+        [_separator drawInRect:CGRectMake(kLeftMargin, self.frame.size.height - sepSize.height, sepSize.width, sepSize.height)];
+    }
+    
     CGSize arrowSize = [_arrow size];
-    [_separator drawInRect:CGRectMake(kLeftMargin, self.frame.size.height - sepSize.height, sepSize.width, sepSize.height)];
+
     [titleLabel drawAtPoint:CGPointMake(kLeftMargin, kTopMargin)
                    forWidth:135
                    withFont:[self defaultLargeFont]
@@ -54,8 +74,7 @@ static UIImage *_arrow = nil;
                       forWidth:135
                       withFont:[self defaultLargeFont]
                  lineBreakMode:UILineBreakModeTailTruncation];
-    [_arrow drawInRect:CGRectMake(self.frame.size.width - 50, (self.frame.size.height/2.0) - 2, arrowSize.width, arrowSize.height)];
-    
+    [_arrow drawInRect:CGRectMake(self.frame.size.width - 75, (self.frame.size.height/2.0) - 2, arrowSize.width, arrowSize.height)];
 }
 
 /*

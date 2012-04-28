@@ -12,5 +12,5 @@
 
 @property (nonatomic, strong) UITextView *textView;
 @property (nonatomic, assign) BOOL textViewCanEdit;
-@property (nonatomic, strong) UITableView *root;
+@property (nonatomic, strong) UIViewController *root;
 @end

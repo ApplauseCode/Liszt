@@ -22,6 +22,7 @@
 @property (nonatomic, strong) NSMutableArray *sessionTimes;
 @property (nonatomic, strong) NSArray *sessions;
 @property (nonatomic, strong) IBOutlet UITableView *historyTableView;
+@property (nonatomic, assign) NSInteger selectedCellIndex;
 - (IBAction)presentInfoScreen:(id)sender;
 @end
 
@@ -35,6 +36,7 @@
 @synthesize sessionDates;
 @synthesize sessions;
 @synthesize historyTableView;
+@synthesize selectedCellIndex;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -74,10 +76,6 @@
     sessions = [[SessionStore defaultStore] sessions];
 
     Session *myS = [[SessionStore defaultStore] mySession];
-//    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-//    [dateFormat setDateFormat:@"MMM dd, yyyy"];
-    
-    //[sessionDates addObject:[dateFormat stringFromDate:[myS date]]];
     [sessionDates addObject:[NSString convertDateToString:[myS date]]];
     [sessionTimes addObject:[NSString timeStringFromInt:[myS calculateTotalTime]]];
     for (Session *s in [sessions reverseObjectEnumerator])
@@ -89,38 +87,6 @@
 
 }
 
-//- (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView {
-//	//This of course can be whatever array you need to pass back
-//	//even for different table views, etc.
-//	NSArray *arrIndexes = [NSArray arrayWithArray:
-//                           [@"Jan,Feb,March,April,May,June,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z,#"
-//                            componentsSeparatedByString:@","]];
-//	return arrIndexes;
-//}
-
-
-
-//- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-//{
- //   NSDate *firstSessionDate = [[[[SessionStore defaultStore] sessions] objectAtIndex:0] date];
-//    NSCalendar *cal = [NSCalendar currentCalendar];
-//    NSDate *fromDate;
-//    NSDate *toDate;
-//    [cal rangeOfUnit:NSDayCalendarUnit startDate:&fromDate
-//            interval:NULL forDate:firstSessionDate];
-//    [cal rangeOfUnit:NSDayCalendarUnit startDate:&toDate
-//            interval:NULL forDate:[NSDate date]];
-//    
-//    NSDateComponents *difference = [cal components:NSMonthCalendarUnit
-//                                          fromDate:fromDate toDate:toDate options:0];
-//    return [difference month];
-//}
-
-//- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-//{
-//    NSArray *months = [NSArray arrayWithObjects:@"J", @"F", @"M", @"A", @"M", @"J", @"J", @"A", @"S", @"O", @"N", @"D", nil];
-//    return months;
-//}
 - (void)viewDidUnload
 {
     [self setBackMonthButton:nil];
@@ -155,16 +121,27 @@
     if (cell == nil) 
         cell = [[HistoryCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"HistoryCell"];
     cell.selectionStyle = UITableViewCellSelectionStyleNone; 
-    //UILabel *l = [[UILabel 
-//    [cell.textLabel setText:[sessionDates objectAtIndex:[indexPath row]]];
-//    [cell.textLabel setCenter:CGPointMake(cell.textLabel.center.x + 50, cell.textLabel.center.y)];
-//    [cell.detailTextLabel setText:[sessionTimes objectAtIndex:[indexPath row]]];
+    if ([indexPath row] == self.selectedCellIndex)
+    {
+        [cell selectCell:YES];
+    }
+    else
+    {
+        [cell selectCell:NO];
+    }
     [cell updateTitle:[sessionDates objectAtIndex:[indexPath row]] subTitle:[sessionTimes objectAtIndex:[indexPath row]]];
     return cell;
 }
 
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    for (HistoryCell *hc in [historyTableView visibleCells])
+    {
+        [hc selectCell:NO];
+    }
+    [(HistoryCell *)[historyTableView cellForRowAtIndexPath:indexPath] selectCell:YES];
+    [self setSelectedCellIndex:[indexPath row]];
     ContainerViewController *cvc = (ContainerViewController *)[self parentViewController];
     StatsVC *svc = [[cvc viewControllers] objectAtIndex:0];
     NSArray *s = [[SessionStore defaultStore] sessions];

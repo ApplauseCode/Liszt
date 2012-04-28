@@ -46,6 +46,7 @@
 @property (nonatomic, strong) NSTimer *idleScreenTimer;
 @property (assign, nonatomic) BOOL isUpdatingTime; 
 @property (nonatomic, strong) id tickingItem;
+@property (nonatomic, strong) UILabel *nothingInTable;
 
 - (void)handlePan:(UIPanGestureRecognizer *)gesture;
 - (void)handleMetroPan:(UIPanGestureRecognizer *)recognizer;
@@ -55,6 +56,7 @@
 @end
 
 @implementation StatsVC
+@synthesize nothingInTable;
 @synthesize idleScreenTimer;
 @synthesize tickingItem;
 @synthesize isUpdatingTime;
@@ -182,6 +184,9 @@
 - (void)viewWillDisappear:(BOOL)animated {
     [self resignFirstResponder];
     [super viewWillDisappear:animated];
+    
+    [self closeSections];
+    [self stopAllTimers];
 }
 
 - (void)setupSectionInfoArray
@@ -224,14 +229,21 @@
     [self startTimers];
     [self setupSectionInfoArray];
     [statsTable reloadData];
-//    if ([statsTable numberOfSections] == 2 && ([statsTable numberOfRowsInSection:0] == 0 && [statsTable numberOfRowsInSection:1] == 0))
-//    {
-//        UILabel *nothingInTable = [[UILabel alloc] initWithFrame:CGRectMake(10, 100, 100, 20)];
-//        [nothingInTable setFont:[UIFont fontWithName:@"ACaslonPro-Italic" size:22]];
-//        [nothingInTable setText:@"Your practice is empty. Press the plus button to add items to your practice."];
-//        [self.statsTable addSubview:nothingInTable];
-//    }
     [self hideMenu:nil];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSNumber *isFirstLaunch = [NSNumber numberWithBool:YES];
+    NSDictionary *appDefaults = [[NSDictionary alloc] initWithObjectsAndKeys:isFirstLaunch, @"FirstLaunch", nil];
+    [defaults registerDefaults:appDefaults];
+    if ([[defaults objectForKey:@"FirstLaunch"] boolValue]) 
+    {
+            nothingInTable = [[UILabel alloc] initWithFrame:CGRectMake(50, 125, 230, 100)];
+            [nothingInTable setBackgroundColor:[UIColor clearColor]];
+            [nothingInTable setNumberOfLines:3];
+            [nothingInTable setTextAlignment:UITextAlignmentCenter];
+            [nothingInTable setFont:[UIFont fontWithName:@"ACaslonPro-Italic" size:22]];
+            [nothingInTable setText:@"Your practice is empty. Press the plus button to add items to your practice."];
+            [self.statsTable addSubview:nothingInTable];
+    }
 }
 
 # pragma mark - Popover Menu
@@ -559,6 +571,16 @@
 
 - (void)cellSelectedAtIndex:(NSInteger)index
 {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSNumber *isFirstLaunch = [NSNumber numberWithBool:YES];
+    NSDictionary *appDefaults = [[NSDictionary alloc] initWithObjectsAndKeys:isFirstLaunch, @"FirstLaunch", nil];
+    [defaults registerDefaults:appDefaults];
+    if ([[defaults objectForKey:@"FirstLaunch"] boolValue]) 
+    {
+        [defaults setBool:NO forKey:@"FirstLaunch"];
+        [defaults synchronize];
+        [nothingInTable removeFromSuperview];
+    }
     id vc;
     switch (index) {
         case 0:
@@ -572,15 +594,15 @@
             break;
         case 3:
             if (![selectedSession sessionNotes])
-                vc = [[NotesPickerVC alloc] init];
+                vc = [[NotesPickerVC alloc] initWithEditMode:NO];
             break;
         case 4:
             vc = [[OtherVC alloc] initWithEditMode:NO];
             break;
-    }       
-    [self presentModalViewController:vc animated:YES];
-    [self closeSections];
-    [self stopAllTimers];
+    }  
+    if (vc)
+        [self presentModalViewController:vc animated:YES];
+
 }
 
 #pragma mark - Timers
@@ -597,13 +619,13 @@
     }
 }
 
-/*- (void)setDimScreenTimer:(NSTimer *)aTimer
+- (void)setDimScreenTimer:(NSTimer *)aTimer
 {
     if (aTimer != dimScreenTimer) {
         [dimScreenTimer invalidate];
         dimScreenTimer = aTimer;
     }
-}*/
+}
 
 - (void)timerButtonPressed:(id)sender
 {
@@ -623,13 +645,13 @@
                 break;
         }
         [self setIsUpdatingTime:YES];
-        [sender setImage:[UIImage imageNamed:@"StopTimer.png"] forState:UIControlStateNormal];
+        [sender setImage:[UIImage imageNamed:@"StopTimerWithClock.png"] forState:UIControlStateNormal];
     }
     else
     {
         self.tickingItem = nil;
         [self setIsUpdatingTime:NO];
-        [sender setImage:[UIImage imageNamed:@"TimerStartButton.png"] forState:UIControlStateNormal];
+        [sender setImage:[UIImage imageNamed:@"StartTimerWithClock.png"] forState:UIControlStateNormal];
         dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND,0);
         dispatch_async(queue, ^{
             [[SessionStore defaultStore] saveChanges];
@@ -645,7 +667,7 @@
         if ([mainScreen brightness] != [self screenBrightness])
             mainScreen.brightness = [self screenBrightness]; 
         
-        //[self setDimScreenTimer:[NSTimer scheduledTimerWithTimeInterval:30 target:self selector:@selector(dimTimerFire:) userInfo:nil repeats:NO]];
+        [self setDimScreenTimer:[NSTimer scheduledTimerWithTimeInterval:30 target:self selector:@selector(dimTimerFire:) userInfo:nil repeats:NO]];
             
     } 
 }
@@ -669,7 +691,7 @@
     UIScreen *mainScreen = [UIScreen mainScreen];
     if ([mainScreen brightness] != [self screenBrightness])
         mainScreen.brightness = [self screenBrightness]; 
-    //[self setDimScreenTimer:[NSTimer scheduledTimerWithTimeInterval:30 target:self selector:@selector(dimTimerFire:) userInfo:nil repeats:NO]];
+    [self setDimScreenTimer:[NSTimer scheduledTimerWithTimeInterval:30 target:self selector:@selector(dimTimerFire:) userInfo:nil repeats:NO]];
     
     return nil;
 }
@@ -695,7 +717,7 @@
     [self.idleScreenTimer invalidate];
     [stopWatchTimer invalidate];
     
-    [timerButton setImage:[UIImage imageNamed:@"TimerStartButton.png"] forState:UIControlStateNormal];
+    [timerButton setImage:[UIImage imageNamed:@"StartTimerWithClock.png"] forState:UIControlStateNormal];
     [self setTickingItem:nil];
     [dimScreenTimer invalidate];
     [metronomeScreenTimer invalidate];
@@ -811,7 +833,7 @@
     if ([[sectionInfoArray objectAtIndex:[indexPath section]] isNotes])
         return 133 ;
     else if ([indexPath row] == 0 && currentPractice)
-        return 57;
+        return 46;
     if ([indexPath section] < 2)
         return 49;
     else if ([[[selectedSession pieceSession] objectAtIndex:[indexPath section] - 2] isKindOfClass:[Other class]]) {
@@ -917,7 +939,7 @@
     {
         notesCell = [[NotesCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"NotesCell"];
         notesCell.textView.text = [selectedSession sessionNotes];
-        notesCell.root = statsTable;
+        notesCell.root = self;
         if (currentPractice)
             [notesCell setTextViewCanEdit:YES];
         else
@@ -1111,7 +1133,7 @@
        visCell = [[statsTable visibleCells] objectAtIndex:0];
     else
         visCell = nil;
-    [timerButton setImage:[UIImage imageNamed:@"TimerStartButton.png"] forState:UIControlStateNormal];
+    [timerButton setImage:[UIImage imageNamed:@"StartTimerWithClock.png"] forState:UIControlStateNormal];
     if ((section > 1 && ![[statsTable visibleCells] containsObject: 
                          [statsTable cellForRowAtIndexPath:
                           [NSIndexPath indexPathForRow:[statsTable numberOfRowsInSection:section] -1 inSection:section]]]) || visCell.frame.origin.y > statsTable.frame.size.height - 62)
@@ -1143,22 +1165,12 @@
 - (void)deleteSection:(NSInteger)section
 {
     [self becomeFirstResponder];
-    if (section == 0)
+    /*if (section == 0)
     {
-//        NSMutableArray *cellsToRemove = [[NSMutableArray alloc] init];;
-//        NSOrderedSet *removers;
-//        removers = [[[SessionStore defaultStore] mySession] scaleSession];
-//        for (Scale *s in removers)
-//        {
-//            [
-//        }
-//        cellToRemove = [removers objectAtIndex:[indexPath row] - 1];
-//        [[[[SessionStore defaultStore] mySession] scaleSession] removeObject:cellToRemove];
-//        [[sectionInfoArray objectAtIndex:0] setCountofRowsToInsert:[[selectedSession scaleSession] count]];
-
-    }
+    }*/
     if (section > 1 && currentPractice)
     {
+        [self closeSections];
         if ([[sectionInfoArray objectAtIndex:section] isNotes])
             [[[SessionStore defaultStore] mySession] setSessionNotes:nil];
         else {

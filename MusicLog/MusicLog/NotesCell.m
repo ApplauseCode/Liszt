@@ -9,6 +9,8 @@
 #import "NotesCell.h"
 #import "SessionStore.h"
 #import "Session.h"
+#import "NotesPickerVC.h"
+#import "StatsVC.h"
 
 @implementation NotesCell
 @synthesize textView;
@@ -33,46 +35,15 @@
     return self;
 }
 
-- (BOOL)textView:(UITextView *)aTextField shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
-{
-    if ([text isEqualToString:@"\n"])
-    {
-        [aTextField resignFirstResponder];
-        return NO;
-    }
-    return YES;
-}
-
 - (BOOL)textViewShouldBeginEditing:(UITextView *)aTextView
 {
     if (textViewCanEdit)
-        return YES;
+    {
+        NotesPickerVC *n = [[NotesPickerVC alloc] initWithEditMode:YES];
+        [root presentModalViewController:n animated:YES];
+        [(StatsVC *)root closeSections];
+        [(StatsVC *)root stopAllTimers];
+    }
     return NO;
 }
-
-- (void)textViewDidBeginEditing:(UITextView *)aTextView
-{
-    NSLog(@"tableFrame:%@", NSStringFromCGPoint(root.center));
-    [root scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:[root numberOfSections] -1] atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
-    [UIView animateWithDuration:0.25 animations:^{
-        [root setCenter:CGPointMake(root.center.x, 50)];   
-    }];
-
-}
-
-- (void)textViewDidEndEditing:(UITextView *)aTextView
-{
-    [[[SessionStore defaultStore] mySession] setSessionNotes:[aTextView text]];
-    [UIView animateWithDuration:0.25 animations:^{
-        [root setCenter:CGPointMake(root.center.x, 270)];   
-    }];
-}
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated
-{
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
-}
-
 @end
