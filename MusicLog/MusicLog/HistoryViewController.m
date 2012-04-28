@@ -199,6 +199,9 @@
     [historyTableView scrollToRowAtIndexPath:newPath atScrollPosition:UITableViewScrollPositionTop animated:(BOOL)YES];
 }
 - (IBAction)presentInfoScreen:(id)sender {
-    [self presentModalViewController:[[InfoViewController alloc] init] animated:YES];
+    InfoViewController *infoViewController = [[InfoViewController alloc] init];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:infoViewController];
+    [navigationController.navigationBar setTintColor:[UIColor blackColor]];
+    [self presentModalViewController:navigationController animated:YES];
 }
 @end
