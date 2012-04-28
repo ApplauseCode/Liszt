@@ -42,7 +42,7 @@ double chooseBPM(double bpm)
         // Use GCD so that startup time isn't delayed
         dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0);
         dispatch_async(queue, ^{
-            NSURL *tickURL = [NSURL fileURLWithPath:[mainBundle pathForResource:@"tick" ofType:@"caf"]];
+            NSURL *tickURL = [NSURL fileURLWithPath:[mainBundle pathForResource:@"tock" ofType:@"m4a"]];
             tickPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:tickURL error:nil];
             [tickPlayer prepareToPlay];
             [self setIsPlaying:NO];
