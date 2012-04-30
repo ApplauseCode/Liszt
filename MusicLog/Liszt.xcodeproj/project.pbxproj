@@ -1538,6 +1538,8 @@
 		BADA3F94140BD8DF00B57C49 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Reed Rosenbluth";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Reed Rosenbluth";
 				COPY_PHASE_STRIP = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MusicLog/Liszt-Prefix.pch";
@@ -1548,6 +1550,8 @@
 					"\"$(SRCROOT)\"",
 				);
 				PRODUCT_NAME = Liszt;
+				PROVISIONING_PROFILE = "3BB1D1A9-90E0-4047-BF00-BCC6FEF2197B";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "3BB1D1A9-90E0-4047-BF00-BCC6FEF2197B";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
