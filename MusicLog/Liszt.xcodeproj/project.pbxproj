@@ -216,6 +216,7 @@
 		BADA3FA3140BD9B700B57C49 /* ScalesPracticedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BADA3FA1140BD9B700B57C49 /* ScalesPracticedCell.xib */; };
 		BADA3FB3140BDA5D00B57C49 /* ScalePickerVC.m in Sources */ = {isa = PBXBuildFile; fileRef = BADA3FAA140BDA5D00B57C49 /* ScalePickerVC.m */; };
 		BADA3FB4140BDA5D00B57C49 /* ScalePickerVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = BADA3FAB140BDA5D00B57C49 /* ScalePickerVC.xib */; };
+		BAE147CB154EEF7E00D59244 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BAE147CA154EEF7E00D59244 /* MessageUI.framework */; };
 		BAE6998414E5555700D3ADF8 /* UIColor+YellowTextColor.m in Sources */ = {isa = PBXBuildFile; fileRef = BAE6998314E5555700D3ADF8 /* UIColor+YellowTextColor.m */; };
 		BAE6998C14E57AF100D3ADF8 /* DisclosureArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = BAE6998A14E57AF100D3ADF8 /* DisclosureArrow.png */; };
 		BAE6998D14E57AF100D3ADF8 /* DisclosureArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BAE6998B14E57AF100D3ADF8 /* DisclosureArrow@2x.png */; };
@@ -527,6 +528,7 @@
 		BADA3FAA140BDA5D00B57C49 /* ScalePickerVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ScalePickerVC.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		BADA3FAB140BDA5D00B57C49 /* ScalePickerVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScalePickerVC.xib; sourceTree = "<group>"; };
 		BADA3FB8140BDA6E00B57C49 /* Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = Common.h; path = MusicLog/Common.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		BAE147CA154EEF7E00D59244 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		BAE6998214E5555700D3ADF8 /* UIColor+YellowTextColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+YellowTextColor.h"; sourceTree = "<group>"; };
 		BAE6998314E5555700D3ADF8 /* UIColor+YellowTextColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+YellowTextColor.m"; sourceTree = "<group>"; };
 		BAE6998A14E57AF100D3ADF8 /* DisclosureArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DisclosureArrow.png; sourceTree = "<group>"; };
@@ -609,6 +611,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BAE147CB154EEF7E00D59244 /* MessageUI.framework in Frameworks */,
 				BA37B8551482DB9800C41484 /* QuartzCore.framework in Frameworks */,
 				BAB8C0E11447368F00887CDA /* CoreGraphics.framework in Frameworks */,
 				BA84EE441411784E00E01BDB /* AVFoundation.framework in Frameworks */,
@@ -909,6 +912,7 @@
 		BADA3F7F140BD8DF00B57C49 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BAE147CA154EEF7E00D59244 /* MessageUI.framework */,
 				BA37B8541482DB9700C41484 /* QuartzCore.framework */,
 				BAB8C0E01447368F00887CDA /* CoreGraphics.framework */,
 				BA84EE431411784E00E01BDB /* AVFoundation.framework */,

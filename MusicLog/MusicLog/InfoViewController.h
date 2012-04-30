@@ -7,8 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MessageUI/MessageUI.h>
+#import <MessageUI/MFMailComposeViewController.h>
 
-@interface InfoViewController : UIViewController
+@interface InfoViewController : UIViewController <MFMailComposeViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIScrollView *fullScrollView;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
@@ -21,5 +23,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *website;
 
 - (IBAction)toURL:(id)sender;
+-(void)launchMailAppOnDevice;
+-(void)displayComposerSheet;
 
 @end

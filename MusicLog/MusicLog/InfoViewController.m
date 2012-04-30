@@ -118,10 +118,55 @@
     else if (sender == alertMe)
         [alertView show];
     else if (sender == twitter)
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://twitter.com/#!/ApplauseCode"]];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://twitter.com/#!/getliszt"]];
     else if (sender == website)
     {
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.applausecode.com"]];
+        Class mailClass = (NSClassFromString(@"MFMailComposeViewController"));
+        if (mailClass != nil)
+        {
+            // We must always check whether the current device is configured for sending emails
+            if ([mailClass canSendMail])
+            {
+                [self displayComposerSheet];
+            }
+            else
+            {
+                [self launchMailAppOnDevice];
+            }
+        }
+        else
+        {
+            [self launchMailAppOnDevice];
+        }
     }
 }
+
+-(void)displayComposerSheet 
+{
+	MFMailComposeViewController *picker = [[MFMailComposeViewController alloc] init];
+	picker.mailComposeDelegate = self;
+	
+	[picker setSubject:@"Liszt"];
+    
+	// Set up recipients
+	NSArray *toRecipients = [NSArray arrayWithObject:@"kyle@applausecode.com"]; 
+	[picker setToRecipients:toRecipients];
+	
+	[self presentModalViewController:picker animated:YES];
+}
+
+-(void)launchMailAppOnDevice
+{
+	NSString *recipients = @"mailto:kyle@applausecode.com";	
+	NSString *email = [NSString stringWithFormat:@"%@", recipients];
+	email = [email stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+	
+	[[UIApplication sharedApplication] openURL:[NSURL URLWithString:email]];
+}
+
+- (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error 
+{	
+    [self dismissModalViewControllerAnimated:YES];
+}
+
 @end
