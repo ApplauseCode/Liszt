@@ -120,6 +120,8 @@
     else if (sender == twitter)
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://twitter.com/#!/ApplauseCode"]];
     else if (sender == website)
+    {
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.applausecode.com"]];
+    }
 }
 @end

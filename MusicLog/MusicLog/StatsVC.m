@@ -248,7 +248,7 @@
             [nothingInTable setNumberOfLines:3];
             [nothingInTable setTextAlignment:UITextAlignmentCenter];
             [nothingInTable setFont:[UIFont fontWithName:@"ACaslonPro-Italic" size:22]];
-            [nothingInTable setText:@"Your practice is empty. Press the plus button to add items to your practice."];
+            [nothingInTable setText:@"Welcome to Liszt! Press the plus button to add items to your practice."];
             [self.statsTable addSubview:nothingInTable];
     }
 }
@@ -1032,8 +1032,16 @@
         }
         [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
         if ([statsTable numberOfRowsInSection:section] == 1)
+        {
             [self closeSections];
+            if (section == 0)
+                [[[SessionStore defaultStore] mySession] setScaleTime:0];
+            else
+                [[[SessionStore defaultStore] mySession] setArpeggioTime:0];
+        }
     }   
+    NSString *timeString = [NSString timeStringFromInt:[selectedSession calculateTotalTime]];
+    [totalTime setText:timeString];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

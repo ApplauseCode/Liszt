@@ -14,15 +14,13 @@
 #import "Other.h"
 #import "NSMutableOrderedSet+DeepCopy.h"
 
-#define DEBUG 1
-//#undef DEBUG
 
 @interface SessionStore ()
 
 @property (nonatomic, strong) NSArray *objectsArchive;
 @property (nonatomic,strong) NSDateFormatter *dateFormatter;
-- (void)testInit;
-+ (NSDate *)getForDays:(int)days fromDate:(NSDate *)date;
+//- (void)testInit;
+//+ (NSDate *)getForDays:(int)days fromDate:(NSDate *)date;
 @end
 
 @implementation SessionStore
@@ -47,16 +45,10 @@
     return defaultStore;
 }
 
-
-
 - (id) init 
 {
     self = [super init];
     if (self) {
-        // for debugging
-//        [self testInit];
-//        return self;
-        // debug
             NSString *path = [self scaleArchivePath];
             objectsArchive = [NSKeyedUnarchiver unarchiveObjectWithFile:path];
             if (objectsArchive) {
@@ -135,87 +127,87 @@
 //               REMOVE LATER
 //------------------------------------------------------------------------------------------------
 
-+ (NSDate *)getForDays:(int)days fromDate:(NSDate *)date
-{
-    NSDateComponents *components= [[NSDateComponents alloc] init];
-    [components setDay:days];
-    
-    NSCalendar *calendar = [NSCalendar currentCalendar];
-    return [calendar dateByAddingComponents:components toDate:date options:0];
-}
+//+ (NSDate *)getForDays:(int)days fromDate:(NSDate *)date
+//{
+//    NSDateComponents *components= [[NSDateComponents alloc] init];
+//    [components setDay:days];
+//    
+//    NSCalendar *calendar = [NSCalendar currentCalendar];
+//    return [calendar dateByAddingComponents:components toDate:date options:0];
+//}
 
-- (void)testInit
-{
-    sessions = [[NSMutableArray alloc] init];
-    mySession = [[Session alloc] init];
-    Other *testOther = [[Other alloc] init];
-    [testOther setTitle:@"other title"];
-    [testOther setSubTitle:@"sub"];
-    [testOther setOtherTime:10];
-    Piece *testPiece = [[Piece alloc] init];
-    [testPiece setTitle:@"test piece"];
-    [testPiece setComposer:@"Beet"];
-    [testPiece setPieceTime:20];
-    [mySession setPieceSession:[NSMutableOrderedSet orderedSetWithObjects:testOther, testPiece, nil]];
-    [mySession setDate:[SessionStore getForDays:-1 fromDate:[NSDate date]]];
-    
-    NSArray *pieceNames = [NSArray arrayWithObjects:@"Waltz", @"Etude", @"Danse", @"Song", @"Prelude", @"Polonaise", @"Sonata", @"Concerto", @"Symphony", nil];
-    NSArray *pieceNumbers = [NSArray arrayWithObjects:@" No.1", @" No.2", @" No.3", @" No. 4", @" No. 5", @" No. 6", @" No. 7", @" No. 8", @" No. 9", @" No. 10", nil];
-    NSArray *composers = [NSArray arrayWithObjects:@"Chopin", @"Handel", @"Bach", @"Monk", @"Brubeck", @"Malmstein", @"Beethoven", @"Tchaikovsky", @"Debussy", @"Faure", @"Satie", @"Mussourgsky", @"Liszt", @"Marselis", @"Coltrane", nil];
-                        
-    
-    for (int i = 500; i > 1; i--)
-    {
-        NSMutableOrderedSet *scaleSet = [[NSMutableOrderedSet alloc] initWithCapacity:20];
-        NSMutableOrderedSet *arpeggioSet = [[NSMutableOrderedSet alloc] initWithCapacity:20];
-        NSMutableOrderedSet *pieceSet = [[NSMutableOrderedSet alloc] initWithCapacity:10];
-        for (int k = 0; k < arc4random() % 20; k++)
-        {
-            Scale *tempScale = [[Scale alloc] init];
-            [tempScale setTonic:(arc4random() % 12) + 3];
-            [tempScale setScaleMode:arc4random() % 4];
-            [tempScale setTempo:k * (arc4random() % 25)];
-            [tempScale setRhythm:arc4random() % 6];
-            [tempScale setOctaves:4];
-            [scaleSet addObject:tempScale];
-            
-        }
-        for (int k = 0; k < arc4random() % 20; k++)
-        {
-            Scale *tempArpeggio = [[Scale alloc] init];
-            [tempArpeggio setTonic:(arc4random() % 12) + 3];
-            [tempArpeggio setTempo:k * (arc4random() % 25)];
-            [tempArpeggio setRhythm:arc4random() % 6];
-            [tempArpeggio setOctaves:4];
-            [arpeggioSet addObject:tempArpeggio];
-        }
-        for (int k = 0; k < arc4random() % 10; k++)
-        {
-            Piece *tempPiece = [[Piece alloc] init];
-            NSString *title = [pieceNames objectAtIndex:arc4random() % [pieceNames count]];
-            NSString *number = [pieceNumbers objectAtIndex:arc4random() % [pieceNumbers count]];
-            [tempPiece setTitle:[title stringByAppendingString:number]];
-            [tempPiece setComposer:[composers objectAtIndex:arc4random() % [composers count]]];
-            [tempPiece setMajor:arc4random() % 2];
-            [tempPiece setPieceKey:arc4random() % 17];
-            [tempPiece setPieceTime:(arc4random() % 10000) + 1];
-            [tempPiece setTempo:k * (arc4random() % 25)];
-            [pieceSet addObject:tempPiece];
-        }
-        Other *testOther = [[Other alloc] init];
-        [testOther setTitle:@"testTitle"];
-        [testOther setSubTitle:@"test subTitile"];
-        [testOther setOtherDescription:@"Lorem Ipsum TESTING"];
-        [pieceSet addObject:testOther];
-        Session *theSesh = [[Session alloc] initWithScales:scaleSet arpeggios:arpeggioSet pieces:pieceSet];
-        [theSesh setScaleTime:i * 10];
-        [theSesh setArpeggioTime:i * 7];
-        [theSesh setDate:[SessionStore getForDays:-i fromDate:[NSDate date]]];
-        [theSesh setSessionNotes:@"Hi Testing"];
-
-        [sessions addObject:theSesh];
-    }
-}
+//- (void)testInit
+//{
+//    sessions = [[NSMutableArray alloc] init];
+//    mySession = [[Session alloc] init];
+//    Other *testOther = [[Other alloc] init];
+//    [testOther setTitle:@"other title"];
+//    [testOther setSubTitle:@"sub"];
+//    [testOther setOtherTime:10];
+//    Piece *testPiece = [[Piece alloc] init];
+//    [testPiece setTitle:@"test piece"];
+//    [testPiece setComposer:@"Beet"];
+//    [testPiece setPieceTime:20];
+//    [mySession setPieceSession:[NSMutableOrderedSet orderedSetWithObjects:testOther, testPiece, nil]];
+//    [mySession setDate:[SessionStore getForDays:-1 fromDate:[NSDate date]]];
+//    
+//    NSArray *pieceNames = [NSArray arrayWithObjects:@"Waltz", @"Etude", @"Danse", @"Song", @"Prelude", @"Polonaise", @"Sonata", @"Concerto", @"Symphony", nil];
+//    NSArray *pieceNumbers = [NSArray arrayWithObjects:@" No.1", @" No.2", @" No.3", @" No. 4", @" No. 5", @" No. 6", @" No. 7", @" No. 8", @" No. 9", @" No. 10", nil];
+//    NSArray *composers = [NSArray arrayWithObjects:@"Chopin", @"Handel", @"Bach", @"Monk", @"Brubeck", @"Malmstein", @"Beethoven", @"Tchaikovsky", @"Debussy", @"Faure", @"Satie", @"Mussourgsky", @"Liszt", @"Marselis", @"Coltrane", nil];
+//                        
+//    
+//    for (int i = 500; i > 1; i--)
+//    {
+//        NSMutableOrderedSet *scaleSet = [[NSMutableOrderedSet alloc] initWithCapacity:20];
+//        NSMutableOrderedSet *arpeggioSet = [[NSMutableOrderedSet alloc] initWithCapacity:20];
+//        NSMutableOrderedSet *pieceSet = [[NSMutableOrderedSet alloc] initWithCapacity:10];
+//        for (int k = 0; k < arc4random() % 20; k++)
+//        {
+//            Scale *tempScale = [[Scale alloc] init];
+//            [tempScale setTonic:(arc4random() % 12) + 3];
+//            [tempScale setScaleMode:arc4random() % 4];
+//            [tempScale setTempo:k * (arc4random() % 25)];
+//            [tempScale setRhythm:arc4random() % 6];
+//            [tempScale setOctaves:4];
+//            [scaleSet addObject:tempScale];
+//            
+//        }
+//        for (int k = 0; k < arc4random() % 20; k++)
+//        {
+//            Scale *tempArpeggio = [[Scale alloc] init];
+//            [tempArpeggio setTonic:(arc4random() % 12) + 3];
+//            [tempArpeggio setTempo:k * (arc4random() % 25)];
+//            [tempArpeggio setRhythm:arc4random() % 6];
+//            [tempArpeggio setOctaves:4];
+//            [arpeggioSet addObject:tempArpeggio];
+//        }
+//        for (int k = 0; k < arc4random() % 10; k++)
+//        {
+//            Piece *tempPiece = [[Piece alloc] init];
+//            NSString *title = [pieceNames objectAtIndex:arc4random() % [pieceNames count]];
+//            NSString *number = [pieceNumbers objectAtIndex:arc4random() % [pieceNumbers count]];
+//            [tempPiece setTitle:[title stringByAppendingString:number]];
+//            [tempPiece setComposer:[composers objectAtIndex:arc4random() % [composers count]]];
+//            [tempPiece setMajor:arc4random() % 2];
+//            [tempPiece setPieceKey:arc4random() % 17];
+//            [tempPiece setPieceTime:(arc4random() % 10000) + 1];
+//            [tempPiece setTempo:k * (arc4random() % 25)];
+//            [pieceSet addObject:tempPiece];
+//        }
+//        Other *testOther = [[Other alloc] init];
+//        [testOther setTitle:@"testTitle"];
+//        [testOther setSubTitle:@"test subTitile"];
+//        [testOther setOtherDescription:@"Lorem Ipsum TESTING"];
+//        [pieceSet addObject:testOther];
+//        Session *theSesh = [[Session alloc] initWithScales:scaleSet arpeggios:arpeggioSet pieces:pieceSet];
+//        [theSesh setScaleTime:i * 10];
+//        [theSesh setArpeggioTime:i * 7];
+//        [theSesh setDate:[SessionStore getForDays:-i fromDate:[NSDate date]]];
+//        [theSesh setSessionNotes:@"Hi Testing"];
+//
+//        [sessions addObject:theSesh];
+//    }
+//}
 
 //------------------------------------------------------------------------------------------------
 //                ENDREMOVE LATER
