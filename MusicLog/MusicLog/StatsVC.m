@@ -652,13 +652,13 @@
                 break;
         }
         [self setIsUpdatingTime:YES];
-        [sender setImage:[UIImage imageNamed:@"StopTimerWithClock.png"] forState:UIControlStateNormal];
+        [sender setImage:[UIImage imageNamed:@"stopTimerLarge.png"] forState:UIControlStateNormal];
     }
     else
     {
         self.tickingItem = nil;
         [self setIsUpdatingTime:NO];
-        [sender setImage:[UIImage imageNamed:@"StartTimerWithClock.png"] forState:UIControlStateNormal];
+        [sender setImage:[UIImage imageNamed:@"startTimerLarge.png"] forState:UIControlStateNormal];
         dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND,0);
         dispatch_async(queue, ^{
             [[SessionStore defaultStore] saveChanges];
@@ -724,7 +724,7 @@
     [self.idleScreenTimer invalidate];
     [stopWatchTimer invalidate];
     
-    [timerButton setImage:[UIImage imageNamed:@"StartTimerWithClock.png"] forState:UIControlStateNormal];
+    [timerButton setImage:[UIImage imageNamed:@"startTimerLarge.png"] forState:UIControlStateNormal];
     [self setTickingItem:nil];
     [dimScreenTimer invalidate];
     [metronomeScreenTimer invalidate];
@@ -947,6 +947,7 @@
         notesCell = [[NotesCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"NotesCell"];
         notesCell.textView.text = [selectedSession sessionNotes];
         notesCell.root = self;
+        notesCell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         if (currentPractice)
             [notesCell setTextViewCanEdit:YES];
         else
@@ -1140,7 +1141,7 @@
        visCell = [[statsTable visibleCells] objectAtIndex:0];
     else
         visCell = nil;
-    [timerButton setImage:[UIImage imageNamed:@"StartTimerWithClock.png"] forState:UIControlStateNormal];
+    [timerButton setImage:[UIImage imageNamed:@"startTimerLarge.png"] forState:UIControlStateNormal];
     if ((section > 1 && ![[statsTable visibleCells] containsObject: 
                          [statsTable cellForRowAtIndexPath:
                           [NSIndexPath indexPathForRow:[statsTable numberOfRowsInSection:section] -1 inSection:section]]]) || visCell.frame.origin.y > statsTable.frame.size.height - 62)

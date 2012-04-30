@@ -102,7 +102,7 @@ static UIImage *_backgroundImage = nil;
                    withFont:[self defaultLargeFont]
               lineBreakMode:UILineBreakModeTailTruncation]; 
     
-    [_keyCompoundString drawAtPoint:CGPointMake(modeXVal - 30, kMiddleMargin + 2)];
+    [_keyCompoundString drawAtPoint:CGPointMake(modeXVal - 28, kMiddleMargin + 2)];
     
 
 }

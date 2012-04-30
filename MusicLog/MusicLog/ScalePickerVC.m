@@ -15,7 +15,6 @@
 #import "CustomSegment.h"
 #import "ACchooser.h"
 #import "UIColor+YellowTextColor.h"
-#import "DCRoundSwitch.h"
 #import "UIView+HUDAnimation.h"
 #define NONEDITTONICS 3
 #define EXCLUSIVEARPMODES 4

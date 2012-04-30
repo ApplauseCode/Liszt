@@ -118,10 +118,6 @@
 		BA41E8381538EEB90046AA15 /* ModifiedTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = BA41E8371538EEB90046AA15 /* ModifiedTextField.m */; };
 		BA41EA43154B1B8200E5C766 /* overstate.png in Resources */ = {isa = PBXBuildFile; fileRef = BA41EA41154B1B8200E5C766 /* overstate.png */; };
 		BA41EA44154B1B8200E5C766 /* overstate@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BA41EA42154B1B8200E5C766 /* overstate@2x.png */; };
-		BA41EA4A154C20CC00E5C766 /* StartTimerWithClock.png in Resources */ = {isa = PBXBuildFile; fileRef = BA41EA46154C20CC00E5C766 /* StartTimerWithClock.png */; };
-		BA41EA4B154C20CC00E5C766 /* StartTimerWithClock@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BA41EA47154C20CC00E5C766 /* StartTimerWithClock@2x.png */; };
-		BA41EA4C154C20CC00E5C766 /* StopTimerWithClock.png in Resources */ = {isa = PBXBuildFile; fileRef = BA41EA48154C20CC00E5C766 /* StopTimerWithClock.png */; };
-		BA41EA4D154C20CC00E5C766 /* StopTimerWithClock@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BA41EA49154C20CC00E5C766 /* StopTimerWithClock@2x.png */; };
 		BA44684114F92E0400AE0A0D /* NSMutableOrderedSet+DeepCopy.m in Sources */ = {isa = PBXBuildFile; fileRef = BA44684014F92E0400AE0A0D /* NSMutableOrderedSet+DeepCopy.m */; };
 		BA455FDD1528A3310018986E /* ParchSeparator.png in Resources */ = {isa = PBXBuildFile; fileRef = BA455FDB1528A3310018986E /* ParchSeparator.png */; };
 		BA455FDE1528A3310018986E /* ParchSeparator@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BA455FDC1528A3310018986E /* ParchSeparator@2x.png */; };
@@ -174,6 +170,10 @@
 		BABAA08C153E6215006F3451 /* TwitterButton.png in Resources */ = {isa = PBXBuildFile; fileRef = BABAA080153E6215006F3451 /* TwitterButton.png */; };
 		BABAA08D153E6215006F3451 /* TwitterButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BABAA081153E6215006F3451 /* TwitterButton@2x.png */; };
 		BABD7C7F151413C3006C81BE /* CustomSectionMove.m in Sources */ = {isa = PBXBuildFile; fileRef = BABD7C7E151413C3006C81BE /* CustomSectionMove.m */; };
+		BABE1A71154F4EC900467C27 /* startTimerLarge.png in Resources */ = {isa = PBXBuildFile; fileRef = BABE1A6D154F4EC900467C27 /* startTimerLarge.png */; };
+		BABE1A72154F4EC900467C27 /* startTimerLarge@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BABE1A6E154F4EC900467C27 /* startTimerLarge@2x.png */; };
+		BABE1A73154F4EC900467C27 /* stopTimerLarge.png in Resources */ = {isa = PBXBuildFile; fileRef = BABE1A6F154F4EC900467C27 /* stopTimerLarge.png */; };
+		BABE1A74154F4EC900467C27 /* stopTimerLarge@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BABE1A70154F4EC900467C27 /* stopTimerLarge@2x.png */; };
 		BABEA1FC146368F00052D29D /* Piece.m in Sources */ = {isa = PBXBuildFile; fileRef = BABEA1FB146368F00052D29D /* Piece.m */; };
 		BAC1B72714E5E8CF00649748 /* ACChooserUnderlay.png in Resources */ = {isa = PBXBuildFile; fileRef = BAC1B72514E5E8CF00649748 /* ACChooserUnderlay.png */; };
 		BAC1B72814E5E8CF00649748 /* ACChooserUnderlay@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BAC1B72614E5E8CF00649748 /* ACChooserUnderlay@2x.png */; };
@@ -402,10 +402,6 @@
 		BA41E8371538EEB90046AA15 /* ModifiedTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModifiedTextField.m; sourceTree = "<group>"; };
 		BA41EA41154B1B8200E5C766 /* overstate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = overstate.png; sourceTree = "<group>"; };
 		BA41EA42154B1B8200E5C766 /* overstate@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "overstate@2x.png"; sourceTree = "<group>"; };
-		BA41EA46154C20CC00E5C766 /* StartTimerWithClock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StartTimerWithClock.png; sourceTree = "<group>"; };
-		BA41EA47154C20CC00E5C766 /* StartTimerWithClock@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "StartTimerWithClock@2x.png"; sourceTree = "<group>"; };
-		BA41EA48154C20CC00E5C766 /* StopTimerWithClock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StopTimerWithClock.png; sourceTree = "<group>"; };
-		BA41EA49154C20CC00E5C766 /* StopTimerWithClock@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "StopTimerWithClock@2x.png"; sourceTree = "<group>"; };
 		BA44683F14F92E0400AE0A0D /* NSMutableOrderedSet+DeepCopy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableOrderedSet+DeepCopy.h"; sourceTree = "<group>"; };
 		BA44684014F92E0400AE0A0D /* NSMutableOrderedSet+DeepCopy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableOrderedSet+DeepCopy.m"; sourceTree = "<group>"; };
 		BA455FDB1528A3310018986E /* ParchSeparator.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ParchSeparator.png; sourceTree = "<group>"; };
@@ -470,6 +466,11 @@
 		BABAA081153E6215006F3451 /* TwitterButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TwitterButton@2x.png"; sourceTree = "<group>"; };
 		BABD7C7D151413C3006C81BE /* CustomSectionMove.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomSectionMove.h; sourceTree = "<group>"; };
 		BABD7C7E151413C3006C81BE /* CustomSectionMove.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomSectionMove.m; sourceTree = "<group>"; };
+		BABE1A6D154F4EC900467C27 /* startTimerLarge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = startTimerLarge.png; sourceTree = "<group>"; };
+		BABE1A6E154F4EC900467C27 /* startTimerLarge@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "startTimerLarge@2x.png"; sourceTree = "<group>"; };
+		BABE1A6F154F4EC900467C27 /* stopTimerLarge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stopTimerLarge.png; sourceTree = "<group>"; };
+		BABE1A70154F4EC900467C27 /* stopTimerLarge@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "stopTimerLarge@2x.png"; sourceTree = "<group>"; };
+		BABE1A75154F562700467C27 /* BlockActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlockActionSheet.h; sourceTree = "<group>"; };
 		BABEA1FA146368F00052D29D /* Piece.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Piece.h; sourceTree = "<group>"; };
 		BABEA1FB146368F00052D29D /* Piece.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = Piece.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		BAC1B72514E5E8CF00649748 /* ACChooserUnderlay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ACChooserUnderlay.png; sourceTree = "<group>"; };
@@ -492,7 +493,6 @@
 		BAC1B74F14E6D3BF00649748 /* StepperRolls@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "StepperRolls@2x.png"; sourceTree = "<group>"; };
 		BACA58CA14E866200054A634 /* BlockBackground.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlockBackground.h; sourceTree = "<group>"; };
 		BACA58CB14E866200054A634 /* BlockBackground.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlockBackground.m; sourceTree = "<group>"; };
-		BACA58CC14E866200054A634 /* BlockActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlockActionSheet.h; sourceTree = "<group>"; };
 		BACA58CD14E866200054A634 /* BlockActionSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlockActionSheet.m; sourceTree = "<group>"; };
 		BACA58CE14E866200054A634 /* BlockAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlockAlertView.h; sourceTree = "<group>"; };
 		BACA58CF14E866200054A634 /* BlockAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlockAlertView.m; sourceTree = "<group>"; };
@@ -622,10 +622,10 @@
 		BA01184B1535C0B000C0BC46 /* StatsVC */ = {
 			isa = PBXGroup;
 			children = (
-				BA41EA46154C20CC00E5C766 /* StartTimerWithClock.png */,
-				BA41EA47154C20CC00E5C766 /* StartTimerWithClock@2x.png */,
-				BA41EA48154C20CC00E5C766 /* StopTimerWithClock.png */,
-				BA41EA49154C20CC00E5C766 /* StopTimerWithClock@2x.png */,
+				BABE1A6D154F4EC900467C27 /* startTimerLarge.png */,
+				BABE1A6E154F4EC900467C27 /* startTimerLarge@2x.png */,
+				BABE1A6F154F4EC900467C27 /* stopTimerLarge.png */,
+				BABE1A70154F4EC900467C27 /* stopTimerLarge@2x.png */,
 				BA1E26C915497A2B005D1D2E /* LargeMetronomeArm.png */,
 				BA1E26CA15497A2C005D1D2E /* LargeMetronomeArm@2x.png */,
 				BA1E26C5154976BE005D1D2E /* ScrollerShadingNoArrow.png */,
@@ -1031,6 +1031,7 @@
 		BAF3AA2514535B26004EB308 /* Custom Controls */ = {
 			isa = PBXGroup;
 			children = (
+				BABE1A75154F562700467C27 /* BlockActionSheet.h */,
 				BA513253145A484600043279 /* ACchooser.h */,
 				BA513254145A484600043279 /* ACchooser.m */,
 				BA3077DA141E4164003124E6 /* CustomStepper.h */,
@@ -1041,7 +1042,6 @@
 				BABD7C7E151413C3006C81BE /* CustomSectionMove.m */,
 				BACA58CA14E866200054A634 /* BlockBackground.h */,
 				BACA58CB14E866200054A634 /* BlockBackground.m */,
-				BACA58CC14E866200054A634 /* BlockActionSheet.h */,
 				BACA58CD14E866200054A634 /* BlockActionSheet.m */,
 				BACA58CE14E866200054A634 /* BlockAlertView.h */,
 				BACA58CF14E866200054A634 /* BlockAlertView.m */,
@@ -1328,10 +1328,6 @@
 				BA1E26CC15497A2C005D1D2E /* LargeMetronomeArm@2x.png in Resources */,
 				BA41EA43154B1B8200E5C766 /* overstate.png in Resources */,
 				BA41EA44154B1B8200E5C766 /* overstate@2x.png in Resources */,
-				BA41EA4A154C20CC00E5C766 /* StartTimerWithClock.png in Resources */,
-				BA41EA4B154C20CC00E5C766 /* StartTimerWithClock@2x.png in Resources */,
-				BA41EA4C154C20CC00E5C766 /* StopTimerWithClock.png in Resources */,
-				BA41EA4D154C20CC00E5C766 /* StopTimerWithClock@2x.png in Resources */,
 				CEB8A263154C906A00D7A1C5 /* alertme@2x.png in Resources */,
 				CEB8A264154C906A00D7A1C5 /* ContactButton.png in Resources */,
 				CEB8A265154C906A00D7A1C5 /* ContactButton@2x.png in Resources */,
@@ -1352,6 +1348,10 @@
 				BA229560154D991B00382679 /* parchmentTopNoSwirl@2x.png in Resources */,
 				BA229564154D9CCB00382679 /* customInfo.png in Resources */,
 				BA229565154D9CCB00382679 /* customInfo@2x.png in Resources */,
+				BABE1A71154F4EC900467C27 /* startTimerLarge.png in Resources */,
+				BABE1A72154F4EC900467C27 /* startTimerLarge@2x.png in Resources */,
+				BABE1A73154F4EC900467C27 /* stopTimerLarge.png in Resources */,
+				BABE1A74154F4EC900467C27 /* stopTimerLarge@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
