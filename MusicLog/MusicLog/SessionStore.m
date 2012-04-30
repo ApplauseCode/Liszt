@@ -49,8 +49,10 @@
 {
     self = [super init];
     if (self) {
-        [self testInit];
-        return self;
+        // For Debugging Only
+//        [self testInit];
+//        return self;
+        // End Debug
             NSString *path = [self scaleArchivePath];
             objectsArchive = [NSKeyedUnarchiver unarchiveObjectWithFile:path];
             if (objectsArchive) {
