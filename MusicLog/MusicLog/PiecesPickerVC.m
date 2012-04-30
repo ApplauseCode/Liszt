@@ -98,7 +98,7 @@
     NSNumber *loc1 = [NSNumber numberWithFloat:115];
     NSArray *segArrowLocs = [NSArray arrayWithObjects:loc0, loc1, nil];
                               
-    majOrMin = [[CustomSegment alloc] initWithPoint:CGPointMake(82, 286)
+    majOrMin = [[CustomSegment alloc] initWithPoint:CGPointMake(82, 276)
                                    numberOfSegments:2
                                     touchDownImages:majOrMinImages
                                   andArrowLocations:segArrowLocs];
@@ -115,7 +115,7 @@
     [self.view addGestureRecognizer:viewTap];
     [viewTap setEnabled:NO];
     
-    tempoStepper = [[CustomStepper alloc] initWithPoint:CGPointMake(175, 340) label:tempoLabel andCanBeNone:YES];
+    tempoStepper = [[CustomStepper alloc] initWithPoint:CGPointMake(175, 333) label:tempoLabel andCanBeNone:YES];
     [self.view addSubview:tempoStepper];
     
     [tempoTextLabel setFont:[UIFont fontWithName:@"ACaslonPro-Regular" size:11]];

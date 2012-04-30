@@ -86,7 +86,7 @@
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<object class="NSCustomResource" key="IBUIImage">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">parchmentTopCentered.png</string>
+							<string key="NSResourceName">parchmentTopNoSwirl.png</string>
 						</object>
 					</object>
 					<object class="IBUIButton" id="837623134">
@@ -212,7 +212,7 @@
 					<object class="IBUIButton" id="617019849">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{8, 6}, {18, 19}}</string>
+						<string key="NSFrame">{{7, 7}, {18, 19}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="259617473"/>
@@ -395,9 +395,9 @@
 							<reference ref="837623134"/>
 							<reference ref="1050070064"/>
 							<reference ref="134978577"/>
-							<reference ref="617019849"/>
 							<reference ref="268633248"/>
 							<reference ref="922296438"/>
+							<reference ref="617019849"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -472,6 +472,7 @@
 				<string key="23.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="24.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="28.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<real value="0.0" key="28.IBUIButtonInspectorSelectedStateConfigurationMetadataKey"/>
 				<string key="4.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="8.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			</dictionary>
@@ -571,7 +572,7 @@
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
 			<string key="ParchBkg26px.png">{320, 480}</string>
-			<string key="parchmentTopCentered.png">{320, 103}</string>
+			<string key="parchmentTopNoSwirl.png">{320, 103}</string>
 		</dictionary>
 		<string key="IBCocoaTouchPluginVersion">1181</string>
 	</data>

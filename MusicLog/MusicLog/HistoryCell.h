@@ -13,9 +13,11 @@
 @property (nonatomic, copy) NSString *titleLabel;
 @property (nonatomic, copy) NSString *subTitleLabel;
 @property (nonatomic, assign) BOOL isSelected;
+@property (nonatomic, assign) BOOL isCellBeforeSelected;
 
 
 - (void) updateTitle:(NSString *)_title subTitle:(NSString *)_subTitle;
 - (void)selectCell:(BOOL)selected;
+- (void)cellBeforeSelected:(BOOL)_prev;
 
 @end

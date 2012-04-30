@@ -112,7 +112,7 @@
         }
         [[SessionStore defaultStore] updateDict];
         BlockAlertView *freshDay = [BlockAlertView alertWithTitle:@"A New Day,\nA New Practice"
-                                                          message:@"Would you like your new practice to start out with all of the same items (scales, pieces, etc.) as your last practice?"];
+                                                          message:@"Would you like to start your new practice with all of the same items (scales, pieces, etc.) as your last practice?"];
         [freshDay addButtonWithTitle:@"Yes Please!" block:^{
             [statsVC blockAlertView:NO];
             [self setAlertViewVisible:NO];

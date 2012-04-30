@@ -14,6 +14,7 @@
 @synthesize titleLabel;
 @synthesize subTitleLabel;
 @synthesize isSelected;
+@synthesize isCellBeforeSelected;
 static UIImage *_separator = nil;
 static UIImage *_arrow = nil;
 static UIImage *_bgImage = nil;
@@ -31,6 +32,12 @@ static UIImage *_bgImage = nil;
 - (void)selectCell:(BOOL)selected
 {
     [self setIsSelected:selected];
+    [self setNeedsDisplay];
+}
+
+- (void)cellBeforeSelected:(BOOL)_prev
+{
+    [self setIsCellBeforeSelected:_prev];
     [self setNeedsDisplay];
 }
 
@@ -58,7 +65,7 @@ static UIImage *_bgImage = nil;
     {
         [_bgImage drawInRect:CGRectMake(6, 0, _bgImage.size.width + 50, _bgImage.size.height + 8)];
     }
-    else
+    else if (!isCellBeforeSelected)
     {
         CGSize sepSize = [_separator size];
         [_separator drawInRect:CGRectMake(kLeftMargin, self.frame.size.height - sepSize.height, sepSize.width, sepSize.height)];

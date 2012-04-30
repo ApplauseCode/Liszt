@@ -129,6 +129,10 @@
     {
         [cell selectCell:NO];
     }
+    if ([indexPath row] == self.selectedCellIndex - 1)
+        [cell cellBeforeSelected:YES];
+    else 
+        [cell cellBeforeSelected:NO];
     [cell updateTitle:[sessionDates objectAtIndex:[indexPath row]] subTitle:[sessionTimes objectAtIndex:[indexPath row]]];
     return cell;
 }
@@ -140,6 +144,8 @@
     {
         [hc selectCell:NO];
     }
+    NSIndexPath *ipMinusOne = [NSIndexPath indexPathForRow:indexPath.row - 1 inSection:indexPath.section];
+    [(HistoryCell *)[historyTableView cellForRowAtIndexPath:ipMinusOne] cellBeforeSelected:YES];
     [(HistoryCell *)[historyTableView cellForRowAtIndexPath:indexPath] selectCell:YES];
     [self setSelectedCellIndex:[indexPath row]];
     ContainerViewController *cvc = (ContainerViewController *)[self parentViewController];

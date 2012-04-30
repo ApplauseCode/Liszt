@@ -141,7 +141,6 @@
     
     UIScreen *screen = [UIScreen mainScreen];
     [self setScreenBrightness:[screen brightness]];
-    [[UIAccelerometer sharedAccelerometer] setDelegate:self];
     [self setDimScreenTimer:[NSTimer scheduledTimerWithTimeInterval:30 target:self selector:@selector(dimTimerFire:) userInfo:nil repeats:NO]];
     [(StatsView *) self.view setDelegate:self];
     isTiming = NO;
@@ -185,6 +184,9 @@
     [self resignFirstResponder];
     [super viewWillDisappear:animated];
     
+    [[UIAccelerometer sharedAccelerometer] setDelegate:nil];
+    [UIApplication sharedApplication].idleTimerDisabled = NO;
+
     [self closeSections];
     [self stopAllTimers];
 }
@@ -226,10 +228,15 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
+    [[UIAccelerometer sharedAccelerometer] setDelegate:self];
+    [UIApplication sharedApplication].idleTimerDisabled = YES;
+    
     [self startTimers];
     [self setupSectionInfoArray];
     [statsTable reloadData];
     [self hideMenu:nil];
+    
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSNumber *isFirstLaunch = [NSNumber numberWithBool:YES];
     NSDictionary *appDefaults = [[NSDictionary alloc] initWithObjectsAndKeys:isFirstLaunch, @"FirstLaunch", nil];

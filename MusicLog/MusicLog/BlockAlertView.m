@@ -66,7 +66,7 @@ static UIFont *buttonFont = nil;
                             constrainedToSize:CGSizeMake(frame.size.width-kBorder*2, 1000)
                                 lineBreakMode:UILineBreakModeWordWrap];
 
-            UILabel *labelView = [[UILabel alloc] initWithFrame:CGRectMake(kBorder, _height - 2, frame.size.width-(kBorder*2), size.height)];
+            UILabel *labelView = [[UILabel alloc] initWithFrame:CGRectMake(kBorder, _height - 3, frame.size.width-(kBorder*2), size.height)];
             labelView.font = titleFont;
             labelView.numberOfLines = 0;
             labelView.lineBreakMode = UILineBreakModeWordWrap;
