@@ -48,17 +48,20 @@
 - (id) init 
 {
     self = [super init];
-    if (self) {
+    if (self)
+    {
         // For Debugging Only
-//        [self testInit];
-//        return self;
+        //[self testInit];
+        //return self;
         // End Debug
             NSString *path = [self scaleArchivePath];
             objectsArchive = [NSKeyedUnarchiver unarchiveObjectWithFile:path];
-            if (objectsArchive) {
+            if (objectsArchive)
+            {
                 if ([objectsArchive objectAtIndex:0])
                     sessions = [NSMutableArray arrayWithArray:[objectsArchive objectAtIndex:0]];
-                if ([objectsArchive objectAtIndex:1]) {
+                if ([objectsArchive objectAtIndex:1])
+                {
                     Session *archivedSession = [objectsArchive objectAtIndex:1];
                     mySession = [[Session alloc] initWithScales:[NSMutableOrderedSet fromOrderedSet:[archivedSession scaleSession]]
                                                       arpeggios:[NSMutableOrderedSet fromOrderedSet:[archivedSession arpeggioSession]]
@@ -69,12 +72,12 @@
                     [mySession setDate:[[objectsArchive objectAtIndex:1] date]];                
                 }
             } 
-            else {
+            else 
+            {
                 sessions = [[NSMutableArray alloc] init];
                 mySession = [[Session alloc] init];
             }
-
-//        }    
+  
     }
     [self updateDict];
     return self; 

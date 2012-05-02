@@ -752,18 +752,8 @@
 {
     SessionStore *store = [SessionStore defaultStore];
     [store startNewSession:isYes];
-    if (isYes)
-        [sectionInfoArray removeObjectsInRange:NSMakeRange(2, ([sectionInfoArray count] - 2))];
     [self setSelectedSession:[store mySession]];
-    for (int i = 0; i < [[selectedSession pieceSession] count]; i++)
-    {
-        if (![[sectionInfoArray objectAtIndex:i + 2] isOther])
-            [[[sectionInfoArray objectAtIndex:i + 2] headerView] setSubTitle:[NSString timeStringFromInt:[[[selectedSession pieceSession] objectAtIndex:i] pieceTime]]];
-        else
-            [[[sectionInfoArray objectAtIndex:i + 2] headerView] setSubTitle:[NSString timeStringFromInt:[[[selectedSession pieceSession] objectAtIndex:i] otherTime]]];
-            }
-    [[sectionInfoArray objectAtIndex:0] setCountofRowsToInsert:[[selectedSession scaleSession] count]];
-    [[sectionInfoArray objectAtIndex:1] setCountofRowsToInsert:[[selectedSession arpeggioSession] count]];
+    [self setupSectionInfoArray];
     [statsTable reloadData];
     NSString *timeString = [NSString timeStringFromInt:[selectedSession calculateTotalTime]];
     [totalTime setText:timeString];
