@@ -102,6 +102,24 @@
     else
     {
         newSession = [[sessions objectAtIndex:([sessions count] - 1)] mutableCopy];
+        if (![[newSession scaleSession] count]
+            && ![[newSession arpeggioSession] count]
+            && ![[newSession pieceSession] count]
+            && ![newSession sessionNotes])
+        {
+            for (int i = ([sessions count] - 1); i >= 0; i--)
+            {
+                Session *possibleLastSession = [sessions objectAtIndex:i];
+                if ([[possibleLastSession scaleSession] count]
+                    || [[possibleLastSession arpeggioSession] count]
+                    || [[possibleLastSession pieceSession] count]
+                    || [possibleLastSession sessionNotes])
+                {
+                    newSession = [[sessions objectAtIndex:i] mutableCopy];
+                    break;
+                }
+            }
+        }
         [newSession setScaleTime:0];
         [newSession setArpeggioTime:0];
         for (id item in [newSession pieceSession]) {
@@ -156,14 +174,14 @@
     [testPiece setComposer:@"Beet"];
     [testPiece setPieceTime:20];
     [mySession setPieceSession:[NSMutableOrderedSet orderedSetWithObjects:testOther, testPiece, nil]];
-    [mySession setDate:[SessionStore getForDays:-1 fromDate:[NSDate date]]];
+    [mySession setDate:[SessionStore getForDays:-2 fromDate:[NSDate date]]];
     
     NSArray *pieceNames = [NSArray arrayWithObjects:@"Waltz", @"Etude", @"Danse", @"Song", @"Prelude", @"Polonaise", @"Sonata", @"Concerto", @"Symphony", nil];
     NSArray *pieceNumbers = [NSArray arrayWithObjects:@" No.1", @" No.2", @" No.3", @" No. 4", @" No. 5", @" No. 6", @" No. 7", @" No. 8", @" No. 9", @" No. 10", nil];
     NSArray *composers = [NSArray arrayWithObjects:@"Chopin", @"Handel", @"Bach", @"Monk", @"Brubeck", @"Malmstein", @"Beethoven", @"Tchaikovsky", @"Debussy", @"Faure", @"Satie", @"Mussourgsky", @"Liszt", @"Marselis", @"Coltrane", nil];
                         
     
-    for (int i = 500; i > 1; i--)
+    for (int i = 500; i > 2; i--)
     {
         NSMutableOrderedSet *scaleSet = [[NSMutableOrderedSet alloc] initWithCapacity:20];
         NSMutableOrderedSet *arpeggioSet = [[NSMutableOrderedSet alloc] initWithCapacity:20];
