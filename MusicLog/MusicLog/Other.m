@@ -26,6 +26,10 @@
     return self;
 }
 
+- (void)setTheTime: (double) t {
+    self.otherTime = t;
+}
+
 - (int)updateElapsedTime:(NSDate *)d
 {
     double time;
@@ -33,7 +37,6 @@
     self.otherTime = time + [d timeIntervalSince1970] - [startOtherDate timeIntervalSince1970];
     self.startOtherDate = d;
     return otherTime;
-    
 }
 
 - (void)resetStartTime

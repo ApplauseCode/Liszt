@@ -30,7 +30,7 @@ static UIFont *buttonFont = nil;
 {
     if (self == [BlockAlertView class])
     {
-        background = [UIImage imageNamed:@"alertViewBG.png"];
+        background = [[UIImage imageNamed:@"alertViewBG.png"] retain];
         //background = [[background stretchableImageWithLeftCapWidth:0 topCapHeight:kAlertViewBackgroundCapHeight] retain];
         titleFont = [[UIFont fontWithName:@"ACaslonPro-Regular" size:20] retain];
         messageFont = [[UIFont fontWithName:@"ACaslonPro-Regular" size:17] retain];

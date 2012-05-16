@@ -32,6 +32,10 @@
     return self;
 }
 
+- (void)setTheTime: (double) t {
+    self.pieceTime = t;
+}
+
 - (int)updateElapsedTime:(NSDate *)d
 {
     double time;
@@ -39,7 +43,6 @@
     self.pieceTime = time + [d timeIntervalSince1970] - [startPieceDate timeIntervalSince1970];
     self.startPieceDate = d;
     return pieceTime;
-
 }
 
 - (void)resetStartTime

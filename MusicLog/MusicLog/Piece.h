@@ -23,6 +23,6 @@
 - (void)resetStartTime;
 
 - (CompoundString *)keyCompoundString;
-
+- (void)setTheTime: (double) t;
 
 @end

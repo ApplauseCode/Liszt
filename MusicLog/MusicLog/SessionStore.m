@@ -96,37 +96,24 @@
 }
 
 - (void)startNewSession:(BOOL)fresh {
-    Session *newSession;
+    Session *newSession, *possibleLastSession;
     if (fresh)
         newSession = [[Session alloc] init];
     else
     {
-        newSession = [[sessions objectAtIndex:([sessions count] - 1)] mutableCopy];
-        if (![[newSession scaleSession] count]
-            && ![[newSession arpeggioSession] count]
-            && ![[newSession pieceSession] count]
-            && ![newSession sessionNotes])
-        {
-            for (int i = ([sessions count] - 1); i >= 0; i--)
-            {
-                Session *possibleLastSession = [sessions objectAtIndex:i];
-                if ([[possibleLastSession scaleSession] count]
-                    || [[possibleLastSession arpeggioSession] count]
-                    || [[possibleLastSession pieceSession] count]
-                    || [possibleLastSession sessionNotes])
-                {
-                    newSession = [[sessions objectAtIndex:i] mutableCopy];
-                    break;
-                }
-            }
-        }
+        int n = [sessions count];
+        do {
+            n--;
+            possibleLastSession = [sessions objectAtIndex:n];
+        } while ((n > 0) && (![[possibleLastSession scaleSession] count]
+                             && ![[possibleLastSession arpeggioSession] count]
+                             && ![[possibleLastSession pieceSession] count]
+                             && ![possibleLastSession sessionNotes]));
+        newSession = [[sessions objectAtIndex:n] mutableCopy];
         [newSession setScaleTime:0];
         [newSession setArpeggioTime:0];
         for (id item in [newSession pieceSession]) {
-            if ([item isKindOfClass:[Piece class]])
-                [item setPieceTime:0];
-            else
-                [item setOtherTime:0];
+            [item setTheTime:0.0];
         }
         [newSession setDate:[NSDate date]];
     }

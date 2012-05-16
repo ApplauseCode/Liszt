@@ -16,5 +16,7 @@
 @property (nonatomic, strong) NSDate *startOtherDate;
 - (int)updateElapsedTime:(NSDate *)d;
 - (void)resetStartTime;
+- (void)setTheTime: (double) t;
+
 @end
 
