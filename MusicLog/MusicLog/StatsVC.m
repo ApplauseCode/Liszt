@@ -682,7 +682,7 @@
 - (void)dimTimerFire:(NSTimer*)theTimer;
 {
     UIScreen *mainScreen = [UIScreen mainScreen];
-    mainScreen.brightness = 1.0/3.0;
+    mainScreen.brightness = 1.0/7.0;
 
 }
 
