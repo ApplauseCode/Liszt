@@ -159,6 +159,7 @@
 {
     NSArray *s = [[SessionStore defaultStore] sessions];
     int c = [s count];
+    c = MAX(c, 1);
     NSIndexPath *path = [[historyTableView indexPathsForVisibleRows] objectAtIndex:0];
     NSUInteger row = path.row + 365;
     row = (row > c - 1) ? c -1 : row;
@@ -181,6 +182,7 @@
 {
     NSArray *s = [[SessionStore defaultStore] sessions];
     int c = [s count];
+    c = MAX(c, 1);
     NSIndexPath *path = [[historyTableView indexPathsForVisibleRows] objectAtIndex:0];
     NSUInteger row = path.row + 30;
     row = (row > c - 1) ? c -1 : row;
